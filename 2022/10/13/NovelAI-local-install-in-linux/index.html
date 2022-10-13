@@ -28,8 +28,9 @@
 <meta property="og:description" content="Recently, the model of novelai has been exposed, so let’s build a free sexy picture generator by yourself.   The following is my deployment process under linux, if you are windowscould watch bilibili">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/10/13/images/noval-01.png">
+<meta property="og:image" content="http://example.com/2022/10/13/images/noval-02.png">
 <meta property="article:published_time" content="2022-10-13T11:32:18.000Z">
-<meta property="article:modified_time" content="2022-10-13T12:38:42.381Z">
+<meta property="article:modified_time" content="2022-10-13T15:54:33.095Z">
 <meta property="article:author" content="krmmzs">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2022/10/13/images/noval-01.png">
@@ -177,7 +178,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-10-13 19:32:18 / Modified: 20:38:42" itemprop="dateCreated datePublished" datetime="2022-10-13T19:32:18+08:00">2022-10-13</time>
+              <time title="Created: 2022-10-13 19:32:18 / Modified: 23:54:33" itemprop="dateCreated datePublished" datetime="2022-10-13T19:32:18+08:00">2022-10-13</time>
             </span>
 
           
@@ -206,6 +207,7 @@
 <li><a href="#download-models-file-and-setup-it">download models file and setup it</a></li>
 </ul>
 </li>
+<li><a href="#have-a-try">have a try</a></li>
 </ul>
 <h2 id="Requires"><a href="#Requires" class="headerlink" title="Requires"></a>Requires</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-toolkit-archive">cuda</a></li>
@@ -251,6 +253,17 @@
 
 <p>My poor 4G GPU is occupied by 2.8G…</p>
 <p>enter <code>http://127.0.0.1:7860</code> to make your wife.</p>
+<h2 id="Have-a-try"><a href="#Have-a-try" class="headerlink" title="Have a try"></a>Have a try</h2><img src="../images/noval-02.png" alt="noval-02" style="zoom:70%;" />
+
+<p>example args:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">one girl</span><br><span class="line">masterpiece</span><br><span class="line">best quality</span><br><span class="line">white hair</span><br><span class="line">light smile</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lowres</span><br><span class="line">low quality</span><br><span class="line">jpeg artifacts</span><br></pre></td></tr></table></figure>
+
+<h2 id="Advanced"><a href="#Advanced" class="headerlink" title="Advanced"></a>Advanced</h2><h3 id="Adjusting-Parameter"><a href="#Adjusting-Parameter" class="headerlink" title="Adjusting Parameter"></a>Adjusting Parameter</h3><ul>
+<li>10.08 <a target="_blank" rel="noopener" href="https://github.com/AUTOMATIC1111/stable-diffusion-webui/pull/1992"> Added ability to ignore last n layers in FrozenCLIPEmbedder #1992 </a></li>
+</ul>
+<p>Setting -&gt; Stop At last layers of CLIP model -&gt; 2</p>
 
     </div>
 
@@ -328,7 +341,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Requires"><span class="nav-number">2.</span> <span class="nav-text">Requires</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Setup"><span class="nav-number">3.</span> <span class="nav-text">Setup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#install-cuda"><span class="nav-number">3.1.</span> <span class="nav-text">install cuda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-python3-10-x"><span class="nav-number">3.2.</span> <span class="nav-text">Install python3.10.x</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Stable-Diffusion-web-UI"><span class="nav-number">3.3.</span> <span class="nav-text">Install Stable Diffusion web UI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#download-models-file-and-setup-it"><span class="nav-number">3.4.</span> <span class="nav-text">download models file and setup it</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Requires"><span class="nav-number">2.</span> <span class="nav-text">Requires</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Setup"><span class="nav-number">3.</span> <span class="nav-text">Setup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#install-cuda"><span class="nav-number">3.1.</span> <span class="nav-text">install cuda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-python3-10-x"><span class="nav-number">3.2.</span> <span class="nav-text">Install python3.10.x</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Stable-Diffusion-web-UI"><span class="nav-number">3.3.</span> <span class="nav-text">Install Stable Diffusion web UI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#download-models-file-and-setup-it"><span class="nav-number">3.4.</span> <span class="nav-text">download models file and setup it</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Have-a-try"><span class="nav-number">4.</span> <span class="nav-text">Have a try</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Advanced"><span class="nav-number">5.</span> <span class="nav-text">Advanced</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Adjusting-Parameter"><span class="nav-number">5.1.</span> <span class="nav-text">Adjusting Parameter</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
