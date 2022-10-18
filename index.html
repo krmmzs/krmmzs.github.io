@@ -172,7 +172,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/10/18/Accelerated-Cpp-chapter04/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter04</a>
+            <a href="/2022/10/18/Accelerated-Cpp-chapter04/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter04 Organizing programs and data</a>
         </h2>
 
         <div class="post-meta">
@@ -183,7 +183,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-10-18 11:03:39 / Modified: 21:55:14" itemprop="dateCreated datePublished" datetime="2022-10-18T11:03:39+08:00">2022-10-18</time>
+              <time title="Created: 2022-10-18 11:03:39 / Modified: 21:59:34" itemprop="dateCreated datePublished" datetime="2022-10-18T11:03:39+08:00">2022-10-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -210,7 +210,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Organizing-programs-and-data"><a href="#Organizing-programs-and-data" class="headerlink" title="Organizing programs and data"></a>Organizing programs and data</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><h2 id="Handling-of-empty-vectors-in-function"><a href="#Handling-of-empty-vectors-in-function" class="headerlink" title="Handling of empty vectors in function"></a>Handling of empty vectors in function</h2><p>The most significant change is what we do if the <code>vector</code> is empty. In §3.2.2&#x2F;46, we knew that we would have to complain to whoever was running our program, and we also knew who that person would be and what kind of complaint would make sense. In this revised version, on the other hand, we don’t know who is going to be using it, or for what purpose, so we need a more general way of complaining. That more general way is to <strong>throw</strong> an <em>exceptionif</em> the <code>vector</code> is empty</p>
+          <h1 id="Organizing-programs-and-data"><a href="#Organizing-programs-and-data" class="headerlink" title="Organizing programs and data"></a>Organizing programs and data</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><ul>
+<li><a href="#handling-of-empty-vectors-in-function">Handling of empty vectors in function</a></li>
+<li><a href="#cin-in-function">cin in function</a></li>
+<li><a href="#lvalue-error">lvalue error</a></li>
+<li><a href="#side-effects-when-use-exception">side effects when use exception</a></li>
+<li><a href="#header-files-don-t-use-using">header files don’t use using</a></li>
+</ul>
+<h2 id="Handling-of-empty-vectors-in-function"><a href="#Handling-of-empty-vectors-in-function" class="headerlink" title="Handling of empty vectors in function"></a>Handling of empty vectors in function</h2><p>The most significant change is what we do if the <code>vector</code> is empty. In §3.2.2&#x2F;46, we knew that we would have to complain to whoever was running our program, and we also knew who that person would be and what kind of complaint would make sense. In this revised version, on the other hand, we don’t know who is going to be using it, or for what purpose, so we need a more general way of complaining. That more general way is to <strong>throw</strong> an <em>exceptionif</em> the <code>vector</code> is empty</p>
 <p>The third point is that we check whether <code>homework.size()</code> is zero, even though we know that <code>median</code> will do so for us. The reason is that if <code>median</code> discovers that we are asking for the <strong>median of an empty vector</strong> , it throws an exception that includes the message median of an empty vector . This message is not directly useful to someone who is computing student grades. Therefore, we throw our own exception, which we hope will give the user more of a clue as to what has gone wrong.</p>
 <h2 id="cin-in-function"><a href="#cin-in-function" class="headerlink" title="cin in function"></a>cin in function</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">istream&amp; <span class="title">read_hw</span><span class="params">(istream&amp; in, vector&lt;<span class="type">double</span>&gt;&amp; hw)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">double</span> x;</span><br><span class="line">    <span class="keyword">while</span> (in &gt;&gt; x)</span><br><span class="line">        hw.<span class="built_in">push_back</span>(x);</span><br><span class="line">    <span class="keyword">return</span> in;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>This strategy doesn’t quite work, for two reasons. The first reason is that we haven’t defined hw —our caller defined it for us. Because we didn’t define it, we don’t know what data might be there already. For all we know, our caller might be using our function to process homework for lots of students, in which case <code>hw</code> might contain the previous student’s grades. We can solve this problem by calling <code>hw.clear()</code> before we begin our work.</p>
