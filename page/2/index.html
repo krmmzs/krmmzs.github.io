@@ -158,7 +158,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp-chapter03/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter04/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -172,7 +172,103 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/10/18/Cpp/Accelerated-Cpp-chapter03/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter03 Working with batches of data</a>
+            <a href="/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter04/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter04 Organizing programs and data</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-10-18 11:03:39" itemprop="dateCreated datePublished" datetime="2022-10-18T11:03:39+08:00">2022-10-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-10-20 20:58:52" itemprop="dateModified" datetime="2022-10-20T20:58:52+08:00">2022-10-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/Accelerated-Cpp/" itemprop="url" rel="index"><span itemprop="name">Accelerated Cpp</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Organizing-programs-and-data"><a href="#Organizing-programs-and-data" class="headerlink" title="Organizing programs and data"></a>Organizing programs and data</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><ul>
+<li><a href="#handling-of-empty-vectors-in-function">Handling of empty vectors in function</a></li>
+<li><a href="#cin-in-function">cin in function</a></li>
+<li><a href="#lvalue-error">lvalue error</a></li>
+<li><a href="#side-effects-when-use-exception">side effects when use exception</a></li>
+<li><a href="#header-files-dont-use-using">header files don’t use using</a></li>
+</ul>
+<h2 id="Handling-of-empty-vectors-in-function"><a href="#Handling-of-empty-vectors-in-function" class="headerlink" title="Handling of empty vectors in function"></a>Handling of empty vectors in function</h2><p>The most significant change is what we do if the <code>vector</code> is empty. In §3.2.2&#x2F;46, we knew that we would have to complain to whoever was running our program, and we also knew who that person would be and what kind of complaint would make sense. In this revised version, on the other hand, we don’t know who is going to be using it, or for what purpose, so we need a more general way of complaining. That more general way is to <strong>throw</strong> an <em>exceptionif</em> the <code>vector</code> is empty</p>
+<p>The third point is that we check whether <code>homework.size()</code> is zero, even though we know that <code>median</code> will do so for us. The reason is that if <code>median</code> discovers that we are asking for the <strong>median of an empty vector</strong> , it throws an exception that includes the message median of an empty vector . This message is not directly useful to someone who is computing student grades. Therefore, we throw our own exception, which we hope will give the user more of a clue as to what has gone wrong.</p>
+<h2 id="cin-in-function"><a href="#cin-in-function" class="headerlink" title="cin in function"></a>cin in function</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">istream&amp; <span class="title">read_hw</span><span class="params">(istream&amp; in, vector&lt;<span class="type">double</span>&gt;&amp; hw)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">double</span> x;</span><br><span class="line">    <span class="keyword">while</span> (in &gt;&gt; x)</span><br><span class="line">        hw.<span class="built_in">push_back</span>(x);</span><br><span class="line">    <span class="keyword">return</span> in;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>This strategy doesn’t quite work, for two reasons. The first reason is that we haven’t defined hw —our caller defined it for us. Because we didn’t define it, we don’t know what data might be there already. For all we know, our caller might be using our function to process homework for lots of students, in which case <code>hw</code> might contain the previous student’s grades. We can solve this problem by calling <code>hw.clear()</code> before we begin our work.</p>
+<p>The second reason that our strategy fails is that we don’t quite know when to stop. We can keep reading grades until we can no longer do so, but at that point we have a problem. There are two reasons why we might no longer be able to read a grade: We might have reached end-of-file, or we might have encountered something that is not a grade.</p>
+<p>get final code:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">istream&amp; <span class="title">read_hw</span><span class="params">(istream&amp; in, vector&lt;<span class="type">double</span>&gt;&amp; hw)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// get rid of previous contents</span></span><br><span class="line">    hw.<span class="built_in">clear</span>();</span><br><span class="line">    <span class="keyword">if</span> (in) &#123;</span><br><span class="line">        <span class="type">double</span> x;</span><br><span class="line">        <span class="keyword">while</span> (in &gt;&gt; x)</span><br><span class="line">            hw.<span class="built_in">push_back</span>(x);</span><br><span class="line">        in.<span class="built_in">clear</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> in;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="lvalue-error"><a href="#lvalue-error" class="headerlink" title="lvalue error"></a>lvalue error</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">❯ g++ -std=c++<span class="number">17</span> lvalue_test.cpp -o lvalue_test</span><br><span class="line">lvalue_test.cpp: In function ‘<span class="type">int</span> <span class="built_in">main</span>()’:</span><br><span class="line">lvalue_test.cpp:<span class="number">50</span>:<span class="number">31</span>: error: cannot bind non-<span class="type">const</span> lvalue reference of type ‘std::vector&lt;<span class="type">double</span>&gt;&amp;’ to an rvalue of type ‘std::vector&lt;<span class="type">double</span>&gt;’</span><br><span class="line">   <span class="number">50</span> |     <span class="built_in">read_hw</span>(std::cin, <span class="built_in">emptyvec</span>());</span><br><span class="line">      |                       ~~~~~~~~^~</span><br><span class="line">lvalue_test.cpp:<span class="number">25</span>:<span class="number">47</span>: note:   initializing argument <span class="number">2</span> of ‘<span class="function">std::istream&amp; <span class="title">read_hw</span><span class="params">(std::istream&amp;, std::vector&lt;<span class="type">double</span>&gt;&amp;)</span>’</span></span><br><span class="line"><span class="function">   25 | istream&amp; <span class="title">read_hw</span><span class="params">(istream&amp; in, vector&lt;<span class="type">double</span>&gt;&amp; hw)</span> </span>&#123;</span><br><span class="line">      |                               ~~~~~~~~~~~~~~~~^~</span><br></pre></td></tr></table></figure>
+
+<h2 id="side-effects-when-use-exception"><a href="#side-effects-when-use-exception" class="headerlink" title="side effects when use exception"></a>side effects when use exception</h2><p>A good rule of thumb is to avoid more than one side effect in a single statement. Throwing an exception is a side effect, so a statement that might throw an exception should not cause any other side effects, particularly including input and output.</p>
+<h2 id="header-files-don’t-use-using"><a href="#header-files-don’t-use-using" class="headerlink" title="header files don’t use using"></a>header files don’t use using</h2><p>In general, header files should declare only the names that are necessary. By restricting the names contained in a header file, we can preserve maximum flexibility for our users. For example, we use the qualified name for <code>std::vector</code> because we have no way of knowing how the user of our <strong>median</strong> function wants to refer to <code>std::vector</code>. Users of our code might not want a using-declaration for vector. If we write one in our header, then all programs that <code>include</code> our header get a using <code>std::vector</code> declaration, regardless of whether they wanted it. Header files should use fully qualified names rather than **using-**declarations.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter03/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter03 Working with batches of data</a>
         </h2>
 
         <div class="post-meta">
@@ -239,7 +335,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp-chapter02/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -253,7 +349,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/10/18/Cpp/Accelerated-Cpp-chapter02/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter02 Looping and counting</a>
+            <a href="/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter02/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter02 Looping and counting</a>
         </h2>
 
         <div class="post-meta">
@@ -355,7 +451,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp-chapter01/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -369,7 +465,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/10/18/Cpp/Accelerated-Cpp-chapter01/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter01 String</a>
+            <a href="/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter01/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter01 String</a>
         </h2>
 
         <div class="post-meta">
@@ -443,7 +539,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp-chapter00/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter00/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -457,7 +553,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/10/18/Cpp/Accelerated-Cpp-chapter00/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter00 Begin</a>
+            <a href="/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter00/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter00 Begin</a>
         </h2>
 
         <div class="post-meta">
@@ -1099,20 +1195,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
