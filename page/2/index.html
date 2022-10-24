@@ -158,6 +158,108 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/20/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/20/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter05/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter05 Using sequential containers and analyzing strings</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-20 19:18:08 / Modified: 19:21:58" itemprop="dateCreated datePublished" datetime="2022-10-20T19:18:08+08:00">2022-10-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/Accelerated-Cpp/" itemprop="url" rel="index"><span itemprop="name">Accelerated Cpp</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><ul>
+<li><a href="#side-effect-case-misguided-optimization">side effect case misguided optimization</a></li>
+<li><a href="#iterator-abstraction-is-selective-ignorance">iterator Abstraction is selective ignorance</a></li>
+<li><a href="#the-meaning-of-studentserase-studentsbegin-i">The meaning of students.erase (students.begin () + i)</a></li>
+<li><a href="#the-difference-between-list-and-vector">The difference between list and vector</a></li>
+<li><a href="#use-invariant-writing-whlie-to-spilt-string">use invariant writing whlie to spilt string</a></li>
+<li><a href="#use-insert-instand-of-push_back-to-copy-vector-to-another-vector">use insert instand of push_back to copy vector to another vector</a></li>
+</ul>
+<h2 id="side-effect-case-misguided-optimization"><a href="#side-effect-case-misguided-optimization" class="headerlink" title="side effect case misguided optimization"></a>side effect case misguided optimization</h2><p>bad code :</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;Student_info&gt;::size_type size = students.<span class="built_in">size</span>();</span><br><span class="line"><span class="keyword">while</span> (i != size) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">fgrade</span>(students[i])) &#123;</span><br><span class="line">        fail.<span class="built_in">push_back</span>(students[i]);</span><br><span class="line">        students.<span class="built_in">erase</span>(students.<span class="built_in">begin</span>() + i);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ++i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="iterator-Abstraction-is-selective-ignorance"><a href="#iterator-Abstraction-is-selective-ignorance" class="headerlink" title="iterator Abstraction is selective ignorance"></a>iterator Abstraction is selective ignorance</h2><p>Abstraction is selective ignorance.<br>The details of what particular type an iterator has may be<br>complicated, but we don’t need to understand these details.<br>All we need to know is how to refer to the iterator type,<br>and what operations the iterator allows. We need to know<br>the type so that we can create variables that are iterators.<br>We don’t need to know anything about that type’s implementation.<br>For example, our definition of <strong>iter</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;Student_info&gt;::const_iterator iter = students.<span class="built_in">begin</span>();</span><br></pre></td></tr></table></figure>
+<p>says that <strong>iter</strong> is of type <strong>vector<Student_info>::const_iterator</strong>. We don’t know<br>the actual type of <strong>iter</strong>—that’s an implementation detail of <strong>vector</strong>—nor do we need to<br>know. All that we need to know is that <strong>vector<student_info></strong> has a member named<br><em>const_iterator</em> that defines a type that we can use to obtain read-only access to<br>elements of the <strong>vector</strong></p>
+<h2 id="The-meaning-of-students-erase-students-begin-i"><a href="#The-meaning-of-students-erase-students-begin-i" class="headerlink" title="The meaning of students.erase (students.begin () + i)"></a>The meaning of students.erase (students.begin () + i)</h2><p>Now that we understand more about iterators, we can see the real point of</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">students.<span class="built_in">erase</span>(students.<span class="built_in">begin</span>() + i);</span><br></pre></td></tr></table></figure>
+
+<p>in the program in §5.1.1&#x2F;77. We’ve already seen that <strong>students.begin()</strong> is an iterator<br>that refers to the initial element of <strong>students</strong>, and that <strong>students.begin() + i</strong> refers to<br>the <strong>i</strong>th element of <strong>students</strong>. What is important to realize is that this latter expression gets<br>its meaning from the definition of <em>+</em> on the types of <strong>students.begin()</strong> and <strong>i</strong>. In other<br>words, the iterator and index types determine the meaning of <em>+</em> in this expression.</p>
+<h2 id="The-difference-between-list-and-vector"><a href="#The-difference-between-list-and-vector" class="headerlink" title="The difference between list and vector"></a>The difference between list and vector</h2><p>One important way in which the operations on <strong>list</strong>s differ from those on <strong>vector</strong>s is the effect of some of the operations on iterators.</p>
+<ul>
+<li><strong>vector</strong> support random access</li>
+<li><strong>list</strong> not support random access</li>
+</ul>
+<p>std::sort() will use random access<br>so we could sort <strong>vector</strong> but not <strong>list</strong><br>but <strong>list</strong> have <strong>sort()</strong> function itself </p>
+<p>more detail see <a target="_blank" rel="noopener" href="https://qr.ae/pvxM7k">here</a></p>
+<h2 id="use-invariant-writing-whlie-to-spilt-string"><a href="#use-invariant-writing-whlie-to-spilt-string" class="headerlink" title="use invariant writing whlie to spilt string"></a>use invariant writing whlie to spilt string</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;string&gt; <span class="title">split</span><span class="params">(<span class="type">const</span> string&amp; s)</span> </span>&#123;</span><br><span class="line">    vector&lt;string&gt; ret;</span><br><span class="line">    <span class="keyword">typedef</span> string::size_type string_size</span><br><span class="line">    string_size i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i != s.<span class="built_in">size</span>()) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="use-insert-instand-of-push-back-to-copy-vector-to-another-vector"><a href="#use-insert-instand-of-push-back-to-copy-vector-to-another-vector" class="headerlink" title="use insert instand of push_back to copy vector to another vector"></a>use insert instand of push_back to copy vector to another vector</h2><p>In this particular case, we are appending the elements,<br>which we can think of as inserting them at the end.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;string&gt; <span class="title">vcat</span><span class="params">(<span class="type">const</span> vector&lt;string&gt;&amp; top, <span class="type">const</span> vector&lt;string&gt;&amp; bottom)</span> </span>&#123;</span><br><span class="line">    vector&lt;string&gt; ret = top;</span><br><span class="line">    <span class="keyword">for</span> (vector&lt;string&gt;::const_iterator it = bottom.<span class="built_in">begin</span>(); it != bottom.<span class="built_in">end</span>();</span><br><span class="line">        it != bottom.<span class="built_in">end</span>()); it ++)</span><br><span class="line">        ret.<span class="built_in">push_back</span>(*it);</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;string&gt; <span class="title">vcat</span><span class="params">(<span class="type">const</span> vector&lt;string&gt;&amp; top, <span class="type">const</span> vector&lt;string&gt;&amp; bottom)</span> </span>&#123;</span><br><span class="line">    vector&lt;string&gt; ret = top;</span><br><span class="line">    ret.<span class="built_in">insert</span>(ret.<span class="built_in">end</span>(), bottom.<span class="built_in">begin</span>(), bottom.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/19/Mac/Install-Windows-on-a-Mac/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -968,171 +1070,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/13/AI/NovelAI-local-install-in-linux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/13/AI/NovelAI-local-install-in-linux/" class="post-title-link" itemprop="url">NovelAI local install in linux</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-10-13 19:32:18" itemprop="dateCreated datePublished" datetime="2022-10-13T19:32:18+08:00">2022-10-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-20 22:08:30" itemprop="dateModified" datetime="2022-10-20T22:08:30+08:00">2022-10-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AI/NovelAI/" itemprop="url" rel="index"><span itemprop="name">NovelAI</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Recently, the model of <strong>novelai</strong> has been exposed, so let’s build a free <del>sexy picture</del> generator by yourself.</p>
-<img src="/images/noval-01.png" alt="" style="zoom:60%;" />
-
-<p>The following is my deployment process under linux, if you are windows<br>could watch <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1EV4y1L7dX/?vd_source=e74badb8da104e8f3d5e1a1a2604cdda">bilibili novel tutoral</a></p>
-<p>He have a Integration Pack for noob.</p>
-<p>Need’t install python, git, and more…</p>
-<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><ul>
-<li><a href="#news">News</a></li>
-<li><a href="#requires">Requires</a></li>
-<li><a href="#setup">Setup</a><ul>
-<li><a href="#install-cuda">cuda</a></li>
-<li><a href="#install-python310x">python3.10.x</a></li>
-<li><a href="#install-stable-diffusion-web-ui">Stable Diffusion web UI</a></li>
-<li><a href="#download-models-file-and-setup-it">download models file and setup it</a></li>
-</ul>
-</li>
-<li><a href="#have-a-try">have a try</a></li>
-<li><a href="#advanced">Advanced</a><ul>
-<li><a href="#adjusting-parameter">Adjusting Parameter</a></li>
-</ul>
-</li>
-<li><a href="#bugs">Bugs</a></li>
-</ul>
-<h2 id="News"><a href="#News" class="headerlink" title="News"></a>News</h2><p>Whether it is NovelAIDiffusion or WaifuDiffusion, it was originally an OSS artificial intelligence model called StableDiffusion.</p>
-<p>Among them, NovelAI has shown excellent accuracy by using its own improved and controversial example training data.</p>
-<p>A few days ago, this raw data was successfully leaked, and the 5ch company was in an uproar.</p>
-<p>See what improvements NovelAI has made to generate highly accurate illustrations at</p>
-<p><a target="_blank" rel="noopener" href="https://gigazine.net/news/20221011-novelai-model-improvements-stable-diffusion/">20221011-novelai-model-improvements-stable-diffusion&#x2F;</a></p>
-<h2 id="Requires"><a href="#Requires" class="headerlink" title="Requires"></a>Requires</h2><p><strong>If you don’t know what you’re doing, use Google.</strong></p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-toolkit-archive">cuda</a></li>
-<li>Model Framework: <a target="_blank" rel="noopener" href="https://github.com/AUTOMATIC1111/stable-diffusion-webui">stable-diffusion-webui</a></li>
-<li>Model :<code>magnet:?xt=urn:btih:5bde442da86265b670a3e5ea3163afad2c6f8ecc</code></li>
-</ul>
-<h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h2><h3 id="install-cuda"><a href="#install-cuda" class="headerlink" title="install cuda"></a>install cuda</h3><p>My OS system is ubuntu22.04</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">❯ nvidia-smi</span><br><span class="line">Thu Oct 13 02:37:20 2022</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 515.65.01    Driver Version: 515.65.01    CUDA Version: 11.7     |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|                               |                      |               MIG M. |</span><br><span class="line">|===============================+======================+======================|</span><br><span class="line">|   0  NVIDIA GeForce ...  On   | 00000000:01:00.0  On |                  N/A |</span><br><span class="line">| N/A   48C    P5     8W /  N/A |    690MiB /  4096MiB |      7%      Default |</span><br><span class="line">|                               |                      |                  N/A |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br></pre></td></tr></table></figure>
-
-<p>The <strong>CUDA Version</strong> is the highest version of cuda you support</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install cuda</span><br></pre></td></tr></table></figure>
-
-<p>Other Platform please look up <a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-downloads?target_os=Linux_version=22.04&target_type=deb_network">Platform</a></p>
-<p><strong>pay attention to version and It is best to make a backup before operating the graphics card</strong></p>
-<h3 id="Install-python3-10-x"><a href="#Install-python3-10-x" class="headerlink" title="Install python3.10.x"></a>Install python3.10.x</h3><p>I recommend install <a target="_blank" rel="noopener" href="https://github.com/pyenv/pyenv">pyenv</a> to manage different python version.</p>
-<p>more see <a target="_blank" rel="noopener" href="https://github.com/pyenv/pyenv#basic-github-checkout">pyenv install</a></p>
-<h3 id="Install-Stable-Diffusion-web-UI"><a href="#Install-Stable-Diffusion-web-UI" class="headerlink" title="Install Stable Diffusion web UI"></a>Install Stable Diffusion web UI</h3><p>git clone from <a target="_blank" rel="noopener" href="https://github.com/AUTOMATIC1111/stable-diffusion-webui">Stable Diffusion web UI</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git</span><br><span class="line">cd stable-diffusion-webui</span><br><span class="line">./webui.sh</span><br></pre></td></tr></table></figure>
-
-<p>to autoinstall it.</p>
-<p>It will automatically build a venv virtual environment and install<br>the package in it, because the Pytorch to be installed is still<br>relatively large, so it will take a long time.</p>
-<p>If everything ok, will see </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">###############################################################</span></span></span><br><span class="line">Launching launch.py...</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">###############################################################</span></span></span><br><span class="line">Python 3.10.4 (main, Sep 29 2022, 19:41:01) [GCC 11.2.0]</span><br><span class="line">Commit hash: cc5803603b8591075542d99ae8596ab5b130a82f</span><br><span class="line">Installing requirements for Web UI</span><br><span class="line">Launching Web UI with arguments:</span><br><span class="line">No checkpoints found. When searching for checkpoints, looked at:</span><br><span class="line"> - file /home/mouzaisi/AI/stable-diffusion-webui/model.ckpt</span><br><span class="line"> - directory /home/mouzaisi/AI/stable-diffusion-webui/models/Stable-diffusion</span><br><span class="line">Can&#x27;t run without a checkpoint. Find and place a .ckpt file into any of those locations. The program will exit.</span><br></pre></td></tr></table></figure>
-
-<p>meaning need models.</p>
-<h3 id="download-models-file-and-setup-it"><a href="#download-models-file-and-setup-it" class="headerlink" title="download models file and setup it"></a>download models file and setup it</h3><p>download models with Torrent: <code>magnet:?xt=urn:btih:5bde442da86265b670a3e5ea3163afad2c6f8ecc</code></p>
-<p>I recommend <a target="_blank" rel="noopener" href="https://deluge-torrent.org/">deluge</a> (My Anime Video Torrent download 233)</p>
-<p>All files:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">❯ du -h | grep novel</span><br><span class="line">2.9M	./novelaileak/stableckpt/vector_adjust/vector_adjust</span><br><span class="line">2.9M	./novelaileak/stableckpt/vector_adjust</span><br><span class="line">7.2G	./novelaileak/stableckpt/animefull-prevgood</span><br><span class="line">4.0G	./novelaileak/stableckpt/animefull-final-pruned</span><br><span class="line">9.2G	./novelaileak/stableckpt/extra-sd-prune/sd-prune</span><br><span class="line">9.2G	./novelaileak/stableckpt/extra-sd-prune</span><br><span class="line">7.2G	./novelaileak/stableckpt/animefull-latest</span><br><span class="line">7.2G	./novelaileak/stableckpt/animesfw-latest</span><br><span class="line">4.0G	./novelaileak/stableckpt/animesfw-final-pruned</span><br><span class="line">7.2G	./novelaileak/stableckpt/animesfw-prevgood</span><br><span class="line">1005M	./novelaileak/stableckpt/modules/modules</span><br><span class="line">1005M	./novelaileak/stableckpt/modules</span><br><span class="line">48G	./novelaileak/stableckpt</span><br><span class="line">271M	./novelaileak/workspace</span><br><span class="line">4.3G	./novelaileak/github/novelai</span><br><span class="line">4.3G	./novelaileak/github</span><br><span class="line">53G	./novelaileak</span><br></pre></td></tr></table></figure>
-
-<p><strong>with sfw means safe for work(no sexy)</strong></p>
-<p>There are two models that recommend be used:<br><strong>animefull-final-pruned</strong>: 4G small model (if your GPU is less than or equal to 4G, download this)<br><strong>animefull-latest</strong>: 7G large model (if the GPU is greater than or equal to 6G, use this, and download the config.yaml of the small model by the way, it is useful)</p>
-<p>Put <code>animevae.pt</code> and <code>model.ckpt</code> and <code>config.yaml</code> in a folder into<br>the <code>stable-diffusion-webui\models\Stable-diffusion\</code> directory<br>and rename them to <code>model.vae.pt</code>, <code>model.ckpt</code>, <code>model.yaml</code>.</p>
-<p>in <code>stable-diffusion-webui</code><br>retype</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./webui.sh</span><br></pre></td></tr></table></figure>
-
-<p>wait to download more stuff…</p>
-<p>It is works well when you see</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">Loaded a total of 0 textual inversion embeddings.</span><br><span class="line">Running on local URL:  http://127.0.0.1:7860</span><br><span class="line"></span><br><span class="line">To create a public link, set `share=True` in `launch()`.</span><br></pre></td></tr></table></figure>
-
-<p>you can type this command to see GPU(If your graphics card is NVIDIA)</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 520.61.05    Driver Version: 520.61.05    CUDA Version: 11.8     |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">...</span><br><span class="line">|                               |                      |               MIG M. |</span><br><span class="line">|===============================+======================+======================|</span><br><span class="line">|   0  NVIDIA GeForce ...  On   | 00000000:01:00.0  On |                  N/A |</span><br><span class="line">| N/A   50C    P0    15W /  N/A |   2880MiB /  4096MiB |      1%      Default |</span><br><span class="line">|                               |                      |                  N/A |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line"></span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| Processes:                                                                  |</span><br><span class="line">|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |</span><br><span class="line">|        ID   ID                                                   Usage      |</span><br><span class="line">|=============================================================================|</span><br><span class="line">...</span><br><span class="line">|    0   N/A  N/A      5162      C   python3                          2630MiB |</span><br><span class="line">|    0   N/A  N/A      6617      G   /usr/local/bin/alacritty            8MiB |</span><br><span class="line">...</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">|    0   N/A  N/A      5162      C   python3                          2630MiB |</span><br></pre></td></tr></table></figure>
-
-<p>My poor 4G GPU is occupied by 2.8G…</p>
-<p>enter <code>http://127.0.0.1:7860</code> to make your wife.</p>
-<h2 id="Have-a-try"><a href="#Have-a-try" class="headerlink" title="Have a try"></a>Have a try</h2><img src="/images/noval-02.png" alt="noval-02" style="zoom:70%;" />
-
-<p>example args:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">one girl</span><br><span class="line">masterpiece</span><br><span class="line">best quality</span><br><span class="line">white hair</span><br><span class="line">light smile</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lowres</span><br><span class="line">low quality</span><br><span class="line">jpeg artifacts</span><br></pre></td></tr></table></figure>
-
-<h2 id="Advanced"><a href="#Advanced" class="headerlink" title="Advanced"></a>Advanced</h2><h3 id="Adjusting-Parameter"><a href="#Adjusting-Parameter" class="headerlink" title="Adjusting Parameter"></a>Adjusting Parameter</h3><ul>
-<li>10.08 <a target="_blank" rel="noopener" href="https://github.com/AUTOMATIC1111/stable-diffusion-webui/pull/1992"> Added ability to ignore last n layers in FrozenCLIPEmbedder #1992 </a></li>
-</ul>
-<p>Setting -&gt; Stop At last layers of CLIP model -&gt; 2</p>
-<h3 id="The-generated-effect-is-not-good"><a href="#The-generated-effect-is-not-good" class="headerlink" title="The generated effect is not good"></a>The generated effect is not good</h3><p>add them to navigate prompt</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lowres, bad anatomy, bad hands, text,error, missing fngers,extra digt ,fewer digits,cropped, wort quality ,low quality,normal quality, jpeg artifacts,signature,watermark, username, blurry, bad feet</span><br></pre></td></tr></table></figure>
-
-<h2 id="Bugs"><a href="#Bugs" class="headerlink" title="Bugs"></a>Bugs</h2><h3 id="black-pickture"><a href="#black-pickture" class="headerlink" title="black pickture"></a>black pickture</h3><p>in webui-user.sh(.bat for windows)，set COMMANDLINE_ARGS&#x3D;’–lowvram –precision full –no-half’<br>in webui-user.sh(.bat for windows)，set COMMANDLINE_ARGS&#x3D;’–lowvram –precision full –no-half’</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1202,7 +1139,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
