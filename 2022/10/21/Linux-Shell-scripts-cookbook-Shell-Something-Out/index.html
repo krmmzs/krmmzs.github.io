@@ -28,7 +28,7 @@
 <meta property="og:description" content="Shell Something OutOverviewDisplaying output in a terminal使用echo和printf的命令选项时，要确保选项出现在命令中的所有字符串之前，否则Bash会将其视为另外一个字符串。 要打印彩色文本，可输入如下命令： 1echo -e &quot;\e[1;31m This is red text \e[0m&quot;  其中包括：重置&amp;#x3">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-10-21T10:50:46.000Z">
-<meta property="article:modified_time" content="2022-10-21T10:53:06.489Z">
+<meta property="article:modified_time" content="2022-10-27T11:45:30.473Z">
 <meta property="article:author" content="krmmzs">
 <meta property="article:tag" content="Shell">
 <meta property="article:tag" content="Linux Shell scripts cookbook">
@@ -185,10 +185,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-10-21 18:50:46 / Modified: 18:53:06" itemprop="dateCreated datePublished" datetime="2022-10-21T18:50:46+08:00">2022-10-21</time>
+              <time title="Created: 2022-10-21 18:50:46" itemprop="dateCreated datePublished" datetime="2022-10-21T18:50:46+08:00">2022-10-21</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-10-27 19:45:30" itemprop="dateModified" datetime="2022-10-27T19:45:30+08:00">2022-10-27</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -279,6 +285,87 @@
 <p>usage:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">exec</span> 5&gt;&gt;input.txt</span><br><span class="line">$ <span class="built_in">echo</span> appended line &gt;&amp;5</span><br><span class="line">$ <span class="built_in">cat</span> input.txt</span><br><span class="line">newline</span><br><span class="line">append line</span><br></pre></td></tr></table></figure>
 
+<h2 id="alias"><a href="#alias" class="headerlink" title="alias"></a>alias</h2><h4 id="sudo-alias"><a href="#sudo-alias" class="headerlink" title="sudo alias"></a>sudo alias</h4><p>如果身份为特权用户，别名也会造成安全问题。为了避免对系统造成危害，你应该将命令转义</p>
+<ol>
+<li>对别名进行转义</li>
+</ol>
+<p>创建一个和原生命令同名的别名很容易，你不应该以特权用户的身份运行别名化的命令。<br>我们可以转义要使用的命令，忽略当前定义的别名：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ \<span class="built_in">command</span></span><br></pre></td></tr></table></figure>
+<p>字符\可以转义命令，从而执行原本的命令。<br>在不可信环境下执行特权命令时，在命令前加上\来忽略可能存在的别名总是一种良好的安全实践。<br>这是因为攻击者可能已经将一些别有用心的命令利用别名伪装成了特权命令，借此来盗取用户输入的重要信息。</p>
+<h4 id="show-all-of-the-aliases"><a href="#show-all-of-the-aliases" class="headerlink" title="show all of the aliases"></a>show all of the aliases</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Debugging-the-script"><a href="#Debugging-the-script" class="headerlink" title="Debugging the script"></a>Debugging the script</h2><p>我们可以利用Bash内建的调试工具或者按照易于调试的方式编写脚本，方法如下所示。</p>
+<p>(1) 使用选项-x，启用shell脚本的跟踪调试功能：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -x script.sh</span><br></pre></td></tr></table></figure>
+
+<p>(2) 使用set -x和set +x对脚本进行部分调试。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..6&#125;;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">set</span> -x</span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line">    <span class="built_in">set</span> +x</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Script executed&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>(3) 前面介绍的调试方法是Bash内建的。<br>它们以固定的格式生成调试信息。<br>但是在很多情况下，我们需要使用自定义的调试信息。<br>可以通过定义_DEBUG环境变量来启用或禁止调试及生成特定形式的信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">DEBUG</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">    [ <span class="string">&quot;<span class="variable">$_DEBUG</span>&quot;</span> == <span class="string">&quot;on&quot;</span> ] &amp;&amp; <span class="variable">$@</span> || :</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..10&#125;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    DEBUG <span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ _DEBUG=on ./script.sh</span><br></pre></td></tr></table></figure>
+
+<p>我们在每一条需要打印调试信息的语句前加上DEBUG。如果没有把_DEBUG&#x3D;on传递给脚本，那么调试信息就不会打印出来。在Bash中，命令:告诉shell不要进行任何操作。</p>
+<p>调试的输出信息可能会很长。如果使用了-x或set -x，调试输出会被发送到stderr。可以使用下面的命令将其重定向到文件中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -x script.sh 2&gt; debug.log</span><br></pre></td></tr></table></figure>
+
+<h4 id="Exporting-functions"><a href="#Exporting-functions" class="headerlink" title="Exporting functions"></a>Exporting functions</h4><p>函数也能像环境变量一样用export导出，如此一来，函数的作用域就可以扩展到子进程中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> -f fname</span><br><span class="line">$&gt; <span class="keyword">function</span> <span class="function"><span class="title">getIP</span></span>() &#123; /sbin/ifconfig <span class="variable">$1</span> | grep <span class="string">&#x27;inet &#x27;</span>; &#125;$&gt; <span class="built_in">echo</span> <span class="string">&quot;getIP eth0&quot;</span> &gt;test.sh$&gt; sh test.sh  sh: getIP: No such file or directory$&gt; <span class="built_in">export</span> -f getIP$&gt; sh test.sh  inet addr: 192.168.1.2 Bcast: 192.168.255.255 Mask:255.255.0.0</span><br><span class="line">$&gt; <span class="built_in">echo</span> <span class="string">&quot;getIP eth0&quot;</span> &gt;test.sh</span><br><span class="line">$&gt; sh test.sh</span><br><span class="line">    sh: getIP: No such file or directory</span><br><span class="line">$&gt; <span class="built_in">export</span> -f getIP</span><br><span class="line">$&gt; sh test.sh</span><br><span class="line">    inet addr: 192.168.1.2 Bcast: 192.168.255.255 Mask:255.255.0.0</span><br></pre></td></tr></table></figure>
+
+<h2 id="Sending-output-from-one-command-toanother"><a href="#Sending-output-from-one-command-toanother" class="headerlink" title="Sending output from one command toanother"></a>Sending output from one command toanother</h2><h4 id="Spawning-a-separate-process-with-subshell"><a href="#Spawning-a-separate-process-with-subshell" class="headerlink" title="Spawning a separate process with subshell"></a>Spawning a separate process with subshell</h4><p>子shell本身就是独立的进程。可以使用()操作符来定义一个子shell</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$&gt; <span class="built_in">pwd</span></span><br><span class="line">/</span><br><span class="line">$&gt;(<span class="built_in">cd</span> /bin; <span class="built_in">ls</span>)</span><br><span class="line">awk bash <span class="built_in">cat</span>...</span><br><span class="line">$&gt;<span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
+
+<p>当命令在子shell中执行时，不会对当前shell造成任何影响；所有的改变仅限于该子shell内。<br>例如，当用cd命令改变子shell的当前目录时，这种变化不会反映到主shell环境中。</p>
+<h2 id="Running-a-command-until-it-succeeds"><a href="#Running-a-command-until-it-succeeds" class="headerlink" title="Running a command until it succeeds"></a>Running a command until it succeeds</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">repeat</span></span>() &#123;</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span>; <span class="keyword">do</span></span><br><span class="line">        <span class="variable">$@</span> &amp;&amp; <span class="built_in">return</span></span><br><span class="line">        <span class="built_in">sleep</span> 1</span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="A-faster-approach"><a href="#A-faster-approach" class="headerlink" title="A faster approach"></a>A faster approach</h5><p>在大多数现代系统中，true是作为&#x2F;bin中的一个二进制文件来实现的。这就意味着每执行一<br>次之前提到的while循环，shell就不得不生成一个进程。为了避免这种情况，可以使用shell的内<br>建命令:，该命令的退出状态总是为0：</p>
+<h2 id="Comparisons-and-tests"><a href="#Comparisons-and-tests" class="headerlink" title="Comparisons and tests"></a>Comparisons and tests</h2><p>A tips</p>
+<ul>
+<li>[ condition ] &amp;&amp; action;    # 如果condition为真，则执行action</li>
+<li>[ condition ] || action;    # 如果condition为假，则执行action</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ <span class="variable">$var</span> -eq 0]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>gt：大于</li>
+<li>lt：小于</li>
+<li>ge：大于等于</li>
+<li>le：小于等于</li>
+</ul>
+<p>-a是逻辑与操作符，-o是逻辑或操作符。可以按照下面的方法结合多个条件进行测试：</p>
+<ul>
+<li>[ $var1 -ne 0 -a $var2 -gt 2 ]    #使用逻辑与-a</li>
+<li>[ $var1 -ne 0 -o $var2 -gt 2 ]    #逻辑或-o</li>
+</ul>
+<p>文件系统相关测试</p>
+<ul>
+<li>[ -f $file_var ]：如果给定的变量包含正常的文件路径或文件名，则返回真</li>
+<li>[ -x $var ]：如果给定的变量包含的文件可执行，则返回真</li>
+<li>[ -d $var ]：如果给定的变量包含的是目录，则返回真</li>
+<li>[ -e $var ]：如果给定的变量包含的文件存在，则返回真</li>
+<li>[ -c $var ]：如果给定的变量包含的是一个字符设备文件的路径，则返回真</li>
+<li>[ -b $var ]：如果给定的变量包含的是一个块设备文件的路径，则返回真</li>
+<li>[ -w $var ]：如果给定的变量包含的文件可写，则返回真</li>
+<li>[ -r $var ]：如果给定的变量包含的文件可读，则返回真</li>
+<li>[ -L $var ]：如果给定的变量包含的是一个符号链接，则返回真</li>
+</ul>
+<h3 id="String-comparisons"><a href="#String-comparisons" class="headerlink" title="String comparisons:"></a>String comparisons:</h3><p>进行字符串比较时，最好用双中括号，因为有时候采用单个中括号会产生错误。</p>
+<p>注意，双中括号是Bash的一个扩展特性。如果出于性能考虑，使用ash或dash<br>来运行脚本，那么将无法使用该特性</p>
+<h2 id="Customizing-bash-with-configuration-files"><a href="#Customizing-bash-with-configuration-files" class="headerlink" title="Customizing bash with configuration files"></a>Customizing bash with configuration files</h2><p>配置文件分为3类：登录时执行的、<br>启动交互式shell时执行的以及调用shell处理脚本文件时执行的</p>
+<p>当用户登录shell时，会执行下列文件</p>
+<pre><code class="bash">
+`/etc/profile, $HOME/.profile, $HOME/.bash_login, $HOME/.bash_profile /``
+
+注意，如果你是通过图形化登录管理器登入的话，是不会执行/etc/profile
+
+$HOME/.profile和$HOME/.bash_profile这3个文件的。这是因为图形化窗口管理器
+
+并不会启动shell。当你打开终端窗口时才会创建shell，但这个shell也不是登录shell
+
+如果.bash_profile或.bash_login文件存在，则不会去读取.profile文件。
+</code></pre>
+
     </div>
 
     
@@ -362,7 +449,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Shell-Something-Out"><span class="nav-number">1.</span> <span class="nav-text">Shell Something Out</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Displaying-output-in-a-terminal"><span class="nav-number">1.2.</span> <span class="nav-text">Displaying output in a terminal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-variables-and-environment-variables"><span class="nav-number">1.3.</span> <span class="nav-text">Using variables and environment variables</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#get-PID"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">get PID</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#check-out-the-environment-variables"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">check out the environment variables</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#add-environment-path"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">add environment path</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Finding-the-length-of-a-string"><span class="nav-number">1.3.0.4.</span> <span class="nav-text">Finding the length of a string</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Identifying-the-current-shell"><span class="nav-number">1.3.0.5.</span> <span class="nav-text">Identifying the current shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Checking-for-super-user"><span class="nav-number">1.3.0.6.</span> <span class="nav-text">Checking for super user</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Function-to-prepend-to-environmentvariables"><span class="nav-number">1.4.</span> <span class="nav-text">Function to prepend to environmentvariables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Playing-with-file-descriptors-and-redirection"><span class="nav-number">1.5.</span> <span class="nav-text">Playing with file descriptors and redirection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#get-return-value-of-a-command"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">get return value of a command</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stderr-and-stdout-redirection"><span class="nav-number">1.5.0.2.</span> <span class="nav-text">stderr and stdout redirection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redirection-from-a-file-to-a-command"><span class="nav-number">1.5.0.3.</span> <span class="nav-text">Redirection from a file to a command</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redirecting-from-a-text-block-enclosed-within-a-script"><span class="nav-number">1.5.0.4.</span> <span class="nav-text">Redirecting from a text block enclosed within a script</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Custom-file-descriptors"><span class="nav-number">1.5.0.5.</span> <span class="nav-text">Custom file descriptors</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Shell-Something-Out"><span class="nav-number">1.</span> <span class="nav-text">Shell Something Out</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Displaying-output-in-a-terminal"><span class="nav-number">1.2.</span> <span class="nav-text">Displaying output in a terminal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-variables-and-environment-variables"><span class="nav-number">1.3.</span> <span class="nav-text">Using variables and environment variables</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#get-PID"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">get PID</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#check-out-the-environment-variables"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">check out the environment variables</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#add-environment-path"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">add environment path</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Finding-the-length-of-a-string"><span class="nav-number">1.3.0.4.</span> <span class="nav-text">Finding the length of a string</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Identifying-the-current-shell"><span class="nav-number">1.3.0.5.</span> <span class="nav-text">Identifying the current shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Checking-for-super-user"><span class="nav-number">1.3.0.6.</span> <span class="nav-text">Checking for super user</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Function-to-prepend-to-environmentvariables"><span class="nav-number">1.4.</span> <span class="nav-text">Function to prepend to environmentvariables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Playing-with-file-descriptors-and-redirection"><span class="nav-number">1.5.</span> <span class="nav-text">Playing with file descriptors and redirection</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#get-return-value-of-a-command"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">get return value of a command</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stderr-and-stdout-redirection"><span class="nav-number">1.5.0.2.</span> <span class="nav-text">stderr and stdout redirection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redirection-from-a-file-to-a-command"><span class="nav-number">1.5.0.3.</span> <span class="nav-text">Redirection from a file to a command</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redirecting-from-a-text-block-enclosed-within-a-script"><span class="nav-number">1.5.0.4.</span> <span class="nav-text">Redirecting from a text block enclosed within a script</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Custom-file-descriptors"><span class="nav-number">1.5.0.5.</span> <span class="nav-text">Custom file descriptors</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#alias"><span class="nav-number">1.6.</span> <span class="nav-text">alias</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sudo-alias"><span class="nav-number">1.6.0.1.</span> <span class="nav-text">sudo alias</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#show-all-of-the-aliases"><span class="nav-number">1.6.0.2.</span> <span class="nav-text">show all of the aliases</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Debugging-the-script"><span class="nav-number">1.7.</span> <span class="nav-text">Debugging the script</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Exporting-functions"><span class="nav-number">1.7.0.1.</span> <span class="nav-text">Exporting functions</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sending-output-from-one-command-toanother"><span class="nav-number">1.8.</span> <span class="nav-text">Sending output from one command toanother</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Spawning-a-separate-process-with-subshell"><span class="nav-number">1.8.0.1.</span> <span class="nav-text">Spawning a separate process with subshell</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Running-a-command-until-it-succeeds"><span class="nav-number">1.9.</span> <span class="nav-text">Running a command until it succeeds</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#A-faster-approach"><span class="nav-number">1.9.0.0.1.</span> <span class="nav-text">A faster approach</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Comparisons-and-tests"><span class="nav-number">1.10.</span> <span class="nav-text">Comparisons and tests</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#String-comparisons"><span class="nav-number">1.10.1.</span> <span class="nav-text">String comparisons:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Customizing-bash-with-configuration-files"><span class="nav-number">1.11.</span> <span class="nav-text">Customizing bash with configuration files</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
