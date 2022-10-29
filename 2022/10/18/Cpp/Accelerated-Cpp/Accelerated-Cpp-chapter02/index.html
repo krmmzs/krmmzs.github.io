@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Looping and countingOverview i ++ vs i &#x3D; i + 1 designing a while statement String class size Abbreviating repeated uses of std::  off-the-end value statement vs expression  i ++ vs i &#x3D; i + 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Accelerated_Cpp_chapter02 Looping and counting">
+<meta property="og:url" content="http://example.com/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter02/index.html">
+<meta property="og:site_name" content="krmmzs">
+<meta property="og:description" content="Looping and countingOverview i ++ vs i &#x3D; i + 1 designing a while statement String class size Abbreviating repeated uses of std::  off-the-end value statement vs expression  i ++ vs i &#x3D; i + 1">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-10-18T03:03:05.000Z">
+<meta property="article:modified_time" content="2022-10-18T03:05:03.040Z">
+<meta property="article:author" content="krmmzs">
+<meta property="article:tag" content="Cpp">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter02/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Accelerated_Cpp_chapter02 Looping and counting | krmmzs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">krmmzs</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Accelerated_Cpp_chapter02 Looping and counting
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-18 11:03:05 / Modified: 11:05:03" itemprop="dateCreated datePublished" datetime="2022-10-18T11:03:05+08:00">2022-10-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/Accelerated-Cpp/" itemprop="url" rel="index"><span itemprop="name">Accelerated Cpp</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Looping-and-counting"><a href="#Looping-and-counting" class="headerlink" title="Looping and counting"></a>Looping and counting</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><ul>
+<li><a href="#i-vs-i-i-1">i ++ vs i &#x3D; i + 1</a></li>
+<li><a href="#designing-a-while-statement">designing a while statement</a></li>
+<li><a href="#string-class-size">String class size</a></li>
+<li><a href="#abbreviating-repeated-uses-of-std">Abbreviating repeated uses of std:: </a></li>
+<li><a href="#off-the-end-value">off-the-end value</a></li>
+<li><a href="#statement-vs-expression">statement vs expression</a></li>
+</ul>
+<h2 id="i-vs-i-x3D-i-1"><a href="#i-vs-i-x3D-i-1" class="headerlink" title="i ++ vs i &#x3D; i + 1"></a>i ++ vs i &#x3D; i + 1</h2><p>possible values of type bool are true and false, with the obvious meanings.</p>
+<p>The other new facility in this program is the last statement in the while body, which is</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">++r;</span><br></pre></td></tr></table></figure>
+
+<p>The ++ is the increment operator, which has the effect of incrementing-adding 1 to-the</p>
+<p>variable r. We could have written</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">r = r + 1;</span><br></pre></td></tr></table></figure>
+
+<p>instead, but incrementing an object is so common that a special notation for doing so is<br>useful. Moreover, as we shall see in §5.1.2&#x2F;79, the idea of transforming a value into its<br>immediate successor, in contrast with computing an arbitrary value, is so fundamental to<br>abstract data structures that it deserves a special notation for that reason alone.</p>
+<h2 id="Designing-a-while-statement"><a href="#Designing-a-while-statement" class="headerlink" title="Designing a while statement"></a>Designing a while statement</h2><p>There is a useful technique for writing and understanding <code>while</code> statements that relies on</p>
+<p>two key ideas-one about the definition of a <code>while</code> statement, and the other about the</p>
+<p>behavior of programs in general.</p>
+<p>The first idea is that when a <code>while</code> finishes, its condition must be <code>false</code>-otherwise the</p>
+<p><code>while</code> wouldn’t have finished. So, for example, when the while in §2.3&#x2F;19 finishes, we</p>
+<p>know that <code>r != rows</code> is false and, therefore, that <code>r</code> is equal to <code>rows</code>.</p>
+<p>The second idea is that of a <strong>loop invariant</strong>, which is a property that we assert will be true</p>
+<p>about a <code>while</code> each time it is about to test its condition. We choose an invariant that we</p>
+<p>can use to convince ourselves that the program behaves as we intend, and we write the<br>program so as to make the invariant true at the proper times. Although the invariant is not<br>part of the program text, it is a valuable intellectual tool for designing programs. Every</p>
+<p>useful <code>while</code> statement that we can imagine has an invariant associated with it. Stating the</p>
+<p>invariant in a comment can make a <code>while</code> much easier to understand.</p>
+<h2 id="String-class-size"><a href="#String-class-size" class="headerlink" title="String class size"></a>String class size</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> std::string::size_type cols = greeting.<span class="built_in">size</span>() + pad * <span class="number">2</span> + <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<p>The second :: similarly says that we want the name <code>size_type</code><br>from the class <code>string</code>.<br>Like namespaces and blocks, classes define their own scopes.<br>The <code>std::string</code> type defines <code>size_type</code> to be the name of the<br>appropriate type for holding the number of characters ina string.<br>Whenever we need a local variable to contain the size of a <code>string</code>,<br>we should use <code>std::string::size_type</code> as the type of that variable.</p>
+<p>The reason that we have given <code>cols</code> a type of <code>std::string::size_type</code><br>is to ensure that cols is capable of containing the number<br>of characters in <code>greeting</code>, no matter howlarge that number<br>might be. We could simply have said that <code>cols</code> has type int,<br>andindeed, doing so would probably work. However, the value<br>of <code>cols</code> depends on the size ofthe input to our program, and<br>we have no control over how long that input might be.<br>It is conceivable that someone might give our program a<br>string so long that an <code>int</code> is insufficientto contain its length.</p>
+<p>more read <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1181079/stringsize-type-instead-of-int">Stack overflow string::size_type instead of int</a></p>
+<p><em>The important idea</em>:<br><strong>Nevertheless, whenever we define avariable that contains the size of a particular data structure, it is a good habit to use the type that the library defines as being appropriate for that specific purpose</strong></p>
+<h2 id="Abbreviating-repeated-uses-of-std"><a href="#Abbreviating-repeated-uses-of-std" class="headerlink" title="Abbreviating repeated uses of std::"></a>Abbreviating repeated uses of std::</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> std::cout;</span><br></pre></td></tr></table></figure>
+
+<p>we can say that we intend to use the name cout to mean std::cout<br>exclusively, and thatwe do not intend to define anything named<br>cout ourselves. Once we have done so, we cansay cout instead<br>of <code>std::cout</code></p>
+<p>The name that itmentions behaves similarly to other names.<br>For example, if a using-declaration appearswithin braces,<br>the name that it defines has its given meaning from where<br>it is defined to theclosing brace.</p>
+<h2 id="off-the-end-value"><a href="#off-the-end-value" class="headerlink" title="off-the-end value"></a>off-the-end value</h2><p>We can think of 0 as being the beginning of a range,<br>androws as being the off-the-end value for the range.<br>Such a range is called a half-openrange, and is often written<br>as [begin, off-the-end).</p>
+<h2 id="statement-vs-expression"><a href="#statement-vs-expression" class="headerlink" title="statement vs expression"></a>statement vs expression</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (init-statement  condition; expression)</span><br><span class="line">    statement</span><br></pre></td></tr></table></figure>
+
+<p>statement often have their own semicolon.</p>
+<h2 id="0-rows-vs-1-rows"><a href="#0-rows-vs-1-rows" class="headerlink" title="[0, rows) vs [1, rows]"></a>[0, rows) vs [1, rows]</h2><p>Asymmetric ranges are usually easier to use than symmetric ones<br>because of an important property: A range of the form <code>[m, n)</code><br>has <code>n - m</code> elements, and a range of the form <code>[m,n]</code> has <code>n - m + 1</code><br>elements. So, for example, the number of elements in <code>[0, rows)</code><br>is obvious (i.e., <code>rows - 0</code>, or <code>rows</code>) but the number in <code>[1, rows]</code><br>is less so.</p>
+<p>This behavioral difference between asymmetric and symmetric<br>ranges is particularly evident in the case of empty ranges:<br>If we use asymmetric ranges, we can express an empty rangeas<br><code>[n, n)</code>, in contrast to <code>[n, n-1]</code> for symmetric ranges.<br>The possibility that the end of arange could ever be less than<br><strong>the beginning can cause no end of trouble in designingprograms</strong></p>
+<p>Another reason to count from <code>0</code> is that doing so makes loop<br>invariants easier to express. Inour example, counting from <code>0</code><br>makes the invariant straightforward: We have written r rowsof<br>output so far. What would be the invariant if we counted from <code>1</code>?</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Cpp/" rel="tag"># Cpp</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter01/" rel="prev" title="Accelerated_Cpp_chapter01 String">
+      <i class="fa fa-chevron-left"></i> Accelerated_Cpp_chapter01 String
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter03/" rel="next" title="Accelerated_Cpp_chapter03 Working with batches of data">
+      Accelerated_Cpp_chapter03 Working with batches of data <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Looping-and-counting"><span class="nav-number">1.</span> <span class="nav-text">Looping and counting</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#i-vs-i-x3D-i-1"><span class="nav-number">1.2.</span> <span class="nav-text">i ++ vs i &#x3D; i + 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Designing-a-while-statement"><span class="nav-number">1.3.</span> <span class="nav-text">Designing a while statement</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String-class-size"><span class="nav-number">1.4.</span> <span class="nav-text">String class size</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Abbreviating-repeated-uses-of-std"><span class="nav-number">1.5.</span> <span class="nav-text">Abbreviating repeated uses of std::</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#off-the-end-value"><span class="nav-number">1.6.</span> <span class="nav-text">off-the-end value</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#statement-vs-expression"><span class="nav-number">1.7.</span> <span class="nav-text">statement vs expression</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-rows-vs-1-rows"><span class="nav-number">1.8.</span> <span class="nav-text">[0, rows) vs [1, rows]</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">krmmzs</p>
+  <div class="site-description" itemprop="description">233</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/krmmzs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;krmmzs" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:belliyan250@gmail.com" title="E-Mail → mailto:belliyan250@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://youtube.com/krmmzs" title="YouTube → https:&#x2F;&#x2F;youtube.com&#x2F;krmmzs" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">krmmzs</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Effective cpp 00 IntroductionIntroductionTerminologysignature differences when read this book每个函数的声明揭示其签名式(signature)，也就是参数和返回类型。一个函数的签名等同于该函数的类型。 Sometimes signature includes the return type, sometim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Effective Cpp 00 Intro">
+<meta property="og:url" content="http://example.com/2022/10/24/Effective-Cpp-00Intro/index.html">
+<meta property="og:site_name" content="krmmzs">
+<meta property="og:description" content="Effective cpp 00 IntroductionIntroductionTerminologysignature differences when read this book每个函数的声明揭示其签名式(signature)，也就是参数和返回类型。一个函数的签名等同于该函数的类型。 Sometimes signature includes the return type, sometim">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-10-24T00:58:31.000Z">
+<meta property="article:modified_time" content="2022-10-25T04:07:36.055Z">
+<meta property="article:author" content="krmmzs">
+<meta property="article:tag" content="Cpp">
+<meta property="article:tag" content="Effective cpp">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/10/24/Effective-Cpp-00Intro/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Effective Cpp 00 Intro | krmmzs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">krmmzs</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/Effective-Cpp-00Intro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Effective Cpp 00 Intro
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-10-24 08:58:31" itemprop="dateCreated datePublished" datetime="2022-10-24T08:58:31+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-10-25 12:07:36" itemprop="dateModified" datetime="2022-10-25T12:07:36+08:00">2022-10-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/Effective-cpp/" itemprop="url" rel="index"><span itemprop="name">Effective cpp</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Effective-cpp-00-Introduction"><a href="#Effective-cpp-00-Introduction" class="headerlink" title="Effective cpp 00 Introduction"></a>Effective cpp 00 Introduction</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h3><h3 id="signature-differences-when-read-this-book"><a href="#signature-differences-when-read-this-book" class="headerlink" title="signature differences when read this book"></a>signature differences when read this book</h3><p>每个函数的声明揭示其签名式(signature)，也就是参数和返回类型。一个函数<br>的签名等同于该函数的类型。</p>
+<p><strong>Sometimes signature includes the return type, sometimes it doesn’t.</strong></p>
+<p>More see <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/290038/is-the-return-type-part-of-the-function-signature">Is the return type part of the function signature?</a></p>
+<p>C++对签名式的官方定义并不包括函数的返回类型，不过本书把返回类型视为签名的一部分，这样比较有帮助。</p>
+<h3 id="keyword-explicit"><a href="#keyword-explicit" class="headerlink" title="keyword explicit"></a>keyword <code>explicit</code></h3><p>explicit关键字只能用于构造函数的声明中，用于阻止隐式转换。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">B</span><span class="params">(<span class="type">int</span> x = <span class="number">0</span>, <span class="type">bool</span> b = <span class="literal">true</span>)</span></span>; <span class="comment">// default constructor;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">C</span><span class="params">(<span class="type">int</span> x)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The constructors for classes B and C are declared explicit here. That<br>prevents them from being used to perform implicit type conversions,<br>though they may still be used for explicit type conversions</p>
+<p>More see <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/121162/what-does-the-explicit-keyword-mean">What does the explicit keyword mean?</a></p>
+<h3 id="the-“-x3D-”-syntax-can-also-be-used-to-call-the-copy-constructor"><a href="#the-“-x3D-”-syntax-can-also-be-used-to-call-the-copy-constructor" class="headerlink" title="the “&#x3D;” syntax can also be used to call the copy constructor"></a>the “&#x3D;” syntax can also be used to call the copy constructor</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Widget w3 = w2;</span><br></pre></td></tr></table></figure>
+
+<p>Fortunately,  copy  construction  is  easy  to  distinguish  from  copy  as-<br>signment. If a new object is being defined (such as w3 in the statement<br>above), a constructor has to be called; it can’t be an assignment. If no<br>new object is being defined (such as in the “w1&#x3D; w2” statement above),<br>no constructor can be involved, so it’s an assignment.</p>
+<p>The copy constructor is a particularly important function, because it<br>defines how an object is passed by value. For example, consider this:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">asAcceptableQuality</span><span class="params">(Widget w)</span></span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">Widget aWidge;</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">hasAcceptableQuality</span>(aWidget))</span><br><span class="line">    <span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+
+<p>The parameter w is passed to hasAcceptableQuality by value, so in the<br>call above, aWidget is copied into w. The copying is done by Widget’s<br>copy  constructor.</p>
+<h3 id="function-objects"><a href="#function-objects" class="headerlink" title="function  objects"></a>function  objects</h3><p>objects that act like function.</p>
+<p>STL</p>
+<h3 id="undefined-behavior"><a href="#undefined-behavior" class="headerlink" title="undefined behavior"></a>undefined behavior</h3><p>The C++ standard doesn’t define what happens when you do something</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p = <span class="number">0</span>; <span class="comment">// p is a null pointer</span></span><br><span class="line">std::cout &lt;&lt; *p; <span class="comment">// dereference a null pointer</span></span><br><span class="line">                 <span class="comment">// yields undefined behavior</span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> name[] = <span class="string">&quot;Darla&quot;</span>; <span class="comment">// name is an array of size 6(don&#x27;t for get the trailing null!)</span></span><br><span class="line">                       <span class="comment">// yields undefined behavior</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Cpp-without-interface-language-element"><a href="#Cpp-without-interface-language-element" class="headerlink" title="Cpp without interface(language element)"></a>Cpp without interface(language element)</h3><p>when talking about interfaces in cpp as a fairly general de-sign idea.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Cpp/" rel="tag"># Cpp</a>
+              <a href="/tags/Effective-cpp/" rel="tag"># Effective cpp</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/10/24/cszh-en-table/" rel="prev" title="cszh-en table">
+      <i class="fa fa-chevron-left"></i> cszh-en table
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/24/Telegram-webm-to-gif/" rel="next" title="Telegram webm to gif">
+      Telegram webm to gif <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Effective-cpp-00-Introduction"><span class="nav-number">1.</span> <span class="nav-text">Effective cpp 00 Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Terminology"><span class="nav-number">1.1.1.</span> <span class="nav-text">Terminology</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#signature-differences-when-read-this-book"><span class="nav-number">1.1.2.</span> <span class="nav-text">signature differences when read this book</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#keyword-explicit"><span class="nav-number">1.1.3.</span> <span class="nav-text">keyword explicit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-%E2%80%9C-x3D-%E2%80%9D-syntax-can-also-be-used-to-call-the-copy-constructor"><span class="nav-number">1.1.4.</span> <span class="nav-text">the “&#x3D;” syntax can also be used to call the copy constructor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#function-objects"><span class="nav-number">1.1.5.</span> <span class="nav-text">function  objects</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined-behavior"><span class="nav-number">1.1.6.</span> <span class="nav-text">undefined behavior</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cpp-without-interface-language-element"><span class="nav-number">1.1.7.</span> <span class="nav-text">Cpp without interface(language element)</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">krmmzs</p>
+  <div class="site-description" itemprop="description">233</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/krmmzs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;krmmzs" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:belliyan250@gmail.com" title="E-Mail → mailto:belliyan250@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://youtube.com/krmmzs" title="YouTube → https:&#x2F;&#x2F;youtube.com&#x2F;krmmzs" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">krmmzs</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
