@@ -158,7 +158,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/30/LeetCode-29-Divide-Two-Integers/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/30/Leetcode/LeetCode-31-Next-Permutation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -172,7 +172,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/10/30/LeetCode-29-Divide-Two-Integers/" class="post-title-link" itemprop="url">LeetCode 29. Divide Two Integers</a>
+            <a href="/2022/10/30/Leetcode/LeetCode-31-Next-Permutation/" class="post-title-link" itemprop="url">LeetCode 31. Next Permutation</a>
         </h2>
 
         <div class="post-meta">
@@ -183,7 +183,85 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-10-30 16:41:33 / Modified: 16:59:56" itemprop="dateCreated datePublished" datetime="2022-10-30T16:41:33+08:00">2022-10-30</time>
+              <time title="Created: 2022-10-30 17:10:45 / Modified: 17:49:34" itemprop="dateCreated datePublished" datetime="2022-10-30T17:10:45+08:00">2022-10-30</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="LeetCode-31-Next-Permutation"><a href="#LeetCode-31-Next-Permutation" class="headerlink" title="LeetCode 31. Next Permutation"></a>LeetCode 31. Next Permutation</h1><h2 id="Main-Idea"><a href="#Main-Idea" class="headerlink" title="Main Idea"></a>Main Idea</h2><p>这个感觉在大二上看离散数学黑书里研究过，建议直接翻书</p>
+<p>一个数想变大，肯定是后面开始变大，</p>
+<p>很直觉地就抽象成点图</p>
+<p>然后看升序降序</p>
+<p>下一个排列就是从右往左找到第一个升序的位置，然后从这个位置往右找到第一个比他大的数，然后交换，然后把这个位置往右的数从小到大排序</p>
+<p>Ex: 2 3 5 4 1</p>
+<pre>
+^
+|
+|   .            
+|    .
+|  .
+| .   .  
+|
+|-------------------->
+</pre>
+
+<p>交换了 3 和 4</p>
+<p>然后把 4 之后的数从小到大排序， 翻转即可</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">nextPermutation</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt;::size_type k = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (k != <span class="number">0</span> &amp;&amp; nums[k - <span class="number">1</span>] &gt;= nums[k]) &#123;</span><br><span class="line">            k --;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (k == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            vector&lt;<span class="type">int</span>&gt;::size_type t = k;</span><br><span class="line">            <span class="keyword">while</span> (t &lt; nums.<span class="built_in">size</span>() &amp;&amp; nums[t] &gt; nums[k - <span class="number">1</span>]) &#123;</span><br><span class="line">                t ++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">swap</span>(nums[t - <span class="number">1</span>], nums[k - <span class="number">1</span>]);</span><br><span class="line">            <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>() + k, nums.<span class="built_in">end</span>());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/30/Leetcode/LeetCode-29-Divide-Two-Integers/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/30/Leetcode/LeetCode-29-Divide-Two-Integers/" class="post-title-link" itemprop="url">LeetCode 29. Divide Two Integers</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-30 16:41:33 / Modified: 17:13:02" itemprop="dateCreated datePublished" datetime="2022-10-30T16:41:33+08:00">2022-10-30</time>
             </span>
 
           
@@ -1069,116 +1147,6 @@ Sx
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/25/Cpp/rand-Considered-Harmful/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/25/Cpp/rand-Considered-Harmful/" class="post-title-link" itemprop="url">rand-Considered-Harmful</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-10-25 18:58:02 / Modified: 20:29:51" itemprop="dateCreated datePublished" datetime="2022-10-25T18:58:02+08:00">2022-10-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>最近我在阅读Accelerated C++的时候，有道标注了diffcult的习题:</p>
-<blockquote>
-<p>7-9. (difficult) The implementation of nrand in §7.4.4&#x2F;135 will not work for arguments greater than RAND_MAX. Usually, this restriction is no problem, because RAND_MAX is often the largest possible integer anyway. Nevertheless, there are implementations under which RAND_MAX is much smaller than the largest possible integer. For example, it is not uncommon for RAND_MAX to be 32767 (2^15 -1) and the largest possible integer to be 2147483647 (2^31 -1). Reimplement nrand so that it works well for all values of n.</p>
-</blockquote>
-<p>其中，被要求更改的程序如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">nrand</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span> || n &gt; RAND_MAX)</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">domain_error</span>(<span class="string">&quot;Argument to nrand is out of range&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> bucket_size = RAND_MAX / n;</span><br><span class="line">    <span class="type">int</span> r;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> r = <span class="built_in">rand</span>() / bucket_size;</span><br><span class="line">    <span class="keyword">while</span> (r &gt;= n);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上述要被修改的程序其实本身就是对cpp的rand()的一个规避程序(为了不使用rand() % n)。</p>
-<p>书中给出的原因：</p>
-<blockquote>
-<p>The most important reason is pragmatic: rand() really returns only pseudo-random<br>numbers. Many C++ implementations’ pseudo-random-number generators give remainders<br>that aren’t very random when the quotients are small integers. For example, it is not<br>uncommon for successive results of rand() to be alternately even and odd. In that case, if<br>n is 2, successive results of rand() % n will alternate between 0 and 1.</p>
-</blockquote>
-<blockquote>
-<p>There is another, more subtle reason to avoid using rand() % n: If the value of n is large<br>and RAND_MAX is not evenly divisible by n, some remainders will appear more often than<br>others.</p>
-</blockquote>
-<p>然后给出上述需要被修改的程序的解释：</p>
-<blockquote>
-<p>To avoid these pitfalls, we’ll use a different strategy, by dividing the range of available<br>random numbers into buckets of exactly equal size. Then we can compute a random number<br>and return the number of the corresponding bucket. Because the buckets are of equal size,<br>some random numbers may not fall into any bucket at all. In that case, we keep asking for<br>forrandom numbers until we get one that fits.</p>
-</blockquote>
-<p>给了一个例子：<br>假如n &#x3D; 3, 这样<code>bucket_size</code> &#x3D; 10922<br>这样就产生了[0, 10922), [10922, 21844), [21844, 32767), [32767, RAND_MAX)四个区间，其中最后一个区间的最大值是RAND_MAX，所以最后一个区间的值是不会被使用的。</p>
-<p>If you look up <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/numeric/random/rand">C++ documentation on rand()</a>,<br>you’ll see that it returns “a pseudo-random integral value<br>between 0 and RAND_MAX.” <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/numeric/random/RAND_MAX">Click again</a> on RAND_MAX and you’ll<br>see that “This value is implementation dependent.<br>It’s guaranteed that this value is at least 32767.”</p>
-<p>所以是非常有必要进行修改的(codeforces的机器就是32767)。</p>
-<h2 id="Solution-Thinking"><a href="#Solution-Thinking" class="headerlink" title="Solution Thinking"></a>Solution Thinking</h2><p>顺着作者给出的思路，分区间。</p>
-<p>假设 n 会大于 RAND_MAX, 我们应该首先计算大于RAND_MAX的数字的桶的数量。</p>
-<p>它首先计算大于RAND_MAX的数字的桶的数量，并为每个桶计算一个随机数。<br>最后一个桶将有一个介于[0, n % RAND_MAX]之间的随机数，<br>其他桶将有一个介于[0, RAND_MAX]之间的随机数。</p>
-<p>给个例子：<br>假设 n &#x3D; 1000000000, RAND_MAX &#x3D; 32767(2^15 - 1)<br>那么我们需要计算的桶的数量为 1000000000 &#x2F; 32767 &#x3D; 30569<br>最后一个桶的随机数的范围为[0, 1000000000 % 32767] &#x3D; [0, 32766]<br>其他桶的随机数的范围为[0, RAND_MAX] &#x3D; [0, 32767]</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">nrand</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">domain_error</span>(<span class="string">&quot;Argument to nrand is out of range&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> buckets = n / RAND_MAX;</span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> last_bucket = RAND_MAX / (n % RAND_MAX);</span><br><span class="line">    <span class="type">int</span> r;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> r = <span class="built_in">rand</span>() / last_bucket;</span><br><span class="line">    <span class="keyword">while</span> (r &gt;= n);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// add the remaining buckets for numbers larger than RAND_MAX</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; buckets; ++i) &#123;</span><br><span class="line">        r += <span class="built_in">rand</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Back-to-the-question-of-cpp-itself"><a href="#Back-to-the-question-of-cpp-itself" class="headerlink" title="Back to the question of cpp itself"></a>Back to the question of cpp itself</h2><p>能够明细看到cpp的rand()的实现是有问题的，<br>不过，它并没有就此打住；random_shuffle()也使用了rand()。<br>回顾一下，为了进行随机洗牌，我们需要生成随机索引，直到n，即数组的大小。但是如果rand()只能达到32767，那么如果我们在一个元素明显多于这个数组上调用random_shuffle()会发生什么？</p>
-<h2 id="rand-Solution"><a href="#rand-Solution" class="headerlink" title="rand() Solution"></a>rand() Solution</h2><p>别担心，从C++11开始，C++中有更好的随机数生成器可用。<br>你唯一需要记住的是使用包含在<random>头文件中的mt19937。<br>这是一个基于素数219937-1的Mersenne Twister，这也恰好是它的周期。<br>它是一个比rand()质量高得多的RNG，而且速度更快（在自定义调用中，<br>从mt19937生成和添加108个数字需要389毫秒，而rand()需要1170毫秒）。<br>它还能在0和232-1&#x3D;4294967295之间产生完整的32位无符号输出，而不是最大限度的32767。</p>
-<p>为了取代random_shuffle()，你现在可以调用shuffle()并传入你的mt19937作为第三个参数；shuffle算法将使用你提供的生成器进行洗牌。</p>
-<h2 id="C-11-Solution"><a href="#C-11-Solution" class="headerlink" title="C++11 Solution"></a>C++11 Solution</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;random&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rand_generator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">std::mt19937 <span class="title">mt</span><span class="params">(<span class="number">1729</span>)</span></span>;</span><br><span class="line">    <span class="function">std::uniform_int_distribution&lt;<span class="type">int</span>&gt; <span class="title">dist</span><span class="params">(<span class="number">0</span>, <span class="number">99</span>)</span></span>;</span><br><span class="line">    <span class="keyword">auto</span> generator = std::<span class="built_in">bind</span>(dist, mt);</span><br><span class="line">    <span class="type">int</span> random = <span class="built_in">generator</span>();</span><br><span class="line">    <span class="keyword">return</span> random;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>explanation:</p>
-<p>1729 is Deterministic 32-bit seed<br>mt is this engnie object: [0, $2^{32}$]<br>dist is this distribution object: <a href="%E4%BB%A5%E7%A6%BB%E6%95%A3%E5%9E%8B%E5%9D%87%E5%8C%80%E5%88%86%E5%B8%83%E6%96%B9%E5%BC%8F%E4%BA%A7%E7%94%9Fint%E4%B9%B1%E6%95%B0%EF%BC%8C%E8%8C%83%E5%9B%B4%E8%90%BD%E5%9C%A80%E5%88%B099">0, 99</a><br>dist(mt) is mean: Run engine, viewed through distribution<br>bind （利用bind将随机数生产引擎和分布组合成一个随机生成物件）</p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li><p><a target="_blank" rel="noopener" href="https://codeforces.com/blog/entry/61587">rand-Considered-Harmful</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/C%2B%2B11#Extensible_random_number_facility">C++11 Wiki Extensible random number facility</a></p>
-</li>
-</ul>
-<p>如果想要看字幕<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=LDPMpc-ENqY">youtube</a>也有</p>
-<h2 id="More"><a href="#More" class="headerlink" title="More"></a>More</h2><p><a target="_blank" rel="noopener" href="http://xoshiro.di.unimi.it/">If you want even faster, higher-quality random number generators, take a look at this site by Sebastiano Vigna.</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1248,7 +1216,7 @@ Sx
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
