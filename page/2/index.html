@@ -158,7 +158,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/cszh-en-table/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/25/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter07/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -172,7 +172,284 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/10/24/cszh-en-table/" class="post-title-link" itemprop="url">cszh-en table</a>
+            <a href="/2022/10/25/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter07/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter07</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-25 17:49:27 / Modified: 19:58:15" itemprop="dateCreated datePublished" datetime="2022-10-25T17:49:27+08:00">2022-10-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/Accelerated-Cpp/" itemprop="url" rel="index"><span itemprop="name">Accelerated Cpp</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="chapter-07-Using-associative-containers"><a href="#chapter-07-Using-associative-containers" class="headerlink" title="chapter 07 Using associative containers"></a>chapter 07 Using associative containers</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><h2 id="sequence-containers-vs-associative-containers"><a href="#sequence-containers-vs-associative-containers" class="headerlink" title="sequence containers vs associative containers"></a>sequence containers vs associative containers</h2><p>Another important difference between associative and sequential containers is that, because<br>associative containers are self-ordering, our own programs must not do anything tha<br>changes the order of the elements.</p>
+<p>For that reason, <strong>algorithms that change the contents of</strong><br><strong>containers often don’t work for associative containers</strong>. In exchange for that restriction,<br>associative containers offer a variety of useful operations that are impossible to implement<br>implementefficiently for sequential containers.</p>
+<h2 id="map’s-key-is-const"><a href="#map’s-key-is-const" class="headerlink" title="map’s key is const"></a>map’s key is const</h2><p>Note that the <strong>pair</strong> associated with a <strong>map</strong> has a key type that is <strong>const</strong>.<br>key is <strong>const</strong>, we are prevented from changing the value of an element’s key. If the key<br>were not <strong>const</strong>, we might implicitly change the element’s position within the <strong>map</strong>.<br>Accordingly, the key is always <strong>const</strong>, so that if we dereference a <code>map&lt;string, int&gt;</code><br>iterator, we get a <code>pair&lt;const string, int&gt;</code>.</p>
+<h2 id="high-order-function-let-function-be-a-interface"><a href="#high-order-function-let-function-be-a-interface" class="headerlink" title="high order function let function be a interface"></a>high order function let function be a interface</h2><p>Rather than using <strong>split</strong> directly, we’re going to make it a parameter to the cross-reference<br>function. That way, we leave open the possibility of changing the way we find the words on a<br>line. For example, we could pass the <strong>find_urls</strong> function from §6.1.3&#x2F;105, and use the<br>cross-reference function to see where URLs appear in the input.</p>
+<h2 id="rand-function"><a href="#rand-function" class="headerlink" title="rand function"></a>rand function</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// return a random integer in the rang [0, n)</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">nrand</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span> || n &gt; RAND_MAX)</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">domain_error</span>(<span class="string">&quot;Argument to nrand is out of range&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> bucket_size = RAND_MAX / n;</span><br><span class="line">    <span class="type">int</span> r;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> r = <span class="built_in">rand</span>() / bucket_size;</span><br><span class="line">    <span class="keyword">while</span> (r &gt;= n);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>for example:<br>assume that n is 3. Then bucket_size will be 10922. In this case,<br>values of rand() in the range [0, 10922) will yield 0, values in the range [10922,<br>21844) will yield 1, values in the range [21844, 32766) will yield 2, and values of 32766<br>or 32767 will be discarded.</p>
+<h2 id="access-operator-will-create-a-new-element-in-map"><a href="#access-operator-will-create-a-new-element-in-map" class="headerlink" title="[] access operator will create a new element in map"></a>[] access operator will create a new element in map</h2><p>Indexes the <strong>map</strong> using a key, <strong>k</strong>, of type <strong>K</strong>, and returns an <strong>lvalue</strong> of type <strong>V</strong>. If there is no<br>entry for the given key, a new value-initialized element is created and inserted into the<br><strong>map</strong> with this key.<br>Because using <strong>[]</strong> to access a <strong>map</strong> might create a new element, <strong>[]</strong> is<br>not allowed on a <strong>const map</strong>.</p>
+<p><a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/container/map/operator_at">std::map&lt;Key,T,Compare,Allocator&gt;::operator[] in cppreference.com</a></p>
+<blockquote>
+<p>Returns a reference to the value that is mapped to a key equivalent to key, performing an insertion if such key does not already exist.</p>
+</blockquote>
+<p><strong>a reference to the value obviously is a lvalue.</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/Telegram/Telegram-webm-to-gif/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/Telegram/Telegram-webm-to-gif/" class="post-title-link" itemprop="url">Telegram webm to gif</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-24 18:12:39 / Modified: 20:01:58" itemprop="dateCreated datePublished" datetime="2022-10-24T18:12:39+08:00">2022-10-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Anime/" itemprop="url" rel="index"><span itemprop="name">Anime</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Anime/FFmpeg/" itemprop="url" rel="index"><span itemprop="name">FFmpeg</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Telegram-webm-to-gif"><a href="#Telegram-webm-to-gif" class="headerlink" title="Telegram webm to gif"></a>Telegram webm to gif</h1><h2 id="1-Download-webm"><a href="#1-Download-webm" class="headerlink" title="1. Download webm"></a>1. Download webm</h2><p><a target="_blank" rel="noopener" href="https://t.me/DownloadStickersBot">https://t.me/DownloadStickersBot</a></p>
+<p>这个机器人可以下载 Telegram 的 sticker.</p>
+<p>简介： Download your favourite stickers in jpg,png,webp formats or whole pack as zip file.</p>
+<p>然后就会把zip发送到你的电脑上，解压后就是webm文件。</p>
+<h2 id="2-Convert-webm-to-gif"><a href="#2-Convert-webm-to-gif" class="headerlink" title="2. Convert webm to gif"></a>2. Convert webm to gif</h2><p>文件：webmToGif.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *.webm; <span class="keyword">do</span></span><br><span class="line">    ffmpeg -i <span class="string">&quot;<span class="variable">$i</span>&quot;</span> -pix_fmt rgb24 <span class="string">&quot;<span class="variable">$&#123;i%.webm&#125;</span>.gif&quot;</span>; </span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<p>将webmToGif.sh放到webm文件夹下，然后执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x webmToGif.sh</span><br><span class="line">./webmToGif.sh</span><br></pre></td></tr></table></figure>
+
+<p>就会把webm文件夹下的所有webm文件转换为gif文件。</p>
+<h2 id="3-reduce-gif-size"><a href="#3-reduce-gif-size" class="headerlink" title="3. reduce gif size"></a>3. reduce gif size</h2><p>文件：reduceGifSize.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *.gif; <span class="keyword">do</span></span><br><span class="line">    gifsicle -optimize=3 <span class="string">&quot;<span class="variable">$i</span>&quot;</span> -o <span class="string">&quot;<span class="variable">$&#123;i%.gif&#125;</span>_reduced.gif&quot;</span>;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<p>在同一个目录下执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x reduceGifSize.sh</span><br><span class="line">./reduceGifSize.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://askubuntu.com/questions/506670/how-to-do-i-convert-an-webm-video-to-a-animated-gif-on-the-command-line">Ubuntu ask How to do I convert a webm(video) to a (animated) gif on the command line?</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ffmpeg.org/doxygen/3.3/group__lavc__misc__pixfmt.html">FFmpeg Pixel formats</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/kohler/gifsicle">gifsicle</a></p>
+<p><a target="_blank" rel="noopener" href="https://gist.github.com/Potherca/18423260e2c9a4324c9ecb0c0a284066">Potherca&#x2F;README.md</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/Cpp/Effctive-Cpp/Effective-Cpp-00Intro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/Cpp/Effctive-Cpp/Effective-Cpp-00Intro/" class="post-title-link" itemprop="url">Effective Cpp 00 Intro</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-10-24 08:58:31" itemprop="dateCreated datePublished" datetime="2022-10-24T08:58:31+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-10-25 12:07:36" itemprop="dateModified" datetime="2022-10-25T12:07:36+08:00">2022-10-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/Effective-cpp/" itemprop="url" rel="index"><span itemprop="name">Effective cpp</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Effective-cpp-00-Introduction"><a href="#Effective-cpp-00-Introduction" class="headerlink" title="Effective cpp 00 Introduction"></a>Effective cpp 00 Introduction</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h3><h3 id="signature-differences-when-read-this-book"><a href="#signature-differences-when-read-this-book" class="headerlink" title="signature differences when read this book"></a>signature differences when read this book</h3><p>每个函数的声明揭示其签名式(signature)，也就是参数和返回类型。一个函数<br>的签名等同于该函数的类型。</p>
+<p><strong>Sometimes signature includes the return type, sometimes it doesn’t.</strong></p>
+<p>More see <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/290038/is-the-return-type-part-of-the-function-signature">Is the return type part of the function signature?</a></p>
+<p>C++对签名式的官方定义并不包括函数的返回类型，不过本书把返回类型视为签名的一部分，这样比较有帮助。</p>
+<h3 id="keyword-explicit"><a href="#keyword-explicit" class="headerlink" title="keyword explicit"></a>keyword <code>explicit</code></h3><p>explicit关键字只能用于构造函数的声明中，用于阻止隐式转换。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">B</span><span class="params">(<span class="type">int</span> x = <span class="number">0</span>, <span class="type">bool</span> b = <span class="literal">true</span>)</span></span>; <span class="comment">// default constructor;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">C</span><span class="params">(<span class="type">int</span> x)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The constructors for classes B and C are declared explicit here. That<br>prevents them from being used to perform implicit type conversions,<br>though they may still be used for explicit type conversions</p>
+<p>More see <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/121162/what-does-the-explicit-keyword-mean">What does the explicit keyword mean?</a></p>
+<h3 id="the-“-x3D-”-syntax-can-also-be-used-to-call-the-copy-constructor"><a href="#the-“-x3D-”-syntax-can-also-be-used-to-call-the-copy-constructor" class="headerlink" title="the “&#x3D;” syntax can also be used to call the copy constructor"></a>the “&#x3D;” syntax can also be used to call the copy constructor</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Widget w3 = w2;</span><br></pre></td></tr></table></figure>
+
+<p>Fortunately,  copy  construction  is  easy  to  distinguish  from  copy  as-<br>signment. If a new object is being defined (such as w3 in the statement<br>above), a constructor has to be called; it can’t be an assignment. If no<br>new object is being defined (such as in the “w1&#x3D; w2” statement above),<br>no constructor can be involved, so it’s an assignment.</p>
+<p>The copy constructor is a particularly important function, because it<br>defines how an object is passed by value. For example, consider this:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">asAcceptableQuality</span><span class="params">(Widget w)</span></span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">Widget aWidge;</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">hasAcceptableQuality</span>(aWidget))</span><br><span class="line">    <span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+
+<p>The parameter w is passed to hasAcceptableQuality by value, so in the<br>call above, aWidget is copied into w. The copying is done by Widget’s<br>copy  constructor.</p>
+<h3 id="function-objects"><a href="#function-objects" class="headerlink" title="function  objects"></a>function  objects</h3><p>objects that act like function.</p>
+<p>STL</p>
+<h3 id="undefined-behavior"><a href="#undefined-behavior" class="headerlink" title="undefined behavior"></a>undefined behavior</h3><p>The C++ standard doesn’t define what happens when you do something</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p = <span class="number">0</span>; <span class="comment">// p is a null pointer</span></span><br><span class="line">std::cout &lt;&lt; *p; <span class="comment">// dereference a null pointer</span></span><br><span class="line">                 <span class="comment">// yields undefined behavior</span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> name[] = <span class="string">&quot;Darla&quot;</span>; <span class="comment">// name is an array of size 6(don&#x27;t for get the trailing null!)</span></span><br><span class="line">                       <span class="comment">// yields undefined behavior</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Cpp-without-interface-language-element"><a href="#Cpp-without-interface-language-element" class="headerlink" title="Cpp without interface(language element)"></a>Cpp without interface(language element)</h3><p>when talking about interfaces in cpp as a fairly general de-sign idea.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/English/cszh-en-table/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/English/cszh-en-table/" class="post-title-link" itemprop="url">cszh-en table</a>
         </h2>
 
         <div class="post-meta">
@@ -231,7 +508,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/23/ffmpeg-crop-anime-Bocchi-the-Rock-record/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/23/Anime/ffmpeg-crop-anime-Bocchi-the-Rock-record/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -245,7 +522,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/10/23/ffmpeg-crop-anime-Bocchi-the-Rock-record/" class="post-title-link" itemprop="url">ffmpeg crop anime Bocchi the Rock record</a>
+            <a href="/2022/10/23/Anime/ffmpeg-crop-anime-Bocchi-the-Rock-record/" class="post-title-link" itemprop="url">ffmpeg crop anime Bocchi the Rock record</a>
         </h2>
 
         <div class="post-meta">
@@ -439,7 +716,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/23/Downloading-a-video-from-the-Internet/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/23/Linux/Shell/Downloading-a-video-from-the-Internet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -453,7 +730,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/10/23/Downloading-a-video-from-the-Internet/" class="post-title-link" itemprop="url">Downloading_a_video_from_the_Internet</a>
+            <a href="/2022/10/23/Linux/Shell/Downloading-a-video-from-the-Internet/" class="post-title-link" itemprop="url">Downloading_a_video_from_the_Internet</a>
         </h2>
 
         <div class="post-meta">
@@ -872,7 +1149,7 @@ $HOME/.profile和$HOME/.bash_profile这3个文件的。这是因为图形化窗�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/21/Shell/Top-Ten-One-Liners-from-CommandLineFu-Explained/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/21/Linux/Shell/Top-Ten-One-Liners-from-CommandLineFu-Explained/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -886,7 +1163,7 @@ $HOME/.profile和$HOME/.bash_profile这3个文件的。这是因为图形化窗�
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/10/21/Shell/Top-Ten-One-Liners-from-CommandLineFu-Explained/" class="post-title-link" itemprop="url">Top_Ten_One-Liners_from_CommandLineFu_Explained</a>
+            <a href="/2022/10/21/Linux/Shell/Top-Ten-One-Liners-from-CommandLineFu-Explained/" class="post-title-link" itemprop="url">Top_Ten_One-Liners_from_CommandLineFu_Explained</a>
         </h2>
 
         <div class="post-meta">
@@ -1041,283 +1318,10 @@ $HOME/.profile和$HOME/.bash_profile这3个文件的。这是因为图形化窗�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/20/Anime/Do-It-Yourself/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/20/Anime/Do-It-Yourself/" class="post-title-link" itemprop="url">Do_It_Yourself</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-10-20 20:58:20 / Modified: 22:07:49" itemprop="dateCreated datePublished" datetime="2022-10-20T20:58:20+08:00">2022-10-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Anime/" itemprop="url" rel="index"><span itemprop="name">Anime</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Anime/Do-It-Yourself/" itemprop="url" rel="index"><span itemprop="name">Do It Yourself</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Do-It-Yourself"><a href="#Do-It-Yourself" class="headerlink" title="Do It Yourself"></a>Do It Yourself</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><h2 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h2><p><a target="_blank" rel="noopener" href="https://www.diy-anime.com/">Official Website</a><br><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Do_It_Yourself!!">WIKI</a></p>
-<h2 id="Stuffs"><a href="#Stuffs" class="headerlink" title="Stuffs"></a>Stuffs</h2><h3 id="Caulk-填缝剂"><a href="#Caulk-填缝剂" class="headerlink" title="Caulk 填缝剂"></a>Caulk 填缝剂</h3><p>填缝剂或不太常用的填缝剂是一种用于密封各种结构和管道的接头或接缝以防止泄漏的材料。</p>
-<p>最古老的填缝剂形式是将纤维材料打入木船或船舶的木板之间的楔形接缝。铸铁污水管以前也是以类似的方式进行填缝的。船只和锅炉的铆接缝以前是通过敲打金属来密封的</p>
-<p>现代填缝剂是一种灵活的密封化合物，用于封闭建筑物和其他结构的缝隙，防止水、空气、灰尘和昆虫，或作为防火的一个组成部分。在隧道行业中，填缝是对分段式预制混凝土隧道的缝隙进行密封，通常使用混凝土。</p>
-<img src="/images/Do-It-Yourself-01.png" alt="NameCheap01" style="zoom:30%;" />
-<img src="/images/Do-It-Yourself-02.png" alt="NameCheap02" style="zoom:30%;" />
-<img src="/images/Do-It-Yourself-03.png" alt="NameCheap03" style="zoom:30%;" />
-
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Caulk">Caulk</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/20/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter05/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/20/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter05/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter05 Using sequential containers and analyzing strings</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-10-20 19:18:08 / Modified: 19:21:58" itemprop="dateCreated datePublished" datetime="2022-10-20T19:18:08+08:00">2022-10-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/Accelerated-Cpp/" itemprop="url" rel="index"><span itemprop="name">Accelerated Cpp</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><ul>
-<li><a href="#side-effect-case-misguided-optimization">side effect case misguided optimization</a></li>
-<li><a href="#iterator-abstraction-is-selective-ignorance">iterator Abstraction is selective ignorance</a></li>
-<li><a href="#the-meaning-of-studentserase-studentsbegin-i">The meaning of students.erase (students.begin () + i)</a></li>
-<li><a href="#the-difference-between-list-and-vector">The difference between list and vector</a></li>
-<li><a href="#use-invariant-writing-whlie-to-spilt-string">use invariant writing whlie to spilt string</a></li>
-<li><a href="#use-insert-instand-of-push_back-to-copy-vector-to-another-vector">use insert instand of push_back to copy vector to another vector</a></li>
-</ul>
-<h2 id="side-effect-case-misguided-optimization"><a href="#side-effect-case-misguided-optimization" class="headerlink" title="side effect case misguided optimization"></a>side effect case misguided optimization</h2><p>bad code :</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;Student_info&gt;::size_type size = students.<span class="built_in">size</span>();</span><br><span class="line"><span class="keyword">while</span> (i != size) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">fgrade</span>(students[i])) &#123;</span><br><span class="line">        fail.<span class="built_in">push_back</span>(students[i]);</span><br><span class="line">        students.<span class="built_in">erase</span>(students.<span class="built_in">begin</span>() + i);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ++i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="iterator-Abstraction-is-selective-ignorance"><a href="#iterator-Abstraction-is-selective-ignorance" class="headerlink" title="iterator Abstraction is selective ignorance"></a>iterator Abstraction is selective ignorance</h2><p>Abstraction is selective ignorance.<br>The details of what particular type an iterator has may be<br>complicated, but we don’t need to understand these details.<br>All we need to know is how to refer to the iterator type,<br>and what operations the iterator allows. We need to know<br>the type so that we can create variables that are iterators.<br>We don’t need to know anything about that type’s implementation.<br>For example, our definition of <strong>iter</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;Student_info&gt;::const_iterator iter = students.<span class="built_in">begin</span>();</span><br></pre></td></tr></table></figure>
-<p>says that <strong>iter</strong> is of type <strong>vector<Student_info>::const_iterator</strong>. We don’t know<br>the actual type of <strong>iter</strong>—that’s an implementation detail of <strong>vector</strong>—nor do we need to<br>know. All that we need to know is that <strong>vector<student_info></strong> has a member named<br><em>const_iterator</em> that defines a type that we can use to obtain read-only access to<br>elements of the <strong>vector</strong></p>
-<h2 id="The-meaning-of-students-erase-students-begin-i"><a href="#The-meaning-of-students-erase-students-begin-i" class="headerlink" title="The meaning of students.erase (students.begin () + i)"></a>The meaning of students.erase (students.begin () + i)</h2><p>Now that we understand more about iterators, we can see the real point of</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">students.<span class="built_in">erase</span>(students.<span class="built_in">begin</span>() + i);</span><br></pre></td></tr></table></figure>
-
-<p>in the program in §5.1.1&#x2F;77. We’ve already seen that <strong>students.begin()</strong> is an iterator<br>that refers to the initial element of <strong>students</strong>, and that <strong>students.begin() + i</strong> refers to<br>the <strong>i</strong>th element of <strong>students</strong>. What is important to realize is that this latter expression gets<br>its meaning from the definition of <em>+</em> on the types of <strong>students.begin()</strong> and <strong>i</strong>. In other<br>words, the iterator and index types determine the meaning of <em>+</em> in this expression.</p>
-<h2 id="The-difference-between-list-and-vector"><a href="#The-difference-between-list-and-vector" class="headerlink" title="The difference between list and vector"></a>The difference between list and vector</h2><p>One important way in which the operations on <strong>list</strong>s differ from those on <strong>vector</strong>s is the effect of some of the operations on iterators.</p>
-<ul>
-<li><strong>vector</strong> support random access</li>
-<li><strong>list</strong> not support random access</li>
-</ul>
-<p>std::sort() will use random access<br>so we could sort <strong>vector</strong> but not <strong>list</strong><br>but <strong>list</strong> have <strong>sort()</strong> function itself </p>
-<p>more detail see <a target="_blank" rel="noopener" href="https://qr.ae/pvxM7k">here</a></p>
-<h2 id="use-invariant-writing-whlie-to-spilt-string"><a href="#use-invariant-writing-whlie-to-spilt-string" class="headerlink" title="use invariant writing whlie to spilt string"></a>use invariant writing whlie to spilt string</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;string&gt; <span class="title">split</span><span class="params">(<span class="type">const</span> string&amp; s)</span> </span>&#123;</span><br><span class="line">    vector&lt;string&gt; ret;</span><br><span class="line">    <span class="keyword">typedef</span> string::size_type string_size</span><br><span class="line">    string_size i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i != s.<span class="built_in">size</span>()) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="use-insert-instand-of-push-back-to-copy-vector-to-another-vector"><a href="#use-insert-instand-of-push-back-to-copy-vector-to-another-vector" class="headerlink" title="use insert instand of push_back to copy vector to another vector"></a>use insert instand of push_back to copy vector to another vector</h2><p>In this particular case, we are appending the elements,<br>which we can think of as inserting them at the end.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;string&gt; <span class="title">vcat</span><span class="params">(<span class="type">const</span> vector&lt;string&gt;&amp; top, <span class="type">const</span> vector&lt;string&gt;&amp; bottom)</span> </span>&#123;</span><br><span class="line">    vector&lt;string&gt; ret = top;</span><br><span class="line">    <span class="keyword">for</span> (vector&lt;string&gt;::const_iterator it = bottom.<span class="built_in">begin</span>(); it != bottom.<span class="built_in">end</span>();</span><br><span class="line">        it != bottom.<span class="built_in">end</span>()); it ++)</span><br><span class="line">        ret.<span class="built_in">push_back</span>(*it);</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;string&gt; <span class="title">vcat</span><span class="params">(<span class="type">const</span> vector&lt;string&gt;&amp; top, <span class="type">const</span> vector&lt;string&gt;&amp; bottom)</span> </span>&#123;</span><br><span class="line">    vector&lt;string&gt; ret = top;</span><br><span class="line">    ret.<span class="built_in">insert</span>(ret.<span class="built_in">end</span>(), bottom.<span class="built_in">begin</span>(), bottom.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/19/Mac/Install-Windows-on-a-Mac/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/19/Mac/Install-Windows-on-a-Mac/" class="post-title-link" itemprop="url">Install_Windows_on_a_Mac</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-10-19 15:58:31" itemprop="dateCreated datePublished" datetime="2022-10-19T15:58:31+08:00">2022-10-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-20 22:08:29" itemprop="dateModified" datetime="2022-10-20T22:08:29+08:00">2022-10-20</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Install-Windows-on-a-Mac"><a href="#Install-Windows-on-a-Mac" class="headerlink" title="Install Windows on a Mac"></a>Install Windows on a Mac</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>you need satisfy the following requirements(check out in about):</p>
-<p>Processor: Intel Core i5 or better</p>
-<p>Disk space: 64 GB or more</p>
-<p>Memory: 4 GB or more</p>
-<p>plugged into power when installing</p>
-<p>backup your data before installing</p>
-<h2 id="Download-Windows-10-ISO"><a href="#Download-Windows-10-ISO" class="headerlink" title="Download Windows 10 ISO"></a>Download Windows 10 ISO</h2><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/software-download/windows10ISO">Windows10 ISO</a></p>
-<img src="/images/Mac_install_windows10-01.png" alt="01.png" style="zoom:70%;" />
-
-<h2 id="Open-Boot-Camp-Assistant"><a href="#Open-Boot-Camp-Assistant" class="headerlink" title="Open Boot Camp Assistant"></a>Open Boot Camp Assistant</h2><p>Choose the Windows 10 ISO you downloaded</p>
-<p>Drag the bar to chose the size of your Windows partition disk</p>
-<p>May need 10 minutes to particular</p>
-<p>Windows10 product key: <a target="_blank" rel="noopener" href="https://passper.imyfone.com/windows-10/windows-10-product-key-free/">Windows10 product key</a> or buy it.</p>
-<h2 id="Install-bootcamp-in-windows"><a href="#Install-bootcamp-in-windows" class="headerlink" title="Install bootcamp in windows"></a>Install bootcamp in windows</h2><p>you will receive a window to show you need to install bootcamp in windows</p>
-<p>agree it.</p>
-<p>Installing bootcamp in your windows os will allow you to make to changes to the partition or fix any issues you might run into while using windows on your mac.</p>
-<h2 id="How-to-back-to-mac-os"><a href="#How-to-back-to-mac-os" class="headerlink" title="How to back to mac os"></a>How to back to mac os</h2><p>Restart your mac and hold down the option key until you see the boot menu.</p>
-<p>The screen will now display two optinos(or more) you to boot up.</p>
-<p>Choose the mac os partition and you will be back to mac os.</p>
-<h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2><p>Setup your windows10 system.</p>
-<p>Such as sign in your Microsoft account, install the software you need.</p>
-<h2 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h2><h3 id="Use-Apple-Software-Update-to-fix-Wi-Fi-issues-in-Boot-Camp"><a href="#Use-Apple-Software-Update-to-fix-Wi-Fi-issues-in-Boot-Camp" class="headerlink" title="Use Apple Software Update to fix Wi-Fi issues in Boot Camp"></a>Use Apple Software Update to fix Wi-Fi issues in Boot Camp</h3><p>If you have issues connecting to Wi-Fi while using Windows 10 with Boot Camp on your 2016 MacBook Pro, use Apple Software Update to get the latest drivers.</p>
-<p>If you’re unable to connect to Wi-Fi, open the Apple Software Update application in Windows and install all available updates.</p>
-<p>If you can’t connect to the Internet via wired connection in Windows, start up in macOS and follow these steps:</p>
-<p>Connect an external device—such as a USB flash drive formatted for Windows—to your Mac.<br>Open Boot Camp Assistant. It’s in the Utilities folder, inside the Applications folder.<br>Choose Action &gt; Download Windows Support Software.<br>Select the external device as the destination for the software.<br>Boot your Mac into Windows and install the update from the external device.</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://support.apple.com/en-hk/HT201468">Install Windows 10 on your Mac with Boot Camp Assistant</a></p>
-<p><a target="_blank" rel="noopener" href="https://support.apple.com/en-hk/HT207591">Use Apple Software Update to fix Wi-Fi issues in Boot Camp</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1383,20 +1387,20 @@ $HOME/.profile和$HOME/.bash_profile这3个文件的。这是因为图形化窗�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

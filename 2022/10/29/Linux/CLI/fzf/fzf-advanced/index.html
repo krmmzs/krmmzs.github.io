@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="fzf advancedYes, I love fzf. It make my life easier. What’s fzf? fzf is a general-purpose command-line fuzzy finder.It’s an interactive Unix filter for command-line that can be used with any list; fil">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fzf advanced">
+<meta property="og:url" content="http://example.com/2022/10/29/Linux/CLI/fzf/fzf-advanced/index.html">
+<meta property="og:site_name" content="krmmzs">
+<meta property="og:description" content="fzf advancedYes, I love fzf. It make my life easier. What’s fzf? fzf is a general-purpose command-line fuzzy finder.It’s an interactive Unix filter for command-line that can be used with any list; fil">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/fzf-01.png">
+<meta property="og:image" content="http://example.com/images/fzf-02.png">
+<meta property="og:image" content="http://example.com/images/fzf-03.png">
+<meta property="og:image" content="http://example.com/images/fzf-04.png">
+<meta property="og:image" content="http://example.com/images/fzf-06.png">
+<meta property="og:image" content="http://example.com/images/fzf-07.png">
+<meta property="og:image" content="http://example.com/images/fzf-08.png">
+<meta property="og:image" content="http://example.com/gif/fzf-01.gif">
+<meta property="og:image" content="http://example.com/images/fzf-05.png">
+<meta property="article:published_time" content="2022-10-29T06:09:12.000Z">
+<meta property="article:modified_time" content="2022-10-29T13:04:29.444Z">
+<meta property="article:author" content="krmmzs">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="CLI">
+<meta property="article:tag" content="fzf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/fzf-01.png">
+
+<link rel="canonical" href="http://example.com/2022/10/29/Linux/CLI/fzf/fzf-advanced/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>fzf advanced | krmmzs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">krmmzs</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/29/Linux/CLI/fzf/fzf-advanced/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          fzf advanced
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-29 14:09:12 / Modified: 21:04:29" itemprop="dateCreated datePublished" datetime="2022-10-29T14:09:12+08:00">2022-10-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/CLI/" itemprop="url" rel="index"><span itemprop="name">CLI</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="fzf-advanced"><a href="#fzf-advanced" class="headerlink" title="fzf advanced"></a>fzf advanced</h1><p>Yes, I love fzf.</p>
+<p>It make my life easier.</p>
+<h2 id="What’s-fzf"><a href="#What’s-fzf" class="headerlink" title="What’s fzf?"></a>What’s fzf?</h2><blockquote>
+<p>fzf is a general-purpose command-line fuzzy finder.<br>It’s an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc.</p>
+</blockquote>
+<p>fzf is an interactive Unix filter program that is designed to be used with other Unix tools.<br>It reads a list of items from the standard input, allows you to select a subset of the items,<br>and prints the selected ones to the standard output. You can think of it as an interactive version of grep,<br>and it’s already useful even if you don’t know any of its options.</p>
+<h2 id="Pros"><a href="#Pros" class="headerlink" title="Pros"></a>Pros</h2><ul>
+<li>Portable, no dependencies</li>
+<li>Blazingly fast</li>
+<li>The most comprehensive feature set</li>
+<li>Flexible layout</li>
+<li>Batteries included<ul>
+<li>Vim&#x2F;Neovim plugin, key bindings, and fuzzy auto-completion</li>
+</ul>
+</li>
+</ul>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf/tree/168829b5550336886a426073670153f84f8a34b2#installation">github Installation</a></p>
+<p>Tips:<br>if you are using Ubuntu, don’t use apt to install fzf, it’s too old.</p>
+<h2 id="Find-file"><a href="#Find-file" class="headerlink" title="Find file"></a>Find file</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># fzf find files</span><br><span class="line">alias v=&quot;fd --type f --hidden --exclude .git | fzf-tmux -p 70% --reverse | xargs nvim&quot;</span><br><span class="line"># fzf with cd</span><br><span class="line">export FZF_CTRL_T_COMMAND=&quot;find . -maxdepth 1 | sed &#x27;s/^..//&#x27;&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>v<ul>
+<li>–type f : only find files</li>
+<li>–hidden : find hidden files</li>
+<li>–exclude .git : exclude .git</li>
+<li>fzf-tmux : Popup window support use fzf-tmux</li>
+<li>-p 70% : preview 70% of the screen</li>
+<li>–reverse : reverse the order</li>
+<li>xargs nvim : open the file with nvim</li>
+</ul>
+</li>
+</ul>
+<img src="/images/fzf-01.png" alt="fzf-01.png" style="zoom:70%;" />
+<img src="/images/fzf-02.png" alt="fzf-02.png" style="zoom:70%;" />
+
+<ul>
+<li>FZF_CTRL_T_COMMAND<ul>
+<li>find . -maxdepth 1 : find files in current directory</li>
+<li>sed ‘s&#x2F;^..&#x2F;&#x2F;‘ : remove the first two characters</li>
+</ul>
+</li>
+</ul>
+<img src="/images/fzf-03.png" alt="fzf-03.png" style="zoom:70%;" />
+
+
+<p>More see <a target="_blank" rel="noopener" href="https://github.com/krmmzs/.dotfiles/blob/master/zsh/.zshrc">dotfiles</a></p>
+<h2 id="Find-command-history"><a href="#Find-command-history" class="headerlink" title="Find command history"></a>Find command history</h2><p><code>CTRL-R</code> - Paste the selected command from history onto the command-line</p>
+<ul>
+<li>If you want to see the commands in chronological order, press <code>CTRL-R</code> again which toggles sorting by relevance</li>
+<li>Set <code>FZF_CTRL_R_OPTS</code> to pass additional options</li>
+</ul>
+<img src="/images/fzf-04.png" alt="fzf-04.png" style="zoom:70%;" />
+
+<h2 id="Quick-cd"><a href="#Quick-cd" class="headerlink" title="Quick cd"></a>Quick cd</h2><p><code>ALT-C</code> - cd into the selected directory</p>
+<ul>
+<li>Set <code>FZF_ALT_C_COMMAND</code> to override the default command</li>
+<li>Set <code>FZF_ALT_C_OPTS</code> to pass additional options</li>
+</ul>
+<img src="/images/fzf-06.png" alt="fzf-06.png" style="zoom:70%;" />
+<img src="/images/fzf-07.png" alt="fzf-07.png" style="zoom:70%;" />
+
+<p>but if you want to preview the directory’s content, more recommended to use <a target="_blank" rel="noopener" href="https://github.com/ranger/ranger">ranger</a></p>
+<p>after install ranger, type <code>. ranger</code> to quick cd</p>
+<img src="/images/fzf-08.png" alt="fzf-08.png" style="zoom:70%;" />
+
+<h2 id="As-the-secondary-filter"><a href="#As-the-secondary-filter" class="headerlink" title="As the secondary filter"></a>As the secondary filter</h2><h2 id="Fuzzy-completion-for-bash-and-zsh"><a href="#Fuzzy-completion-for-bash-and-zsh" class="headerlink" title="Fuzzy completion for bash and zsh"></a>Fuzzy completion for bash and zsh</h2><p>Fuzzy completion for files and directories can be triggered if the word before the cursor ends with the trigger sequence, which is by default <code>**</code>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COMMAND [DIRECTORY/][FUZZY_PATTERN]**&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
+
+<p>EX:</p>
+<ul>
+<li><p>You can select multiple items with TAB key<br>nvim **<TAB></p>
+</li>
+<li><p>Directories under ~&#x2F;github that match <code>fzf</code><br>cd ~&#x2F;github&#x2F;fzf**<TAB></p>
+</li>
+</ul>
+<h3 id="Process-IDs"><a href="#Process-IDs" class="headerlink" title="Process IDs"></a>Process IDs</h3><p>Fuzzy completion for PIDs is provided for kill command.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Can select multiple processes with &lt;TAB&gt; or &lt;Shift-TAB&gt; keys</span></span><br><span class="line"><span class="built_in">kill</span> -9 **&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Host-names"><a href="#Host-names" class="headerlink" title="Host names"></a>Host names</h3><p>For ssh and telnet commands, fuzzy completion for hostnames is provided. The names are extracted from &#x2F;etc&#x2F;hosts and ~&#x2F;.ssh&#x2F;config.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh **&lt;TAB&gt;</span><br><span class="line">telnet **&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Environment-variables-x2F-Aliases"><a href="#Environment-variables-x2F-Aliases" class="headerlink" title="Environment variables &#x2F; Aliases"></a>Environment variables &#x2F; Aliases</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unset</span> **&lt;TAB&gt; </span><br><span class="line"><span class="built_in">export</span> **&lt;TAB&gt; </span><br><span class="line"><span class="built_in">unalias</span> **&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="fzf-replace-tab"><a href="#fzf-replace-tab" class="headerlink" title="fzf replace tab"></a>fzf replace tab</h2><p>requirement: <a target="_blank" rel="noopener" href="https://github.com/Aloxaf/fzf-tab#configure">fzf-tab</a></p>
+<p>演示：</p>
+<p><img src="/gif/fzf-01.gif" alt="fzf-01.gif"></p>
+<script id="asciicast-YlYXHGvQ786rS7kQy2u81aI9v" src="https://asciinema.org/a/YlYXHGvQ786rS7kQy2u81aI9v.js" async></script>
+
+
+<h2 id="For-vim-neovim"><a href="#For-vim-neovim" class="headerlink" title="For vim(neovim)"></a>For vim(neovim)</h2><p>If you use vim only: <a target="_blank" rel="noopener" href="https://github.com/airblade/vim-rooter">airblade&#x2F;vim-rooter</a></p>
+<p>Rooter changes the working directory to the project root when you open a file or directory.</p>
+<p>If you use neovim: <a target="_blank" rel="noopener" href="https://github.com/ahmedkhalf/project.nvim/tree/628de7e433dd503e782831fe150bb750e56e55d6">ahmedkhalf&#x2F;project.nvim</a></p>
+<p>project.nvim is an all in one neovim plugin written in lua that provides superior project management.</p>
+<p>Then fzf will find files in the project root.</p>
+<p>more see <a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf/blob/master/README-VIM.md">FZF Vim integration</a></p>
+<h3 id="FzF-in-vim"><a href="#FzF-in-vim" class="headerlink" title="FzF in vim"></a>FzF in vim</h3><p>I already replaced fzf with <a target="_blank" rel="noopener" href="https://github.com/nvim-telescope/telescope.nvim">telescope</a>, but I still want to record it.<br>If you use vim only, fzf.vim still a good choice.</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf.vim">fzf</a></p>
+<img src="/images/fzf-05.png" alt="fzf-05.png" style="zoom:70%;" />
+
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>Some reference that I may not have mentioned in the article, because I forgot where it came from, maybe is my idea.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Fzf">archlinux wiki</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf/blob/master/ADVANCED.md">fzf ADVANCED</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh">Fuzzy completion for bash and zsh</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf/blob/master/README-VIM.md">FZF Vim integration</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/CLI/" rel="tag"># CLI</a>
+              <a href="/tags/fzf/" rel="tag"># fzf</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/10/27/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter08/" rel="prev" title="Accelerated_Cpp_chapter08">
+      <i class="fa fa-chevron-left"></i> Accelerated_Cpp_chapter08
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/29/Linux/CLI/zsh/Understanding-Zsh-Completions/" rel="next" title="Understanding Zsh Completions">
+      Understanding Zsh Completions <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#fzf-advanced"><span class="nav-number">1.</span> <span class="nav-text">fzf advanced</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#What%E2%80%99s-fzf"><span class="nav-number">1.1.</span> <span class="nav-text">What’s fzf?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pros"><span class="nav-number">1.2.</span> <span class="nav-text">Pros</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Installation"><span class="nav-number">1.3.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Find-file"><span class="nav-number">1.4.</span> <span class="nav-text">Find file</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Find-command-history"><span class="nav-number">1.5.</span> <span class="nav-text">Find command history</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-cd"><span class="nav-number">1.6.</span> <span class="nav-text">Quick cd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#As-the-secondary-filter"><span class="nav-number">1.7.</span> <span class="nav-text">As the secondary filter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fuzzy-completion-for-bash-and-zsh"><span class="nav-number">1.8.</span> <span class="nav-text">Fuzzy completion for bash and zsh</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Process-IDs"><span class="nav-number">1.8.1.</span> <span class="nav-text">Process IDs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Host-names"><span class="nav-number">1.8.2.</span> <span class="nav-text">Host names</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Environment-variables-x2F-Aliases"><span class="nav-number">1.8.3.</span> <span class="nav-text">Environment variables &#x2F; Aliases</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fzf-replace-tab"><span class="nav-number">1.9.</span> <span class="nav-text">fzf replace tab</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#For-vim-neovim"><span class="nav-number">1.10.</span> <span class="nav-text">For vim(neovim)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FzF-in-vim"><span class="nav-number">1.10.1.</span> <span class="nav-text">FzF in vim</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.11.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">krmmzs</p>
+  <div class="site-description" itemprop="description">233</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/krmmzs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;krmmzs" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:belliyan250@gmail.com" title="E-Mail → mailto:belliyan250@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/channel/UCh2c-Y0OmoDUfeZHomm_Llg" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UCh2c-Y0OmoDUfeZHomm_Llg" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/krmmzs" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;krmmzs" rel="noopener" target="_blank"><i class="fab fa-telegram fa-fw"></i>Telegram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">krmmzs</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
