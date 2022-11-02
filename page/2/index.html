@@ -158,6 +158,91 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/27/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter08/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/27/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter08/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter08</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-27 20:59:54 / Modified: 21:00:34" itemprop="dateCreated datePublished" datetime="2022-10-27T20:59:54+08:00">2022-10-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/Accelerated-Cpp/" itemprop="url" rel="index"><span itemprop="name">Accelerated Cpp</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Using-associative-containers"><a href="#Using-associative-containers" class="headerlink" title="Using associative containers"></a>Using associative containers</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><h2 id="typename"><a href="#typename" class="headerlink" title="typename"></a>typename</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function">T <span class="title">median</span><span class="params">(vector&lt;T&gt; v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> vector&lt;T&gt;::size_type vec_sz;</span><br><span class="line">    </span><br><span class="line">    vec_sz size = v.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">if</span> (size == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">domain_error</span>(<span class="string">&quot;median of an empty vector&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sort</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">    vec_sz mid = size / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">return</span> size % <span class="number">2</span> == <span class="number">0</span> ? (v[mid] + v[mid - <span class="number">1</span>] / <span class="number">2</span> : v[mid]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The next novelty is the use of <strong>typename</strong> in the definition of <code>vec_sz</code>. It is there to tell the<br>implementation that <code>vector&lt;T&gt;::size_type</code> is the name of a type, even though the<br>implementation doesn’t yet know what type <code>T</code> represents. Whenever you have a type, such<br>as <code>vector&lt;T&gt;</code>, that depends on a template parameter, and you want to use a member of<br>that type, such as <code>size_type</code>, that is itself a type, you must precede the entire name by<br>typename to let the implementation know to treat the name as a type. Although the<br>standard library ensures that <code>vector&lt;T&gt;::size_type</code> is the name of a type for any T, the<br>implementation, having no special knowledge of the standard-library types, has no way of<br>knowing this fact.</p>
+<h2 id="C-standard-syas-nothing-about-how-implementations-manage-template"><a href="#C-standard-syas-nothing-about-how-implementations-manage-template" class="headerlink" title="C++ standard syas nothing about how implementations manage template"></a>C++ standard syas nothing about how implementations manage template</h2><p>The C++ standard says nothing about how implementations should manage template iinstantiation,<br>so every implementation handles instantiation in its own particular way. </p>
+<h2 id="C-iterator-categories"><a href="#C-iterator-categories" class="headerlink" title="C++ iterator categories"></a>C++ iterator categories</h2><p>Instead of being defined by specific types, each category of iterator is defined by the operations that can be performed on it. This definition means that any type that supports the necessary operations can be used as an iterator – for example, a pointer supports all of the operations required by LegacyRandomAccessIterator, so a pointer can be used anywhere a LegacyRandomAccessIterator is expected.</p>
+<p>迭代器的分类的依据并不是迭代器的类型，而是迭代器所支持的操作。换句话说，某个类型只要支持相应的操作，就可以作为迭代器使用。例如，完整对象类型指针支持所有老式随机访问迭代器 (LegacyRandomAccessIterator) 要求的操作，于是任何需要老式随机访问迭代器 (LegacyRandomAccessIterator) 的地方都可以使用指针。</p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/iterator">cppreference.com iterator library</a></p>
+<h2 id="Iterator-ranges-and-off-the-end-values"><a href="#Iterator-ranges-and-off-the-end-values" class="headerlink" title="Iterator ranges and off-the-end values"></a>Iterator ranges and off-the-end values</h2><p>One reason is that if the <strong>range had no elements at all</strong>, there would be no last element to<br>mark the end. We would then be in the curious position of having to designate an empty<br>range by an iterator that refers to where the element before the beginning of the range<br>would be. With that strategy, we would have to handle empty ranges differently from all<br>others, which would make our programs harder to understand and less reliable. We saw in<br>§6.1.1&#x2F;103 that treating empty ranges the same as any others simplified our program.</p>
+<p>The second reason is that marking the end of a range by an iterator that is one past the end<br>lets us get away with comparing iterators only for equality and inequality, and makes i<br>tunnecessary to define what it means for one iterator to be less than another. The point is<br>that we can tell immediately if the range is empty by comparing the two iterators; the range<br>is empty if and only if the iterators are equal. If they are unequal, then we know that the<br>beginning iterator refers to an element, so we can do something and then increment that<br>iterator to reduce the size of the range. In other words, marking ranges by the beginning<br>and one past the end allows us to use loops of the form</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// invariant: we must still process the elements in the range [begin, end)</span></span><br><span class="line"><span class="keyword">while</span> (begin != end) &#123;</span><br><span class="line">    <span class="comment">// do something with the element to which begin refers</span></span><br><span class="line">    begin++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Input-and-output-iterators"><a href="#Input-and-output-iterators" class="headerlink" title="Input and output iterators"></a>Input and output iterators</h2><p>Why are input and output iterators separate categories from forward iterators if no standard<br>container requires the distinction? One reason is that not all iterators are associated with<br>containers. For example, if c is a container that supports push_back, then<br>back_inserter(c) is an output iterator that meets no other iterator requirements.</p>
+<h2 id="Using-iterators-for-flexibility"><a href="#Using-iterators-for-flexibility" class="headerlink" title="Using iterators for flexibility"></a>Using iterators for flexibility</h2><p>We can be more flexible by rewriting split to take an output iterator instead of returning a<br>value. In this version of the function, we’ll use that iterator to write the words that we find<br>Our caller will have bound the iterator to the output location where the values should be<br>placed:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> Out&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">split</span><span class="params">(<span class="type">const</span> string&amp; str, Out os)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">typedef</span> string:const_iterator iter;</span><br><span class="line"></span><br><span class="line">    iter i = str.<span class="built_in">begin</span>();</span><br><span class="line">    <span class="keyword">while</span> (i != str.<span class="built_in">end</span>()) &#123;</span><br><span class="line">            <span class="comment">// ignore leading blanks</span></span><br><span class="line">            i = <span class="built_in">find_if</span>(i, str.<span class="built_in">end</span>(), not_space);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// find end of next word</span></span><br><span class="line">            iter j = <span class="built_in">find_if</span>(i, str.<span class="built_in">end</span>(), space);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// copy the character in [i, j)</span></span><br><span class="line">            <span class="keyword">if</span> (i != str.<span class="built_in">end</span>()) &#123;</span><br><span class="line">                *os++ = <span class="built_in">string</span>(i, j);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            i = j;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/27/Linux/Linux-Shell-scripts-cookbook/Linux-Shell-scripts-cookbook-Have-a-Good-Command/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1078,110 +1163,6 @@ Sx
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/23/Anime/FFmpeg/ffmpeg-crop-anime-Bocchi-the-Rock-record/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/23/Anime/FFmpeg/ffmpeg-crop-anime-Bocchi-the-Rock-record/" class="post-title-link" itemprop="url">ffmpeg crop anime Bocchi the Rock record</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-10-23 16:40:16" itemprop="dateCreated datePublished" datetime="2022-10-23T16:40:16+08:00">2022-10-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-24 18:11:00" itemprop="dateModified" datetime="2022-10-24T18:11:00+08:00">2022-10-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Anime/" itemprop="url" rel="index"><span itemprop="name">Anime</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Anime/FFmpeg/" itemprop="url" rel="index"><span itemprop="name">FFmpeg</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="ffmpeg-crop-anime-Bocchi-the-Rock-record"><a href="#ffmpeg-crop-anime-Bocchi-the-Rock-record" class="headerlink" title="ffmpeg crop anime Bocchi the Rock record"></a>ffmpeg crop anime Bocchi the Rock record</h1><p>Bocchi the Rock实在是太好看了，想裁一些片段玩。</p>
-<h2 id="Record"><a href="#Record" class="headerlink" title="Record"></a>Record</h2><p>还没写脚本，所以操作有点笨拙。</p>
-<p>先是产生缩略图</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i 2.mp4 -vf <span class="string">&quot;fps=1/10,scale=-2:720&quot;</span> thumbnail-%03d.jpg</span><br></pre></td></tr></table></figure>
-
-<p>直接就是创个interaction.md<br>写下要裁剪的区间<br>然后在这个文本里把命令编辑好到目录下执行<br>在文本里编辑命令的好处是，记录下产生视频的命令, 起到log的作用。</p>
-<img src="/images/ffmpeg_bocci_the_rock-01.png" alt="ffmpeg_bocci_the_rock-01" style="zoom:70%;" />
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -ss 00:14:44 -t 40 -i 2.mp4 -vcodec copy -acodec copy 02.mp4</span><br></pre></td></tr></table></figure>
-
-<p>目录下是这些</p>
-<img src="/images/ffmpeg_bocci_the_rock-02.png" alt="ffmpeg_bocci_the_rock-02" style="zoom:70%;" />
-
-<p>然后发现了个bug: 起始位置ubuntu22默认视频player黑屏，mpv打开会从-1s开始播放, 估计是关键字没卡上。。</p>
-<h2 id="Fix"><a href="#Fix" class="headerlink" title="Fix"></a>Fix</h2><p>ffmepg剪切视频，很方便，但是也有很大缺陷：<br>（1）剪切时间点不精确<br>（2）有时剪切的视频开头有黑屏</p>
-<p>造成这些问题的原因是ffmpeg无法seek到非关键帧上。</p>
-<p>上述的剪切方式比较基本</p>
-<h3 id="Parameter-optimization"><a href="#Parameter-optimization" class="headerlink" title="Parameter optimization"></a>Parameter optimization</h3><ul>
-<li>将-ss， -t 参数放在-i参数之前(已经这么做了)</li>
-</ul>
-<p>对输入文件执行seek操作，会seek到-ss设置的时间点前面的关键帧上。</p>
-<p>时间不精确，但是不会出现黑屏(然而ubuntu的视频播放器还是黑屏)</p>
-<ul>
-<li>accurate_seek</li>
-</ul>
-<p>如果编码格式采用的copy 最好加上 -avoid_negative_ts 1参数</p>
-<h3 id="Final-command"><a href="#Final-command" class="headerlink" title="Final command"></a>Final command</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -ss 00:14:44 -t 40 -i 2.mp4 -vcodec copy -acodec copy -avoid_negative_ts 1 02.mp4</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1251,7 +1232,7 @@ Sx
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
