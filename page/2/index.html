@@ -158,6 +158,139 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/27/Linux/Linux-Shell-scripts-cookbook/Linux-Shell-scripts-cookbook-Have-a-Good-Command/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/27/Linux/Linux-Shell-scripts-cookbook/Linux-Shell-scripts-cookbook-Have-a-Good-Command/" class="post-title-link" itemprop="url">Linux Shell scripts cookbook Have a Good Command</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-27 20:30:05 / Modified: 21:02:57" itemprop="dateCreated datePublished" datetime="2022-10-27T20:30:05+08:00">2022-10-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Shell/Linux-Shell-scripts-cookbook/" itemprop="url" rel="index"><span itemprop="name">Linux Shell scripts cookbook</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Have-a-Good-Command"><a href="#Have-a-Good-Command" class="headerlink" title="Have a Good Command"></a>Have a Good Command</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><h2 id="Recording-and-playing-back-terminalsessions"><a href="#Recording-and-playing-back-terminalsessions" class="headerlink" title="Recording and playing back terminalsessions"></a>Recording and playing back terminalsessions</h2><p>script和scriptreplay命令在绝大多数GNU&#x2F;Linux发行版上都可以找到</p>
+<p>可以通过录制终端会话来制作命令行技巧视频教程，也可以与他人分享会话记录文件，研究如何使用命令行完成某项任务</p>
+<p>example:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ script -t 2&gt; timing.log -a output.session</span><br><span class="line"></span><br><span class="line"><span class="comment"># 演示tclsh</span></span><br><span class="line">$ tclsh</span><br><span class="line">$ puts [<span class="built_in">expr</span> 2 + 2]</span><br><span class="line">4</span><br><span class="line">% <span class="built_in">exit</span></span><br><span class="line">$ <span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+
+<p><code>-t</code>选项将时间戳写入timing.log文件，<code>-a</code>选项将会话记录写入output.session文件</p>
+<p>利用文件timing.log和output.session，可以按照下面的方法回放命令执行过程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ scriptreplay timing.log output.session</span><br><span class="line"><span class="comment"># will playing</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Finding-files-and-file-listing"><a href="#Finding-files-and-file-listing" class="headerlink" title="Finding files and file listing"></a>Finding files and file listing</h2><p>find命令的工作方式如下：沿着文件层次结构向下遍历，匹配符合条件的文件，执行相应<br>的操作。默认的操作是打印出文件和目录，这也可以使用-print选项来指定。</p>
+<p>example:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ find . -<span class="built_in">print</span></span><br><span class="line">.<span class="built_in">history</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>print选项使用\n（换行符）分隔输出的每个文件或目录名</p>
+<p>而-print0选项则使用空字符’\0’来分隔</p>
+<p>-print0的主要用法是将包含换行符或空白字符的文件名传给xargs命令</p>
+<p>example:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$&gt; <span class="built_in">echo</span> <span class="string">&quot;test&quot;</span> &gt; <span class="string">&quot;file name&quot;</span></span><br><span class="line">$&gt; find . -<span class="built_in">type</span> f -<span class="built_in">print</span> | xargs <span class="built_in">ls</span> -l</span><br><span class="line"><span class="built_in">ls</span>: cannot access /file: No such file or directory</span><br><span class="line"><span class="built_in">ls</span>: cannot access name: No such file or directory</span><br><span class="line">$&gt; find . -<span class="built_in">type</span> f -print0 | xargs -0 <span class="built_in">ls</span> -l</span><br><span class="line">-rw-r--r-- 1 user group 5 Aug 24 15:00 ./file name</span><br></pre></td></tr></table></figure>
+
+<h3 id="Search-based-on-name-or-regular-expression-match"><a href="#Search-based-on-name-or-regular-expression-match" class="headerlink" title="Search based on name or regular expression match"></a>Search based on name or regular expression match</h3><p>find命令的-name选项可以根据文件名进行搜索<br>这个模式可以是通配符，也可以是正则表达式</p>
+<p>example:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ find . -name <span class="string">&quot;*.txt&quot;</span></span><br><span class="line">./file.txt</span><br><span class="line">./file2.txt</span><br></pre></td></tr></table></figure>
+
+<p>注意*.txt两边的单引号。shell会扩展没有引号或是出现在双引号（”）中<br>的通配符。单引号能够阻止shell扩展*.txt，使得该字符串能够原封不动地传给<br>find命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find /home/slynux -name <span class="string">&#x27;*.txt&#x27;</span> -<span class="built_in">print</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="忽略字母大小写"><a href="#忽略字母大小写" class="headerlink" title="忽略字母大小写"></a>忽略字母大小写</h4><p>find命令有一个选项-iname（忽略字母大小写），该选项的作用和-name类似，只不过在匹</p>
+<p>配文件名时忽略字母大小写</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">example.txt EXAMPLE.txt file.txt</span><br><span class="line">$ find . -iname <span class="string">&quot;example*&quot;</span> -<span class="built_in">print</span></span><br><span class="line">./example.txt</span><br><span class="line">./EXAMPLE.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="find-逻辑操作符"><a href="#find-逻辑操作符" class="headerlink" title="find 逻辑操作符"></a>find 逻辑操作符</h4><p>find命令支持逻辑操作符。-a和-and选项可以执行逻辑与（AND）操作，<br>-o和-or选项可以执行逻辑或（OR）操作。</p>
+<p>example:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">new.txt some.jpg text.pdf stuff.png</span><br><span class="line">$ find . \( -name <span class="string">&quot;*.txt&quot;</span> -o -name <span class="string">&quot;*.pdf&quot;</span> \) -<span class="built_in">print</span></span><br><span class="line">./text.txt</span><br><span class="line">./next.txt</span><br></pre></td></tr></table></figure>
+<p>\（以及\）用于将-name ‘<em>.txt’ -o -name ‘</em>.pdf’视为一个整体。</p>
+<p>下面的命令演示了如何使用-and操作符选择名字以s开头且其中包含e的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find . \( -name <span class="string">&#x27;*e*&#x27;</span> -and -name <span class="string">&#x27;s*&#x27;</span> \) -<span class="built_in">print</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="限制所匹配文件的路径以及名称"><a href="#限制所匹配文件的路径以及名称" class="headerlink" title="限制所匹配文件的路径以及名称"></a>限制所匹配文件的路径以及名称</h4><p>-path选项可以限制所匹配文件的路径及名称。例如，$ find &#x2F;home&#x2F;users -path<br>‘<em>&#x2F;slynux&#x2F;</em>‘ -name ‘*.txt’ –print能够匹配文件&#x2F;home&#x2F;users&#x2F;slynux&#x2F;readme.txt，但无法匹<br>配&#x2F;home&#x2F;users&#x2F;slynux.txt。</p>
+<p>III :-regex选项和-path类似，只不过前者是基于正则表达式来匹配文件路径的。</p>
+<p>下面的命令可以匹配.py或.sh文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">new.PY next.jpg test.py script.sh</span><br><span class="line">$ find . -regex <span class="string">&#x27;.*\.\(py\|sh\)&#x27;</span></span><br><span class="line">./test.py</span><br><span class="line">script.sh</span><br></pre></td></tr></table></figure>
+
+<p>-iregex 选项可以让正则表达式在匹配时忽略大小写。</p>
+<p>example:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ find . -iregex <span class="string">&#x27;.*\.\(py\|sh\)$&#x27;</span></span><br><span class="line">./test.py</span><br><span class="line">./new.PY</span><br><span class="line">./script.sh</span><br></pre></td></tr></table></figure>
+
+<h3 id="Negating-arguments"><a href="#Negating-arguments" class="headerlink" title="Negating arguments"></a>Negating arguments</h3><p>find也可以用!排除匹配到的模式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ find . ! -name <span class="string">&#x27;*.txt&#x27;</span> -<span class="built_in">print</span></span><br><span class="line">.</span><br><span class="line">./next.txt</span><br><span class="line">./test.txt</span><br><span class="line">./new.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="Searching-based-on-the-directory-depth"><a href="#Searching-based-on-the-directory-depth" class="headerlink" title="Searching based on the directory depth"></a>Searching based on the directory depth</h3><p>find命令在查找时会遍历完所有的子目录。默认情况下，find命令不会跟随符号链接。-L选项可以强制其改变这种行为。但如果碰上了指向自身的链接，find命令就会陷入死循环中。</p>
+<p>-maxdepth和–mindepth选项可以限制find命令遍历的目录深度。这可以避免find命令没完没了地查找。</p>
+<p>&#x2F;proc文件系统中包含了系统与当前执行任务的信息。特定任务的目录层次相当深，其中还有一些绕回到自身（loop back on themselves）的符号链接。<br>系统中运行的每个进程在proc中都有对应的子目录，其名称就是该进程的进程ID。这个目录下有一个叫作cwd的链接，指向进程的当前工作目录。</p>
+<p>example:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find -L /proc -maxdepth 1 -name <span class="string">&#x27;bundlemaker.def&#x27;</span> 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-L选项告诉find命令跟随符号链接</li>
+<li>从&#x2F;proc目录开始查找</li>
+<li>-maxdepth 1将搜索范围仅限制在当前目录</li>
+<li>-name ‘bundlemaker.def’指定待查找的文件</li>
+<li>2&gt;&#x2F;dev&#x2F;null将有关循环链接的错误信息发送到空设备中</li>
+</ul>
+<p>Tips:<br>-maxdepth和-mindepth应该在find命令中及早出现。如果作为靠后的选项<br>，有可能会影响到find的效率，因为它不得不进行一些不必要的检查。例如，<br>如果-maxdepth出现在-type之后，find首先会找出-type所指定的文件，然<br>后再在匹配的文件中过滤掉不符合指定深度的那些文件。但是如果反过来，在<br>-type之前指定目录深度，那么find就能够在找到所有符合指定深度的文件后,<br>再检查这些文件的类型，这才是最有效的搜索之道。</p>
+<h3 id="Searching-based-on-file-type"><a href="#Searching-based-on-file-type" class="headerlink" title="Searching based on file type"></a>Searching based on file type</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/26/Leetcode/LeetCode-862-Shortest-Subarray-with-Sum-at-Least-K/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1049,94 +1182,6 @@ Sx
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/23/Linux/Shell/Downloading-a-video-from-the-Internet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/23/Linux/Shell/Downloading-a-video-from-the-Internet/" class="post-title-link" itemprop="url">Downloading_a_video_from_the_Internet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-10-23 02:49:12 / Modified: 03:03:50" itemprop="dateCreated datePublished" datetime="2022-10-23T02:49:12+08:00">2022-10-23</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Shell/CLI/" itemprop="url" rel="index"><span itemprop="name">CLI</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Downloading-a-video-from-the-Internet"><a href="#Downloading-a-video-from-the-Internet" class="headerlink" title="Downloading a video from the Internet"></a>Downloading a video from the Internet</h1><p>最近突然对shell的使用有了兴趣, 平常一些小操作有积累。<br>这次选了一本一位印度人在20岁写的shell书。</p>
-<p>闲暇时间看到1.16之后就乏了（本身不是那种原理书，而是一本实用书），就想着写点东西，顺便练练手。</p>
-<p>翻目录，发现了一个下载视频的内容。<br>他介绍的是有一个叫作youtube-dl的视频下载工具<br>可惜现在这工具被针对了，速度堪忧。</p>
-<p>替换工具：<br><a target="_blank" rel="noopener" href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a></p>
-<p>两者原理都差不多， 通过向服务器发出GET请求（就像浏览器一样）来实现视频下载。<br>它会伪装成浏览器，使得YouTube或其他视频提供商以为这是一台流媒体设备，从而下载到视频。</p>
-<p>然后我在rc文件加了些alias，方便使用。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> dvF=<span class="string">&#x27;yt-dlp -F&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> dvf=<span class="string">&#x27;yt-dlp -f&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> dvmp4=<span class="string">&#x27;yt-dlp -f &quot;bestvideo[ext=mp4]+bestaudio[ext=m4a]&quot; --merge-output-format mp4&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> dvmkv=<span class="string">&#x27;yt-dlp -f &quot;bestvideo[ext=mkv]+bestaudio[ext=webm]&quot; --merge-output-format mkv&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>dv是download video的缩写，F是-list-formats，f是format的缩写，分别可选mp4，mkv。</p>
-<p>更多见<a target="_blank" rel="noopener" href="https://github.com/yt-dlp/yt-dlp#usage-and-options">USAGE AND OPTIONS</a></p>
-<p>Example:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dvmp4 https://www.youtube.com/watch?v=Yd8YGqFdZn8</span><br></pre></td></tr></table></figure>
-
-<p>show</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[youtube] Yd8YGqFdZn8: Downloading webpage</span><br><span class="line">[youtube] Yd8YGqFdZn8: Downloading android player API JSON</span><br><span class="line">[info] Yd8YGqFdZn8: Downloading 1 format(s): 136+140</span><br><span class="line">[download] Destination: 増えていく『さかな』『ちんあなご』 [Yd8YGqFdZn8].f136.mp4</span><br><span class="line">[download] 100% of    5.15MiB <span class="keyword">in</span> 00:00:02 at 1.82MiB/s</span><br><span class="line">[download] Destination: 増えていく『さかな』『ちんあなご』 [Yd8YGqFdZn8].f140.m4a</span><br><span class="line">[download] 100% of  523.91KiB <span class="keyword">in</span> 00:00:00 at 624.42KiB/s</span><br><span class="line">[Merger] Merging formats into <span class="string">&quot;増えていく『さかな』『ちんあなご』 [Yd8YGqFdZn8].mp4&quot;</span></span><br><span class="line">Deleting original file 増えていく『さかな』『ちんあなご』 [Yd8YGqFdZn8].f140.m4a (pass -k to keep)</span><br><span class="line">Deleting original file 増えていく『さかな』『ちんあなご』 [Yd8YGqFdZn8].f136.mp4 (pass -k to keep)</span><br></pre></td></tr></table></figure>
-
-<p>目录下就有以该视频标题为文件名的mp4文件了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1206,7 +1251,7 @@ Sx
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1219,7 +1264,7 @@ Sx
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
