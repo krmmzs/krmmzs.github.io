@@ -158,6 +158,228 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/21/Linux/Linux-Shell-scripts-cookbook/Linux-Shell-scripts-cookbook-Shell-Something-Out/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/21/Linux/Linux-Shell-scripts-cookbook/Linux-Shell-scripts-cookbook-Shell-Something-Out/" class="post-title-link" itemprop="url">Linux_Shell_scripts_cookbook_Shell_Something_Out</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-10-21 18:50:46" itemprop="dateCreated datePublished" datetime="2022-10-21T18:50:46+08:00">2022-10-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-10-27 19:46:35" itemprop="dateModified" datetime="2022-10-27T19:46:35+08:00">2022-10-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Shell/Linux-Shell-scripts-cookbook/" itemprop="url" rel="index"><span itemprop="name">Linux Shell scripts cookbook</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Shell-Something-Out"><a href="#Shell-Something-Out" class="headerlink" title="Shell Something Out"></a>Shell Something Out</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><h2 id="Displaying-output-in-a-terminal"><a href="#Displaying-output-in-a-terminal" class="headerlink" title="Displaying output in a terminal"></a>Displaying output in a terminal</h2><p>使用echo和printf的命令选项时，要确保选项出现在命令中的所有字符串之前，否则Bash会将其视为另外一个字符串。</p>
+<p>要打印彩色文本，可输入如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\e[1;31m This is red text \e[0m&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中包括：重置&#x3D;0，黑色&#x3D;30，红色&#x3D;31，绿色&#x3D;32，黄色&#x3D;33，蓝色&#x3D;34，洋红&#x3D;35，青色&#x3D;36，白色&#x3D;37。</p>
+<h2 id="Using-variables-and-environment-variables"><a href="#Using-variables-and-environment-variables" class="headerlink" title="Using variables and environment variables"></a>Using variables and environment variables</h2><h4 id="get-PID"><a href="#get-PID" class="headerlink" title="get PID"></a>get PID</h4><p>我们可以使用pgrep命令获得gedit的进程ID：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pgrep gedit 12501</span><br></pre></td></tr></table></figure>
+
+<h4 id="check-out-the-environment-variables"><a href="#check-out-the-environment-variables" class="headerlink" title="check out the environment variables"></a>check out the environment variables</h4><p>要想生成一份易读的报表，可以将cat命令的输出通过管道传给tr，将其中的\0替换成\n</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/12501/environ  | <span class="built_in">tr</span> <span class="string">&#x27;\0&#x27;</span> <span class="string">&#x27;\n&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="add-environment-path"><a href="#add-environment-path" class="headerlink" title="add environment path"></a>add environment path</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$PATH</span>:/home/username/bin&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Finding-the-length-of-a-string"><a href="#Finding-the-length-of-a-string" class="headerlink" title="Finding the length of a string"></a>Finding the length of a string</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var=123456</span><br><span class="line">length=<span class="variable">$&#123;#var&#125;</span></span><br><span class="line"><span class="built_in">echo</span> length</span><br></pre></td></tr></table></figure>
+
+<h4 id="Identifying-the-current-shell"><a href="#Identifying-the-current-shell" class="headerlink" title="Identifying the current shell"></a>Identifying the current shell</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$SHELL</span></span><br><span class="line"><span class="comment"># or</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$0</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Checking-for-super-user"><a href="#Checking-for-super-user" class="headerlink" title="Checking for super user"></a>Checking for super user</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$UID</span>&quot;</span> -ne 0 ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> Non root user. Please run as root.</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> Root user</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">test</span> <span class="variable">$UID</span> -ne 0; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> Non root user. Please run as root.</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> Root user</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Function-to-prepend-to-environmentvariables"><a href="#Function-to-prepend-to-environmentvariables" class="headerlink" title="Function to prepend to environmentvariables"></a>Function to prepend to environmentvariables</h2><p>我们可以在.bashrc文件中定义如下函数，简化路径添加操作：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">prepend</span></span>() &#123; [ -d <span class="string">&quot;<span class="variable">$2</span>&quot;</span> ] &amp;&amp; <span class="built_in">eval</span> <span class="variable">$1</span>=\&quot;<span class="variable">$2</span>\$\&#123;<span class="variable">$1</span>:+<span class="string">&#x27;:&#x27;</span>\$<span class="variable">$1</span>\&#125;\&quot; &amp;&amp; <span class="built_in">export</span> <span class="variable">$1</span> ; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>usage:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">prepend PATH /opt/myapp/bin</span><br><span class="line">prepend LD_LIBRARY_PATH /opt/myapp/lib</span><br></pre></td></tr></table></figure>
+
+<h2 id="Playing-with-file-descriptors-and-redirection"><a href="#Playing-with-file-descriptors-and-redirection" class="headerlink" title="Playing with file descriptors and redirection"></a>Playing with file descriptors and redirection</h2><h4 id="get-return-value-of-a-command"><a href="#get-return-value-of-a-command" class="headerlink" title="get return value of a command"></a>get return value of a command</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> $?</span><br></pre></td></tr></table></figure>
+
+<h4 id="stderr-and-stdout-redirection"><a href="#stderr-and-stdout-redirection" class="headerlink" title="stderr and stdout redirection"></a>stderr and stdout redirection</h4><p>可以将stderr和stdout分别重定向到不同的文件中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmd 2&gt;stderr.txt 1&gt;stdout.txt</span><br></pre></td></tr></table></figure>
+<p>将stderr转换成stdout，使得stderr和stdout都被重定向到同一个文件中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmd 2&gt;&amp;1 alloutput.txt</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">cmd &amp;&gt; output.txt</span><br></pre></td></tr></table></figure>
+
+<p>stdout作为单数据流（single stream），可以被重定向到文件或是通过管道传入其他程序，但是无法两者兼得。<br>有一种方法既可以将数据重定向到文件，还可以提供一份重定向数据的副本作为管道中后续命令的stdin。<br>tee命令从stdin中读取，然后将输入数据重定向到stdout以及一个或多个文件中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">command</span> | <span class="built_in">tee</span> FILE1 FILE2 | otherCommand</span><br></pre></td></tr></table></figure>
+
+<p>在下面的代码中，tee命令接收到来自stdin的数据。它将stdout的一份副本写入文件out.txt，同时将另一份副本作为后续命令的stdin。命令cat -n为从stdin中接收到的每一行数据前加上行号并将其写入stdout：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> a* | <span class="built_in">tee</span> out.txt | <span class="built_in">cat</span> -n</span><br></pre></td></tr></table></figure>
+<p>out:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span>: a1: Permission denied</span><br><span class="line">    1 A2</span><br><span class="line">    2 A3 </span><br></pre></td></tr></table></figure>
+<p>注意，cat: a1: Permission denied并没有在文件内容中出现，<br>因为这些信息被发送到了stderr，而tee只能从stdin中读取</p>
+<p>追加：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> a* | <span class="built_in">tee</span> -a out.txt | <span class="built_in">cat</span> –n</span><br></pre></td></tr></table></figure>
+
+<h4 id="Redirection-from-a-file-to-a-command"><a href="#Redirection-from-a-file-to-a-command" class="headerlink" title="Redirection from a file to a command"></a>Redirection from a file to a command</h4><p>借助小于号（&lt;），我们可以像使用stdin那样从文件中读取数据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmd &lt; file</span><br></pre></td></tr></table></figure>
+
+<h4 id="Redirecting-from-a-text-block-enclosed-within-a-script"><a href="#Redirecting-from-a-text-block-enclosed-within-a-script" class="headerlink" title="Redirecting from a text block enclosed within a script"></a>Redirecting from a text block enclosed within a script</h4><p>可以将脚本中的文本重定向到文件。要想将一条警告信息添加到自动生成的文件顶部</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">cat</span>&lt;&lt;<span class="string">EOF&gt;log.txt</span></span><br><span class="line"><span class="string">This is a generated file. Do not edit. Changes will be overwritten.</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Custom-file-descriptors"><a href="#Custom-file-descriptors" class="headerlink" title="Custom file descriptors"></a>Custom file descriptors</h4><p>创建一个用于读取文件的文件描述符：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">exec</span> 3&lt;input.txt    <span class="comment">#使用文件描述符3打开并读取文件</span></span><br></pre></td></tr></table></figure>
+<p>usage:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> this is a <span class="built_in">test</span> line &gt; input.txt </span><br><span class="line"><span class="built_in">exec</span> 3&lt;input.txt</span><br></pre></td></tr></table></figure>
+
+<p>创建一个用于写入（截断模式）的文件描述符：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exec</span> 4&gt;output.txt   <span class="comment">#打开文件进行写入</span></span><br></pre></td></tr></table></figure>
+<p>usage:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">exec</span> 4&gt;output.txt </span><br><span class="line">$ <span class="built_in">echo</span> newline &gt;&amp;4 </span><br><span class="line">$ <span class="built_in">cat</span> output.txt</span><br><span class="line">newline</span><br></pre></td></tr></table></figure>
+<p>创建一个用于写入（追加模式）的文件描述符：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exec</span> 5&gt;&gt;input.txt   <span class="comment">#打开文件进行追加</span></span><br></pre></td></tr></table></figure>
+<p>usage:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">exec</span> 5&gt;&gt;input.txt</span><br><span class="line">$ <span class="built_in">echo</span> appended line &gt;&amp;5</span><br><span class="line">$ <span class="built_in">cat</span> input.txt</span><br><span class="line">newline</span><br><span class="line">append line</span><br></pre></td></tr></table></figure>
+
+<h2 id="alias"><a href="#alias" class="headerlink" title="alias"></a>alias</h2><h4 id="sudo-alias"><a href="#sudo-alias" class="headerlink" title="sudo alias"></a>sudo alias</h4><p>如果身份为特权用户，别名也会造成安全问题。为了避免对系统造成危害，你应该将命令转义</p>
+<ol>
+<li>对别名进行转义</li>
+</ol>
+<p>创建一个和原生命令同名的别名很容易，你不应该以特权用户的身份运行别名化的命令。<br>我们可以转义要使用的命令，忽略当前定义的别名：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ \<span class="built_in">command</span></span><br></pre></td></tr></table></figure>
+<p>字符\可以转义命令，从而执行原本的命令。<br>在不可信环境下执行特权命令时，在命令前加上\来忽略可能存在的别名总是一种良好的安全实践。<br>这是因为攻击者可能已经将一些别有用心的命令利用别名伪装成了特权命令，借此来盗取用户输入的重要信息。</p>
+<h4 id="show-all-of-the-aliases"><a href="#show-all-of-the-aliases" class="headerlink" title="show all of the aliases"></a>show all of the aliases</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Debugging-the-script"><a href="#Debugging-the-script" class="headerlink" title="Debugging the script"></a>Debugging the script</h2><p>我们可以利用Bash内建的调试工具或者按照易于调试的方式编写脚本，方法如下所示。</p>
+<p>(1) 使用选项-x，启用shell脚本的跟踪调试功能：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -x script.sh</span><br></pre></td></tr></table></figure>
+
+<p>(2) 使用set -x和set +x对脚本进行部分调试。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..6&#125;;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">set</span> -x</span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line">    <span class="built_in">set</span> +x</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Script executed&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>(3) 前面介绍的调试方法是Bash内建的。<br>它们以固定的格式生成调试信息。<br>但是在很多情况下，我们需要使用自定义的调试信息。<br>可以通过定义_DEBUG环境变量来启用或禁止调试及生成特定形式的信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">DEBUG</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">    [ <span class="string">&quot;<span class="variable">$_DEBUG</span>&quot;</span> == <span class="string">&quot;on&quot;</span> ] &amp;&amp; <span class="variable">$@</span> || :</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..10&#125;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    DEBUG <span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ _DEBUG=on ./script.sh</span><br></pre></td></tr></table></figure>
+
+<p>我们在每一条需要打印调试信息的语句前加上DEBUG。如果没有把_DEBUG&#x3D;on传递给脚本，那么调试信息就不会打印出来。在Bash中，命令:告诉shell不要进行任何操作。</p>
+<p>调试的输出信息可能会很长。如果使用了-x或set -x，调试输出会被发送到stderr。可以使用下面的命令将其重定向到文件中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -x script.sh 2&gt; debug.log</span><br></pre></td></tr></table></figure>
+
+<h4 id="Exporting-functions"><a href="#Exporting-functions" class="headerlink" title="Exporting functions"></a>Exporting functions</h4><p>函数也能像环境变量一样用export导出，如此一来，函数的作用域就可以扩展到子进程中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> -f fname</span><br><span class="line">$&gt; <span class="keyword">function</span> <span class="function"><span class="title">getIP</span></span>() &#123; /sbin/ifconfig <span class="variable">$1</span> | grep <span class="string">&#x27;inet &#x27;</span>; &#125;$&gt; <span class="built_in">echo</span> <span class="string">&quot;getIP eth0&quot;</span> &gt;test.sh$&gt; sh test.sh  sh: getIP: No such file or directory$&gt; <span class="built_in">export</span> -f getIP$&gt; sh test.sh  inet addr: 192.168.1.2 Bcast: 192.168.255.255 Mask:255.255.0.0</span><br><span class="line">$&gt; <span class="built_in">echo</span> <span class="string">&quot;getIP eth0&quot;</span> &gt;test.sh</span><br><span class="line">$&gt; sh test.sh</span><br><span class="line">    sh: getIP: No such file or directory</span><br><span class="line">$&gt; <span class="built_in">export</span> -f getIP</span><br><span class="line">$&gt; sh test.sh</span><br><span class="line">    inet addr: 192.168.1.2 Bcast: 192.168.255.255 Mask:255.255.0.0</span><br></pre></td></tr></table></figure>
+
+<h2 id="Sending-output-from-one-command-toanother"><a href="#Sending-output-from-one-command-toanother" class="headerlink" title="Sending output from one command toanother"></a>Sending output from one command toanother</h2><h4 id="Spawning-a-separate-process-with-subshell"><a href="#Spawning-a-separate-process-with-subshell" class="headerlink" title="Spawning a separate process with subshell"></a>Spawning a separate process with subshell</h4><p>子shell本身就是独立的进程。可以使用()操作符来定义一个子shell</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$&gt; <span class="built_in">pwd</span></span><br><span class="line">/</span><br><span class="line">$&gt;(<span class="built_in">cd</span> /bin; <span class="built_in">ls</span>)</span><br><span class="line">awk bash <span class="built_in">cat</span>...</span><br><span class="line">$&gt;<span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
+
+<p>当命令在子shell中执行时，不会对当前shell造成任何影响；所有的改变仅限于该子shell内。<br>例如，当用cd命令改变子shell的当前目录时，这种变化不会反映到主shell环境中。</p>
+<h2 id="Running-a-command-until-it-succeeds"><a href="#Running-a-command-until-it-succeeds" class="headerlink" title="Running a command until it succeeds"></a>Running a command until it succeeds</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">repeat</span></span>() &#123;</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span>; <span class="keyword">do</span></span><br><span class="line">        <span class="variable">$@</span> &amp;&amp; <span class="built_in">return</span></span><br><span class="line">        <span class="built_in">sleep</span> 1</span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="A-faster-approach"><a href="#A-faster-approach" class="headerlink" title="A faster approach"></a>A faster approach</h5><p>在大多数现代系统中，true是作为&#x2F;bin中的一个二进制文件来实现的。这就意味着每执行一<br>次之前提到的while循环，shell就不得不生成一个进程。为了避免这种情况，可以使用shell的内<br>建命令:，该命令的退出状态总是为0：</p>
+<h2 id="Comparisons-and-tests"><a href="#Comparisons-and-tests" class="headerlink" title="Comparisons and tests"></a>Comparisons and tests</h2><p>A tips</p>
+<ul>
+<li>[ condition ] &amp;&amp; action;    # 如果condition为真，则执行action</li>
+<li>[ condition ] || action;    # 如果condition为假，则执行action</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ <span class="variable">$var</span> -eq 0]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>gt：大于</li>
+<li>lt：小于</li>
+<li>ge：大于等于</li>
+<li>le：小于等于</li>
+</ul>
+<p>-a是逻辑与操作符，-o是逻辑或操作符。可以按照下面的方法结合多个条件进行测试：</p>
+<ul>
+<li>[ $var1 -ne 0 -a $var2 -gt 2 ]    #使用逻辑与-a</li>
+<li>[ $var1 -ne 0 -o $var2 -gt 2 ]    #逻辑或-o</li>
+</ul>
+<p>文件系统相关测试</p>
+<ul>
+<li>[ -f $file_var ]：如果给定的变量包含正常的文件路径或文件名，则返回真</li>
+<li>[ -x $var ]：如果给定的变量包含的文件可执行，则返回真</li>
+<li>[ -d $var ]：如果给定的变量包含的是目录，则返回真</li>
+<li>[ -e $var ]：如果给定的变量包含的文件存在，则返回真</li>
+<li>[ -c $var ]：如果给定的变量包含的是一个字符设备文件的路径，则返回真</li>
+<li>[ -b $var ]：如果给定的变量包含的是一个块设备文件的路径，则返回真</li>
+<li>[ -w $var ]：如果给定的变量包含的文件可写，则返回真</li>
+<li>[ -r $var ]：如果给定的变量包含的文件可读，则返回真</li>
+<li>[ -L $var ]：如果给定的变量包含的是一个符号链接，则返回真</li>
+</ul>
+<h3 id="String-comparisons"><a href="#String-comparisons" class="headerlink" title="String comparisons:"></a>String comparisons:</h3><p>进行字符串比较时，最好用双中括号，因为有时候采用单个中括号会产生错误。</p>
+<p>注意，双中括号是Bash的一个扩展特性。如果出于性能考虑，使用ash或dash<br>来运行脚本，那么将无法使用该特性</p>
+<h2 id="Customizing-bash-with-configuration-files"><a href="#Customizing-bash-with-configuration-files" class="headerlink" title="Customizing bash with configuration files"></a>Customizing bash with configuration files</h2><p>配置文件分为3类：登录时执行的、<br>启动交互式shell时执行的以及调用shell处理脚本文件时执行的</p>
+<p>当用户登录shell时，会执行下列文件</p>
+<pre><code class="bash">
+`/etc/profile, $HOME/.profile, $HOME/.bash_login, $HOME/.bash_profile /``
+
+注意，如果你是通过图形化登录管理器登入的话，是不会执行/etc/profile
+
+$HOME/.profile和$HOME/.bash_profile这3个文件的。这是因为图形化窗口管理器
+
+并不会启动shell。当你打开终端窗口时才会创建shell，但这个shell也不是登录shell
+
+如果.bash_profile或.bash_login文件存在，则不会去读取.profile文件。
+</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/21/Linux/Shell/Top-Ten-One-Liners-from-CommandLineFu-Explained/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1059,92 +1281,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/15/Hexo/Hexo-add-tags-page/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/15/Hexo/Hexo-add-tags-page/" class="post-title-link" itemprop="url">Hexo_add_tags_page</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-10-15 17:49:45" itemprop="dateCreated datePublished" datetime="2022-10-15T17:49:45+08:00">2022-10-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-18 11:00:47" itemprop="dateModified" datetime="2022-10-18T11:00:47+08:00">2022-10-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="1-Add-tags-page"><a href="#1-Add-tags-page" class="headerlink" title="1. Add tags page"></a>1. Add tags page</h2><h3 id="1-1-Create-a-new-file"><a href="#1-1-Create-a-new-file" class="headerlink" title="1.1. Create a new file"></a>1.1. Create a new file</h3><p>Create a new file in the <code>source</code> folder, name it <code>tags/index.md</code><br>quick command:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page tags</span><br></pre></td></tr></table></figure>
-
-<p>Modify the content of the file:</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">...</span><br><span class="line"><span class="section">type: &quot;tags&quot;</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="1-2-Modify-the-theme-config-file"><a href="#1-2-Modify-the-theme-config-file" class="headerlink" title="1.2. Modify the theme config file"></a>1.2. Modify the theme config file</h3><p>I recommend you see the theme’s <code>README.md</code> file to know how to config.</p>
-<p>I use <a target="_blank" rel="noopener" href="https://theme-next.iissnan.com/theme-settings.html#tags-page">next</a></p>
-<p>在菜单中添加链接。编辑 主题配置文件 ， 添加 tags 到 menu 中，如下:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="1-3-Modify-the-hexo-config-Directory"><a href="#1-3-Modify-the-hexo-config-Directory" class="headerlink" title="1.3 Modify the hexo config Directory"></a>1.3 Modify the hexo config Directory</h3><p>Check if the name matches</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Directory</span><br><span class="line">tag_dir: tags</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1214,7 +1350,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
