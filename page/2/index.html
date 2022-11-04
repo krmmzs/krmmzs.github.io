@@ -158,6 +158,317 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/30/Leetcode/LeetCode-29-Divide-Two-Integers/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/30/Leetcode/LeetCode-29-Divide-Two-Integers/" class="post-title-link" itemprop="url">LeetCode 29. Divide Two Integers</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-30 16:41:33 / Modified: 17:13:02" itemprop="dateCreated datePublished" datetime="2022-10-30T16:41:33+08:00">2022-10-30</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="LeetCode-29-Divide-Two-Integers"><a href="#LeetCode-29-Divide-Two-Integers" class="headerlink" title="LeetCode 29. Divide Two Integers"></a>LeetCode 29. Divide Two Integers</h1><p>传送门：<br><a target="_blank" rel="noopener" href="https://leetcode.com/problems/divide-two-integers/">https://leetcode.com/problems/divide-two-integers/</a></p>
+<h2 id="Main-Idea"><a href="#Main-Idea" class="headerlink" title="Main Idea"></a>Main Idea</h2><blockquote>
+<p>Given two integers dividend and divisor, divide two integers without using multiplication, division, and mod operator.</p>
+</blockquote>
+<p>不能用常规的乘除法和取余法</p>
+<p>那么本质上乘除法是+-的过程<br>然后也可以用位运算来实现乘除法</p>
+<p>所以思考的时候仍然用乘除的抽象</p>
+<p>暴力的话，考虑没有符号的时候（符号可以和数值单独处理）</p>
+<p>7 &#x2F; 2 &#x3D; 3 也就是 减去k个2，直到不能减为止</p>
+<p>不过极端情况下，比如 2^31 &#x2F; 1 &#x3D; 2^31，这样的话就会超时</p>
+<p>所以需要优化</p>
+<p>如果对快速幂的推导比较熟悉的话，应该能很快反应出来可以用二进制的思想log掉k</p>
+<p>预处理logk位的2^k，然后从高位开始减去，直到不能减为止</p>
+<p>假设 x &#x2F; y &#x3D; k &#x3D;&#x3D;&gt; (110010)_2 &#x3D; 2^1 + 2^4 + 2^5</p>
+<p>那么就可以这样做：</p>
+<p>x - 2^1y - 2^4y - 2^5y</p>
+<p>那么就可以先预处理2^0y, 2^1y … 2^ky, (2^ky &lt;&#x3D; x &lt; 2^k+1y), 直接处理32位也无所谓了</p>
+<p>然后从<strong>高位</strong>开始减去，直到不能减为止</p>
+<p>if x &gt;&#x3D; 2^32y &lt;&#x3D;&#x3D;&gt; x&#x2F;y &gt;&#x3D; 2^32, 那么二进制表示下，32处就是1</p>
+<p>符号处理就看两者的符号是否相同</p>
+<p>可以用异或来判断</p>
+<h2 id="Time-Complexity"><a href="#Time-Complexity" class="headerlink" title="Time Complexity"></a>Time Complexity</h2><p>时间复杂度：O(logn)</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">divide</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> LL;</span><br><span class="line"></span><br><span class="line">        <span class="type">bool</span> is_minus = (x &gt; <span class="number">0</span>) ^ (y &gt; <span class="number">0</span>);</span><br><span class="line">        LL a = <span class="built_in">labs</span>(x), b = <span class="built_in">labs</span>(y);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// pre-process logk bits of 2^k</span></span><br><span class="line">        vector&lt;LL&gt; exp;</span><br><span class="line">        <span class="keyword">for</span> (LL i = b; i &lt;= a; i = i + i) &#123;</span><br><span class="line">            exp.<span class="built_in">emplace_back</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        LL res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = exp.<span class="built_in">size</span>() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i --) &#123;</span><br><span class="line">            <span class="keyword">if</span> (a &gt;= exp[i]) &#123;</span><br><span class="line">                a -= exp[i];</span><br><span class="line">                res += <span class="number">1ll</span> &lt;&lt; i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (is_minus) res = -res;</span><br><span class="line">        <span class="keyword">if</span> (res &gt; INT_MAX || res &lt; INT_MIN) res = INT_MAX;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/30/File-In-File-Out/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/30/File-In-File-Out/" class="post-title-link" itemprop="url">File In, File Out</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-30 13:43:50 / Modified: 14:15:03" itemprop="dateCreated datePublished" datetime="2022-10-30T13:43:50+08:00">2022-10-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Shell/Linux-Shell-scripts-cookbook/" itemprop="url" rel="index"><span itemprop="name">Linux Shell scripts cookbook</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="File-In-File-Out"><a href="#File-In-File-Out" class="headerlink" title="File In, File Out"></a>File In, File Out</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><h2 id="Fast-command-line-navigation-using-pushdand-popd"><a href="#Fast-command-line-navigation-using-pushdand-popd" class="headerlink" title="Fast command-line navigation using pushdand popd"></a>Fast command-line navigation using pushdand popd</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/30/datalab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/30/datalab/" class="post-title-link" itemprop="url">datalab</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-10-30 13:35:47" itemprop="dateCreated datePublished" datetime="2022-10-30T13:35:47+08:00">2022-10-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-10-31 00:08:23" itemprop="dateModified" datetime="2022-10-31T00:08:23+08:00">2022-10-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/csapp/" itemprop="url" rel="index"><span itemprop="name">csapp</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/csapp/lab/" itemprop="url" rel="index"><span itemprop="name">lab</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="datalab"><a href="#datalab" class="headerlink" title="datalab"></a>datalab</h1><p>该实验</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/29/Linux/CLI/zsh/Understanding-Zsh-Completions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/29/Linux/CLI/zsh/Understanding-Zsh-Completions/" class="post-title-link" itemprop="url">Understanding Zsh Completions</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-10-29 16:58:03" itemprop="dateCreated datePublished" datetime="2022-10-29T16:58:03+08:00">2022-10-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-10-31 13:57:16" itemprop="dateModified" datetime="2022-10-31T13:57:16+08:00">2022-10-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/CLI/" itemprop="url" rel="index"><span itemprop="name">CLI</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/CLI/zsh/" itemprop="url" rel="index"><span itemprop="name">zsh</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Understanding-Zsh-Completions"><a href="#Understanding-Zsh-Completions" class="headerlink" title="Understanding Zsh Completions"></a>Understanding Zsh Completions</h1>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/29/Linux/CLI/fzf/fzf-advanced/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -885,360 +1196,10 @@ Sx
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/25/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter07/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/25/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter07/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter07</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-10-25 17:49:27 / Modified: 19:58:15" itemprop="dateCreated datePublished" datetime="2022-10-25T17:49:27+08:00">2022-10-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/Accelerated-Cpp/" itemprop="url" rel="index"><span itemprop="name">Accelerated Cpp</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="chapter-07-Using-associative-containers"><a href="#chapter-07-Using-associative-containers" class="headerlink" title="chapter 07 Using associative containers"></a>chapter 07 Using associative containers</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><h2 id="sequence-containers-vs-associative-containers"><a href="#sequence-containers-vs-associative-containers" class="headerlink" title="sequence containers vs associative containers"></a>sequence containers vs associative containers</h2><p>Another important difference between associative and sequential containers is that, because<br>associative containers are self-ordering, our own programs must not do anything tha<br>changes the order of the elements.</p>
-<p>For that reason, <strong>algorithms that change the contents of</strong><br><strong>containers often don’t work for associative containers</strong>. In exchange for that restriction,<br>associative containers offer a variety of useful operations that are impossible to implement<br>implementefficiently for sequential containers.</p>
-<h2 id="map’s-key-is-const"><a href="#map’s-key-is-const" class="headerlink" title="map’s key is const"></a>map’s key is const</h2><p>Note that the <strong>pair</strong> associated with a <strong>map</strong> has a key type that is <strong>const</strong>.<br>key is <strong>const</strong>, we are prevented from changing the value of an element’s key. If the key<br>were not <strong>const</strong>, we might implicitly change the element’s position within the <strong>map</strong>.<br>Accordingly, the key is always <strong>const</strong>, so that if we dereference a <code>map&lt;string, int&gt;</code><br>iterator, we get a <code>pair&lt;const string, int&gt;</code>.</p>
-<h2 id="high-order-function-let-function-be-a-interface"><a href="#high-order-function-let-function-be-a-interface" class="headerlink" title="high order function let function be a interface"></a>high order function let function be a interface</h2><p>Rather than using <strong>split</strong> directly, we’re going to make it a parameter to the cross-reference<br>function. That way, we leave open the possibility of changing the way we find the words on a<br>line. For example, we could pass the <strong>find_urls</strong> function from §6.1.3&#x2F;105, and use the<br>cross-reference function to see where URLs appear in the input.</p>
-<h2 id="rand-function"><a href="#rand-function" class="headerlink" title="rand function"></a>rand function</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// return a random integer in the rang [0, n)</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">nrand</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span> || n &gt; RAND_MAX)</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">domain_error</span>(<span class="string">&quot;Argument to nrand is out of range&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> bucket_size = RAND_MAX / n;</span><br><span class="line">    <span class="type">int</span> r;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> r = <span class="built_in">rand</span>() / bucket_size;</span><br><span class="line">    <span class="keyword">while</span> (r &gt;= n);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>for example:<br>assume that n is 3. Then bucket_size will be 10922. In this case,<br>values of rand() in the range [0, 10922) will yield 0, values in the range [10922,<br>21844) will yield 1, values in the range [21844, 32766) will yield 2, and values of 32766<br>or 32767 will be discarded.</p>
-<h2 id="access-operator-will-create-a-new-element-in-map"><a href="#access-operator-will-create-a-new-element-in-map" class="headerlink" title="[] access operator will create a new element in map"></a>[] access operator will create a new element in map</h2><p>Indexes the <strong>map</strong> using a key, <strong>k</strong>, of type <strong>K</strong>, and returns an <strong>lvalue</strong> of type <strong>V</strong>. If there is no<br>entry for the given key, a new value-initialized element is created and inserted into the<br><strong>map</strong> with this key.<br>Because using <strong>[]</strong> to access a <strong>map</strong> might create a new element, <strong>[]</strong> is<br>not allowed on a <strong>const map</strong>.</p>
-<p><a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/container/map/operator_at">std::map&lt;Key,T,Compare,Allocator&gt;::operator[] in cppreference.com</a></p>
-<blockquote>
-<p>Returns a reference to the value that is mapped to a key equivalent to key, performing an insertion if such key does not already exist.</p>
-</blockquote>
-<p><strong>a reference to the value obviously is a lvalue.</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/Telegram/Telegram-webm-to-gif/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/24/Telegram/Telegram-webm-to-gif/" class="post-title-link" itemprop="url">Telegram webm to gif</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-10-24 18:12:39 / Modified: 20:01:58" itemprop="dateCreated datePublished" datetime="2022-10-24T18:12:39+08:00">2022-10-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Anime/" itemprop="url" rel="index"><span itemprop="name">Anime</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Anime/FFmpeg/" itemprop="url" rel="index"><span itemprop="name">FFmpeg</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Telegram-webm-to-gif"><a href="#Telegram-webm-to-gif" class="headerlink" title="Telegram webm to gif"></a>Telegram webm to gif</h1><h2 id="1-Download-webm"><a href="#1-Download-webm" class="headerlink" title="1. Download webm"></a>1. Download webm</h2><p><a target="_blank" rel="noopener" href="https://t.me/DownloadStickersBot">https://t.me/DownloadStickersBot</a></p>
-<p>这个机器人可以下载 Telegram 的 sticker.</p>
-<p>简介： Download your favourite stickers in jpg,png,webp formats or whole pack as zip file.</p>
-<p>然后就会把zip发送到你的电脑上，解压后就是webm文件。</p>
-<h2 id="2-Convert-webm-to-gif"><a href="#2-Convert-webm-to-gif" class="headerlink" title="2. Convert webm to gif"></a>2. Convert webm to gif</h2><p>文件：webmToGif.sh</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *.webm; <span class="keyword">do</span></span><br><span class="line">    ffmpeg -i <span class="string">&quot;<span class="variable">$i</span>&quot;</span> -pix_fmt rgb24 <span class="string">&quot;<span class="variable">$&#123;i%.webm&#125;</span>.gif&quot;</span>; </span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-
-<p>将webmToGif.sh放到webm文件夹下，然后执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x webmToGif.sh</span><br><span class="line">./webmToGif.sh</span><br></pre></td></tr></table></figure>
-
-<p>就会把webm文件夹下的所有webm文件转换为gif文件。</p>
-<h2 id="3-reduce-gif-size"><a href="#3-reduce-gif-size" class="headerlink" title="3. reduce gif size"></a>3. reduce gif size</h2><p>文件：reduceGifSize.sh</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *.gif; <span class="keyword">do</span></span><br><span class="line">    gifsicle -optimize=3 <span class="string">&quot;<span class="variable">$i</span>&quot;</span> -o <span class="string">&quot;<span class="variable">$&#123;i%.gif&#125;</span>_reduced.gif&quot;</span>;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-
-<p>在同一个目录下执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x reduceGifSize.sh</span><br><span class="line">./reduceGifSize.sh</span><br></pre></td></tr></table></figure>
-
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://askubuntu.com/questions/506670/how-to-do-i-convert-an-webm-video-to-a-animated-gif-on-the-command-line">Ubuntu ask How to do I convert a webm(video) to a (animated) gif on the command line?</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.ffmpeg.org/doxygen/3.3/group__lavc__misc__pixfmt.html">FFmpeg Pixel formats</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/kohler/gifsicle">gifsicle</a></p>
-<p><a target="_blank" rel="noopener" href="https://gist.github.com/Potherca/18423260e2c9a4324c9ecb0c0a284066">Potherca&#x2F;README.md</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/Cpp/Effctive-Cpp/Effective-Cpp-00Intro/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/24/Cpp/Effctive-Cpp/Effective-Cpp-00Intro/" class="post-title-link" itemprop="url">Effective Cpp 00 Intro</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-10-24 08:58:31" itemprop="dateCreated datePublished" datetime="2022-10-24T08:58:31+08:00">2022-10-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-25 12:07:36" itemprop="dateModified" datetime="2022-10-25T12:07:36+08:00">2022-10-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/Effective-cpp/" itemprop="url" rel="index"><span itemprop="name">Effective cpp</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Effective-cpp-00-Introduction"><a href="#Effective-cpp-00-Introduction" class="headerlink" title="Effective cpp 00 Introduction"></a>Effective cpp 00 Introduction</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h3><h3 id="signature-differences-when-read-this-book"><a href="#signature-differences-when-read-this-book" class="headerlink" title="signature differences when read this book"></a>signature differences when read this book</h3><p>每个函数的声明揭示其签名式(signature)，也就是参数和返回类型。一个函数<br>的签名等同于该函数的类型。</p>
-<p><strong>Sometimes signature includes the return type, sometimes it doesn’t.</strong></p>
-<p>More see <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/290038/is-the-return-type-part-of-the-function-signature">Is the return type part of the function signature?</a></p>
-<p>C++对签名式的官方定义并不包括函数的返回类型，不过本书把返回类型视为签名的一部分，这样比较有帮助。</p>
-<h3 id="keyword-explicit"><a href="#keyword-explicit" class="headerlink" title="keyword explicit"></a>keyword <code>explicit</code></h3><p>explicit关键字只能用于构造函数的声明中，用于阻止隐式转换。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">B</span><span class="params">(<span class="type">int</span> x = <span class="number">0</span>, <span class="type">bool</span> b = <span class="literal">true</span>)</span></span>; <span class="comment">// default constructor;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">C</span><span class="params">(<span class="type">int</span> x)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>The constructors for classes B and C are declared explicit here. That<br>prevents them from being used to perform implicit type conversions,<br>though they may still be used for explicit type conversions</p>
-<p>More see <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/121162/what-does-the-explicit-keyword-mean">What does the explicit keyword mean?</a></p>
-<h3 id="the-“-x3D-”-syntax-can-also-be-used-to-call-the-copy-constructor"><a href="#the-“-x3D-”-syntax-can-also-be-used-to-call-the-copy-constructor" class="headerlink" title="the “&#x3D;” syntax can also be used to call the copy constructor"></a>the “&#x3D;” syntax can also be used to call the copy constructor</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Widget w3 = w2;</span><br></pre></td></tr></table></figure>
-
-<p>Fortunately,  copy  construction  is  easy  to  distinguish  from  copy  as-<br>signment. If a new object is being defined (such as w3 in the statement<br>above), a constructor has to be called; it can’t be an assignment. If no<br>new object is being defined (such as in the “w1&#x3D; w2” statement above),<br>no constructor can be involved, so it’s an assignment.</p>
-<p>The copy constructor is a particularly important function, because it<br>defines how an object is passed by value. For example, consider this:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">asAcceptableQuality</span><span class="params">(Widget w)</span></span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">Widget aWidge;</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">hasAcceptableQuality</span>(aWidget))</span><br><span class="line">    <span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
-
-<p>The parameter w is passed to hasAcceptableQuality by value, so in the<br>call above, aWidget is copied into w. The copying is done by Widget’s<br>copy  constructor.</p>
-<h3 id="function-objects"><a href="#function-objects" class="headerlink" title="function  objects"></a>function  objects</h3><p>objects that act like function.</p>
-<p>STL</p>
-<h3 id="undefined-behavior"><a href="#undefined-behavior" class="headerlink" title="undefined behavior"></a>undefined behavior</h3><p>The C++ standard doesn’t define what happens when you do something</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p = <span class="number">0</span>; <span class="comment">// p is a null pointer</span></span><br><span class="line">std::cout &lt;&lt; *p; <span class="comment">// dereference a null pointer</span></span><br><span class="line">                 <span class="comment">// yields undefined behavior</span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> name[] = <span class="string">&quot;Darla&quot;</span>; <span class="comment">// name is an array of size 6(don&#x27;t for get the trailing null!)</span></span><br><span class="line">                       <span class="comment">// yields undefined behavior</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Cpp-without-interface-language-element"><a href="#Cpp-without-interface-language-element" class="headerlink" title="Cpp without interface(language element)"></a>Cpp without interface(language element)</h3><p>when talking about interfaces in cpp as a fairly general de-sign idea.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/English/cszh-en-table/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/24/English/cszh-en-table/" class="post-title-link" itemprop="url">cszh-en table</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-10-24 08:28:37 / Modified: 08:30:48" itemprop="dateCreated datePublished" datetime="2022-10-24T08:28:37+08:00">2022-10-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/English/" itemprop="url" rel="index"><span itemprop="name">English</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <img src="../images/csen-zh01.png" alt="csen-zh01" style="zoom:70%;" />
-<img src="../images/csen-zh02.png" alt="csen-zh02" style="zoom:70%;" />
-<img src="../images/csen-zh03.png" alt="csen-zh03" style="zoom:70%;" />
-<img src="../images/csen-zh04.png" alt="csen-zh04" style="zoom:70%;" />
-<img src="../images/csen-zh05.png" alt="csen-zh05" style="zoom:70%;" />
-<img src="../images/csen-zh06.png" alt="csen-zh06" style="zoom:70%;" />
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1304,7 +1265,7 @@ Sx
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1317,7 +1278,7 @@ Sx
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">33</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
