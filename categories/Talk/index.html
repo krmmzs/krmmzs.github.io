@@ -20,20 +20,17 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="LeetCode 31. Next PermutationMain Idea这个感觉在大二上看离散数学黑书里研究过，建议直接翻书 一个数想变大，肯定是后面开始变大， 很直觉地就抽象成点图 然后看升序降序 下一个排列就是从右往左找到第一个升序的位置，然后从这个位置往右找到第一个比他大的数，然后交换，然后把这个位置往右的数从小到大排序 Ex: 2 3 5 4 1  ^ | |   .">
-<meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode 31. Next Permutation">
-<meta property="og:url" content="http://example.com/2022/10/30/Leetcode/LeetCode-31-Next-Permutation/index.html">
+  <meta name="description" content="233">
+<meta property="og:type" content="website">
+<meta property="og:title" content="krmmzs">
+<meta property="og:url" content="http://example.com/categories/Talk/index.html">
 <meta property="og:site_name" content="krmmzs">
-<meta property="og:description" content="LeetCode 31. Next PermutationMain Idea这个感觉在大二上看离散数学黑书里研究过，建议直接翻书 一个数想变大，肯定是后面开始变大， 很直觉地就抽象成点图 然后看升序降序 下一个排列就是从右往左找到第一个升序的位置，然后从这个位置往右找到第一个比他大的数，然后交换，然后把这个位置往右的数从小到大排序 Ex: 2 3 5 4 1  ^ | |   .">
+<meta property="og:description" content="233">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-10-30T09:10:45.000Z">
-<meta property="article:modified_time" content="2022-10-30T09:49:34.989Z">
 <meta property="article:author" content="krmmzs">
-<meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2022/10/30/Leetcode/LeetCode-31-Next-Permutation/">
+<link rel="canonical" href="http://example.com/categories/Talk/">
 
 
 <script id="page-configurations">
@@ -41,12 +38,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : true,
+    isPost : false,
     lang   : 'en'
   };
 </script>
 
-  <title>LeetCode 31. Next Permutation | krmmzs</title>
+  <title>Category: Talk | krmmzs</title>
   
 
 
@@ -155,102 +152,51 @@
         <div class="content-wrap">
           
 
-          <div class="content post posts-expand">
+          <div class="content category">
             
 
-    
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/30/Leetcode/LeetCode-31-Next-Permutation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          LeetCode 31. Next Permutation
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-10-30 17:10:45 / Modified: 17:49:34" itemprop="dateCreated datePublished" datetime="2022-10-30T17:10:45+08:00">2022-10-30</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+  
+  <div class="post-block">
+    <div class="posts-collapse">
+      <div class="collection-title">
+        <h2 class="collection-header">Talk
+          <small>Category</small>
+        </h2>
+      </div>
 
       
-        <h1 id="LeetCode-31-Next-Permutation"><a href="#LeetCode-31-Next-Permutation" class="headerlink" title="LeetCode 31. Next Permutation"></a>LeetCode 31. Next Permutation</h1><h2 id="Main-Idea"><a href="#Main-Idea" class="headerlink" title="Main Idea"></a>Main Idea</h2><p>这个感觉在大二上看离散数学黑书里研究过，建议直接翻书</p>
-<p>一个数想变大，肯定是后面开始变大，</p>
-<p>很直觉地就抽象成点图</p>
-<p>然后看升序降序</p>
-<p>下一个排列就是从右往左找到第一个升序的位置，然后从这个位置往右找到第一个比他大的数，然后交换，然后把这个位置往右的数从小到大排序</p>
-<p>Ex: 2 3 5 4 1</p>
-<pre>
-^
-|
-|   .            
-|    .
-|  .
-| .   .  
-|
-|-------------------->
-</pre>
-
-<p>交换了 3 和 4</p>
-<p>然后把 4 之后的数从小到大排序， 翻转即可</p>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">nextPermutation</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt;::size_type k = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (k != <span class="number">0</span> &amp;&amp; nums[k - <span class="number">1</span>] &gt;= nums[k]) &#123;</span><br><span class="line">            k --;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (k == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            vector&lt;<span class="type">int</span>&gt;::size_type t = k;</span><br><span class="line">            <span class="keyword">while</span> (t &lt; nums.<span class="built_in">size</span>() &amp;&amp; nums[t] &gt; nums[k - <span class="number">1</span>]) &#123;</span><br><span class="line">                t ++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">swap</span>(nums[t - <span class="number">1</span>], nums[k - <span class="number">1</span>]);</span><br><span class="line">            <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>() + k, nums.<span class="built_in">end</span>());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+    <div class="collection-year">
+      <span class="collection-header">2022</span>
     </div>
 
-    
-    
-    
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
-          </div>
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2022-11-04T15:33:21+08:00"
+              content="2022-11-04">
+          11-04
+        </time>
+      </div>
 
-        
+      <div class="post-title">
+          <a class="post-title-link" href="/2022/11/04/Z-Library-Possible-Death/" itemprop="url">
+            <span itemprop="name">Z Library Possible Death</span>
+          </a>
+      </div>
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2022/10/30/Leetcode/LeetCode-29-Divide-Two-Integers/" rel="prev" title="LeetCode 29. Divide Two Integers">
-      <i class="fa fa-chevron-left"></i> LeetCode 29. Divide Two Integers
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/10/30/Leetcode/LeetCode-33-Search-in-Rotated-Sorted-Array/" rel="next" title="LeetCode 33. Search in Rotated Sorted Array">
-      LeetCode 33. Search in Rotated Sorted Array <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+    </header>
   </article>
+
+    </div>
+  </div>
   
   
+  
+
   
 
 
@@ -303,7 +249,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-31-Next-Permutation"><span class="nav-number">1.</span> <span class="nav-text">LeetCode 31. Next Permutation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Main-Idea"><span class="nav-number">1.1.</span> <span class="nav-text">Main Idea</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Code"><span class="nav-number">1.2.</span> <span class="nav-text">Code</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
