@@ -158,6 +158,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter03/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter03 Working with batches of data</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-18 11:03:09 / Modified: 11:05:50" itemprop="dateCreated datePublished" datetime="2022-10-18T11:03:09+08:00">2022-10-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/Accelerated-Cpp/" itemprop="url" rel="index"><span itemprop="name">Accelerated Cpp</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="chapter-03-Working-with-batches-of-data"><a href="#chapter-03-Working-with-batches-of-data" class="headerlink" title="chapter 03 Working with batches of data"></a>chapter 03 Working with batches of data</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><h2 id="while-cin-gt-gt-x"><a href="#while-cin-gt-gt-x" class="headerlink" title="while (cin &gt;&gt; x)"></a>while (cin &gt;&gt; x)</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (cin &gt;&gt; x) &#123;</span><br><span class="line">    <span class="comment">// do something with x</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>is equal to</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cin &gt;&gt; <span class="function">x</span></span><br><span class="line"><span class="function"><span class="title">while</span> <span class="params">(cin)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// do something with x</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="size-type-in-vector"><a href="#size-type-in-vector" class="headerlink" title="size_type in vector"></a>size_type in vector</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> vector&lt;<span class="type">double</span>&gt;::size_type vec_sz;</span><br><span class="line">vec_sz size = homework.<span class="built_in">size</span>();</span><br></pre></td></tr></table></figure>
+
+<p>The <code>vector</code> type defines a type named <code>vector&lt;double&gt;::size_type</code>, and a functionnamed <code>size</code>. These members operate analogously to the ones in <code>string:</code> The type definedby <code>size_type</code> is an <code>unsigned</code> type guaranteed sufficient to hold the size of the largestpossible <code>vector</code>, and <code>size()</code> returns a size_type value that represents the number ofelements in <code>the</code> <code>vector.</code></p>
+<p>Because we need to know the size in two places, we will remember the value in a localvariable. Different implementations use different types to represent sizes, so we cannotwrite the appropriate type directly and remain implementation-independent. For that reason,it is good programming practice to use the <code>size_type</code> that the library defines to represent<br>container sizes, which we do in naming the type of <code>size</code>.</p>
+<h2 id="unsigned-integral-type"><a href="#unsigned-integral-type" class="headerlink" title="unsigned integral type"></a>unsigned integral type</h2><p>The next important observation is that <code>vector&lt;double&gt;::size_type</code>, like all standard-library size types, is an <strong>unsigned integral type</strong>. Such types are incapable of storingnegative values at all; instead, they store values modulo 2n, where n depends on the implementation. So, for example, there would never be any point in checking whether <code>homework.size() &lt; 0</code>, because that comparison would always yield false</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1018,7 +1099,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
