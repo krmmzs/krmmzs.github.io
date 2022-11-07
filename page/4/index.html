@@ -158,6 +158,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/Cpp/Effctive-Cpp/Effective-Cpp-00Intro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/24/Cpp/Effctive-Cpp/Effective-Cpp-00Intro/" class="post-title-link" itemprop="url">Effective Cpp 00 Intro</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-10-24 08:58:31" itemprop="dateCreated datePublished" datetime="2022-10-24T08:58:31+08:00">2022-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-10-25 12:07:36" itemprop="dateModified" datetime="2022-10-25T12:07:36+08:00">2022-10-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/Effective-cpp/" itemprop="url" rel="index"><span itemprop="name">Effective cpp</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Effective-cpp-00-Introduction"><a href="#Effective-cpp-00-Introduction" class="headerlink" title="Effective cpp 00 Introduction"></a>Effective cpp 00 Introduction</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h3><h3 id="signature-differences-when-read-this-book"><a href="#signature-differences-when-read-this-book" class="headerlink" title="signature differences when read this book"></a>signature differences when read this book</h3><p>每个函数的声明揭示其签名式(signature)，也就是参数和返回类型。一个函数<br>的签名等同于该函数的类型。</p>
+<p><strong>Sometimes signature includes the return type, sometimes it doesn’t.</strong></p>
+<p>More see <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/290038/is-the-return-type-part-of-the-function-signature">Is the return type part of the function signature?</a></p>
+<p>C++对签名式的官方定义并不包括函数的返回类型，不过本书把返回类型视为签名的一部分，这样比较有帮助。</p>
+<h3 id="keyword-explicit"><a href="#keyword-explicit" class="headerlink" title="keyword explicit"></a>keyword <code>explicit</code></h3><p>explicit关键字只能用于构造函数的声明中，用于阻止隐式转换。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">B</span><span class="params">(<span class="type">int</span> x = <span class="number">0</span>, <span class="type">bool</span> b = <span class="literal">true</span>)</span></span>; <span class="comment">// default constructor;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">C</span><span class="params">(<span class="type">int</span> x)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>The constructors for classes B and C are declared explicit here. That<br>prevents them from being used to perform implicit type conversions,<br>though they may still be used for explicit type conversions</p>
+<p>More see <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/121162/what-does-the-explicit-keyword-mean">What does the explicit keyword mean?</a></p>
+<h3 id="the-“-x3D-”-syntax-can-also-be-used-to-call-the-copy-constructor"><a href="#the-“-x3D-”-syntax-can-also-be-used-to-call-the-copy-constructor" class="headerlink" title="the “&#x3D;” syntax can also be used to call the copy constructor"></a>the “&#x3D;” syntax can also be used to call the copy constructor</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Widget w3 = w2;</span><br></pre></td></tr></table></figure>
+
+<p>Fortunately,  copy  construction  is  easy  to  distinguish  from  copy  as-<br>signment. If a new object is being defined (such as w3 in the statement<br>above), a constructor has to be called; it can’t be an assignment. If no<br>new object is being defined (such as in the “w1&#x3D; w2” statement above),<br>no constructor can be involved, so it’s an assignment.</p>
+<p>The copy constructor is a particularly important function, because it<br>defines how an object is passed by value. For example, consider this:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">asAcceptableQuality</span><span class="params">(Widget w)</span></span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">Widget aWidge;</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">hasAcceptableQuality</span>(aWidget))</span><br><span class="line">    <span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+
+<p>The parameter w is passed to hasAcceptableQuality by value, so in the<br>call above, aWidget is copied into w. The copying is done by Widget’s<br>copy  constructor.</p>
+<h3 id="function-objects"><a href="#function-objects" class="headerlink" title="function  objects"></a>function  objects</h3><p>objects that act like function.</p>
+<p>STL</p>
+<h3 id="undefined-behavior"><a href="#undefined-behavior" class="headerlink" title="undefined behavior"></a>undefined behavior</h3><p>The C++ standard doesn’t define what happens when you do something</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p = <span class="number">0</span>; <span class="comment">// p is a null pointer</span></span><br><span class="line">std::cout &lt;&lt; *p; <span class="comment">// dereference a null pointer</span></span><br><span class="line">                 <span class="comment">// yields undefined behavior</span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> name[] = <span class="string">&quot;Darla&quot;</span>; <span class="comment">// name is an array of size 6(don&#x27;t for get the trailing null!)</span></span><br><span class="line">                       <span class="comment">// yields undefined behavior</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Cpp-without-interface-language-element"><a href="#Cpp-without-interface-language-element" class="headerlink" title="Cpp without interface(language element)"></a>Cpp without interface(language element)</h3><p>when talking about interfaces in cpp as a fairly general de-sign idea.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/24/English/cszh-en-table/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1223,101 +1324,10 @@ $HOME/.profile和$HOME/.bash_profile这3个文件的。这是因为图形化窗�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/19/Mac/Install-Windows-on-a-Mac/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/19/Mac/Install-Windows-on-a-Mac/" class="post-title-link" itemprop="url">Install_Windows_on_a_Mac</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-10-19 15:58:31" itemprop="dateCreated datePublished" datetime="2022-10-19T15:58:31+08:00">2022-10-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-20 22:08:29" itemprop="dateModified" datetime="2022-10-20T22:08:29+08:00">2022-10-20</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Install-Windows-on-a-Mac"><a href="#Install-Windows-on-a-Mac" class="headerlink" title="Install Windows on a Mac"></a>Install Windows on a Mac</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>you need satisfy the following requirements(check out in about):</p>
-<p>Processor: Intel Core i5 or better</p>
-<p>Disk space: 64 GB or more</p>
-<p>Memory: 4 GB or more</p>
-<p>plugged into power when installing</p>
-<p>backup your data before installing</p>
-<h2 id="Download-Windows-10-ISO"><a href="#Download-Windows-10-ISO" class="headerlink" title="Download Windows 10 ISO"></a>Download Windows 10 ISO</h2><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/software-download/windows10ISO">Windows10 ISO</a></p>
-<img src="/images/Mac_install_windows10-01.png" alt="01.png" style="zoom:70%;" />
-
-<h2 id="Open-Boot-Camp-Assistant"><a href="#Open-Boot-Camp-Assistant" class="headerlink" title="Open Boot Camp Assistant"></a>Open Boot Camp Assistant</h2><p>Choose the Windows 10 ISO you downloaded</p>
-<p>Drag the bar to chose the size of your Windows partition disk</p>
-<p>May need 10 minutes to particular</p>
-<p>Windows10 product key: <a target="_blank" rel="noopener" href="https://passper.imyfone.com/windows-10/windows-10-product-key-free/">Windows10 product key</a> or buy it.</p>
-<h2 id="Install-bootcamp-in-windows"><a href="#Install-bootcamp-in-windows" class="headerlink" title="Install bootcamp in windows"></a>Install bootcamp in windows</h2><p>you will receive a window to show you need to install bootcamp in windows</p>
-<p>agree it.</p>
-<p>Installing bootcamp in your windows os will allow you to make to changes to the partition or fix any issues you might run into while using windows on your mac.</p>
-<h2 id="How-to-back-to-mac-os"><a href="#How-to-back-to-mac-os" class="headerlink" title="How to back to mac os"></a>How to back to mac os</h2><p>Restart your mac and hold down the option key until you see the boot menu.</p>
-<p>The screen will now display two optinos(or more) you to boot up.</p>
-<p>Choose the mac os partition and you will be back to mac os.</p>
-<h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2><p>Setup your windows10 system.</p>
-<p>Such as sign in your Microsoft account, install the software you need.</p>
-<h2 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h2><h3 id="Use-Apple-Software-Update-to-fix-Wi-Fi-issues-in-Boot-Camp"><a href="#Use-Apple-Software-Update-to-fix-Wi-Fi-issues-in-Boot-Camp" class="headerlink" title="Use Apple Software Update to fix Wi-Fi issues in Boot Camp"></a>Use Apple Software Update to fix Wi-Fi issues in Boot Camp</h3><p>If you have issues connecting to Wi-Fi while using Windows 10 with Boot Camp on your 2016 MacBook Pro, use Apple Software Update to get the latest drivers.</p>
-<p>If you’re unable to connect to Wi-Fi, open the Apple Software Update application in Windows and install all available updates.</p>
-<p>If you can’t connect to the Internet via wired connection in Windows, start up in macOS and follow these steps:</p>
-<p>Connect an external device—such as a USB flash drive formatted for Windows—to your Mac.<br>Open Boot Camp Assistant. It’s in the Utilities folder, inside the Applications folder.<br>Choose Action &gt; Download Windows Support Software.<br>Select the external device as the destination for the software.<br>Boot your Mac into Windows and install the update from the external device.</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://support.apple.com/en-hk/HT201468">Install Windows 10 on your Mac with Boot Camp Assistant</a></p>
-<p><a target="_blank" rel="noopener" href="https://support.apple.com/en-hk/HT207591">Use Apple Software Update to fix Wi-Fi issues in Boot Camp</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1383,7 +1393,7 @@ $HOME/.profile和$HOME/.bash_profile这3个文件的。这是因为图形化窗�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">51</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
