@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="chapter 03 Working with batches of dataOverviewwhile (cin &gt;&gt; x)123while (cin &gt;&gt; x) &amp;#123;    &#x2F;&#x2F; do something with x&amp;#125;  is equal to 1234cin &gt;&gt; xwhile (cin) &amp;#123;    &#x2F;&#x2F; do somethi">
+  <meta name="description" content="第 1 章 迈向现代 C++ Use const char* and auto  old: 1char *str &#x3D; &quot;hello world!&quot;; &#x2F;&#x2F; 将出现弃用警告   Use noexcept  C++98 异常说明、 unexpected_handler、set_unexpected() 等相关特性被弃用  Use unique_ptr  C++98 中的 auto_">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Accelerated_Cpp_chapter03 Working with batches of data">
-<meta property="og:url" content="http://example.com/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter03/index.html">
+<meta property="og:title" content="第1章 迈向现代 C++">
+<meta property="og:url" content="http://example.com/2022/11/09/%E7%AC%AC1%E7%AB%A0-%E8%BF%88%E5%90%91%E7%8E%B0%E4%BB%A3-Cpp/index.html">
 <meta property="og:site_name" content="krmmzs">
-<meta property="og:description" content="chapter 03 Working with batches of dataOverviewwhile (cin &gt;&gt; x)123while (cin &gt;&gt; x) &amp;#123;    &#x2F;&#x2F; do something with x&amp;#125;  is equal to 1234cin &gt;&gt; xwhile (cin) &amp;#123;    &#x2F;&#x2F; do somethi">
+<meta property="og:description" content="第 1 章 迈向现代 C++ Use const char* and auto  old: 1char *str &#x3D; &quot;hello world!&quot;; &#x2F;&#x2F; 将出现弃用警告   Use noexcept  C++98 异常说明、 unexpected_handler、set_unexpected() 等相关特性被弃用  Use unique_ptr  C++98 中的 auto_">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-10-18T03:03:09.000Z">
-<meta property="article:modified_time" content="2022-10-18T03:05:50.499Z">
+<meta property="article:published_time" content="2022-11-09T08:33:04.000Z">
+<meta property="article:modified_time" content="2022-11-09T08:34:48.831Z">
 <meta property="article:author" content="krmmzs">
 <meta property="article:tag" content="Cpp">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter03/">
+<link rel="canonical" href="http://example.com/2022/11/09/%E7%AC%AC1%E7%AB%A0-%E8%BF%88%E5%90%91%E7%8E%B0%E4%BB%A3-Cpp/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>Accelerated_Cpp_chapter03 Working with batches of data | krmmzs</title>
+  <title>第1章 迈向现代 C++ | krmmzs</title>
   
 
 
@@ -162,7 +162,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter03/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/09/%E7%AC%AC1%E7%AB%A0-%E8%BF%88%E5%90%91%E7%8E%B0%E4%BB%A3-Cpp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Accelerated_Cpp_chapter03 Working with batches of data
+          第1章 迈向现代 C++
         </h1>
 
         <div class="post-meta">
@@ -186,7 +186,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-10-18 11:03:09 / Modified: 11:05:50" itemprop="dateCreated datePublished" datetime="2022-10-18T11:03:09+08:00">2022-10-18</time>
+              <time title="Created: 2022-11-09 16:33:04 / Modified: 16:34:48" itemprop="dateCreated datePublished" datetime="2022-11-09T16:33:04+08:00">2022-11-09</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -198,7 +198,7 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/Accelerated-Cpp/" itemprop="url" rel="index"><span itemprop="name">Accelerated Cpp</span></a>
+                  <a href="/categories/Cpp/Modern-C-Tutorial/" itemprop="url" rel="index"><span itemprop="name">Modern C++ Tutorial</span></a>
                 </span>
             </span>
 
@@ -213,16 +213,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="chapter-03-Working-with-batches-of-data"><a href="#chapter-03-Working-with-batches-of-data" class="headerlink" title="chapter 03 Working with batches of data"></a>chapter 03 Working with batches of data</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><h2 id="while-cin-gt-gt-x"><a href="#while-cin-gt-gt-x" class="headerlink" title="while (cin &gt;&gt; x)"></a>while (cin &gt;&gt; x)</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (cin &gt;&gt; x) &#123;</span><br><span class="line">    <span class="comment">// do something with x</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="第-1-章-迈向现代-C"><a href="#第-1-章-迈向现代-C" class="headerlink" title="第 1 章 迈向现代 C++"></a>第 1 章 迈向现代 C++</h1><ul>
+<li>Use const char* and auto</li>
+</ul>
+<p>old:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> *str = <span class="string">&quot;hello world!&quot;</span>; <span class="comment">// 将出现弃用警告</span></span><br></pre></td></tr></table></figure>
 
-<p>is equal to</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cin &gt;&gt; <span class="function">x</span></span><br><span class="line"><span class="function"><span class="title">while</span> <span class="params">(cin)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// do something with x</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Use noexcept</li>
+</ul>
+<p>C++98 异常说明、 unexpected_handler、set_unexpected() 等相关特性被弃用</p>
+<ul>
+<li>Use unique_ptr</li>
+</ul>
+<p>C++98 中的 auto_ptr 已被弃用</p>
+<ul>
+<li><p>如果一个类有析构函数，为其生成拷贝构造函数和拷贝赋值运算符的特性被弃用了。</p>
+</li>
+<li><p>use <code>static_cast</code> <code>reinterpret_cast</code> <code>const_cast</code></p>
+</li>
+</ul>
+<p>C 语言风格的类型转换被弃用（即在变量前使用 (convert_type)），应该使用 static_cast、reinterpret_cast、const_cast 来进行类型转换。</p>
+<h2 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h2><ul>
+<li><p>C++ 不是 C 的一个超集</p>
+</li>
+<li><p>在编写 C++ 时，也应该尽可能的避免使用诸如 void* 之类的程序风格。</p>
+</li>
+<li><p>不得不使用 C 时，应该注意使用 extern “C” 这种特性，将 C 语言的代码与 C++代码进行分离编译，再统一链接这种做法，</p>
+</li>
+</ul>
+<p>Ex:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// foo.h</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// foo.c</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x+y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1.1.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;foo.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    [out = std::<span class="built_in">ref</span>(std::cout &lt;&lt; <span class="string">&quot;Result from C code: &quot;</span> &lt;&lt; <span class="built_in">add</span>(<span class="number">1</span>, <span class="number">2</span>))]()&#123;</span><br><span class="line">        out.<span class="built_in">get</span>() &lt;&lt; <span class="string">&quot;.\n&quot;</span>;</span><br><span class="line">    &#125;();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="size-type-in-vector"><a href="#size-type-in-vector" class="headerlink" title="size_type in vector"></a>size_type in vector</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> vector&lt;<span class="type">double</span>&gt;::size_type vec_sz;</span><br><span class="line">vec_sz size = homework.<span class="built_in">size</span>();</span><br></pre></td></tr></table></figure>
+<p>先使用 gcc 编译 C 语言的代码：<br>编译出 foo.o 文件，再使用 clang++ 将 C++ 代码和 .o 文件链接起来（或者都编译为 .o 再统一链接）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -c foo.c</span><br><span class="line">clang++ 1.1.cpp foo.o -std=c++2a -o 1.1</span><br></pre></td></tr></table></figure>
 
-<p>The <code>vector</code> type defines a type named <code>vector&lt;double&gt;::size_type</code>, and a functionnamed <code>size</code>. These members operate analogously to the ones in <code>string:</code> The type definedby <code>size_type</code> is an <code>unsigned</code> type guaranteed sufficient to hold the size of the largestpossible <code>vector</code>, and <code>size()</code> returns a size_type value that represents the number ofelements in <code>the</code> <code>vector.</code></p>
-<p>Because we need to know the size in two places, we will remember the value in a localvariable. Different implementations use different types to represent sizes, so we cannotwrite the appropriate type directly and remain implementation-independent. For that reason,it is good programming practice to use the <code>size_type</code> that the library defines to represent<br>container sizes, which we do in naming the type of <code>size</code>.</p>
-<h2 id="unsigned-integral-type"><a href="#unsigned-integral-type" class="headerlink" title="unsigned integral type"></a>unsigned integral type</h2><p>The next important observation is that <code>vector&lt;double&gt;::size_type</code>, like all standard-library size types, is an <strong>unsigned integral type</strong>. Such types are incapable of storingnegative values at all; instead, they store values modulo 2n, where n depends on the implementation. So, for example, there would never be any point in checking whether <code>homework.size() &lt; 0</code>, because that comparison would always yield false</p>
+<p>Makefile:</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">C = gcc</span><br><span class="line">CXX = clang++</span><br><span class="line"></span><br><span class="line">SOURCE_C = foo.c</span><br><span class="line">OBJECTS_C = foo.o</span><br><span class="line"></span><br><span class="line">SOURCE_CXX = 1.1.cpp</span><br><span class="line"></span><br><span class="line">TARGET = 1.1</span><br><span class="line">LDFLAGS_COMMON = -std=c++2a</span><br><span class="line"></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">	<span class="variable">$(C)</span> -c <span class="variable">$(SOURCE_C)</span></span><br><span class="line">	<span class="variable">$(CXX)</span> <span class="variable">$(SOURCE_CXX)</span> <span class="variable">$(OBJECTS_C)</span> <span class="variable">$(LDFLAGS_COMMON)</span> -o <span class="variable">$(TARGET)</span></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	rm -rf *.o <span class="variable">$(TARGET)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a target="_blank" rel="noopener" href="https://changkun.de/modern-cpp/zh-cn/01-intro/">第 1 章 迈向现代 C++</a></p>
 
     </div>
 
@@ -241,13 +270,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter02/" rel="prev" title="Accelerated_Cpp_chapter02 Looping and counting">
-      <i class="fa fa-chevron-left"></i> Accelerated_Cpp_chapter02 Looping and counting
+    <a href="/2022/11/08/Accelerated-Cpp-chapter10/" rel="prev" title="Accelerated_Cpp_chapter10">
+      <i class="fa fa-chevron-left"></i> Accelerated_Cpp_chapter10
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter04/" rel="next" title="Accelerated_Cpp_chapter04 Organizing programs and data">
-      Accelerated_Cpp_chapter04 Organizing programs and data <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -306,7 +332,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#chapter-03-Working-with-batches-of-data"><span class="nav-number">1.</span> <span class="nav-text">chapter 03 Working with batches of data</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#while-cin-gt-gt-x"><span class="nav-number">1.2.</span> <span class="nav-text">while (cin &gt;&gt; x)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#size-type-in-vector"><span class="nav-number">1.3.</span> <span class="nav-text">size_type in vector</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unsigned-integral-type"><span class="nav-number">1.4.</span> <span class="nav-text">unsigned integral type</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC-1-%E7%AB%A0-%E8%BF%88%E5%90%91%E7%8E%B0%E4%BB%A3-C"><span class="nav-number">1.</span> <span class="nav-text">第 1 章 迈向现代 C++</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Other"><span class="nav-number">1.1.</span> <span class="nav-text">Other</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">1.2.</span> <span class="nav-text">References</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
