@@ -20,21 +20,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="LeetCode 44. Wildcard MatchingMain Idea和第十题一样 f(i, j) 表示 s 的前 i 个字符和 p 的前 j 个字符是否匹配 状态转移看当前的字符是什么  p[j] is ‘*’  p[j] is not ‘*’ s[i] &#x3D;&#x3D; p[j] &amp;&amp; f(i - 1, j - 1)  p[j] is ‘*’情况有很多，匹配0个">
+  <meta name="description" content="C++03 Classic for loop: 12for(std::vector&lt;int&gt;::iterator it &#x3D; vector.begin(); it !&#x3D; vector.end(); ++it)    sum_of_elems +&#x3D; *it;  Using a standard algorithm: 123#include &lt;numeric&gt;    sum_of">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode 44. Wildcard Matching">
-<meta property="og:url" content="http://example.com/2022/11/07/LeetCode-44-Wildcard-Matching/index.html">
+<meta property="og:title" content="How to sum up elements of a Cpp vector">
+<meta property="og:url" content="http://example.com/2022/11/09/How-to-sum-up-elements-of-a-Cpp-vector/index.html">
 <meta property="og:site_name" content="krmmzs">
-<meta property="og:description" content="LeetCode 44. Wildcard MatchingMain Idea和第十题一样 f(i, j) 表示 s 的前 i 个字符和 p 的前 j 个字符是否匹配 状态转移看当前的字符是什么  p[j] is ‘*’  p[j] is not ‘*’ s[i] &#x3D;&#x3D; p[j] &amp;&amp; f(i - 1, j - 1)  p[j] is ‘*’情况有很多，匹配0个">
+<meta property="og:description" content="C++03 Classic for loop: 12for(std::vector&lt;int&gt;::iterator it &#x3D; vector.begin(); it !&#x3D; vector.end(); ++it)    sum_of_elems +&#x3D; *it;  Using a standard algorithm: 123#include &lt;numeric&gt;    sum_of">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-11-07T00:42:00.000Z">
-<meta property="article:modified_time" content="2022-11-07T01:25:55.802Z">
+<meta property="article:published_time" content="2022-11-09T13:39:51.000Z">
+<meta property="article:modified_time" content="2022-11-09T13:41:19.859Z">
 <meta property="article:author" content="krmmzs">
-<meta property="article:tag" content="LeetCode">
-<meta property="article:tag" content="Hard">
+<meta property="article:tag" content="Cpp">
+<meta property="article:tag" content="vector">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2022/11/07/LeetCode-44-Wildcard-Matching/">
+<link rel="canonical" href="http://example.com/2022/11/09/How-to-sum-up-elements-of-a-Cpp-vector/">
 
 
 <script id="page-configurations">
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>LeetCode 44. Wildcard Matching | krmmzs</title>
+  <title>How to sum up elements of a Cpp vector | krmmzs</title>
   
 
 
@@ -163,7 +163,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/07/LeetCode-44-Wildcard-Matching/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/09/How-to-sum-up-elements-of-a-Cpp-vector/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -176,7 +176,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          LeetCode 44. Wildcard Matching
+          How to sum up elements of a Cpp vector
         </h1>
 
         <div class="post-meta">
@@ -187,7 +187,16 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-11-07 08:42:00 / Modified: 09:25:55" itemprop="dateCreated datePublished" datetime="2022-11-07T08:42:00+08:00">2022-11-07</time>
+              <time title="Created: 2022-11-09 21:39:51 / Modified: 21:41:19" itemprop="dateCreated datePublished" datetime="2022-11-09T21:39:51+08:00">2022-11-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
+                </span>
             </span>
 
           
@@ -201,19 +210,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="LeetCode-44-Wildcard-Matching"><a href="#LeetCode-44-Wildcard-Matching" class="headerlink" title="LeetCode 44. Wildcard Matching"></a>LeetCode 44. Wildcard Matching</h1><h2 id="Main-Idea"><a href="#Main-Idea" class="headerlink" title="Main Idea"></a>Main Idea</h2><p>和第十题一样</p>
-<p>f(i, j) 表示 s 的前 i 个字符和 p 的前 j 个字符是否匹配</p>
-<p>状态转移看当前的字符是什么</p>
-<ol>
-<li>p[j] is ‘*’ </li>
-<li>p[j] is not ‘*’ s[i] &#x3D;&#x3D; p[j] &amp;&amp; f(i - 1, j - 1)</li>
+        <h2 id="C-03"><a href="#C-03" class="headerlink" title="C++03"></a>C++03</h2><ol>
+<li><p>Classic for loop:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(std::vector&lt;<span class="type">int</span>&gt;::iterator it = vector.<span class="built_in">begin</span>(); it != vector.<span class="built_in">end</span>(); ++it)</span><br><span class="line">    sum_of_elems += *it;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Using a standard algorithm:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;numeric&gt;</span></span></span><br><span class="line">    </span><br><span class="line">sum_of_elems = std::<span class="built_in">accumulate</span>(vector.<span class="built_in">begin</span>(), vector.<span class="built_in">end</span>(), <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>Important Note:</strong> The last argument’s type is used not just for the initial value, but for <em>the type of the result</em> as well. If you put an int there, it will accumulate ints even if the vector has float. If you are summing floating-point numbers, change <code>0</code> to <code>0.0</code> or <code>0.0f</code> (<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3221812/how-to-sum-up-elements-of-a-c-vector#comment20983332_3221813">thanks to nneonneo</a>). See also the C++11 solution below.</p>
+</li>
 </ol>
-<p>p[j] is ‘*’<br>情况有很多，匹配0个就是由f(i, j - 1)推来，匹配1个就是由f(i - 1, j - 1)推来，匹配2个就是由f(i - 2, j - 1)推来，匹配3个就是由f(i - 3, j - 1)推来，匹配4个就是由f(i - 4, j - 1)推来，匹配5个就是由f(i - 5, j - 1)推来，匹配6个就是由f(i - 6, j - 1)推来，匹配7个就是由f(i - 7, j - 1)推来，匹配8个就是由f(i - 8, j - 1)推来，匹配9个就是由f(i - 9, j - 1)推来，匹配10个就是由f(i - 10, j - 1)推来，匹配11个就是由f(i - 11, j - 1)推来，匹配12个就是由f(i - 12, j - 1)推来，匹配13个就是由f(i - 13, j - 1)推来，匹配14个就是由f(i - 14, j - 1)推来，匹配15个就是由f(i - 15, j - 1)推来，匹配16个就是由f(i - 16, j - 1)推来，匹配17个就是由f(i - 17, j - 1)推来，匹配18个就是由f(i - 18, j - 1)推来，匹配19个就是由f(i - 19, j - 1)推来，匹配20个就是由f(i - 20, j - 1)推来，匹配21个就是由f(i - 21, j - 1)推来，匹配22个就是由f(i - 22, j - 1)推来<br>以此类推</p>
-<p>此时状态数量n^2, 转移数量n, 所以时间复杂度是O(n^3)</p>
-<p>然后利用完全背包的优化方式优化</p>
-<p>f(i, j), f(i, j - 1), f(i, j - 2), f(i, j - 3), f(i, j - 4)…<br>f(i - 1, j), f(i - 1, j - 1), f(i - 1, j - 2), f(i - 1, j - 3), f(i - 1, j - 4)…<br>替换得到<br>f(i, j) &#x3D; f(i - 1, j - 1) | f(i - 1, j)</p>
-<p>转移方程变成了O(1)</p>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isMatch</span><span class="params">(string s, string p)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = s.<span class="built_in">size</span>(), m = p.<span class="built_in">size</span>();</span><br><span class="line">        s = <span class="string">&#x27; &#x27;</span> + s, p = <span class="string">&#x27; &#x27;</span> + p;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">bool</span>&gt;&gt; <span class="built_in">f</span>(n + <span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="type">bool</span>&gt;(m + <span class="number">1</span>));</span><br><span class="line"></span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (p[j] == <span class="string">&#x27;*&#x27;</span>) &#123;</span><br><span class="line">                    f[i][j] = f[i][j - <span class="number">1</span>] || i &amp;&amp; f[i - <span class="number">1</span>][j];</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    f[i][j] = (s[i] == p[j] || p[j] == <span class="string">&#x27;?&#x27;</span>) &amp;&amp; i &amp;&amp; f[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> f[n][m];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="C-11-and-higher"><a href="#C-11-and-higher" class="headerlink" title="C++11 and higher"></a>C++11 and higher</h2><ol start="2">
+<li><p>b. Automatically keeping track of the vector type even in case of future changes:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;numeric&gt;</span></span></span><br><span class="line">    </span><br><span class="line">sum_of_elems = std::<span class="built_in">accumulate</span>(vector.<span class="built_in">begin</span>(), vector.<span class="built_in">end</span>(),</span><br><span class="line">                               <span class="keyword">decltype</span>(vector)::<span class="built_in">value_type</span>(<span class="number">0</span>));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Using <code>std::for_each</code>:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">std::for_each(vector.<span class="built_in">begin</span>(), vector.<span class="built_in">end</span>(), [&amp;] (<span class="type">int</span> n) &#123;</span><br><span class="line">    sum_of_elems += n;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Using a range-based for loop (<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/3224488/11573842">thanks to Roger Pate</a>):</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span>&amp; n : vector)</span><br><span class="line">    sum_of_elems += n;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="C-17-and-above"><a href="#C-17-and-above" class="headerlink" title="C++17 and above"></a>C++17 and above</h2><ol start="5">
+<li><p>Using <code>std::reduce</code> which also takes care of the result type, e.g if you have <code>std::vector&lt;int&gt;</code>, you get <code>int</code> as result. If you have <code>std::vector&lt;float&gt;</code>, you get <code>float</code>. Or if you have <code>std::vector&lt;std::string&gt;</code>, you get <code>std::string</code> (all strings concatenated). Interesting, isn’t it?</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> result = std::<span class="built_in">reduce</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>());</span><br></pre></td></tr></table></figure>
+
+<p>There are <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/algorithm/reduce">other overloads of this function</a> which you can run even parallelly, in case if you have a large collection and you want to get the result quickly.</p>
+</li>
+</ol>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3221812/how-to-sum-up-elements-of-a-c-vector">How to sum up elements of a C++ vector?</a></p>
 
     </div>
 
@@ -223,8 +247,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
-              <a href="/tags/Hard/" rel="tag"># Hard</a>
+              <a href="/tags/Cpp/" rel="tag"># Cpp</a>
+              <a href="/tags/vector/" rel="tag"># vector</a>
           </div>
 
         
@@ -233,13 +257,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/11/06/LeetCode-43-Multiply-Strings/" rel="prev" title="LeetCode 43. Multiply Strings">
-      <i class="fa fa-chevron-left"></i> LeetCode 43. Multiply Strings
+    <a href="/2022/11/09/%E7%AC%AC2%E7%AB%A0%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/" rel="prev" title="第2章语言可用性的强化">
+      <i class="fa fa-chevron-left"></i> 第2章语言可用性的强化
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/11/07/LeetCode-45-Jump-Game-II/" rel="next" title="LeetCode 45. Jump Game II">
-      LeetCode 45. Jump Game II <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -298,7 +319,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-44-Wildcard-Matching"><span class="nav-number">1.</span> <span class="nav-text">LeetCode 44. Wildcard Matching</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Main-Idea"><span class="nav-number">1.1.</span> <span class="nav-text">Main Idea</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Code"><span class="nav-number">1.2.</span> <span class="nav-text">Code</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#C-03"><span class="nav-number">1.</span> <span class="nav-text">C++03</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-11-and-higher"><span class="nav-number">2.</span> <span class="nav-text">C++11 and higher</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-17-and-above"><span class="nav-number">3.</span> <span class="nav-text">C++17 and above</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
