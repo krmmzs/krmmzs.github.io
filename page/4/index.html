@@ -158,6 +158,141 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/26/Leetcode/LeetCode-862-Shortest-Subarray-with-Sum-at-Least-K/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/26/Leetcode/LeetCode-862-Shortest-Subarray-with-Sum-at-Least-K/" class="post-title-link" itemprop="url">LeetCode 862. Shortest Subarray with Sum at Least K</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-10-26 23:12:25" itemprop="dateCreated datePublished" datetime="2022-10-26T23:12:25+08:00">2022-10-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-10-27 00:34:59" itemprop="dateModified" datetime="2022-10-27T00:34:59+08:00">2022-10-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="LeetCode-862-Shortest-Subarray-with-Sum-at-Least-K"><a href="#LeetCode-862-Shortest-Subarray-with-Sum-at-Least-K" class="headerlink" title="LeetCode 862. Shortest Subarray with Sum at Least K"></a>LeetCode 862. Shortest Subarray with Sum at Least K</h1><p>久违的算法题解</p>
+<p>铁子某课给的题目，虽然当时实在无心写。</p>
+<p>传送门：</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/">LeetCode 862. Shortest Subarray with Sum at Least K</a></p>
+<h2 id="Main-Idea"><a href="#Main-Idea" class="headerlink" title="Main Idea"></a>Main Idea</h2><blockquote>
+<p>A subarray is a contiguous part of an array.</p>
+</blockquote>
+<p>其实我刚开始看成了 <code>subsequence</code>…</p>
+<p>现在看一下此案是subarray…</p>
+<pre>
+             |--> sum >= k, shortest subarray
+             |
+        |----------| subarray
+|-------------------------------------| array
+</pre>
+
+<p>献祭出我的字符画。</p>
+<p>Pay attention:</p>
+<blockquote>
+<p>-10^5 &lt;&#x3D; nums[i] &lt;&#x3D; 10^5</p>
+</blockquote>
+<p>这说明前缀和不单调，没有双指针玩咯… see <a target="_blank" rel="noopener" href="https://leetcode.com/problems/minimum-size-subarray-sum/">LeetCode 209. Minimum Size Subarray Sum</a></p>
+<p><del>好，快跑</del></p>
+<p>那就先想暴力，枚举所有区间<br>等价于枚举区间的两端， 我习惯枚举右端点</p>
+<p>然后区间快速查询这肯定得来个前后和吧</p>
+<pre>
+        j          i
+|-------|----------|------------------| array
+</pre>
+
+<p>Need to promise that $S_{i} - S_{j} &gt;&#x3D; k$ and $i - j$ is minimum(si is array of prefix sum)</p>
+<p>问题就转化为了 si sj k 三者的关系</p>
+<p>为了减少枚举的次数，需要在枚举的过程中将一些不可能解给pass掉</p>
+<pre>
+Sx
+^
+|       /
+|      /--> Sj >= Si
+|     /
+|    /--> Si
+|   /
+|  /
+| /
+|
+|------------------> x
+</pre>
+
+<p>如果存在t &gt; i, 满足St - Sj &gt;&#x3D; k, 因为Si &lt; Sj(肯定也满足&gt;&#x3D; k), 且i 距离后面的t更近(数组长度更小)，<br>所以i更好, 所以那些Sj &gt;&#x3D; Si的j们都可以pass掉了</p>
+<pre>
+Sx
+^
+|
+|
+|
+|    /--> Si
+|   /
+|  /
+| /
+|
+|------------------> x
+</pre>
+
+<p>这就意味着，当找到一个Si的时候，可以把Si的都干没掉</p>
+<p>那么我们需要一个数据结构来维护这个Sx</p>
+<p><strong>队列能维护顺序，单调性能保证首尾的max和min<br>所以可以用单调队列来维护数据</strong></p>
+<p>维护了一个单调队列以后，找到一个Si（队列里的max）的时候<br>可以在队列里找到一个Sj（队列里的min）满足Si - Sj &gt;&#x3D; k<br>都要枚举一遍(从最小开始枚举比较自然)<br>这里定义个说法：<br>如果Sj可以和Si满足上述的不等式我们就说i和j配对</p>
+<p>如果可以找到个j和i配对，那么一定比接下来加入到队列里的i（max）更好<br>因为i更小，距离更近, 那么j就可以从单调队列里删除掉了。</p>
+<p>这样的操作，能满足所有的元素只会出队一次，入队一次， 所以时间复杂度是O(n)</p>
+<p>很显然，这样的单调队列不是典型的，需要现场分析</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><p>or see <a target="_blank" rel="noopener" href="https://github.com/krmmzs/Leetcode/blob/master/0862-shortest-subarray-with-sum-at-least-k-hcfy-anchor/0862-shortest-subarray-with-sum-at-least-k-hcfy-anchor.cpp">github</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> LL; <span class="comment">// will bigger than int</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">shortestSubarray</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt;::size_type n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;LL&gt; <span class="title">s</span><span class="params">(n + <span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">            s[i] = s[i - <span class="number">1</span>] + nums[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        deque&lt;<span class="type">int</span>&gt; q; <span class="comment">// contains index, not value</span></span><br><span class="line">        q.<span class="built_in">push_back</span>(<span class="number">0</span>);</span><br><span class="line">        <span class="type">int</span> res = INT_MAX;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!q.<span class="built_in">empty</span>() &amp;&amp; s[i] - s[q.<span class="built_in">front</span>()] &gt;= k) &#123;</span><br><span class="line">                res = <span class="built_in">min</span>(res, i - q.<span class="built_in">front</span>());</span><br><span class="line">                q.<span class="built_in">pop_front</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span> (!q.<span class="built_in">empty</span>() &amp;&amp; s[i] &lt;= s[q.<span class="built_in">back</span>()]) &#123;</span><br><span class="line">                q.<span class="built_in">pop_back</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            q.<span class="built_in">push_back</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (res == INT_MAX) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/26/Docker/Docker-change-container-s-mounts/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1002,129 +1137,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/22/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter06/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/22/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter06/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter06</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-10-22 19:48:48" itemprop="dateCreated datePublished" datetime="2022-10-22T19:48:48+08:00">2022-10-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-25 19:07:35" itemprop="dateModified" datetime="2022-10-25T19:07:35+08:00">2022-10-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/Accelerated-Cpp/" itemprop="url" rel="index"><span itemprop="name">Accelerated Cpp</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="chapter-06-Using-library-algorithms"><a href="#chapter-06-Using-library-algorithms" class="headerlink" title="chapter 06 Using library algorithms"></a>chapter 06 Using library algorithms</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><h2 id="The-reason-for-back-inserter-design"><a href="#The-reason-for-back-inserter-design" class="headerlink" title="The reason for back_inserter design"></a>The reason for back_inserter design</h2><p>Why is <strong>copy</strong> designed this way? Because separating the notions of copying elements and expanding a container allows programmers to choose which operations to use. For example, we might want to copy elements on top of elements that already exist in a container, without changing the container’s size. As another example, which we shall see in<br>§6.2.2&#x2F;112, we might want to use <strong>back_inserter</strong> to append elements to a container that are not merely copies of another container’s elements.</p>
-<h2 id="split-with-iterators-and-algorithms-functions"><a href="#split-with-iterators-and-algorithms-functions" class="headerlink" title="split with iterators and algorithms functions"></a>split with iterators and algorithms functions</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">space</span><span class="params">(<span class="type">char</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">isspace</span>(c);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// `false&#x27; if the argument is whitespace, `true&#x27; otherwise</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">not_space</span><span class="params">(<span class="type">char</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> !<span class="built_in">isspace</span>(c);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">vector&lt;string&gt; <span class="title">split</span><span class="params">(<span class="type">const</span> string&amp; str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">typedef</span> string::const_iterator iter;</span><br><span class="line">	vector&lt;string&gt; ret;</span><br><span class="line"></span><br><span class="line">	iter i = str.<span class="built_in">begin</span>();</span><br><span class="line">	<span class="keyword">while</span> (i != str.<span class="built_in">end</span>()) &#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// ignore leading blanks</span></span><br><span class="line">		i = <span class="built_in">find_if</span>(i, str.<span class="built_in">end</span>(), not_space);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// find end of next word</span></span><br><span class="line">		iter j = <span class="built_in">find_if</span>(i, str.<span class="built_in">end</span>(), space);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// copy the characters in `[i,&#x27; `j)&#x27;</span></span><br><span class="line">		<span class="keyword">if</span> (i != str.<span class="built_in">end</span>())</span><br><span class="line">			ret.<span class="built_in">push_back</span>(<span class="built_in">string</span>(i, j));</span><br><span class="line">		i = j;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="pass-an-overloaded-function-directly-as-an-argument-to-a-template-function"><a href="#pass-an-overloaded-function-directly-as-an-argument-to-a-template-function" class="headerlink" title="pass an overloaded function directly as an argument to a template function"></a>pass an overloaded function directly as an argument to a template function</h2><p>It’s not easy to pass an overloaded function directly as an argument to a template function.<br>The trouble is that the compiler doesn’t know which version of<br>the overloaded function we mean,<br>because we haven’t supplied any arguments that the compiler<br>might use to select a version. Accordingly, we’ll write our<br>own predicates, called <strong>space</strong> and <strong>not_space</strong> ,<br>that make clear whichversion of <strong>isspace</strong> we intend.</p>
-<p>more see <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/25871381/c-overloaded-function-as-template-argument">C++ overloaded function as template argument</a></p>
-<h2 id="is-palindrome"><a href="#is-palindrome" class="headerlink" title="is_palindrome"></a>is_palindrome</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">is_palindrome</span><span class="params">(<span class="type">const</span> string&amp; s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">equal</span>(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>(), s.<span class="built_in">rbegin</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="find-find-if-search"><a href="#find-find-if-search" class="headerlink" title="find find_if search"></a>find find_if search</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">not_url_char</span><span class="params">(<span class="type">char</span> c)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// characters, in addition to alphanumerics, that can appear in a URL.</span></span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> string url_ch = <span class="string">&quot;~;/?:@=&amp;$-_.+!*&#x27;(),&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// see whether c can appear in a URL and return the nagative</span></span><br><span class="line">    <span class="keyword">return</span> !(<span class="built_in">isalnum</span>(c) ||</span><br><span class="line">    <span class="built_in">find</span>(url_ch.<span class="built_in">begin</span>(), url_ch.<span class="built_in">end</span>(), c) != url_ch.<span class="built_in">end</span>());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">string::const_iterator <span class="title">url_end</span><span class="params">(string::const_iterator b, string::const_iterator e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">find_if</span>(b, e, not_url_char);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">string::const_iterator <span class="title">url_beg</span><span class="params">(string::const_iterator b, string::const_iterator e)</span> </span>&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> string sep = <span class="string">&quot;://&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">typedef</span> string::const_iterator iter;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// i marks where the separatorwas found</span></span><br><span class="line">    iter i = b;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> ((i = <span class="built_in">search</span>(i, e, sep.<span class="built_in">begin</span>(), sep.<span class="built_in">end</span>())) != e) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// make sure the separator isn&#x27;t at the beginning or end of the line</span></span><br><span class="line">        <span class="keyword">if</span> (i != b &amp;&amp; i + sep.<span class="built_in">size</span>() != e) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// beg marks the beginning of the protocol-name</span></span><br><span class="line">            iter beg = i;</span><br><span class="line">            <span class="keyword">while</span> (beg != b &amp;&amp; <span class="built_in">isalpha</span>(beg[<span class="number">-1</span>])) &#123;</span><br><span class="line">                beg --;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// is there at least one appreciate character before and after the sep</span></span><br><span class="line">            <span class="keyword">if</span> (beg != i &amp;&amp; !<span class="built_in">not_url_char</span>(i[sep.<span class="built_in">size</span>()])) &#123;</span><br><span class="line">                <span class="keyword">return</span> beg;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// the separator we found wasn&#x27;t part of a URL advance i past this separator</span></span><br><span class="line">        i += sep.<span class="built_in">size</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> e;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">vector&lt;string&gt; <span class="title">find_urls</span><span class="params">(<span class="type">const</span> string&amp; s)</span> </span>&#123;</span><br><span class="line">    vector&lt;string&gt; ret;</span><br><span class="line">    <span class="keyword">typedef</span> string::const_iterator iter;</span><br><span class="line">    iter b = s.<span class="built_in">begin</span>(), e = s.<span class="built_in">end</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// look through the entire input</span></span><br><span class="line">    <span class="keyword">while</span> (b != e) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// look for one or more letters followed by ://</span></span><br><span class="line">        b = <span class="built_in">url_beg</span>(b, e);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// if we found it</span></span><br><span class="line">        <span class="keyword">if</span> (b != e) &#123;</span><br><span class="line">            <span class="comment">// get the rest of the URL</span></span><br><span class="line">            iter after = <span class="built_in">url_end</span>(b, e);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// remember the URL</span></span><br><span class="line">            ret.<span class="built_in">push_back</span>(<span class="built_in">string</span>(b, after));</span><br><span class="line"></span><br><span class="line">            <span class="comment">// advance b and check for more URLs on this line</span></span><br><span class="line">            b = after;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="empty-instead-of-size"><a href="#empty-instead-of-size" class="headerlink" title="empty instead of size"></a>empty instead of size</h2><p>It is a better idea to use this function to check for<br>an emptycontainer than it is to compare the <strong>size</strong> with 0,<br>because for some kinds of containers, itmight be more efficient<br>to check whether the container has any elements than to figure<br>outexactly how many elements there are.</p>
-<p>more see <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/43500633/what-is-the-most-efficient-way-to-check-if-a-c-container-is-empty">What is the most efficient way to check if a C++ container is empty?</a></p>
-<h2 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">double</span> <span class="title">grade_aux</span><span class="params">(<span class="type">const</span> Student_indo&amp; s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">grade</span>(s);</span><br><span class="line">    &#125; <span class="built_in">catch</span> (domain_error) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">grade</span>(s.midterm, s.<span class="keyword">final</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// this version works fine</span></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">median_analysis</span><span class="params">(<span class="type">const</span> vector&lt;Student_info&gt;&amp; students)</span> </span>&#123;</span><br><span class="line">    vector&lt;<span class="type">double</span>&gt; grades;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">transform</span>(students.<span class="built_in">begin</span>(), students.<span class="built_in">end</span>(),</span><br><span class="line">            <span class="built_in">back_inserter</span>(grades), grade_aux);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">median</span>(grades);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="accumulate-in"><a href="#accumulate-in" class="headerlink" title="accumulate(in )"></a>accumulate(in <numeric>)</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">double</span> <span class="title">average</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">double</span>&gt;&amp; v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">accumulate</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), <span class="number">0.0</span>) / v.<span class="built_in">size</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>string connection</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;string&gt; words;</span><br><span class="line">words.<span class="built_in">push_back</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line"><span class="comment">// init words with some strings</span></span><br><span class="line"></span><br><span class="line">string concatenated_words = <span class="built_in">accumulate</span>(words.<span class="built_in">begin</span>(), words.<span class="built_in">end</span>(), <span class="built_in">string</span>());</span><br></pre></td></tr></table></figure>
-
-<h2 id="remove-copy-copy-like-“remove”"><a href="#remove-copy-copy-like-“remove”" class="headerlink" title="remove_copy(copy like “remove”)"></a>remove_copy(copy like “remove”)</h2><p>Copies elements from the range [first, last), to another range beginning at d_first,<br>omitting the elements which satisfy specific criteria. Source and destination ranges cannot overlap.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// median of the nonzero elements of s.homework, or 0 if no such elements exist</span></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">optimistic_median</span><span class="params">(<span class="type">const</span> Student_info&amp; s)</span> </span>&#123;</span><br><span class="line">    vector&lt;<span class="type">double</span>&gt; nonzero;</span><br><span class="line">    <span class="built_in">remove_copy</span>(s.homework.<span class="built_in">begin</span>(), s.homework.<span class="built_in">end</span>(),</span><br><span class="line">            <span class="built_in">back_inserter</span>(nonzero), <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (nonzero.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">grade</span>(s.midterm, s.<span class="keyword">final</span>, <span class="number">0</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">grade</span>(s.midterm, s.<span class="keyword">final</span>, <span class="built_in">median</span>(nonzero));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="copy-if-vs-remove-copy-if"><a href="#copy-if-vs-remove-copy-if" class="headerlink" title="copy_if vs remove_copy_if"></a>copy_if vs remove_copy_if</h2><p><code>copy_if</code> only copies elements satisfying a given predicate,</p>
-<p><code>remove_copy_if</code> <strong>on the other hand</strong> copies only elements that <strong>do not</strong> satisfy a specified predicate.</p>
-<p>Thus the two functions complement each other, they do not do the same.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// median of the nonzero elements of s.homework, or 0 if no such elements exist</span></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">optimistic_median</span><span class="params">(<span class="type">const</span> Student_info&amp; s)</span> </span>&#123;</span><br><span class="line">    vector&lt;<span class="type">double</span>&gt; nonzero;</span><br><span class="line">    <span class="built_in">copy_if</span>(s.homework.<span class="built_in">begin</span>(), s.homework.<span class="built_in">end</span>(),</span><br><span class="line">            <span class="built_in">back_inserter</span>(nonzero), [](<span class="type">double</span> x) &#123; <span class="keyword">return</span> x != <span class="number">0</span>; &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (nonzero.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">grade</span>(s.midterm, s.<span class="keyword">final</span>, <span class="number">0</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">grade</span>(s.midterm, s.<span class="keyword">final</span>, <span class="built_in">median</span>(nonzero));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="remove-if"><a href="#remove-if" class="headerlink" title="remove_if"></a>remove_if</h2><p>Removes all elements satisfying specific criteria from the<br>range [first, last) and <strong>returns a past-the-end iterator for<br>the new end of the range</strong>.(The elements are actually removed,<br>but the physical size of the container is not changed, which<br>causes the elements to be “lost”.)</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;Student_info&gt;</span></span><br><span class="line"><span class="function"><span class="title">extract_fails</span><span class="params">(vector&lt;Student_info&gt;&amp; students)</span> </span>&#123;</span><br><span class="line">    vector&lt;Student_info&gt; fail;</span><br><span class="line">    <span class="built_in">remove_copy_if</span>(students.<span class="built_in">begin</span>(), students.<span class="built_in">end</span>(),</span><br><span class="line">            <span class="built_in">back_inserter</span>(fail), pgrade);</span><br><span class="line">    students.<span class="built_in">erase</span>(<span class="built_in">remove_if</span>(students.<span class="built_in">begin</span>(), students.<span class="built_in">end</span>(), fgrade),</span><br><span class="line">            students.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">return</span> fail;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<img src="/images/remove_if01.png" alt="remove_if01.png" style="zoom:70%;" />
-<img src="/images/remove_if02.png" alt="remove_if02.png" style="zoom:70%;" />
-
-<p>if call erase after remove_if, the elements will be removed from the container.</p>
-<img src="/images/remove_if03.png" alt="remove_if03.png" style="zoom:70%;" />
-
-<h2 id="partition-and-stable-partition"><a href="#partition-and-stable-partition" class="headerlink" title="partition and stable_partition"></a>partition and stable_partition</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;Student_info&gt;</span></span><br><span class="line"><span class="function"><span class="title">extract_fails</span><span class="params">(vector&lt;Student_info&gt;&amp; students)</span> </span>&#123;</span><br><span class="line">    vector&lt;Student_info&gt; fail;</span><br><span class="line">    vector&lt;Student_info&gt;::iterator iter = <span class="built_in">stable_partition</span>(students.<span class="built_in">begin</span>(), students.<span class="built_in">end</span>(), pgrade);</span><br><span class="line">    <span class="function">vector&lt;Student_info&gt; <span class="title">fail</span><span class="params">(iter, students.end())</span></span>;</span><br><span class="line">    students.<span class="built_in">erase</span>(iter, students.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">return</span> fail;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<img src="/images/partition01.png" alt="partition01.png" style="zoom:60%;" />
-
-<h2 id="Algorithms-and-containers"><a href="#Algorithms-and-containers" class="headerlink" title="Algorithms and containers"></a>Algorithms and containers</h2><p>There is a fact that is crucial to understand in using algorithms, iterators, and containers:</p>
-<p><strong>Algorithms act on container elements—they do not act on containers.</strong></p>
-<p>EX:<br>remove_if is a generic function only move elements to new position,<br>but does not change the size of the container.</p>
-<p>erase is not a generic function, it is a member function of the container.<br>erase changes the vector by removing the sequence indicated by its arguments</p>
-<h2 id="iterators-and-container"><a href="#iterators-and-container" class="headerlink" title="iterators and container"></a>iterators and container</h2><p>it is important to be aware of the interaction between iterators and algorithms,<br>and between iterators and container operations. </p>
-<p>EX:<br>generic algorithms:<br>iterators are invalidated by erase or insert operations on the container.</p>
-<p>member functions:<br>can move elements aroundwithin the container, will change which element is denoted by particular iterators.<br>iterators are invalidated partition or remove_if operations on the container.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1194,20 +1206,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-count">37</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
