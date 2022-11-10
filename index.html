@@ -158,6 +158,184 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/10/CSAPP-chapter02-Representing-and-ManipulatingInformation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/10/CSAPP-chapter02-Representing-and-ManipulatingInformation/" class="post-title-link" itemprop="url">CSAPP-chapter02-Representing and ManipulatingInformation</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-11-10 18:29:20 / Modified: 18:30:45" itemprop="dateCreated datePublished" datetime="2022-11-10T18:29:20+08:00">2022-11-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSAPP/" itemprop="url" rel="index"><span itemprop="name">CSAPP</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="chapter-02-Representing-and-ManipulatingInformation"><a href="#chapter-02-Representing-and-ManipulatingInformation" class="headerlink" title="chapter 02 Representing and ManipulatingInformation"></a>chapter 02 Representing and ManipulatingInformation</h1><h2 id="2-1-Information-Storage"><a href="#2-1-Information-Storage" class="headerlink" title="2.1 Information Storage"></a>2.1 Information Storage</h2><h3 id="32位机器和64位机器-wordsize"><a href="#32位机器和64位机器-wordsize" class="headerlink" title="32位机器和64位机器 wordsize"></a>32位机器和64位机器 wordsize</h3><p>其中long 和 unsigned long 32 位机器上是4字节，64位机器上是8字节。<br>char* 32 位机器上是4字节，64位机器上是8字节。</p>
+<h3 id="变量在内存的存储"><a href="#变量在内存的存储" class="headerlink" title="变量在内存的存储"></a>变量在内存的存储</h3><p>x &#x3D; 0x01234567<br>以大端法(Big endian)为例</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    <span class="number">0x100</span> <span class="number">0x101</span> <span class="number">0x102</span> <span class="number">0x103</span></span><br><span class="line">-------------------------------</span><br><span class="line">...|  <span class="number">01</span> |  <span class="number">23</span> |  <span class="number">45</span> |  <span class="number">67</span> |...</span><br><span class="line">-------------------------------</span><br></pre></td></tr></table></figure>
+
+<p>以小端法(Little endian)为例</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    <span class="number">0x100</span> <span class="number">0x101</span> <span class="number">0x102</span> <span class="number">0x103</span></span><br><span class="line">-------------------------------</span><br><span class="line">...|  <span class="number">67</span> |  <span class="number">45</span> |  <span class="number">23</span> |  <span class="number">01</span> |...</span><br><span class="line">-------------------------------</span><br></pre></td></tr></table></figure>
+
+<h3 id="Masking-Operations"><a href="#Masking-Operations" class="headerlink" title="Masking Operations"></a>Masking Operations</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    <span class="number">0x89</span> AB CD EF <span class="number">1110</span> <span class="number">1111</span>(EF)</span><br><span class="line">&amp;   <span class="number">0x00</span> <span class="number">00</span> <span class="number">00</span> FF <span class="number">1111</span> <span class="number">1111</span>(FF)</span><br><span class="line">    <span class="number">0x00</span> <span class="number">00</span> <span class="number">00</span> EF <span class="number">1110</span> <span class="number">1111</span>(EF)</span><br></pre></td></tr></table></figure>
+
+<p>常用来取出低8位</p>
+<p>datalab 会用</p>
+<h3 id="Shift-Operation"><a href="#Shift-Operation" class="headerlink" title="Shift Operation"></a>Shift Operation</h3><p>Logical Right Shift:</p>
+<p>Arithmetic Right Shift:<br>pay attention to the biggest bit, if it is 1, will be 1, otherwise 0</p>
+<h2 id="2-2-Interger-Representation"><a href="#2-2-Interger-Representation" class="headerlink" title="2.2 Interger Representation"></a>2.2 Interger Representation</h2><h3 id="Preview"><a href="#Preview" class="headerlink" title="Preview"></a>Preview</h3><p>提一下，这节的证明常使用做差，原因是需要知道两者之间的deta</p>
+<h3 id="unsigned-Encodings"><a href="#unsigned-Encodings" class="headerlink" title="unsigned Encodings"></a>unsigned Encodings</h3><img src="/images/csapp-01.png" alt="csapp-01.png" style="zoom:70%;" />
+
+<h3 id="Two’s-Complement-Encodings"><a href="#Two’s-Complement-Encodings" class="headerlink" title="Two’s Complement Encodings"></a>Two’s Complement Encodings</h3><img src="/images/csapp-02.png" alt="csapp-02.png" style="zoom:70%;" />
+
+<h3 id="Maximum-and-Minimum-Values"><a href="#Maximum-and-Minimum-Values" class="headerlink" title="Maximum and Minimum Values"></a>Maximum and Minimum Values</h3><img src="/images/csapp-03.png" alt="csapp-03.png" style="zoom:70%;" />
+<img src="/images/csapp-04.png" alt="csapp-04.png" style="zoom:70%;" />
+<img src="/images/csapp-05.png" alt="csapp-05.png" style="zoom:70%;" />
+
+<h3 id="Special-Numeric"><a href="#Special-Numeric" class="headerlink" title="Special Numeric"></a>Special Numeric</h3><p>有符号的-1和无符号的Maximum二进制表示是一样的</p>
+<img src="/images/csapp-06.png" alt="csapp-06.png" style="zoom:70%;" />
+
+<h3 id="Two’s-complement-to-unsigned"><a href="#Two’s-complement-to-unsigned" class="headerlink" title="Two’s complement to unsigned"></a>Two’s complement to unsigned</h3><img src="/images/csapp-07.png" alt="csapp-07.png" style="zoom:70%;" />
+<img src="/images/csapp-08.png" alt="csapp-08.png" style="zoom:70%;" />
+
+<p>这里的$T2U_w(x)$ 可以再展开一下，$x + 2 * 2^{w - 1}, x &lt; 0$</p>
+<p>表示在最高位转化权值的时候相当于加上了2倍的最高位权值</p>
+<h3 id="Expanding-the-Bit-Representation-of-a-Number"><a href="#Expanding-the-Bit-Representation-of-a-Number" class="headerlink" title="Expanding the Bit Representation of a Number"></a>Expanding the Bit Representation of a Number</h3><h4 id="Unsigned"><a href="#Unsigned" class="headerlink" title="Unsigned"></a>Unsigned</h4><img src="/images/csapp-09.png" alt="csapp-09.png" style="zoom:70%;" />
+
+<h4 id="Sign-Extension"><a href="#Sign-Extension" class="headerlink" title="Sign Extension"></a>Sign Extension</h4><img src="/images/csapp-10.png" alt="csapp-10.png" style="zoom:70%;" />
+
+<p>确保这样的拓展方式可以确保value不变</p>
+<p>证明的直观解释是每拓展一位，会减去一个$2^w$, 加上两个$2^{w-1}$, 值不变<br>书中的正确性是由数学归纳法保证的</p>
+<h3 id="Truncating-unsigned-number"><a href="#Truncating-unsigned-number" class="headerlink" title="Truncating unsigned number"></a>Truncating unsigned number</h3><img src="/images/csapp-11.png" alt="csapp-11.png" style="zoom:70%;" />
+
+<h3 id="Truncating-signed-number"><a href="#Truncating-signed-number" class="headerlink" title="Truncating signed number"></a>Truncating signed number</h3><img src="/images/csapp-12.png" alt="csapp-12.png" style="zoom:70%;" />
+
+<p>先B2U, 再U2T</p>
+<h2 id="2-3-Integer-Arithmetic"><a href="#2-3-Integer-Arithmetic" class="headerlink" title="2.3 Integer Arithmetic"></a>2.3 Integer Arithmetic</h2><h3 id="Unsigned-Addition"><a href="#Unsigned-Addition" class="headerlink" title="Unsigned Addition"></a>Unsigned Addition</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> <span class="type">char</span> a = <span class="number">255</span>;</span><br><span class="line"><span class="type">unsigned</span> <span class="type">char</span> b = <span class="number">1</span>;</span><br><span class="line"><span class="type">unsigned</span> <span class="type">char</span> c = a + b;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;c=%d&quot;</span>, c);</span><br></pre></td></tr></table></figure>
+<p>will get: c &#x3D; 0</p>
+<p>unsigned char Minimum:0, Maximum:255</p>
+<img src="/images/csapp-13.png" alt="csapp-13.png" style="zoom:70%;" />
+<img src="/images/csapp-14.png" alt="csapp-14.png" style="zoom:70%;" />
+
+<h3 id="Detecting-Overflow-of-Unsigned-Addition"><a href="#Detecting-Overflow-of-Unsigned-Addition" class="headerlink" title="Detecting Overflow of Unsigned Addition"></a>Detecting Overflow of Unsigned Addition</h3><img src="/images/csapp-15.png" alt="csapp-15.png" style="zoom:70%;" />
+
+<h3 id="Additive-Inverse"><a href="#Additive-Inverse" class="headerlink" title="Additive Inverse"></a>Additive Inverse</h3><p>这块书上感觉有点难理解</p>
+<p>逆元，Abelian Group</p>
+<p>在数学里逆元是指一个数乘以它的逆元等于1，即a * a^-1 &#x3D; 1<br>相反数是指一个数加上它的相反数等于0，即a + (-a) &#x3D; 0<br>这两者差不多</p>
+<p>但是在这里因为无符号符号数的存在，所以逆元不一定是相反数</p>
+<p>当x, x’ 满足 $0 &lt;&#x3D; x &lt; 2^w, 0 &lt;&#x3D; x’ &lt; 2^w$,<br>构造 $x + x’ &#x3D; 2^w$<br>因为溢出，得到$x + x’ &#x3D; 2^w &#x3D; 0$</p>
+<img src="/images/csapp-16.png" alt="csapp-16.png" style="zoom:70%;" />
+
+<h3 id="Two’s-Complement-Addition"><a href="#Two’s-Complement-Addition" class="headerlink" title="Two’s Complement Addition"></a>Two’s Complement Addition</h3><img src="/images/csapp-17.png" alt="csapp-17.png" style="zoom:70%;" />
+
+<h4 id="Positive-Overflow"><a href="#Positive-Overflow" class="headerlink" title="Positive Overflow"></a>Positive Overflow</h4><img src="/images/csapp-18.png" alt="csapp-18.png" style="zoom:70%;" />
+
+<h4 id="Negative-Overflow"><a href="#Negative-Overflow" class="headerlink" title="Negative Overflow"></a>Negative Overflow</h4><img src="/images/csapp-19.png" alt="csapp-19.png" style="zoom:70%;" />
+
+<h3 id="How-to-judge-overflow"><a href="#How-to-judge-overflow" class="headerlink" title="How to judge overflow"></a>How to judge overflow</h3><ol>
+<li>x &gt;&#x3D; 0, y &gt;&#x3D; 0, x +y &lt; 0 -&gt; Positive Overflow</li>
+<li>x &lt; 0, y &lt; 0, x + y &gt;&#x3D; 0 -&gt; Negative Overflow</li>
+</ol>
+<h3 id="Two’s-Complement-Negation"><a href="#Two’s-Complement-Negation" class="headerlink" title="Two’s Complement Negation"></a>Two’s Complement Negation</h3><p>感觉没有什么用</p>
+<img src="/images/csapp-20.png" alt="csapp-20.png" style="zoom:70%;" />
+
+<h3 id="Unsigned-Multiplication"><a href="#Unsigned-Multiplication" class="headerlink" title="Unsigned Multiplication"></a>Unsigned Multiplication</h3><p>两个w位数相乘，结果是2w位数<br>但是只有w位是有效的，需要截断<br>$(x * y) \bmod 2^w$</p>
+<h3 id="Two’s-Complement-Multiplication"><a href="#Two’s-Complement-Multiplication" class="headerlink" title="Two’s Complement Multiplication"></a>Two’s Complement Multiplication</h3><p>$U2T_w((x * y) \bmod 2^w)$</p>
+<h3 id="Multiplying-by-Constants"><a href="#Multiplying-by-Constants" class="headerlink" title="Multiplying by Constants"></a>Multiplying by Constants</h3><img src="/images/csapp-21.png" alt="csapp-21" style="zoom:70%;" />
+
+<p>A Ex:<br><img src="/images/csapp-22.png" alt="csapp-22" style="zoom:70%;" /></p>
+<h3 id="Dividing-by-Powers-of-2"><a href="#Dividing-by-Powers-of-2" class="headerlink" title="Dividing by Powers of 2"></a>Dividing by Powers of 2</h3><img src="/images/csapp-23.png" alt="csapp-23" style="zoom:70%;" />
+
+<p>这里是已知要进行k次位移，然后对x即将进行的位移进行基于权重的位置分割</p>
+<p>让x &#x3D; x1 * 2^k + x2, x1为高w-k位，x2为低k位</p>
+<p>做位移之后可以得到</p>
+<p>x &gt;&gt; k &#x3D; x1</p>
+<img src="/images/csapp-24.png" alt="csapp-24" style="zoom:70%;" />
+
+<p>但是这样位移得到的是数学上的向下取整，而不是向上取整</p>
+<p>向上取整在计算机中可以表述为向0取整</p>
+<img src="/images/csapp-25.png" alt="csapp-25" style="zoom:70%;" />
+
+<p>为了能够向0取整</p>
+<blockquote>
+<p>We can correct for the improper rounding that occurs when a negative numberis shifted right by “biasing” the value before shifting.</p>
+</blockquote>
+<img src="/images/csapp-26.png" alt="csapp-26" style="zoom:70%;" />
+
+<p>$bias &#x3D; (1 &lt;&lt; k) - 1$</p>
+<p>推导见书本</p>
+<h2 id="Excercise"><a href="#Excercise" class="headerlink" title="Excercise"></a>Excercise</h2><p>2.42 我觉得很nice</p>
+<blockquote>
+<p>Practice Problem 2.42(solution page 192)<br>Write a functiondiv16that returns the valuex&#x2F;16for integer argumentx. Your<br>function should not use division, modulus, multiplication, any conditionals (if or ? : ), any comparison operators (e.g.,&lt;,&gt;,or&#x3D;&#x3D;), or any loops. You may assume<br>that data typeintis 32 bits long and uses a two’s-complement representation, and<br>that right shifts are performed arithmetically.</p>
+</blockquote>
+<p>通过前面的推导我们已经能够得到能够正确得到期望值的操作：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(x &lt; <span class="number">0</span> ? x + (<span class="number">1</span> &lt;&lt; k) - <span class="number">1</span> : x) &gt;&gt; k</span><br></pre></td></tr></table></figure>
+
+<p>这里希望写一个div16, 也就是k为4的情况</p>
+<p>所以这里的bias就是15</p>
+<p>如何知道x的正负?</p>
+<p>可以通过二进制的最高位来判断，对应的操作是x &gt;&gt; 31</p>
+<p>但是这题没法用if,得通过&amp;和|来构造得到bias</p>
+<p>因为位移不会改变位数w, x &gt;&gt; 31的结果仍然是w位的，如果最高位为1,那么会得到全32位的1,反之会得到全32位的0</p>
+<p>&amp;上0xF就可以得到0xF或者0， 也就是对应的bias</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">div16</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    <span class="type">int</span> bias = (x &gt;&gt; <span class="number">31</span>) &amp; <span class="number">0xF</span>;</span><br><span class="line">    <span class="keyword">return</span> (x + bias) &gt;&gt; <span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>九曲阑干用3b1b引擎做的图</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/09/How-to-config-ccls-in-Neovim-lsp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -998,77 +1176,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/05/LeetCode-40-Combination-Sum-II/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/05/LeetCode-40-Combination-Sum-II/" class="post-title-link" itemprop="url">LeetCode 40. Combination Sum II</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-11-05 03:09:57" itemprop="dateCreated datePublished" datetime="2022-11-05T03:09:57+08:00">2022-11-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-11-06 16:09:36" itemprop="dateModified" datetime="2022-11-06T16:09:36+08:00">2022-11-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="LeetCode-40-Combination-Sum-II"><a href="#LeetCode-40-Combination-Sum-II" class="headerlink" title="LeetCode 40. Combination Sum II"></a>LeetCode 40. Combination Sum II</h1><h2 id="Main-Idea"><a href="#Main-Idea" class="headerlink" title="Main Idea"></a>Main Idea</h2><p>和上题一样，只是这题要求每个数字只能用一次。</p>
-<blockquote>
-<p>Each number in candidates may only be used once in the combination.</p>
-</blockquote>
-<p>比如dfs第一层， 从1 1 2中选取的时候，只能选1 或者 2<br>如果选了1<br>那么dfs第二层，从1 2中选取，这一层从1, 2中选</p>
-<p>所以只是每一层不能选不同的数字</p>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">typedef</span> vector&lt;<span class="type">int</span>&gt;::size_type <span class="type">sz_t</span>;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">combinationSum2</span>(vector&lt;<span class="type">int</span>&gt;&amp; candidates, <span class="type">int</span> target) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">        <span class="built_in">sort</span>(candidates.<span class="built_in">begin</span>(), candidates.<span class="built_in">end</span>());</span><br><span class="line">        <span class="built_in">dfs</span>(candidates, target, <span class="number">0</span>, path, res);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;c, <span class="type">int</span> target, <span class="type">int</span> start, vector&lt;<span class="type">int</span>&gt; &amp;path, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; &amp;res)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (target &lt; <span class="number">0</span>) <span class="keyword">return</span> ;</span><br><span class="line">        <span class="keyword">if</span> (target == <span class="number">0</span>) &#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(path); </span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">sz_t</span> i = start; i &lt; c.<span class="built_in">size</span>();) &#123;</span><br><span class="line">            <span class="type">int</span> k = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span> (k &lt; c.<span class="built_in">size</span>() &amp;&amp; c[k] == c[k - <span class="number">1</span>]) k ++; <span class="comment">// skip same number</span></span><br><span class="line"></span><br><span class="line">            path.<span class="built_in">push_back</span>(c[i]);</span><br><span class="line">            <span class="built_in">dfs</span>(c, target - c[i], i + <span class="number">1</span>, path, res); <span class="comment">//i replace with i + 1(compare with 39)</span></span><br><span class="line">            path.<span class="built_in">pop_back</span>();</span><br><span class="line">            i = k;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1138,20 +1245,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
