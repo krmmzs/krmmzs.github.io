@@ -158,6 +158,110 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/23/Anime/FFmpeg/ffmpeg-crop-anime-Bocchi-the-Rock-record/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/23/Anime/FFmpeg/ffmpeg-crop-anime-Bocchi-the-Rock-record/" class="post-title-link" itemprop="url">ffmpeg crop anime Bocchi the Rock record</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-10-23 16:40:16" itemprop="dateCreated datePublished" datetime="2022-10-23T16:40:16+08:00">2022-10-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-10-24 18:11:00" itemprop="dateModified" datetime="2022-10-24T18:11:00+08:00">2022-10-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Anime/" itemprop="url" rel="index"><span itemprop="name">Anime</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Anime/FFmpeg/" itemprop="url" rel="index"><span itemprop="name">FFmpeg</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="ffmpeg-crop-anime-Bocchi-the-Rock-record"><a href="#ffmpeg-crop-anime-Bocchi-the-Rock-record" class="headerlink" title="ffmpeg crop anime Bocchi the Rock record"></a>ffmpeg crop anime Bocchi the Rock record</h1><p>Bocchi the Rock实在是太好看了，想裁一些片段玩。</p>
+<h2 id="Record"><a href="#Record" class="headerlink" title="Record"></a>Record</h2><p>还没写脚本，所以操作有点笨拙。</p>
+<p>先是产生缩略图</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i 2.mp4 -vf <span class="string">&quot;fps=1/10,scale=-2:720&quot;</span> thumbnail-%03d.jpg</span><br></pre></td></tr></table></figure>
+
+<p>直接就是创个interaction.md<br>写下要裁剪的区间<br>然后在这个文本里把命令编辑好到目录下执行<br>在文本里编辑命令的好处是，记录下产生视频的命令, 起到log的作用。</p>
+<img src="/images/ffmpeg_bocci_the_rock-01.png" alt="ffmpeg_bocci_the_rock-01" style="zoom:70%;" />
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -ss 00:14:44 -t 40 -i 2.mp4 -vcodec copy -acodec copy 02.mp4</span><br></pre></td></tr></table></figure>
+
+<p>目录下是这些</p>
+<img src="/images/ffmpeg_bocci_the_rock-02.png" alt="ffmpeg_bocci_the_rock-02" style="zoom:70%;" />
+
+<p>然后发现了个bug: 起始位置ubuntu22默认视频player黑屏，mpv打开会从-1s开始播放, 估计是关键字没卡上。。</p>
+<h2 id="Fix"><a href="#Fix" class="headerlink" title="Fix"></a>Fix</h2><p>ffmepg剪切视频，很方便，但是也有很大缺陷：<br>（1）剪切时间点不精确<br>（2）有时剪切的视频开头有黑屏</p>
+<p>造成这些问题的原因是ffmpeg无法seek到非关键帧上。</p>
+<p>上述的剪切方式比较基本</p>
+<h3 id="Parameter-optimization"><a href="#Parameter-optimization" class="headerlink" title="Parameter optimization"></a>Parameter optimization</h3><ul>
+<li>将-ss， -t 参数放在-i参数之前(已经这么做了)</li>
+</ul>
+<p>对输入文件执行seek操作，会seek到-ss设置的时间点前面的关键帧上。</p>
+<p>时间不精确，但是不会出现黑屏(然而ubuntu的视频播放器还是黑屏)</p>
+<ul>
+<li>accurate_seek</li>
+</ul>
+<p>如果编码格式采用的copy 最好加上 -avoid_negative_ts 1参数</p>
+<h3 id="Final-command"><a href="#Final-command" class="headerlink" title="Final command"></a>Final command</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -ss 00:14:44 -t 40 -i 2.mp4 -vcodec copy -acodec copy -avoid_negative_ts 1 02.mp4</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/23/Linux/Shell/Downloading-a-video-from-the-Internet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1210,122 +1314,6 @@ $HOME/.profile和$HOME/.bash_profile这3个文件的。这是因为图形化窗�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter02/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter02/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter02 Looping and counting</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-10-18 11:03:05 / Modified: 11:05:03" itemprop="dateCreated datePublished" datetime="2022-10-18T11:03:05+08:00">2022-10-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/Accelerated-Cpp/" itemprop="url" rel="index"><span itemprop="name">Accelerated Cpp</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Looping-and-counting"><a href="#Looping-and-counting" class="headerlink" title="Looping and counting"></a>Looping and counting</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><ul>
-<li><a href="#i-vs-i-i-1">i ++ vs i &#x3D; i + 1</a></li>
-<li><a href="#designing-a-while-statement">designing a while statement</a></li>
-<li><a href="#string-class-size">String class size</a></li>
-<li><a href="#abbreviating-repeated-uses-of-std">Abbreviating repeated uses of std:: </a></li>
-<li><a href="#off-the-end-value">off-the-end value</a></li>
-<li><a href="#statement-vs-expression">statement vs expression</a></li>
-</ul>
-<h2 id="i-vs-i-x3D-i-1"><a href="#i-vs-i-x3D-i-1" class="headerlink" title="i ++ vs i &#x3D; i + 1"></a>i ++ vs i &#x3D; i + 1</h2><p>possible values of type bool are true and false, with the obvious meanings.</p>
-<p>The other new facility in this program is the last statement in the while body, which is</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">++r;</span><br></pre></td></tr></table></figure>
-
-<p>The ++ is the increment operator, which has the effect of incrementing-adding 1 to-the</p>
-<p>variable r. We could have written</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">r = r + 1;</span><br></pre></td></tr></table></figure>
-
-<p>instead, but incrementing an object is so common that a special notation for doing so is<br>useful. Moreover, as we shall see in §5.1.2&#x2F;79, the idea of transforming a value into its<br>immediate successor, in contrast with computing an arbitrary value, is so fundamental to<br>abstract data structures that it deserves a special notation for that reason alone.</p>
-<h2 id="Designing-a-while-statement"><a href="#Designing-a-while-statement" class="headerlink" title="Designing a while statement"></a>Designing a while statement</h2><p>There is a useful technique for writing and understanding <code>while</code> statements that relies on</p>
-<p>two key ideas-one about the definition of a <code>while</code> statement, and the other about the</p>
-<p>behavior of programs in general.</p>
-<p>The first idea is that when a <code>while</code> finishes, its condition must be <code>false</code>-otherwise the</p>
-<p><code>while</code> wouldn’t have finished. So, for example, when the while in §2.3&#x2F;19 finishes, we</p>
-<p>know that <code>r != rows</code> is false and, therefore, that <code>r</code> is equal to <code>rows</code>.</p>
-<p>The second idea is that of a <strong>loop invariant</strong>, which is a property that we assert will be true</p>
-<p>about a <code>while</code> each time it is about to test its condition. We choose an invariant that we</p>
-<p>can use to convince ourselves that the program behaves as we intend, and we write the<br>program so as to make the invariant true at the proper times. Although the invariant is not<br>part of the program text, it is a valuable intellectual tool for designing programs. Every</p>
-<p>useful <code>while</code> statement that we can imagine has an invariant associated with it. Stating the</p>
-<p>invariant in a comment can make a <code>while</code> much easier to understand.</p>
-<h2 id="String-class-size"><a href="#String-class-size" class="headerlink" title="String class size"></a>String class size</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> std::string::size_type cols = greeting.<span class="built_in">size</span>() + pad * <span class="number">2</span> + <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
-
-<p>The second :: similarly says that we want the name <code>size_type</code><br>from the class <code>string</code>.<br>Like namespaces and blocks, classes define their own scopes.<br>The <code>std::string</code> type defines <code>size_type</code> to be the name of the<br>appropriate type for holding the number of characters ina string.<br>Whenever we need a local variable to contain the size of a <code>string</code>,<br>we should use <code>std::string::size_type</code> as the type of that variable.</p>
-<p>The reason that we have given <code>cols</code> a type of <code>std::string::size_type</code><br>is to ensure that cols is capable of containing the number<br>of characters in <code>greeting</code>, no matter howlarge that number<br>might be. We could simply have said that <code>cols</code> has type int,<br>andindeed, doing so would probably work. However, the value<br>of <code>cols</code> depends on the size ofthe input to our program, and<br>we have no control over how long that input might be.<br>It is conceivable that someone might give our program a<br>string so long that an <code>int</code> is insufficientto contain its length.</p>
-<p>more read <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1181079/stringsize-type-instead-of-int">Stack overflow string::size_type instead of int</a></p>
-<p><em>The important idea</em>:<br><strong>Nevertheless, whenever we define avariable that contains the size of a particular data structure, it is a good habit to use the type that the library defines as being appropriate for that specific purpose</strong></p>
-<h2 id="Abbreviating-repeated-uses-of-std"><a href="#Abbreviating-repeated-uses-of-std" class="headerlink" title="Abbreviating repeated uses of std::"></a>Abbreviating repeated uses of std::</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> std::cout;</span><br></pre></td></tr></table></figure>
-
-<p>we can say that we intend to use the name cout to mean std::cout<br>exclusively, and thatwe do not intend to define anything named<br>cout ourselves. Once we have done so, we cansay cout instead<br>of <code>std::cout</code></p>
-<p>The name that itmentions behaves similarly to other names.<br>For example, if a using-declaration appearswithin braces,<br>the name that it defines has its given meaning from where<br>it is defined to theclosing brace.</p>
-<h2 id="off-the-end-value"><a href="#off-the-end-value" class="headerlink" title="off-the-end value"></a>off-the-end value</h2><p>We can think of 0 as being the beginning of a range,<br>androws as being the off-the-end value for the range.<br>Such a range is called a half-openrange, and is often written<br>as [begin, off-the-end).</p>
-<h2 id="statement-vs-expression"><a href="#statement-vs-expression" class="headerlink" title="statement vs expression"></a>statement vs expression</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (init-statement  condition; expression)</span><br><span class="line">    statement</span><br></pre></td></tr></table></figure>
-
-<p>statement often have their own semicolon.</p>
-<h2 id="0-rows-vs-1-rows"><a href="#0-rows-vs-1-rows" class="headerlink" title="[0, rows) vs [1, rows]"></a>[0, rows) vs [1, rows]</h2><p>Asymmetric ranges are usually easier to use than symmetric ones<br>because of an important property: A range of the form <code>[m, n)</code><br>has <code>n - m</code> elements, and a range of the form <code>[m,n]</code> has <code>n - m + 1</code><br>elements. So, for example, the number of elements in <code>[0, rows)</code><br>is obvious (i.e., <code>rows - 0</code>, or <code>rows</code>) but the number in <code>[1, rows]</code><br>is less so.</p>
-<p>This behavioral difference between asymmetric and symmetric<br>ranges is particularly evident in the case of empty ranges:<br>If we use asymmetric ranges, we can express an empty rangeas<br><code>[n, n)</code>, in contrast to <code>[n, n-1]</code> for symmetric ranges.<br>The possibility that the end of arange could ever be less than<br><strong>the beginning can cause no end of trouble in designingprograms</strong></p>
-<p>Another reason to count from <code>0</code> is that doing so makes loop<br>invariants easier to express. Inour example, counting from <code>0</code><br>makes the invariant straightforward: We have written r rowsof<br>output so far. What would be the invariant if we counted from <code>1</code>?</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1395,7 +1383,7 @@ $HOME/.profile和$HOME/.bash_profile这3个文件的。这是因为图形化窗�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1408,7 +1396,7 @@ $HOME/.profile和$HOME/.bash_profile这3个文件的。这是因为图形化窗�
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

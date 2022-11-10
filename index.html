@@ -158,6 +158,80 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/11/Why-numbering-should-start-at-zero/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/11/Why-numbering-should-start-at-zero/" class="post-title-link" itemprop="url">Why-numbering should start at zero</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-11-11 00:06:27 / Modified: 00:35:03" itemprop="dateCreated datePublished" datetime="2022-11-11T00:06:27+08:00">2022-11-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Why-numbering-should-start-at-zero"><a href="#Why-numbering-should-start-at-zero" class="headerlink" title="Why-numbering should start at zero"></a>Why-numbering should start at zero</h1><p>为什么编号应该从零开始</p>
+<p>为了表示自然数2、3、……、12 的子序列，而不使用有害的三点，我们有四种惯例可供选择  </p>
+<table border="0"><tbody><tr><td><hcfy-result class="__hcfy__result__result__ __hcfy__result__loaded__">a)</hcfy-result></td><td width="30"></td><td><hcfy-result class="__hcfy__result__result__ __hcfy__result__loaded__">2 ≤ i &lt; 13</hcfy-result></td></tr><tr><td><hcfy-result class="__hcfy__result__result__ __hcfy__result__loaded__">b)</hcfy-result></td><td width="30"></td><td><hcfy-result class="__hcfy__result__result__ __hcfy__result__loaded__">1 &lt; i ≤ 12</hcfy-result></td></tr><tr><td><hcfy-result class="__hcfy__result__result__ __hcfy__result__loaded__">c)</hcfy-result></td><td width="30"></td><td><hcfy-result class="__hcfy__result__result__ __hcfy__result__loaded__">2 ≤ i ≤ 12</hcfy-result></td></tr><tr><td><hcfy-result class="__hcfy__result__result__ __hcfy__result__loaded__">d)</hcfy-result></td><td width="30"></td><td><hcfy-result class="__hcfy__result__result__ __hcfy__result__loaded__">1 &lt; i &lt; 13</hcfy-result></td></tr></tbody></table>
+
+<p>是否有理由选择一种惯例而不是另一种？是的，有的。观察到惯例a)和b)有一个优点，即上述界限之间的差异等于子序列的长度是有效的。因此，在任何一个约定中，两个子序列相邻意味着一个子序列的上限等于另一个子序列的下限，这种观察也是有效的。尽管这些观察是有效的，但它们并不能使我们在a)和b)之间做出选择；所以让我们重新开始。</p>
+<p>有一个最小的自然数。排除下限–如b)和d)–迫使从最小的自然数开始的子序列的下限进入非自然数的领域。这很难看，所以对于下限，我们更倾向于采用a）和c）中的≤。现在考虑从最小的自然数开始的子序列：加入上限将迫使后者在序列缩减到空数时成为非自然数。这很难看，所以对于上界，我们更倾向于&lt;如a)和d)。我们的结论是a)是首选。</p>
+<p>备注 在Xerox PARC开发的编程语言Mesa，在所有四个约定中都有关于整数间隔的特殊符号。使用Mesa的广泛经验表明，使用其他三个约定是笨拙和错误的源头，根据这一经验，现在强烈建议Mesa程序员不要使用后三个可用的功能。我提到这个实验性的证据–为了它的价值–是因为有些人对没有在实践中得到证实的结论感到不舒服。(备注结束）。</p>
+<p>当处理一个长度为N的序列时，我们希望用下标来区分其中的元素，下一个棘手的问题是给其起始元素分配什么下标值。遵循惯例a)，当从下标1开始时，可以得到下标范围1≤i&lt;N+1；然而从0开始，可以得到更好的范围0≤i&lt;N。所以我们让我们的序数从0开始：一个元素的序数（下标）等于它在序列中前面的元素数。这个故事的寓意是，我们最好把零看作是一个最自然的数字–在所有这些世纪之后！。</p>
+<p>备注 许多编程语言在设计时没有充分注意到这个细节。在FORTRAN中，下标总是从1开始；在ALGOL 60和PASCAL中，惯例c)被采用；最近的SASL又回到了FORTRAN的惯例：SASL中的序列同时也是正整数上的一个函数。遗憾的是! (备注结束。)</p>
+<p>上述内容是由最近的一件事引发的，当时我在大学的一位数学同事–不是计算机科学家–在一次情绪爆发中指责一些年轻的计算机科学家 “迂腐”，因为–他们习惯于这样–他们从零开始编号。他把有意识地采用最合理的惯例作为一种挑衅。(同样，”结束…… “的约定也被视为挑衅；但该约定是有用的。我知道有一个学生在一次考试中几乎失败了，因为他默认了问题在第一页的底部结束。） 我认为安东尼-杰伊是对的，他说。”在企业宗教和其他宗教中，异教徒必须被赶出去，不是因为他有可能是错的，而是因为他有可能是对的。”</p>
+<table border="0"><tbody><tr><td><hcfy-result class="__hcfy__result__result__ __hcfy__result__loaded__">Plataanstraat 5</hcfy-result><br><hcfy-result class="__hcfy__result__result__ __hcfy__result__loaded__">5671 AL NUENEN</hcfy-result><br><hcfy-result class="__hcfy__result__result__ __hcfy__result__loaded__">荷兰</hcfy-result></td><td width="80"></td><td><hcfy-result class="__hcfy__result__result__ __hcfy__result__loaded__">1982年8月11日</hcfy-result><br><hcfy-result class="__hcfy__result__result__ __hcfy__result__loaded__">Edsger W. Dijkstra教授、博士</hcfy-result><br><hcfy-result class="__hcfy__result__result__ __hcfy__result__loaded__">伯勒斯研究员</hcfy-result></td></tr></tbody></table>
+
+<hr>
+<p>转录者。Kevin Hely.<br>最后修订于2008年5月2日星期五。</p>
+<hr>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://t.co/bRDeNyo0eD">https://www.cs.utexas.edu/users/EWD/ewd08xx/EWD831.PDF</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/10/CSAPP-chapter02-Representing-and-ManipulatingInformation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1103,79 +1177,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/06/LeetCode-41-First-Missing-Positive/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/06/LeetCode-41-First-Missing-Positive/" class="post-title-link" itemprop="url">LeetCode 41. First Missing Positive</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-11-06 16:09:08 / Modified: 16:50:46" itemprop="dateCreated datePublished" datetime="2022-11-06T16:09:08+08:00">2022-11-06</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="41-First-Missing-Positive"><a href="#41-First-Missing-Positive" class="headerlink" title="41. First Missing Positive"></a>41. First Missing Positive</h1><h2 id="Main-Idea"><a href="#Main-Idea" class="headerlink" title="Main Idea"></a>Main Idea</h2><p>不能使用额外的空间，所以只能在原数组上进行操作。</p>
-<p>不然哈希表就比较好解决了（hard的关键）</p>
-<p>又要保证O(n)</p>
-<p>能做的操作大概就是swap, 常数级的loop</p>
-<p>这题看多点的案例会比较容易发现性质</p>
-<p>[1, 2, 4, 5, …] 的 first missing Positive is 3<br>[2, 3, 4, 5, …] 的 first missing Positive is 1</p>
-<p>可以发现答案是从1开始，如果1在正确的位置上那么就检查下一个数2,以此类推</p>
-<p>考虑极端情况下，[1, 2, 3, 4, 5, …] 的 first missing Positive is 6</p>
-<p>所有的数都在正确的位置上，那么答案就是最后一个数+1（length + 1)</p>
-<p>所以答案的范围是[1, length + 1], 其余数可以忽略不调整位置</p>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>Put each number in its right place.</p>
-<p>For example:</p>
-<p>When we find 5, then swap it with A[4].</p>
-<p>At last, the first place where its number is not right, return the place + 1.</p>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">firstMissingPositive</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (nums[i] &gt; <span class="number">0</span> &amp;&amp; nums[i] &lt;= n &amp;&amp; nums[nums[i] - <span class="number">1</span>] != nums[i])</span><br><span class="line">                <span class="built_in">swap</span>(nums[nums[i] - <span class="number">1</span>], nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] != i + <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> i + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> n + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1245,7 +1246,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1258,7 +1259,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
