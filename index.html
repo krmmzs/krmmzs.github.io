@@ -320,10 +320,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-11-10 18:29:20 / Modified: 18:30:45" itemprop="dateCreated datePublished" datetime="2022-11-10T18:29:20+08:00">2022-11-10</time>
+              <time title="Created: 2022-11-10 18:29:20" itemprop="dateCreated datePublished" datetime="2022-11-10T18:29:20+08:00">2022-11-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-11-11 23:02:00" itemprop="dateModified" datetime="2022-11-11T23:02:00+08:00">2022-11-11</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -455,6 +461,57 @@
 <p>&amp;上0xF就可以得到0xF或者0， 也就是对应的bias</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">div16</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    <span class="type">int</span> bias = (x &gt;&gt; <span class="number">31</span>) &amp; <span class="number">0xF</span>;</span><br><span class="line">    <span class="keyword">return</span> (x + bias) &gt;&gt; <span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="Floating-Point"><a href="#Floating-Point" class="headerlink" title="Floating Point"></a>Floating Point</h2><h3 id="Floating-Point-Type"><a href="#Floating-Point-Type" class="headerlink" title="Floating Point Type"></a>Floating Point Type</h3><img src="/images/csapp-27.png" alt="csapp-27" style="zoom:70%;" />
+
+<p>这里书翻译成规格化愣是没看懂…</p>
+<h3 id="Floating-Point-Representation"><a href="#Floating-Point-Representation" class="headerlink" title="Floating Point Representation"></a>Floating Point Representation</h3><img src="/images/csapp-28.png" alt="csapp-28" style="zoom:70%;" />
+
+<p>这个公式 is <strong>important</strong></p>
+<p>这里颜色做了区分</p>
+<p>C语言中的float类型是32位的</p>
+<blockquote>
+<p>float is a 32-bit IEEE 754 single precision Floating Point Number – 1 bit for the sign, 8 bits for the exponent, and 23* for the value.</p>
+</blockquote>
+<h3 id="Normalized"><a href="#Normalized" class="headerlink" title="Normalized"></a>Normalized</h3><img src="/images/csapp-29.png" alt="csapp-29" style="zoom:70%;" />
+
+<p>这里的M是1+… &gt;&#x3D; 1的</p>
+<p>这一块感觉都只是解释如何表示，没有讲为什么会这么设计</p>
+<img src="/images/csapp-30.png" alt="csapp-30" style="zoom:70%;" />
+
+<h3 id="Denormalized"><a href="#Denormalized" class="headerlink" title="Denormalized"></a>Denormalized</h3><img src="/images/csapp-31.png" alt="csapp-31" style="zoom:70%;" />
+
+<p>第一个用途是用来表示0</p>
+<p>IEEE 这么表示有+0和-0, 是为了在1&#x2F;0的时候能够区分出来+无穷和-无穷</p>
+<img src="/images/csapp-32.png" alt="csapp-32" style="zoom:70%;" />
+
+<p>第二个用途是用来表示非常接近0的数</p>
+<p>注意，这里$E &#x3D; 1 - Bias$ 是确定好了的</p>
+<p>这么确定的原因在图2-35给出了最大的非规格数和最小的规格化数之间的平滑转变</p>
+<h3 id="Infinity"><a href="#Infinity" class="headerlink" title="Infinity"></a>Infinity</h3><img src="/images/csapp-33.png" alt="csapp-33" style="zoom:70%;" />
+
+<h3 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h3><img src="/images/csapp-34.png" alt="csapp-34" style="zoom:70%;" />
+
+<p>这四种情况的用途最好用 <strong>Figure 2.34</strong> 来记忆</p>
+<h3 id="int-and-float-conversion"><a href="#int-and-float-conversion" class="headerlink" title="int and float conversion"></a>int and float conversion</h3><img src="/images/csapp-35.png" alt="csapp-35" style="zoom:70%;" />
+
+<img src="/images/csapp-36.png" alt="csapp-36" style="zoom:70%;" />
+
+<img src="/images/csapp-37.png" alt="csapp-37" style="zoom:70%;" />
+
+<img src="/images/csapp-38.png" alt="csapp-38" style="zoom:70%;" />
+
+<h3 id="Rounding"><a href="#Rounding" class="headerlink" title="Rounding"></a>Rounding</h3><p>因为不能精确表示，所以需要进行舍入</p>
+<p>上下和零舍入都进行过讨论了，他们会产生 <strong>guaranteed bound</strong></p>
+<h4 id="Round-to-even"><a href="#Round-to-even" class="headerlink" title="Round to even"></a>Round to even</h4><img src="/images/csapp-39.png" alt="csapp-39" style="zoom:70%;" />
+
+<img src="/images/csapp-40.png" alt="csapp-40" style="zoom:70%;" />
+
+<h3 id="Floating-Point-Operations"><a href="#Floating-Point-Operations" class="headerlink" title="Floating Point Operations"></a>Floating Point Operations</h3><img src="/images/csapp-41.png" alt="csapp-41" style="zoom:70%;" />
+
+<p>这里主要是讲浮点数的<code>Rounding</code>造成不支持结合律和交换律(这个是由结合律和交换律的定义决定的)</p>
+<h3 id="Floating-Point-in-C"><a href="#Floating-Point-in-C" class="headerlink" title="Floating Point in C"></a>Floating Point in C</h3><p>这里就看书就好了，讲的很清楚</p>
+<p>其中会被舍入是因为精度问题，从精度高的往精度低的转换的时候会被舍入</p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>Pay attention to Tmin, his opposite number is itself<br>Tmin: x &#x3D; 1000000000, opposite: -x&#x3D;~x + 1 &#x3D; 0111111111 + 1 &#x3D; 1000000000</p>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>九曲阑干用3b1b引擎做的图</p>
 
       
