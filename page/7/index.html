@@ -158,6 +158,165 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/13/AI/NovelAI-local-install-in-linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/13/AI/NovelAI-local-install-in-linux/" class="post-title-link" itemprop="url">NovelAI local install in linux</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-10-13 19:32:18" itemprop="dateCreated datePublished" datetime="2022-10-13T19:32:18+08:00">2022-10-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-10-20 22:08:30" itemprop="dateModified" datetime="2022-10-20T22:08:30+08:00">2022-10-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AI/NovelAI/" itemprop="url" rel="index"><span itemprop="name">NovelAI</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Recently, the model of <strong>novelai</strong> has been exposed, so let's build a free <del>sexy picture</del> generator by yourself.</p>
+<p><img src="/images/noval-01.png" alt="" style="zoom:60%;" /></p>
+<p>The following is my deployment process under linux, if you are windows could watch <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1EV4y1L7dX/?vd_source=e74badb8da104e8f3d5e1a1a2604cdda">bilibili novel tutoral</a></p>
+<p>He have a Integration Pack for noob.</p>
+<p>Need't install python, git, and more...</p>
+<h2 id="overview">Overview</h2>
+<ul>
+<li><a href="#news">News</a></li>
+<li><a href="#requires">Requires</a></li>
+<li><a href="#setup">Setup</a>
+<ul>
+<li><a href="#install-cuda">cuda</a></li>
+<li><a href="#install-python310x">python3.10.x</a></li>
+<li><a href="#install-stable-diffusion-web-ui">Stable Diffusion web UI</a></li>
+<li><a href="#download-models-file-and-setup-it">download models file and setup it</a></li>
+</ul></li>
+<li><a href="#have-a-try">have a try</a></li>
+<li><a href="#advanced">Advanced</a>
+<ul>
+<li><a href="#adjusting-parameter">Adjusting Parameter</a></li>
+</ul></li>
+<li><a href="#bugs">Bugs</a></li>
+</ul>
+<h2 id="news">News</h2>
+<p>Whether it is NovelAIDiffusion or WaifuDiffusion, it was originally an OSS artificial intelligence model called StableDiffusion.</p>
+<p>Among them, NovelAI has shown excellent accuracy by using its own improved and controversial example training data.</p>
+<p>A few days ago, this raw data was successfully leaked, and the 5ch company was in an uproar.</p>
+<p>See what improvements NovelAI has made to generate highly accurate illustrations at</p>
+<p><a target="_blank" rel="noopener" href="https://gigazine.net/news/20221011-novelai-model-improvements-stable-diffusion/">20221011-novelai-model-improvements-stable-diffusion/</a></p>
+<h2 id="requires">Requires</h2>
+<p><strong>If you don't know what you're doing, use Google.</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-toolkit-archive">cuda</a></li>
+<li>Model Framework: <a target="_blank" rel="noopener" href="https://github.com/AUTOMATIC1111/stable-diffusion-webui">stable-diffusion-webui</a></li>
+<li>Model :<code>magnet:?xt=urn:btih:5bde442da86265b670a3e5ea3163afad2c6f8ecc</code></li>
+</ul>
+<h2 id="setup">Setup</h2>
+<h3 id="install-cuda">install cuda</h3>
+<p>My OS system is ubuntu22.04</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">❯ nvidia-smi</span><br><span class="line">Thu Oct 13 02:37:20 2022</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 515.65.01    Driver Version: 515.65.01    CUDA Version: 11.7     |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|                               |                      |               MIG M. |</span><br><span class="line">|===============================+======================+======================|</span><br><span class="line">|   0  NVIDIA GeForce ...  On   | 00000000:01:00.0  On |                  N/A |</span><br><span class="line">| N/A   48C    P5     8W /  N/A |    690MiB /  4096MiB |      7%      Default |</span><br><span class="line">|                               |                      |                  N/A |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br></pre></td></tr></table></figure>
+<p>The <strong>CUDA Version</strong> is the highest version of cuda you support</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install cuda</span><br></pre></td></tr></table></figure>
+<p>Other Platform please look up <a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-downloads?target_os=Linux_version=22.04&amp;target_type=deb_network">Platform</a></p>
+<p><strong>pay attention to version and It is best to make a backup before operating the graphics card</strong></p>
+<h3 id="install-python3.10.x">Install python3.10.x</h3>
+<p>I recommend install <a target="_blank" rel="noopener" href="https://github.com/pyenv/pyenv">pyenv</a> to manage different python version.</p>
+<p>more see <a target="_blank" rel="noopener" href="https://github.com/pyenv/pyenv#basic-github-checkout">pyenv install</a></p>
+<h3 id="install-stable-diffusion-web-ui">Install Stable Diffusion web UI</h3>
+<p>git clone from <a target="_blank" rel="noopener" href="https://github.com/AUTOMATIC1111/stable-diffusion-webui">Stable Diffusion web UI</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git</span><br><span class="line">cd stable-diffusion-webui</span><br><span class="line">./webui.sh</span><br></pre></td></tr></table></figure>
+<p>to autoinstall it.</p>
+<p>It will automatically build a venv virtual environment and install the package in it, because the Pytorch to be installed is still relatively large, so it will take a long time.</p>
+<p>If everything ok, will see <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">###############################################################</span></span></span><br><span class="line">Launching launch.py...</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">###############################################################</span></span></span><br><span class="line">Python 3.10.4 (main, Sep 29 2022, 19:41:01) [GCC 11.2.0]</span><br><span class="line">Commit hash: cc5803603b8591075542d99ae8596ab5b130a82f</span><br><span class="line">Installing requirements for Web UI</span><br><span class="line">Launching Web UI with arguments:</span><br><span class="line">No checkpoints found. When searching for checkpoints, looked at:</span><br><span class="line"> - file /home/mouzaisi/AI/stable-diffusion-webui/model.ckpt</span><br><span class="line"> - directory /home/mouzaisi/AI/stable-diffusion-webui/models/Stable-diffusion</span><br><span class="line">Can&#x27;t run without a checkpoint. Find and place a .ckpt file into any of those locations. The program will exit.</span><br></pre></td></tr></table></figure></p>
+<p>meaning need models.</p>
+<h3 id="download-models-file-and-setup-it">download models file and setup it</h3>
+<p>download models with Torrent: <code>magnet:?xt=urn:btih:5bde442da86265b670a3e5ea3163afad2c6f8ecc</code></p>
+<p>I recommend <a target="_blank" rel="noopener" href="https://deluge-torrent.org/">deluge</a> (My Anime Video Torrent download 233)</p>
+<p>All files: <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">❯ du -h | grep novel</span><br><span class="line">2.9M	./novelaileak/stableckpt/vector_adjust/vector_adjust</span><br><span class="line">2.9M	./novelaileak/stableckpt/vector_adjust</span><br><span class="line">7.2G	./novelaileak/stableckpt/animefull-prevgood</span><br><span class="line">4.0G	./novelaileak/stableckpt/animefull-final-pruned</span><br><span class="line">9.2G	./novelaileak/stableckpt/extra-sd-prune/sd-prune</span><br><span class="line">9.2G	./novelaileak/stableckpt/extra-sd-prune</span><br><span class="line">7.2G	./novelaileak/stableckpt/animefull-latest</span><br><span class="line">7.2G	./novelaileak/stableckpt/animesfw-latest</span><br><span class="line">4.0G	./novelaileak/stableckpt/animesfw-final-pruned</span><br><span class="line">7.2G	./novelaileak/stableckpt/animesfw-prevgood</span><br><span class="line">1005M	./novelaileak/stableckpt/modules/modules</span><br><span class="line">1005M	./novelaileak/stableckpt/modules</span><br><span class="line">48G	./novelaileak/stableckpt</span><br><span class="line">271M	./novelaileak/workspace</span><br><span class="line">4.3G	./novelaileak/github/novelai</span><br><span class="line">4.3G	./novelaileak/github</span><br><span class="line">53G	./novelaileak</span><br></pre></td></tr></table></figure></p>
+<p><strong>with sfw means safe for work(no sexy)</strong></p>
+<p>There are two models that recommend be used: <strong>animefull-final-pruned</strong>: 4G small model (if your GPU is less than or equal to 4G, download this) <strong>animefull-latest</strong>: 7G large model (if the GPU is greater than or equal to 6G, use this, and download the config.yaml of the small model by the way, it is useful)</p>
+<p>Put <code>animevae.pt</code> and <code>model.ckpt</code> and <code>config.yaml</code> in a folder into the <code>stable-diffusion-webui\models\Stable-diffusion\</code> directory and rename them to <code>model.vae.pt</code>, <code>model.ckpt</code>, <code>model.yaml</code>.</p>
+<p>in <code>stable-diffusion-webui</code> retype <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./webui.sh</span><br></pre></td></tr></table></figure></p>
+<p>wait to download more stuff...</p>
+<p>It is works well when you see <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">Loaded a total of 0 textual inversion embeddings.</span><br><span class="line">Running on local URL:  http://127.0.0.1:7860</span><br><span class="line"></span><br><span class="line">To create a public link, set `share=True` in `launch()`.</span><br></pre></td></tr></table></figure></p>
+<p>you can type this command to see GPU(If your graphics card is NVIDIA) <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 520.61.05    Driver Version: 520.61.05    CUDA Version: 11.8     |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">...</span><br><span class="line">|                               |                      |               MIG M. |</span><br><span class="line">|===============================+======================+======================|</span><br><span class="line">|   0  NVIDIA GeForce ...  On   | 00000000:01:00.0  On |                  N/A |</span><br><span class="line">| N/A   50C    P0    15W /  N/A |   2880MiB /  4096MiB |      1%      Default |</span><br><span class="line">|                               |                      |                  N/A |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line"></span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| Processes:                                                                  |</span><br><span class="line">|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |</span><br><span class="line">|        ID   ID                                                   Usage      |</span><br><span class="line">|=============================================================================|</span><br><span class="line">...</span><br><span class="line">|    0   N/A  N/A      5162      C   python3                          2630MiB |</span><br><span class="line">|    0   N/A  N/A      6617      G   /usr/local/bin/alacritty            8MiB |</span><br><span class="line">...</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">|    0   N/A  N/A      5162      C   python3                          2630MiB |</span><br></pre></td></tr></table></figure></p>
+<p>My poor 4G GPU is occupied by 2.8G...</p>
+<p>enter <code>http://127.0.0.1:7860</code> to make your wife.</p>
+<h2 id="have-a-try">Have a try</h2>
+<p><img src="/images/noval-02.png" alt="noval-02" style="zoom:70%;" /></p>
+<p>example args: <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">one girl</span><br><span class="line">masterpiece</span><br><span class="line">best quality</span><br><span class="line">white hair</span><br><span class="line">light smile</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lowres</span><br><span class="line">low quality</span><br><span class="line">jpeg artifacts</span><br></pre></td></tr></table></figure>
+<h2 id="advanced">Advanced</h2>
+<h3 id="adjusting-parameter">Adjusting Parameter</h3>
+<ul>
+<li>10.08 <a target="_blank" rel="noopener" href="https://github.com/AUTOMATIC1111/stable-diffusion-webui/pull/1992">Added ability to ignore last n layers in FrozenCLIPEmbedder #1992</a></li>
+</ul>
+<p>Setting -&gt; Stop At last layers of CLIP model -&gt; 2</p>
+<h3 id="the-generated-effect-is-not-good">The generated effect is not good</h3>
+<p>add them to navigate prompt <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lowres, bad anatomy, bad hands, text,error, missing fngers,extra digt ,fewer digits,cropped, wort quality ,low quality,normal quality, jpeg artifacts,signature,watermark, username, blurry, bad feet</span><br></pre></td></tr></table></figure></p>
+<h2 id="bugs">Bugs</h2>
+<h3 id="black-pickture">black pickture</h3>
+<p>in webui-user.sh(.bat for windows)，set COMMANDLINE_ARGS='--lowvram --precision full --no-half' in webui-user.sh(.bat for windows)，set COMMANDLINE_ARGS='--lowvram --precision full --no-half'</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/13/Linux/kernel-startup-setup/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -305,7 +464,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

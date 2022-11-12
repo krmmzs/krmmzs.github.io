@@ -158,6 +158,79 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/13/LeetCode-50-Pow-x-n/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/13/LeetCode-50-Pow-x-n/" class="post-title-link" itemprop="url">LeetCode 50. Pow(x, n)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-11-13 00:11:00 / Modified: 00:41:28" itemprop="dateCreated datePublished" datetime="2022-11-13T00:11:00+08:00">2022-11-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="leetcode-50.-powx-n">LeetCode 50. Pow(x, n)</h1>
+<h2 id="main-idea">Main idea</h2>
+<p>经典快速幂</p>
+<p>感觉写了csapp第一个lab对位运算感觉上来了</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>-100.0 &lt; x &lt; 100.0</code></li>
+<li><code>-2^31 &lt;= n &lt;= 2^31 - 1</code></li>
+<li><code>n</code> is an integer.</li>
+<li><code>-10^4 &lt;= x n &lt;= 10^4</code></li>
+</ul>
+<p>n可以是负数，所以要考虑n为负数的情况</p>
+<p>x^-n = 1/x^n, 所以一样的做法</p>
+<h2 id="code">Code</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">myPow</span><span class="params">(<span class="type">double</span> x, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> LL;</span><br><span class="line">        <span class="type">double</span> res = <span class="number">1</span>;</span><br><span class="line">        LL k = <span class="built_in">abs</span>(<span class="built_in">LL</span>(n));</span><br><span class="line">        <span class="keyword">while</span> (k) &#123;</span><br><span class="line">            <span class="keyword">if</span> (k &amp; <span class="number">1</span>) &#123;</span><br><span class="line">                res *= x;</span><br><span class="line">            &#125;</span><br><span class="line">            k &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">            x *= x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>) res = <span class="number">1</span> / res;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/13/LeetCode-49-Group-Anagrams/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1178,102 +1251,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/08/Accelerated-Cpp-chapter10/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/08/Accelerated-Cpp-chapter10/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter10</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-11-08 01:02:45 / Modified: 01:04:35" itemprop="dateCreated datePublished" datetime="2022-11-08T01:02:45+08:00">2022-11-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/Accelerated-Cpp/" itemprop="url" rel="index"><span itemprop="name">Accelerated Cpp</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="managing-memory-and-low-level-data-structures">Managing memory and low-level data structures</h1>
-<h2 id="pointers-to-functions">Pointers to functions</h2>
-<p>Because all that you can do with a function is to take its address or call it, any use of a function that is not a call is assumed to be taking its address, even without an explicit &amp;.</p>
-<h2 id="pointer-arithmetic">Pointer arithmetic</h2>
-<p>In other words, suppose that <strong>a</strong> is an <strong>n</strong>-element array, that v is a vector, and that we wan to apply standard-library algorithms to elements of a. Then, wherever we might use <strong>v.begin()</strong> and <strong>v.end()</strong> to give standard-library algorithms access to elements of <em>v</em>, we should use <strong>a</strong> and <strong>a + n</strong> as arguments when we wish to apply these algorithms to the elements of <strong>a</strong>.</p>
-<h2 id="char-array-and-a-pointer-to-a-char-array-in-main-function">char* array and a pointer to a char* array in main function</h2>
-<p>Because "A+" is char array, and "A" is a pointer to char array. need char* to catch the return value of "A+".</p>
-<p>char* array: <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="type">char</span>* <span class="type">const</span> letters[] = &#123;</span><br><span class="line">    <span class="string">&quot;A+&quot;</span>, <span class="string">&quot;A&quot;</span>, <span class="string">&quot;A-&quot;</span>, <span class="string">&quot;B+&quot;</span>, <span class="string">&quot;B&quot;</span>, <span class="string">&quot;B-&quot;</span>, <span class="string">&quot;C+&quot;</span>, <span class="string">&quot;C&quot;</span>, <span class="string">&quot;C-&quot;</span>, <span class="string">&quot;D+&quot;</span>, <span class="string">&quot;D&quot;</span>, <span class="string">&quot;D-&quot;</span>, <span class="string">&quot;F&quot;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h2 id="get-array-size-use-sizeof">get array size use sizeof</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="type">double</span> numbers[] = &#123;</span><br><span class="line">    <span class="number">1.1</span>, <span class="number">2.2</span>, <span class="number">3.3</span>, <span class="number">4.4</span>, <span class="number">5.5</span>, <span class="number">6.6</span>, <span class="number">7.7</span>, <span class="number">8.8</span>, <span class="number">9.9</span></span><br><span class="line">&#125;</span><br><span class="line">std::<span class="type">size_t</span> size = <span class="built_in">sizeof</span>(numbers) / <span class="built_in">sizeof</span>(*numbers);</span><br></pre></td></tr></table></figure>
-<p>this programs show main</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> fail_count = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// for each file in the input list</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; argc; i ++) &#123;</span><br><span class="line">        <span class="function">ifstream <span class="title">in</span><span class="params">(argv[i])</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// if it exists, write its contents, otherwise generate an error message</span></span><br><span class="line">        <span class="keyword">if</span> (in) &#123;</span><br><span class="line">            string s;</span><br><span class="line">            <span class="keyword">while</span> (<span class="built_in">getline</span>(in, s)) &#123;</span><br><span class="line">                cout &lt;&lt; s &lt;&lt; endl;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cerr &lt;&lt; <span class="string">&quot;cannot open file &quot;</span> &lt;&lt; argv&#123;i] &lt;&lt; endl;</span><br><span class="line">            fail_count ++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fail_count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="initializing-arrays-of-character-pointers">Initializing arrays of character pointers</h2>
-<p>a string literal is just a convenient way of writing the address of the initial character of a null-terminated sequence of characters.</p>
-<h2 id="ifstream-and-ofstream-are-kind-of-istream-and-ostream">ifstream and ofstream are kind of istream and ostream</h2>
-<p>The standard library says exactly that, by defining <strong>ifstream</strong> to be a kind of <strong>istream</strong> and <strong>ofstream</strong> to be a kind of <strong>ostream</strong>. As a result, it is possible to use an <strong>ifstream</strong> wherever the library expects an <strong>istream</strong> and an <strong>ofstream</strong> wherever the library expects an <strong>ostream</strong> .</p>
-<h2 id="file-name-need-a-pointer-to-the-initial-element-of-a-null-terminated-sequence-of-characters-character-array">file name need a pointer to the initial element of a null-terminated sequence of characters character array</h2>
-<p><strong>C++11 could use string as name</strong> see <a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/io/basic_ifstream/open">std::basic_ifstream</a></p>
-<p>you could see this overload function <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">open</span><span class="params">( <span class="type">const</span> std::string &amp;filename,                                  </span></span></span><br><span class="line"><span class="params"><span class="function">           ios_base::openmode mode = ios_base::in )</span></span>;(<span class="number">3</span>)	(C++<span class="number">11</span> 起)</span><br></pre></td></tr></table></figure></p>
-<p>When we define an <strong>ifstream</strong> or <strong>ofstream</strong> object, we might expect to have to supply, in the form of a <strong>string</strong> , the name of the file that we wish to use. In fact, we are required to supply, not a <strong>string</strong> , but rather a pointer to the initial element of a null- terminated character array. One reason for this curious requirement is to give programs the option of using the input-output library without using the <strong>string</strong> facilities. Another reason is historical: The input-output library predates the string class by several years. A third reason is that this requirement makes it easier to interface with operating-system input output facilities, which typically use such pointers to communicate. Whatever the reasons, the fact is that programs that deal with files must ultimately express the files' names as pointers to null-terminated character arrays.</p>
-<h2 id="use-c_str-in-stringbefore-c11-c11-has-a-overload-function-for-string-as-name">use c_str in string(before C++11, C++11 has a overload function for string as name)</h2>
-<p>If we don't want to have to give the name of the file as a literal, the best alternative is to store the file name in a <strong>string</strong> and then use the <strong>c_str</strong> member function.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string file = <span class="string">&quot;data.txt&quot;</span>;</span><br><span class="line"><span class="function">ifstream <span class="title">infile</span><span class="params">(file.c_str())</span></span>;</span><br></pre></td></tr></table></figure>
-<h2 id="new-t-ex">new T[] Ex</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">char</span>* <span class="title">duplicate_chars</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* p)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// allocate enough space; remember to add onre for the null</span></span><br><span class="line">    <span class="type">size_t</span> length = <span class="built_in">strlen</span>(p) + <span class="number">1</span>;</span><br><span class="line">    <span class="type">char</span>* result = <span class="keyword">new</span> <span class="type">char</span>[length];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// copy into our newly allocated space and return pointer to first element</span></span><br><span class="line">    <span class="built_in">copy</span>(p, p + length, result);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1343,7 +1320,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
