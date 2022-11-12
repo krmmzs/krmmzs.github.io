@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Telegram webm to gif1. Download webmhttps:&#x2F;&#x2F;t.me&#x2F;DownloadStickersBot 这个机器人可以下载 Telegram 的 sticker. 简介： Download your favourite stickers in jpg,png,webp formats or whole pack as zip file. 然后就会把zip发送到你的">
+  <meta name="description" content="Telegram webm to gif 1. Download webm https:&#x2F;&#x2F;t.me&#x2F;DownloadStickersBot 这个机器人可以下载 Telegram 的 sticker. 简介： Download your favourite stickers in jpg,png,webp formats or whole pack as zip file. 然后就会把zip发送到">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Telegram webm to gif">
 <meta property="og:url" content="http://example.com/2022/10/24/Telegram/Telegram-webm-to-gif/index.html">
 <meta property="og:site_name" content="krmmzs">
-<meta property="og:description" content="Telegram webm to gif1. Download webmhttps:&#x2F;&#x2F;t.me&#x2F;DownloadStickersBot 这个机器人可以下载 Telegram 的 sticker. 简介： Download your favourite stickers in jpg,png,webp formats or whole pack as zip file. 然后就会把zip发送到你的">
+<meta property="og:description" content="Telegram webm to gif 1. Download webm https:&#x2F;&#x2F;t.me&#x2F;DownloadStickersBot 这个机器人可以下载 Telegram 的 sticker. 简介： Download your favourite stickers in jpg,png,webp formats or whole pack as zip file. 然后就会把zip发送到">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-10-24T10:12:39.000Z">
 <meta property="article:modified_time" content="2022-10-24T12:01:58.501Z">
@@ -214,27 +214,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Telegram-webm-to-gif"><a href="#Telegram-webm-to-gif" class="headerlink" title="Telegram webm to gif"></a>Telegram webm to gif</h1><h2 id="1-Download-webm"><a href="#1-Download-webm" class="headerlink" title="1. Download webm"></a>1. Download webm</h2><p><a target="_blank" rel="noopener" href="https://t.me/DownloadStickersBot">https://t.me/DownloadStickersBot</a></p>
+        <h1 id="telegram-webm-to-gif">Telegram webm to gif</h1>
+<h2 id="download-webm">1. Download webm</h2>
+<p><a target="_blank" rel="noopener" href="https://t.me/DownloadStickersBot">https://t.me/DownloadStickersBot</a></p>
 <p>这个机器人可以下载 Telegram 的 sticker.</p>
 <p>简介： Download your favourite stickers in jpg,png,webp formats or whole pack as zip file.</p>
 <p>然后就会把zip发送到你的电脑上，解压后就是webm文件。</p>
-<h2 id="2-Convert-webm-to-gif"><a href="#2-Convert-webm-to-gif" class="headerlink" title="2. Convert webm to gif"></a>2. Convert webm to gif</h2><p>文件：webmToGif.sh</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *.webm; <span class="keyword">do</span></span><br><span class="line">    ffmpeg -i <span class="string">&quot;<span class="variable">$i</span>&quot;</span> -pix_fmt rgb24 <span class="string">&quot;<span class="variable">$&#123;i%.webm&#125;</span>.gif&quot;</span>; </span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-
+<h2 id="convert-webm-to-gif">2. Convert webm to gif</h2>
+<p>文件：webmToGif.sh <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *.webm; <span class="keyword">do</span></span><br><span class="line">    ffmpeg -i <span class="string">&quot;<span class="variable">$i</span>&quot;</span> -pix_fmt rgb24 <span class="string">&quot;<span class="variable">$&#123;i%.webm&#125;</span>.gif&quot;</span>; </span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></p>
 <p>将webmToGif.sh放到webm文件夹下，然后执行</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x webmToGif.sh</span><br><span class="line">./webmToGif.sh</span><br></pre></td></tr></table></figure>
-
 <p>就会把webm文件夹下的所有webm文件转换为gif文件。</p>
-<h2 id="3-reduce-gif-size"><a href="#3-reduce-gif-size" class="headerlink" title="3. reduce gif size"></a>3. reduce gif size</h2><p>文件：reduceGifSize.sh</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *.gif; <span class="keyword">do</span></span><br><span class="line">    gifsicle -optimize=3 <span class="string">&quot;<span class="variable">$i</span>&quot;</span> -o <span class="string">&quot;<span class="variable">$&#123;i%.gif&#125;</span>_reduced.gif&quot;</span>;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-
-<p>在同一个目录下执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x reduceGifSize.sh</span><br><span class="line">./reduceGifSize.sh</span><br></pre></td></tr></table></figure>
-
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://askubuntu.com/questions/506670/how-to-do-i-convert-an-webm-video-to-a-animated-gif-on-the-command-line">Ubuntu ask How to do I convert a webm(video) to a (animated) gif on the command line?</a></p>
+<h2 id="reduce-gif-size">3. reduce gif size</h2>
+<p>文件：reduceGifSize.sh <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *.gif; <span class="keyword">do</span></span><br><span class="line">    gifsicle -optimize=3 <span class="string">&quot;<span class="variable">$i</span>&quot;</span> -o <span class="string">&quot;<span class="variable">$&#123;i%.gif&#125;</span>_reduced.gif&quot;</span>;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></p>
+<p>在同一个目录下执行 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x reduceGifSize.sh</span><br><span class="line">./reduceGifSize.sh</span><br></pre></td></tr></table></figure></p>
+<h2 id="reference">Reference</h2>
+<p><a target="_blank" rel="noopener" href="https://askubuntu.com/questions/506670/how-to-do-i-convert-an-webm-video-to-a-animated-gif-on-the-command-line">Ubuntu ask How to do I convert a webm(video) to a (animated) gif on the command line?</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.ffmpeg.org/doxygen/3.3/group__lavc__misc__pixfmt.html">FFmpeg Pixel formats</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/kohler/gifsicle">gifsicle</a></p>
-<p><a target="_blank" rel="noopener" href="https://gist.github.com/Potherca/18423260e2c9a4324c9ecb0c0a284066">Potherca&#x2F;README.md</a></p>
+<p><a target="_blank" rel="noopener" href="https://gist.github.com/Potherca/18423260e2c9a4324c9ecb0c0a284066">Potherca/README.md</a></p>
 
     </div>
 
@@ -319,7 +317,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Telegram-webm-to-gif"><span class="nav-number">1.</span> <span class="nav-text">Telegram webm to gif</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Download-webm"><span class="nav-number">1.1.</span> <span class="nav-text">1. Download webm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Convert-webm-to-gif"><span class="nav-number">1.2.</span> <span class="nav-text">2. Convert webm to gif</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-reduce-gif-size"><span class="nav-number">1.3.</span> <span class="nav-text">3. reduce gif size</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.4.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#telegram-webm-to-gif"><span class="nav-number">1.</span> <span class="nav-text">Telegram webm to gif</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#download-webm"><span class="nav-number">1.1.</span> <span class="nav-text">1. Download webm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#convert-webm-to-gif"><span class="nav-number">1.2.</span> <span class="nav-text">2. Convert webm to gif</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reduce-gif-size"><span class="nav-number">1.3.</span> <span class="nav-text">3. reduce gif size</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.4.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

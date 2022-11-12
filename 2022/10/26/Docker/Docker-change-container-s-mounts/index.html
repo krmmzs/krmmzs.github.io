@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Docker change container’s mountsProblemI have a container that I want to change the mount point of a volume. Solution (Fake) Stop the container Remove the container Run the container with the new moun">
+  <meta name="description" content="Docker change container&#39;s mounts Problem I have a container that I want to change the mount point of a volume. Solution (Fake)  Stop the container Remove the container Run the container with the new m">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker-change-container&#39;s-mounts">
 <meta property="og:url" content="http://example.com/2022/10/26/Docker/Docker-change-container-s-mounts/index.html">
 <meta property="og:site_name" content="krmmzs">
-<meta property="og:description" content="Docker change container’s mountsProblemI have a container that I want to change the mount point of a volume. Solution (Fake) Stop the container Remove the container Run the container with the new moun">
+<meta property="og:description" content="Docker change container&#39;s mounts Problem I have a container that I want to change the mount point of a volume. Solution (Fake)  Stop the container Remove the container Run the container with the new m">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-10-25T16:09:46.000Z">
 <meta property="article:modified_time" content="2022-10-25T16:19:31.184Z">
@@ -209,30 +209,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Docker-change-container’s-mounts"><a href="#Docker-change-container’s-mounts" class="headerlink" title="Docker change container’s mounts"></a>Docker change container’s mounts</h1><h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><p>I have a container that I want to change the mount point of a volume.</p>
-<h2 id="Solution-Fake"><a href="#Solution-Fake" class="headerlink" title="Solution (Fake)"></a>Solution (Fake)</h2><ol>
+        <h1 id="docker-change-containers-mounts">Docker change container's mounts</h1>
+<h2 id="problem">Problem</h2>
+<p>I have a container that I want to change the mount point of a volume.</p>
+<h2 id="solution-fake">Solution (Fake)</h2>
+<ol type="1">
 <li>Stop the container</li>
 <li>Remove the container</li>
 <li>Run the container with the new mount point</li>
 </ol>
 <p><strong>stop!!!!!!</strong></p>
 <p>这样又要重做container了, yadang～</p>
-<h2 id="Solution-Real"><a href="#Solution-Real" class="headerlink" title="Solution (Real)"></a>Solution (Real)</h2><p>直接改配置</p>
+<h2 id="solution-real">Solution (Real)</h2>
+<p>直接改配置</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a <span class="comment"># 查看container id or name</span></span><br><span class="line">docker inspect --format=<span class="string">&#x27;&#123;&#123;json .Mounts&#125;&#125;&#x27;</span> container_name(or <span class="built_in">id</span>) <span class="comment"># 查看挂载目录</span></span><br></pre></td></tr></table></figure>
-
-<p>will get</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;Type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;volume&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;volume_name&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/var/lib/docker/volumes/volume_name/_data&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Destination&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/var/www/html&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Driver&quot;</span><span class="punctuation">:</span> <span class="string">&quot;local&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Mode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;RW&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Propagation&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
-
-<p> 把 docker 服务停止了：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop docker</span><br></pre></td></tr></table></figure>
-
-<p> 在 <code>/var/lib/docker/containers/container-ID/config.v2.json</code> 中找到 <strong>MountPoints</strong>，并修改挂载路径<br> （找目录可能要sudo 或者进入root）</p>
+<p>will get <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;Type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;volume&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;volume_name&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/var/lib/docker/volumes/volume_name/_data&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Destination&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/var/www/html&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Driver&quot;</span><span class="punctuation">:</span> <span class="string">&quot;local&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Mode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;RW&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Propagation&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure></p>
+<p>把 docker 服务停止了： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop docker</span><br></pre></td></tr></table></figure></p>
+<p>在 <code>/var/lib/docker/containers/container-ID/config.v2.json</code> 中找到 <strong>MountPoints</strong>，并修改挂载路径 （找目录可能要sudo 或者进入root）</p>
 <p>重启 docker 服务:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
-
 <p>重启 docker 容器</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart container_name(or <span class="built_in">id</span>)</span><br></pre></td></tr></table></figure>
-
 <p>然后进挂载的目录，发现目录已经变了。</p>
 
     </div>
@@ -317,7 +314,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-change-container%E2%80%99s-mounts"><span class="nav-number">1.</span> <span class="nav-text">Docker change container’s mounts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem"><span class="nav-number">1.1.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-Fake"><span class="nav-number">1.2.</span> <span class="nav-text">Solution (Fake)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-Real"><span class="nav-number">1.3.</span> <span class="nav-text">Solution (Real)</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#docker-change-containers-mounts"><span class="nav-number">1.</span> <span class="nav-text">Docker change container&#39;s mounts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#problem"><span class="nav-number">1.1.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#solution-fake"><span class="nav-number">1.2.</span> <span class="nav-text">Solution (Fake)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#solution-real"><span class="nav-number">1.3.</span> <span class="nav-text">Solution (Real)</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

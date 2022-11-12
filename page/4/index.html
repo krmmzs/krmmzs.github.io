@@ -220,7 +220,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Understanding-Zsh-Completions"><a href="#Understanding-Zsh-Completions" class="headerlink" title="Understanding Zsh Completions"></a>Understanding Zsh Completions</h1>
+          <h1 id="understanding-zsh-completions">Understanding Zsh Completions</h1>
+
       
     </div>
 
@@ -291,105 +292,106 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="fzf-advanced"><a href="#fzf-advanced" class="headerlink" title="fzf advanced"></a>fzf advanced</h1><p>Yes, I love fzf.</p>
+          <h1 id="fzf-advanced">fzf advanced</h1>
+<p>Yes, I love fzf.</p>
 <p>It make my life easier.</p>
-<h2 id="What’s-fzf"><a href="#What’s-fzf" class="headerlink" title="What’s fzf?"></a>What’s fzf?</h2><blockquote>
-<p>fzf is a general-purpose command-line fuzzy finder.<br>It’s an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc.</p>
+<h2 id="whats-fzf">What's fzf?</h2>
+<blockquote>
+<p>fzf is a general-purpose command-line fuzzy finder. It's an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc.</p>
 </blockquote>
-<p>fzf is an interactive Unix filter program that is designed to be used with other Unix tools.<br>It reads a list of items from the standard input, allows you to select a subset of the items,<br>and prints the selected ones to the standard output. You can think of it as an interactive version of grep,<br>and it’s already useful even if you don’t know any of its options.</p>
-<h2 id="Pros"><a href="#Pros" class="headerlink" title="Pros"></a>Pros</h2><ul>
+<p>fzf is an interactive Unix filter program that is designed to be used with other Unix tools. It reads a list of items from the standard input, allows you to select a subset of the items, and prints the selected ones to the standard output. You can think of it as an interactive version of grep, and it's already useful even if you don't know any of its options.</p>
+<h2 id="pros">Pros</h2>
+<ul>
 <li>Portable, no dependencies</li>
 <li>Blazingly fast</li>
 <li>The most comprehensive feature set</li>
 <li>Flexible layout</li>
-<li>Batteries included<ul>
-<li>Vim&#x2F;Neovim plugin, key bindings, and fuzzy auto-completion</li>
-</ul>
-</li>
-</ul>
-<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf/tree/168829b5550336886a426073670153f84f8a34b2#installation">github Installation</a></p>
-<p>Tips:<br>if you are using Ubuntu, don’t use apt to install fzf, it’s too old.</p>
-<h2 id="Find-file"><a href="#Find-file" class="headerlink" title="Find file"></a>Find file</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># fzf find files</span><br><span class="line">alias v=&quot;fd --type f --hidden --exclude .git | fzf-tmux -p 70% --reverse | xargs nvim&quot;</span><br><span class="line"># fzf with cd</span><br><span class="line">export FZF_CTRL_T_COMMAND=&quot;find . -maxdepth 1 | sed &#x27;s/^..//&#x27;&quot;</span><br></pre></td></tr></table></figure>
+<li>Batteries included
 <ul>
-<li>v<ul>
-<li>–type f : only find files</li>
-<li>–hidden : find hidden files</li>
-<li>–exclude .git : exclude .git</li>
+<li>Vim/Neovim plugin, key bindings, and fuzzy auto-completion</li>
+</ul></li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf/tree/168829b5550336886a426073670153f84f8a34b2#installation">github Installation</a></p>
+<p>Tips: if you are using Ubuntu, don't use apt to install fzf, it's too old.</p>
+<h2 id="find-file">Find file</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># fzf find files</span><br><span class="line">alias v=&quot;fd --type f --hidden --exclude .git | fzf-tmux -p 70% --reverse | xargs nvim&quot;</span><br><span class="line"># fzf with cd</span><br><span class="line">export FZF_CTRL_T_COMMAND=&quot;find . -maxdepth 1 | sed &#x27;s/^..//&#x27;&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>v
+<ul>
+<li>--type f : only find files</li>
+<li>--hidden : find hidden files</li>
+<li>--exclude .git : exclude .git</li>
 <li>fzf-tmux : Popup window support use fzf-tmux</li>
 <li>-p 70% : preview 70% of the screen</li>
-<li>–reverse : reverse the order</li>
+<li>--reverse : reverse the order</li>
 <li>xargs nvim : open the file with nvim</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<img src="/images/fzf-01.png" alt="fzf-01.png" style="zoom:70%;" />
-<img src="/images/fzf-02.png" alt="fzf-02.png" style="zoom:70%;" />
-
+<p><img src="/images/fzf-01.png" alt="fzf-01.png" style="zoom:70%;" /> <img src="/images/fzf-02.png" alt="fzf-02.png" style="zoom:70%;" /></p>
 <ul>
-<li>FZF_CTRL_T_COMMAND<ul>
+<li>FZF_CTRL_T_COMMAND
+<ul>
 <li>find . -maxdepth 1 : find files in current directory</li>
-<li>sed ‘s&#x2F;^..&#x2F;&#x2F;‘ : remove the first two characters</li>
+<li>sed 's/^..//' : remove the first two characters</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<img src="/images/fzf-03.png" alt="fzf-03.png" style="zoom:70%;" />
-
-
+<p><img src="/images/fzf-03.png" alt="fzf-03.png" style="zoom:70%;" /></p>
 <p>More see <a target="_blank" rel="noopener" href="https://github.com/krmmzs/.dotfiles/blob/master/zsh/.zshrc">dotfiles</a></p>
-<h2 id="Find-command-history"><a href="#Find-command-history" class="headerlink" title="Find command history"></a>Find command history</h2><p><code>CTRL-R</code> - Paste the selected command from history onto the command-line</p>
+<h2 id="find-command-history">Find command history</h2>
+<p><code>CTRL-R</code> - Paste the selected command from history onto the command-line</p>
 <ul>
 <li>If you want to see the commands in chronological order, press <code>CTRL-R</code> again which toggles sorting by relevance</li>
 <li>Set <code>FZF_CTRL_R_OPTS</code> to pass additional options</li>
 </ul>
-<img src="/images/fzf-04.png" alt="fzf-04.png" style="zoom:70%;" />
-
-<h2 id="Quick-cd"><a href="#Quick-cd" class="headerlink" title="Quick cd"></a>Quick cd</h2><p><code>ALT-C</code> - cd into the selected directory</p>
+<p><img src="/images/fzf-04.png" alt="fzf-04.png" style="zoom:70%;" /></p>
+<h2 id="quick-cd">Quick cd</h2>
+<p><code>ALT-C</code> - cd into the selected directory</p>
 <ul>
 <li>Set <code>FZF_ALT_C_COMMAND</code> to override the default command</li>
 <li>Set <code>FZF_ALT_C_OPTS</code> to pass additional options</li>
 </ul>
-<img src="/images/fzf-06.png" alt="fzf-06.png" style="zoom:70%;" />
-<img src="/images/fzf-07.png" alt="fzf-07.png" style="zoom:70%;" />
-
-<p>but if you want to preview the directory’s content, more recommended to use <a target="_blank" rel="noopener" href="https://github.com/ranger/ranger">ranger</a></p>
+<p><img src="/images/fzf-06.png" alt="fzf-06.png" style="zoom:70%;" /> <img src="/images/fzf-07.png" alt="fzf-07.png" style="zoom:70%;" /></p>
+<p>but if you want to preview the directory's content, more recommended to use <a target="_blank" rel="noopener" href="https://github.com/ranger/ranger">ranger</a></p>
 <p>after install ranger, type <code>. ranger</code> to quick cd</p>
-<img src="/images/fzf-08.png" alt="fzf-08.png" style="zoom:70%;" />
-
-<h2 id="As-the-secondary-filter"><a href="#As-the-secondary-filter" class="headerlink" title="As the secondary filter"></a>As the secondary filter</h2><h2 id="Fuzzy-completion-for-bash-and-zsh"><a href="#Fuzzy-completion-for-bash-and-zsh" class="headerlink" title="Fuzzy completion for bash and zsh"></a>Fuzzy completion for bash and zsh</h2><p>Fuzzy completion for files and directories can be triggered if the word before the cursor ends with the trigger sequence, which is by default <code>**</code>.</p>
+<p><img src="/images/fzf-08.png" alt="fzf-08.png" style="zoom:70%;" /></p>
+<h2 id="as-the-secondary-filter">As the secondary filter</h2>
+<h2 id="fuzzy-completion-for-bash-and-zsh">Fuzzy completion for bash and zsh</h2>
+<p>Fuzzy completion for files and directories can be triggered if the word before the cursor ends with the trigger sequence, which is by default <code>**</code>.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COMMAND [DIRECTORY/][FUZZY_PATTERN]**&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
-
 <p>EX:</p>
 <ul>
-<li><p>You can select multiple items with TAB key<br>nvim **<TAB></p>
-</li>
-<li><p>Directories under ~&#x2F;github that match <code>fzf</code><br>cd ~&#x2F;github&#x2F;fzf**<TAB></p>
-</li>
+<li><p>You can select multiple items with TAB key nvim **<TAB></p></li>
+<li><p>Directories under ~/github that match <code>fzf</code> cd ~/github/fzf**<TAB></p></li>
 </ul>
-<h3 id="Process-IDs"><a href="#Process-IDs" class="headerlink" title="Process IDs"></a>Process IDs</h3><p>Fuzzy completion for PIDs is provided for kill command.</p>
+<h3 id="process-ids">Process IDs</h3>
+<p>Fuzzy completion for PIDs is provided for kill command.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Can select multiple processes with &lt;TAB&gt; or &lt;Shift-TAB&gt; keys</span></span><br><span class="line"><span class="built_in">kill</span> -9 **&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Host-names"><a href="#Host-names" class="headerlink" title="Host names"></a>Host names</h3><p>For ssh and telnet commands, fuzzy completion for hostnames is provided. The names are extracted from &#x2F;etc&#x2F;hosts and ~&#x2F;.ssh&#x2F;config.</p>
+<h3 id="host-names">Host names</h3>
+<p>For ssh and telnet commands, fuzzy completion for hostnames is provided. The names are extracted from /etc/hosts and ~/.ssh/config.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh **&lt;TAB&gt;</span><br><span class="line">telnet **&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Environment-variables-x2F-Aliases"><a href="#Environment-variables-x2F-Aliases" class="headerlink" title="Environment variables &#x2F; Aliases"></a>Environment variables &#x2F; Aliases</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unset</span> **&lt;TAB&gt; </span><br><span class="line"><span class="built_in">export</span> **&lt;TAB&gt; </span><br><span class="line"><span class="built_in">unalias</span> **&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="fzf-replace-tab"><a href="#fzf-replace-tab" class="headerlink" title="fzf replace tab"></a>fzf replace tab</h2><p>requirement: <a target="_blank" rel="noopener" href="https://github.com/Aloxaf/fzf-tab#configure">fzf-tab</a></p>
+<h3 id="environment-variables-aliases">Environment variables / Aliases</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unset</span> **&lt;TAB&gt; </span><br><span class="line"><span class="built_in">export</span> **&lt;TAB&gt; </span><br><span class="line"><span class="built_in">unalias</span> **&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="fzf-replace-tab">fzf replace tab</h2>
+<p>requirement: <a target="_blank" rel="noopener" href="https://github.com/Aloxaf/fzf-tab#configure">fzf-tab</a></p>
 <p>演示：</p>
-<p><img src="/gif/fzf-01.gif" alt="fzf-01.gif"></p>
+<figure>
+<img src="/gif/fzf-01.gif" alt="" /><figcaption>fzf-01.gif</figcaption>
+</figure>
 <script id="asciicast-YlYXHGvQ786rS7kQy2u81aI9v" src="https://asciinema.org/a/YlYXHGvQ786rS7kQy2u81aI9v.js" async></script>
-
-
-<h2 id="For-vim-neovim"><a href="#For-vim-neovim" class="headerlink" title="For vim(neovim)"></a>For vim(neovim)</h2><p>If you use vim only: <a target="_blank" rel="noopener" href="https://github.com/airblade/vim-rooter">airblade&#x2F;vim-rooter</a></p>
+<h2 id="for-vimneovim">For vim(neovim)</h2>
+<p>If you use vim only: <a target="_blank" rel="noopener" href="https://github.com/airblade/vim-rooter">airblade/vim-rooter</a></p>
 <p>Rooter changes the working directory to the project root when you open a file or directory.</p>
-<p>If you use neovim: <a target="_blank" rel="noopener" href="https://github.com/ahmedkhalf/project.nvim/tree/628de7e433dd503e782831fe150bb750e56e55d6">ahmedkhalf&#x2F;project.nvim</a></p>
+<p>If you use neovim: <a target="_blank" rel="noopener" href="https://github.com/ahmedkhalf/project.nvim/tree/628de7e433dd503e782831fe150bb750e56e55d6">ahmedkhalf/project.nvim</a></p>
 <p>project.nvim is an all in one neovim plugin written in lua that provides superior project management.</p>
 <p>Then fzf will find files in the project root.</p>
 <p>more see <a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf/blob/master/README-VIM.md">FZF Vim integration</a></p>
-<h3 id="FzF-in-vim"><a href="#FzF-in-vim" class="headerlink" title="FzF in vim"></a>FzF in vim</h3><p>I already replaced fzf with <a target="_blank" rel="noopener" href="https://github.com/nvim-telescope/telescope.nvim">telescope</a>, but I still want to record it.<br>If you use vim only, fzf.vim still a good choice.</p>
+<h3 id="fzf-in-vim">FzF in vim</h3>
+<p>I already replaced fzf with <a target="_blank" rel="noopener" href="https://github.com/nvim-telescope/telescope.nvim">telescope</a>, but I still want to record it. If you use vim only, fzf.vim still a good choice.</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf.vim">fzf</a></p>
-<img src="/images/fzf-05.png" alt="fzf-05.png" style="zoom:70%;" />
-
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>Some reference that I may not have mentioned in the article, because I forgot where it came from, maybe is my idea.</p>
+<p><img src="/images/fzf-05.png" alt="fzf-05.png" style="zoom:70%;" /></p>
+<h2 id="reference">Reference</h2>
+<p>Some reference that I may not have mentioned in the article, because I forgot where it came from, maybe is my idea.</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Fzf">archlinux wiki</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf/blob/master/ADVANCED.md">fzf ADVANCED</a></li>
@@ -467,19 +469,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Using-associative-containers"><a href="#Using-associative-containers" class="headerlink" title="Using associative containers"></a>Using associative containers</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><h2 id="typename"><a href="#typename" class="headerlink" title="typename"></a>typename</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function">T <span class="title">median</span><span class="params">(vector&lt;T&gt; v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> vector&lt;T&gt;::size_type vec_sz;</span><br><span class="line">    </span><br><span class="line">    vec_sz size = v.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">if</span> (size == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">domain_error</span>(<span class="string">&quot;median of an empty vector&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sort</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">    vec_sz mid = size / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">return</span> size % <span class="number">2</span> == <span class="number">0</span> ? (v[mid] + v[mid - <span class="number">1</span>] / <span class="number">2</span> : v[mid]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>The next novelty is the use of <strong>typename</strong> in the definition of <code>vec_sz</code>. It is there to tell the<br>implementation that <code>vector&lt;T&gt;::size_type</code> is the name of a type, even though the<br>implementation doesn’t yet know what type <code>T</code> represents. Whenever you have a type, such<br>as <code>vector&lt;T&gt;</code>, that depends on a template parameter, and you want to use a member of<br>that type, such as <code>size_type</code>, that is itself a type, you must precede the entire name by<br>typename to let the implementation know to treat the name as a type. Although the<br>standard library ensures that <code>vector&lt;T&gt;::size_type</code> is the name of a type for any T, the<br>implementation, having no special knowledge of the standard-library types, has no way of<br>knowing this fact.</p>
-<h2 id="C-standard-syas-nothing-about-how-implementations-manage-template"><a href="#C-standard-syas-nothing-about-how-implementations-manage-template" class="headerlink" title="C++ standard syas nothing about how implementations manage template"></a>C++ standard syas nothing about how implementations manage template</h2><p>The C++ standard says nothing about how implementations should manage template iinstantiation,<br>so every implementation handles instantiation in its own particular way. </p>
-<h2 id="C-iterator-categories"><a href="#C-iterator-categories" class="headerlink" title="C++ iterator categories"></a>C++ iterator categories</h2><p>Instead of being defined by specific types, each category of iterator is defined by the operations that can be performed on it. This definition means that any type that supports the necessary operations can be used as an iterator – for example, a pointer supports all of the operations required by LegacyRandomAccessIterator, so a pointer can be used anywhere a LegacyRandomAccessIterator is expected.</p>
+          <h1 id="using-associative-containers">Using associative containers</h1>
+<h2 id="overview">Overview</h2>
+<h2 id="typename">typename</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function">T <span class="title">median</span><span class="params">(vector&lt;T&gt; v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> vector&lt;T&gt;::size_type vec_sz;</span><br><span class="line">    </span><br><span class="line">    vec_sz size = v.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">if</span> (size == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">domain_error</span>(<span class="string">&quot;median of an empty vector&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sort</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">    vec_sz mid = size / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">return</span> size % <span class="number">2</span> == <span class="number">0</span> ? (v[mid] + v[mid - <span class="number">1</span>] / <span class="number">2</span> : v[mid]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The next novelty is the use of <strong>typename</strong> in the definition of <code>vec_sz</code>. It is there to tell the implementation that <code>vector&lt;T&gt;::size_type</code> is the name of a type, even though the implementation doesn't yet know what type <code>T</code> represents. Whenever you have a type, such as <code>vector&lt;T&gt;</code>, that depends on a template parameter, and you want to use a member of that type, such as <code>size_type</code>, that is itself a type, you must precede the entire name by typename to let the implementation know to treat the name as a type. Although the standard library ensures that <code>vector&lt;T&gt;::size_type</code> is the name of a type for any T, the implementation, having no special knowledge of the standard-library types, has no way of knowing this fact.</p>
+<h2 id="c-standard-syas-nothing-about-how-implementations-manage-template">C++ standard syas nothing about how implementations manage template</h2>
+<p>The C++ standard says nothing about how implementations should manage template iinstantiation, so every implementation handles instantiation in its own particular way.</p>
+<h2 id="c-iterator-categories">C++ iterator categories</h2>
+<p>Instead of being defined by specific types, each category of iterator is defined by the operations that can be performed on it. This definition means that any type that supports the necessary operations can be used as an iterator -- for example, a pointer supports all of the operations required by LegacyRandomAccessIterator, so a pointer can be used anywhere a LegacyRandomAccessIterator is expected.</p>
 <p>迭代器的分类的依据并不是迭代器的类型，而是迭代器所支持的操作。换句话说，某个类型只要支持相应的操作，就可以作为迭代器使用。例如，完整对象类型指针支持所有老式随机访问迭代器 (LegacyRandomAccessIterator) 要求的操作，于是任何需要老式随机访问迭代器 (LegacyRandomAccessIterator) 的地方都可以使用指针。</p>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/iterator">cppreference.com iterator library</a></p>
-<h2 id="Iterator-ranges-and-off-the-end-values"><a href="#Iterator-ranges-and-off-the-end-values" class="headerlink" title="Iterator ranges and off-the-end values"></a>Iterator ranges and off-the-end values</h2><p>One reason is that if the <strong>range had no elements at all</strong>, there would be no last element to<br>mark the end. We would then be in the curious position of having to designate an empty<br>range by an iterator that refers to where the element before the beginning of the range<br>would be. With that strategy, we would have to handle empty ranges differently from all<br>others, which would make our programs harder to understand and less reliable. We saw in<br>§6.1.1&#x2F;103 that treating empty ranges the same as any others simplified our program.</p>
-<p>The second reason is that marking the end of a range by an iterator that is one past the end<br>lets us get away with comparing iterators only for equality and inequality, and makes i<br>tunnecessary to define what it means for one iterator to be less than another. The point is<br>that we can tell immediately if the range is empty by comparing the two iterators; the range<br>is empty if and only if the iterators are equal. If they are unequal, then we know that the<br>beginning iterator refers to an element, so we can do something and then increment that<br>iterator to reduce the size of the range. In other words, marking ranges by the beginning<br>and one past the end allows us to use loops of the form</p>
+<h3 id="reference">Reference</h3>
+<p><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/iterator">cppreference.com iterator library</a></p>
+<h2 id="iterator-ranges-and-off-the-end-values">Iterator ranges and off-the-end values</h2>
+<p>One reason is that if the <strong>range had no elements at all</strong>, there would be no last element to mark the end. We would then be in the curious position of having to designate an empty range by an iterator that refers to where the element before the beginning of the range would be. With that strategy, we would have to handle empty ranges differently from all others, which would make our programs harder to understand and less reliable. We saw in §6.1.1/103 that treating empty ranges the same as any others simplified our program.</p>
+<p>The second reason is that marking the end of a range by an iterator that is one past the end lets us get away with comparing iterators only for equality and inequality, and makes i tunnecessary to define what it means for one iterator to be less than another. The point is that we can tell immediately if the range is empty by comparing the two iterators; the range is empty if and only if the iterators are equal. If they are unequal, then we know that the beginning iterator refers to an element, so we can do something and then increment that iterator to reduce the size of the range. In other words, marking ranges by the beginning and one past the end allows us to use loops of the form</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// invariant: we must still process the elements in the range [begin, end)</span></span><br><span class="line"><span class="keyword">while</span> (begin != end) &#123;</span><br><span class="line">    <span class="comment">// do something with the element to which begin refers</span></span><br><span class="line">    begin++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Input-and-output-iterators"><a href="#Input-and-output-iterators" class="headerlink" title="Input and output iterators"></a>Input and output iterators</h2><p>Why are input and output iterators separate categories from forward iterators if no standard<br>container requires the distinction? One reason is that not all iterators are associated with<br>containers. For example, if c is a container that supports push_back, then<br>back_inserter(c) is an output iterator that meets no other iterator requirements.</p>
-<h2 id="Using-iterators-for-flexibility"><a href="#Using-iterators-for-flexibility" class="headerlink" title="Using iterators for flexibility"></a>Using iterators for flexibility</h2><p>We can be more flexible by rewriting split to take an output iterator instead of returning a<br>value. In this version of the function, we’ll use that iterator to write the words that we find<br>Our caller will have bound the iterator to the output location where the values should be<br>placed:</p>
+<h2 id="input-and-output-iterators">Input and output iterators</h2>
+<p>Why are input and output iterators separate categories from forward iterators if no standard container requires the distinction? One reason is that not all iterators are associated with containers. For example, if c is a container that supports push_back, then back_inserter(c) is an output iterator that meets no other iterator requirements.</p>
+<h2 id="using-iterators-for-flexibility">Using iterators for flexibility</h2>
+<p>We can be more flexible by rewriting split to take an output iterator instead of returning a value. In this version of the function, we'll use that iterator to write the words that we find Our caller will have bound the iterator to the output location where the values should be placed:</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> Out&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">split</span><span class="params">(<span class="type">const</span> string&amp; str, Out os)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">typedef</span> string:const_iterator iter;</span><br><span class="line"></span><br><span class="line">    iter i = str.<span class="built_in">begin</span>();</span><br><span class="line">    <span class="keyword">while</span> (i != str.<span class="built_in">end</span>()) &#123;</span><br><span class="line">            <span class="comment">// ignore leading blanks</span></span><br><span class="line">            i = <span class="built_in">find_if</span>(i, str.<span class="built_in">end</span>(), not_space);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// find end of next word</span></span><br><span class="line">            iter j = <span class="built_in">find_if</span>(i, str.<span class="built_in">end</span>(), space);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// copy the character in [i, j)</span></span><br><span class="line">            <span class="keyword">if</span> (i != str.<span class="built_in">end</span>()) &#123;</span><br><span class="line">                *os++ = <span class="built_in">string</span>(i, j);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            i = j;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
@@ -552,69 +561,60 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Have-a-Good-Command"><a href="#Have-a-Good-Command" class="headerlink" title="Have a Good Command"></a>Have a Good Command</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><h2 id="Recording-and-playing-back-terminalsessions"><a href="#Recording-and-playing-back-terminalsessions" class="headerlink" title="Recording and playing back terminalsessions"></a>Recording and playing back terminalsessions</h2><p>script和scriptreplay命令在绝大多数GNU&#x2F;Linux发行版上都可以找到</p>
+          <h1 id="have-a-good-command">Have a Good Command</h1>
+<h2 id="overview">Overview</h2>
+<h2 id="recording-and-playing-back-terminalsessions">Recording and playing back terminalsessions</h2>
+<p>script和scriptreplay命令在绝大多数GNU/Linux发行版上都可以找到</p>
 <p>可以通过录制终端会话来制作命令行技巧视频教程，也可以与他人分享会话记录文件，研究如何使用命令行完成某项任务</p>
 <p>example:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ script -t 2&gt; timing.log -a output.session</span><br><span class="line"></span><br><span class="line"><span class="comment"># 演示tclsh</span></span><br><span class="line">$ tclsh</span><br><span class="line">$ puts [<span class="built_in">expr</span> 2 + 2]</span><br><span class="line">4</span><br><span class="line">% <span class="built_in">exit</span></span><br><span class="line">$ <span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
-
 <p><code>-t</code>选项将时间戳写入timing.log文件，<code>-a</code>选项将会话记录写入output.session文件</p>
 <p>利用文件timing.log和output.session，可以按照下面的方法回放命令执行过程</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ scriptreplay timing.log output.session</span><br><span class="line"><span class="comment"># will playing</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Finding-files-and-file-listing"><a href="#Finding-files-and-file-listing" class="headerlink" title="Finding files and file listing"></a>Finding files and file listing</h2><p>find命令的工作方式如下：沿着文件层次结构向下遍历，匹配符合条件的文件，执行相应<br>的操作。默认的操作是打印出文件和目录，这也可以使用-print选项来指定。</p>
-<p>example:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ find . -<span class="built_in">print</span></span><br><span class="line">.<span class="built_in">history</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>print选项使用\n（换行符）分隔输出的每个文件或目录名</p>
-<p>而-print0选项则使用空字符’\0’来分隔</p>
+<h2 id="finding-files-and-file-listing">Finding files and file listing</h2>
+<p>find命令的工作方式如下：沿着文件层次结构向下遍历，匹配符合条件的文件，执行相应 的操作。默认的操作是打印出文件和目录，这也可以使用-print选项来指定。</p>
+<p>example: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ find . -<span class="built_in">print</span></span><br><span class="line">.<span class="built_in">history</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure> print选项使用（换行符）分隔输出的每个文件或目录名</p>
+<p>而-print0选项则使用空字符'\0'来分隔</p>
 <p>-print0的主要用法是将包含换行符或空白字符的文件名传给xargs命令</p>
-<p>example:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$&gt; <span class="built_in">echo</span> <span class="string">&quot;test&quot;</span> &gt; <span class="string">&quot;file name&quot;</span></span><br><span class="line">$&gt; find . -<span class="built_in">type</span> f -<span class="built_in">print</span> | xargs <span class="built_in">ls</span> -l</span><br><span class="line"><span class="built_in">ls</span>: cannot access /file: No such file or directory</span><br><span class="line"><span class="built_in">ls</span>: cannot access name: No such file or directory</span><br><span class="line">$&gt; find . -<span class="built_in">type</span> f -print0 | xargs -0 <span class="built_in">ls</span> -l</span><br><span class="line">-rw-r--r-- 1 user group 5 Aug 24 15:00 ./file name</span><br></pre></td></tr></table></figure>
-
-<h3 id="Search-based-on-name-or-regular-expression-match"><a href="#Search-based-on-name-or-regular-expression-match" class="headerlink" title="Search based on name or regular expression match"></a>Search based on name or regular expression match</h3><p>find命令的-name选项可以根据文件名进行搜索<br>这个模式可以是通配符，也可以是正则表达式</p>
-<p>example:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ find . -name <span class="string">&quot;*.txt&quot;</span></span><br><span class="line">./file.txt</span><br><span class="line">./file2.txt</span><br></pre></td></tr></table></figure>
-
-<p>注意*.txt两边的单引号。shell会扩展没有引号或是出现在双引号（”）中<br>的通配符。单引号能够阻止shell扩展*.txt，使得该字符串能够原封不动地传给<br>find命令</p>
+<p>example: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$&gt; <span class="built_in">echo</span> <span class="string">&quot;test&quot;</span> &gt; <span class="string">&quot;file name&quot;</span></span><br><span class="line">$&gt; find . -<span class="built_in">type</span> f -<span class="built_in">print</span> | xargs <span class="built_in">ls</span> -l</span><br><span class="line"><span class="built_in">ls</span>: cannot access /file: No such file or directory</span><br><span class="line"><span class="built_in">ls</span>: cannot access name: No such file or directory</span><br><span class="line">$&gt; find . -<span class="built_in">type</span> f -print0 | xargs -0 <span class="built_in">ls</span> -l</span><br><span class="line">-rw-r--r-- 1 user group 5 Aug 24 15:00 ./file name</span><br></pre></td></tr></table></figure></p>
+<h3 id="search-based-on-name-or-regular-expression-match">Search based on name or regular expression match</h3>
+<p>find命令的-name选项可以根据文件名进行搜索 这个模式可以是通配符，也可以是正则表达式</p>
+<p>example: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ find . -name <span class="string">&quot;*.txt&quot;</span></span><br><span class="line">./file.txt</span><br><span class="line">./file2.txt</span><br></pre></td></tr></table></figure></p>
+<p>注意<em>.txt两边的单引号。shell会扩展没有引号或是出现在双引号（"）中 的通配符。单引号能够阻止shell扩展</em>.txt，使得该字符串能够原封不动地传给 find命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find /home/slynux -name <span class="string">&#x27;*.txt&#x27;</span> -<span class="built_in">print</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="忽略字母大小写"><a href="#忽略字母大小写" class="headerlink" title="忽略字母大小写"></a>忽略字母大小写</h4><p>find命令有一个选项-iname（忽略字母大小写），该选项的作用和-name类似，只不过在匹</p>
+<h4 id="忽略字母大小写">忽略字母大小写</h4>
+<p>find命令有一个选项-iname（忽略字母大小写），该选项的作用和-name类似，只不过在匹</p>
 <p>配文件名时忽略字母大小写</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">example.txt EXAMPLE.txt file.txt</span><br><span class="line">$ find . -iname <span class="string">&quot;example*&quot;</span> -<span class="built_in">print</span></span><br><span class="line">./example.txt</span><br><span class="line">./EXAMPLE.txt</span><br></pre></td></tr></table></figure>
-
-<h4 id="find-逻辑操作符"><a href="#find-逻辑操作符" class="headerlink" title="find 逻辑操作符"></a>find 逻辑操作符</h4><p>find命令支持逻辑操作符。-a和-and选项可以执行逻辑与（AND）操作，<br>-o和-or选项可以执行逻辑或（OR）操作。</p>
-<p>example:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">new.txt some.jpg text.pdf stuff.png</span><br><span class="line">$ find . \( -name <span class="string">&quot;*.txt&quot;</span> -o -name <span class="string">&quot;*.pdf&quot;</span> \) -<span class="built_in">print</span></span><br><span class="line">./text.txt</span><br><span class="line">./next.txt</span><br></pre></td></tr></table></figure>
-<p>\（以及\）用于将-name ‘<em>.txt’ -o -name ‘</em>.pdf’视为一个整体。</p>
-<p>下面的命令演示了如何使用-and操作符选择名字以s开头且其中包含e的文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find . \( -name <span class="string">&#x27;*e*&#x27;</span> -and -name <span class="string">&#x27;s*&#x27;</span> \) -<span class="built_in">print</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="限制所匹配文件的路径以及名称"><a href="#限制所匹配文件的路径以及名称" class="headerlink" title="限制所匹配文件的路径以及名称"></a>限制所匹配文件的路径以及名称</h4><p>-path选项可以限制所匹配文件的路径及名称。例如，$ find &#x2F;home&#x2F;users -path<br>‘<em>&#x2F;slynux&#x2F;</em>‘ -name ‘*.txt’ –print能够匹配文件&#x2F;home&#x2F;users&#x2F;slynux&#x2F;readme.txt，但无法匹<br>配&#x2F;home&#x2F;users&#x2F;slynux.txt。</p>
+<h4 id="find-逻辑操作符">find 逻辑操作符</h4>
+<p>find命令支持逻辑操作符。-a和-and选项可以执行逻辑与（AND）操作， -o和-or选项可以执行逻辑或（OR）操作。</p>
+<p>example: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">new.txt some.jpg text.pdf stuff.png</span><br><span class="line">$ find . \( -name <span class="string">&quot;*.txt&quot;</span> -o -name <span class="string">&quot;*.pdf&quot;</span> \) -<span class="built_in">print</span></span><br><span class="line">./text.txt</span><br><span class="line">./next.txt</span><br></pre></td></tr></table></figure> （以及）用于将-name '<em>.txt' -o -name '</em>.pdf'视为一个整体。</p>
+<p>下面的命令演示了如何使用-and操作符选择名字以s开头且其中包含e的文件： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find . \( -name <span class="string">&#x27;*e*&#x27;</span> -and -name <span class="string">&#x27;s*&#x27;</span> \) -<span class="built_in">print</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="限制所匹配文件的路径以及名称">限制所匹配文件的路径以及名称</h4>
+<p>-path选项可以限制所匹配文件的路径及名称。例如，$ find /home/users -path '<em>/slynux/</em>' -name '*.txt' –print能够匹配文件/home/users/slynux/readme.txt，但无法匹 配/home/users/slynux.txt。</p>
 <p>III :-regex选项和-path类似，只不过前者是基于正则表达式来匹配文件路径的。</p>
 <p>下面的命令可以匹配.py或.sh文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">new.PY next.jpg test.py script.sh</span><br><span class="line">$ find . -regex <span class="string">&#x27;.*\.\(py\|sh\)&#x27;</span></span><br><span class="line">./test.py</span><br><span class="line">script.sh</span><br></pre></td></tr></table></figure>
-
 <p>-iregex 选项可以让正则表达式在匹配时忽略大小写。</p>
-<p>example:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ find . -iregex <span class="string">&#x27;.*\.\(py\|sh\)$&#x27;</span></span><br><span class="line">./test.py</span><br><span class="line">./new.PY</span><br><span class="line">./script.sh</span><br></pre></td></tr></table></figure>
-
-<h3 id="Negating-arguments"><a href="#Negating-arguments" class="headerlink" title="Negating arguments"></a>Negating arguments</h3><p>find也可以用!排除匹配到的模式：</p>
+<p>example: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ find . -iregex <span class="string">&#x27;.*\.\(py\|sh\)$&#x27;</span></span><br><span class="line">./test.py</span><br><span class="line">./new.PY</span><br><span class="line">./script.sh</span><br></pre></td></tr></table></figure></p>
+<h3 id="negating-arguments">Negating arguments</h3>
+<p>find也可以用!排除匹配到的模式：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ find . ! -name <span class="string">&#x27;*.txt&#x27;</span> -<span class="built_in">print</span></span><br><span class="line">.</span><br><span class="line">./next.txt</span><br><span class="line">./test.txt</span><br><span class="line">./new.txt</span><br></pre></td></tr></table></figure>
-
-<h3 id="Searching-based-on-the-directory-depth"><a href="#Searching-based-on-the-directory-depth" class="headerlink" title="Searching based on the directory depth"></a>Searching based on the directory depth</h3><p>find命令在查找时会遍历完所有的子目录。默认情况下，find命令不会跟随符号链接。-L选项可以强制其改变这种行为。但如果碰上了指向自身的链接，find命令就会陷入死循环中。</p>
+<h3 id="searching-based-on-the-directory-depth">Searching based on the directory depth</h3>
+<p>find命令在查找时会遍历完所有的子目录。默认情况下，find命令不会跟随符号链接。-L选项可以强制其改变这种行为。但如果碰上了指向自身的链接，find命令就会陷入死循环中。</p>
 <p>-maxdepth和–mindepth选项可以限制find命令遍历的目录深度。这可以避免find命令没完没了地查找。</p>
-<p>&#x2F;proc文件系统中包含了系统与当前执行任务的信息。特定任务的目录层次相当深，其中还有一些绕回到自身（loop back on themselves）的符号链接。<br>系统中运行的每个进程在proc中都有对应的子目录，其名称就是该进程的进程ID。这个目录下有一个叫作cwd的链接，指向进程的当前工作目录。</p>
-<p>example:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find -L /proc -maxdepth 1 -name <span class="string">&#x27;bundlemaker.def&#x27;</span> 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
-
+<p>/proc文件系统中包含了系统与当前执行任务的信息。特定任务的目录层次相当深，其中还有一些绕回到自身（loop back on themselves）的符号链接。 系统中运行的每个进程在proc中都有对应的子目录，其名称就是该进程的进程ID。这个目录下有一个叫作cwd的链接，指向进程的当前工作目录。</p>
+<p>example: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find -L /proc -maxdepth 1 -name <span class="string">&#x27;bundlemaker.def&#x27;</span> 2&gt;/dev/null</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>-L选项告诉find命令跟随符号链接</li>
-<li>从&#x2F;proc目录开始查找</li>
+<li>从/proc目录开始查找</li>
 <li>-maxdepth 1将搜索范围仅限制在当前目录</li>
-<li>-name ‘bundlemaker.def’指定待查找的文件</li>
-<li>2&gt;&#x2F;dev&#x2F;null将有关循环链接的错误信息发送到空设备中</li>
+<li>-name 'bundlemaker.def'指定待查找的文件</li>
+<li>2&gt;/dev/null将有关循环链接的错误信息发送到空设备中</li>
 </ul>
-<p>Tips:<br>-maxdepth和-mindepth应该在find命令中及早出现。如果作为靠后的选项<br>，有可能会影响到find的效率，因为它不得不进行一些不必要的检查。例如，<br>如果-maxdepth出现在-type之后，find首先会找出-type所指定的文件，然<br>后再在匹配的文件中过滤掉不符合指定深度的那些文件。但是如果反过来，在<br>-type之前指定目录深度，那么find就能够在找到所有符合指定深度的文件后,<br>再检查这些文件的类型，这才是最有效的搜索之道。</p>
-<h3 id="Searching-based-on-file-type"><a href="#Searching-based-on-file-type" class="headerlink" title="Searching based on file type"></a>Searching based on file type</h3>
+<p>Tips: -maxdepth和-mindepth应该在find命令中及早出现。如果作为靠后的选项 ，有可能会影响到find的效率，因为它不得不进行一些不必要的检查。例如， 如果-maxdepth出现在-type之后，find首先会找出-type所指定的文件，然 后再在匹配的文件中过滤掉不符合指定深度的那些文件。但是如果反过来，在 -type之前指定目录深度，那么find就能够在找到所有符合指定深度的文件后, 再检查这些文件的类型，这才是最有效的搜索之道。</p>
+<h3 id="searching-based-on-file-type">Searching based on file type</h3>
+
       
     </div>
 
@@ -678,37 +678,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="LeetCode-862-Shortest-Subarray-with-Sum-at-Least-K"><a href="#LeetCode-862-Shortest-Subarray-with-Sum-at-Least-K" class="headerlink" title="LeetCode 862. Shortest Subarray with Sum at Least K"></a>LeetCode 862. Shortest Subarray with Sum at Least K</h1><p>久违的算法题解</p>
+          <h1 id="leetcode-862.-shortest-subarray-with-sum-at-least-k">LeetCode 862. Shortest Subarray with Sum at Least K</h1>
+<p>久违的算法题解</p>
 <p>铁子某课给的题目，虽然当时实在无心写。</p>
 <p>传送门：</p>
 <p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/">LeetCode 862. Shortest Subarray with Sum at Least K</a></p>
-<h2 id="Main-Idea"><a href="#Main-Idea" class="headerlink" title="Main Idea"></a>Main Idea</h2><blockquote>
+<h2 id="main-idea">Main Idea</h2>
+<blockquote>
 <p>A subarray is a contiguous part of an array.</p>
 </blockquote>
-<p>其实我刚开始看成了 <code>subsequence</code>…</p>
-<p>现在看一下此案是subarray…</p>
+<p>其实我刚开始看成了 <code>subsequence</code>...</p>
+<p>现在看一下此案是subarray...</p>
 <pre>
              |--> sum >= k, shortest subarray
              |
         |----------| subarray
 |-------------------------------------| array
 </pre>
-
 <p>献祭出我的字符画。</p>
-<p>Pay attention:</p>
-<blockquote>
-<p>-10^5 &lt;&#x3D; nums[i] &lt;&#x3D; 10^5</p>
-</blockquote>
-<p>这说明前缀和不单调，没有双指针玩咯… see <a target="_blank" rel="noopener" href="https://leetcode.com/problems/minimum-size-subarray-sum/">LeetCode 209. Minimum Size Subarray Sum</a></p>
+<p>Pay attention: &gt; -10^5 &lt;= nums[i] &lt;= 10^5</p>
+<p>这说明前缀和不单调，没有双指针玩咯... see <a target="_blank" rel="noopener" href="https://leetcode.com/problems/minimum-size-subarray-sum/">LeetCode 209. Minimum Size Subarray Sum</a></p>
 <p><del>好，快跑</del></p>
-<p>那就先想暴力，枚举所有区间<br>等价于枚举区间的两端， 我习惯枚举右端点</p>
+<p>那就先想暴力，枚举所有区间 等价于枚举区间的两端， 我习惯枚举右端点</p>
 <p>然后区间快速查询这肯定得来个前后和吧</p>
 <pre>
         j          i
 |-------|----------|------------------| array
 </pre>
-
-<p>Need to promise that $S_{i} - S_{j} &gt;&#x3D; k$ and $i - j$ is minimum(si is array of prefix sum)</p>
+<p>Need to promise that <span class="math inline">\(S_{i} - S_{j} &gt;= k\)</span> and <span class="math inline">\(i - j\)</span> is minimum(si is array of prefix sum)</p>
 <p>问题就转化为了 si sj k 三者的关系</p>
 <p>为了减少枚举的次数，需要在枚举的过程中将一些不可能解给pass掉</p>
 <pre>
@@ -724,8 +721,7 @@ Sx
 |
 |------------------> x
 </pre>
-
-<p>如果存在t &gt; i, 满足St - Sj &gt;&#x3D; k, 因为Si &lt; Sj(肯定也满足&gt;&#x3D; k), 且i 距离后面的t更近(数组长度更小)，<br>所以i更好, 所以那些Sj &gt;&#x3D; Si的j们都可以pass掉了</p>
+<p>如果存在t &gt; i, 满足St - Sj &gt;= k, 因为Si &lt; Sj(肯定也满足&gt;= k), 且i 距离后面的t更近(数组长度更小)， 所以i更好, 所以那些Sj &gt;= Si的j们都可以pass掉了</p>
 <pre>
 Sx
 ^
@@ -739,15 +735,15 @@ Sx
 |
 |------------------> x
 </pre>
-
 <p>这就意味着，当找到一个Si的时候，可以把Si的都干没掉</p>
 <p>那么我们需要一个数据结构来维护这个Sx</p>
-<p><strong>队列能维护顺序，单调性能保证首尾的max和min<br>所以可以用单调队列来维护数据</strong></p>
-<p>维护了一个单调队列以后，找到一个Si（队列里的max）的时候<br>可以在队列里找到一个Sj（队列里的min）满足Si - Sj &gt;&#x3D; k<br>都要枚举一遍(从最小开始枚举比较自然)<br>这里定义个说法：<br>如果Sj可以和Si满足上述的不等式我们就说i和j配对</p>
-<p>如果可以找到个j和i配对，那么一定比接下来加入到队列里的i（max）更好<br>因为i更小，距离更近, 那么j就可以从单调队列里删除掉了。</p>
+<p><strong>队列能维护顺序，单调性能保证首尾的max和min 所以可以用单调队列来维护数据</strong></p>
+<p>维护了一个单调队列以后，找到一个Si（队列里的max）的时候 可以在队列里找到一个Sj（队列里的min）满足Si - Sj &gt;= k 都要枚举一遍(从最小开始枚举比较自然) 这里定义个说法： 如果Sj可以和Si满足上述的不等式我们就说i和j配对</p>
+<p>如果可以找到个j和i配对，那么一定比接下来加入到队列里的i（max）更好 因为i更小，距离更近, 那么j就可以从单调队列里删除掉了。</p>
 <p>这样的操作，能满足所有的元素只会出队一次，入队一次， 所以时间复杂度是O(n)</p>
 <p>很显然，这样的单调队列不是典型的，需要现场分析</p>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><p>or see <a target="_blank" rel="noopener" href="https://github.com/krmmzs/Leetcode/blob/master/0862-shortest-subarray-with-sum-at-least-k-hcfy-anchor/0862-shortest-subarray-with-sum-at-least-k-hcfy-anchor.cpp">github</a></p>
+<h2 id="code">Code</h2>
+<p>or see <a target="_blank" rel="noopener" href="https://github.com/krmmzs/Leetcode/blob/master/0862-shortest-subarray-with-sum-at-least-k-hcfy-anchor/0862-shortest-subarray-with-sum-at-least-k-hcfy-anchor.cpp">github</a></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> LL; <span class="comment">// will bigger than int</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">shortestSubarray</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt;::size_type n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;LL&gt; <span class="title">s</span><span class="params">(n + <span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">            s[i] = s[i - <span class="number">1</span>] + nums[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        deque&lt;<span class="type">int</span>&gt; q; <span class="comment">// contains index, not value</span></span><br><span class="line">        q.<span class="built_in">push_back</span>(<span class="number">0</span>);</span><br><span class="line">        <span class="type">int</span> res = INT_MAX;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!q.<span class="built_in">empty</span>() &amp;&amp; s[i] - s[q.<span class="built_in">front</span>()] &gt;= k) &#123;</span><br><span class="line">                res = <span class="built_in">min</span>(res, i - q.<span class="built_in">front</span>());</span><br><span class="line">                q.<span class="built_in">pop_front</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span> (!q.<span class="built_in">empty</span>() &amp;&amp; s[i] &lt;= s[q.<span class="built_in">back</span>()]) &#123;</span><br><span class="line">                q.<span class="built_in">pop_back</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            q.<span class="built_in">push_back</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (res == INT_MAX) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
@@ -816,30 +812,27 @@ Sx
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Docker-change-container’s-mounts"><a href="#Docker-change-container’s-mounts" class="headerlink" title="Docker change container’s mounts"></a>Docker change container’s mounts</h1><h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><p>I have a container that I want to change the mount point of a volume.</p>
-<h2 id="Solution-Fake"><a href="#Solution-Fake" class="headerlink" title="Solution (Fake)"></a>Solution (Fake)</h2><ol>
+          <h1 id="docker-change-containers-mounts">Docker change container's mounts</h1>
+<h2 id="problem">Problem</h2>
+<p>I have a container that I want to change the mount point of a volume.</p>
+<h2 id="solution-fake">Solution (Fake)</h2>
+<ol type="1">
 <li>Stop the container</li>
 <li>Remove the container</li>
 <li>Run the container with the new mount point</li>
 </ol>
 <p><strong>stop!!!!!!</strong></p>
 <p>这样又要重做container了, yadang～</p>
-<h2 id="Solution-Real"><a href="#Solution-Real" class="headerlink" title="Solution (Real)"></a>Solution (Real)</h2><p>直接改配置</p>
+<h2 id="solution-real">Solution (Real)</h2>
+<p>直接改配置</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a <span class="comment"># 查看container id or name</span></span><br><span class="line">docker inspect --format=<span class="string">&#x27;&#123;&#123;json .Mounts&#125;&#125;&#x27;</span> container_name(or <span class="built_in">id</span>) <span class="comment"># 查看挂载目录</span></span><br></pre></td></tr></table></figure>
-
-<p>will get</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;Type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;volume&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;volume_name&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/var/lib/docker/volumes/volume_name/_data&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Destination&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/var/www/html&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Driver&quot;</span><span class="punctuation">:</span> <span class="string">&quot;local&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Mode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;RW&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Propagation&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
-
-<p> 把 docker 服务停止了：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop docker</span><br></pre></td></tr></table></figure>
-
-<p> 在 <code>/var/lib/docker/containers/container-ID/config.v2.json</code> 中找到 <strong>MountPoints</strong>，并修改挂载路径<br> （找目录可能要sudo 或者进入root）</p>
+<p>will get <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;Type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;volume&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;volume_name&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/var/lib/docker/volumes/volume_name/_data&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Destination&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/var/www/html&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Driver&quot;</span><span class="punctuation">:</span> <span class="string">&quot;local&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Mode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;RW&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Propagation&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure></p>
+<p>把 docker 服务停止了： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop docker</span><br></pre></td></tr></table></figure></p>
+<p>在 <code>/var/lib/docker/containers/container-ID/config.v2.json</code> 中找到 <strong>MountPoints</strong>，并修改挂载路径 （找目录可能要sudo 或者进入root）</p>
 <p>重启 docker 服务:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
-
 <p>重启 docker 容器</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart container_name(or <span class="built_in">id</span>)</span><br></pre></td></tr></table></figure>
-
 <p>然后进挂载的目录，发现目录已经变了。</p>
 
       
@@ -908,49 +901,41 @@ Sx
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>最近我在阅读Accelerated C++的时候，有道标注了diffcult的习题:</p>
-<blockquote>
-<p>7-9. (difficult) The implementation of nrand in §7.4.4&#x2F;135 will not work for arguments greater than RAND_MAX. Usually, this restriction is no problem, because RAND_MAX is often the largest possible integer anyway. Nevertheless, there are implementations under which RAND_MAX is much smaller than the largest possible integer. For example, it is not uncommon for RAND_MAX to be 32767 (2^15 -1) and the largest possible integer to be 2147483647 (2^31 -1). Reimplement nrand so that it works well for all values of n.</p>
-</blockquote>
+          <p>最近我在阅读Accelerated C++的时候，有道标注了diffcult的习题: &gt; 7-9. (difficult) The implementation of nrand in §7.4.4/135 will not work for arguments greater than RAND_MAX. Usually, this restriction is no problem, because RAND_MAX is often the largest possible integer anyway. Nevertheless, there are implementations under which RAND_MAX is much smaller than the largest possible integer. For example, it is not uncommon for RAND_MAX to be 32767 (2^15 -1) and the largest possible integer to be 2147483647 (2^31 -1). Reimplement nrand so that it works well for all values of n.</p>
 <p>其中，被要求更改的程序如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">nrand</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span> || n &gt; RAND_MAX)</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">domain_error</span>(<span class="string">&quot;Argument to nrand is out of range&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> bucket_size = RAND_MAX / n;</span><br><span class="line">    <span class="type">int</span> r;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> r = <span class="built_in">rand</span>() / bucket_size;</span><br><span class="line">    <span class="keyword">while</span> (r &gt;= n);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>上述要被修改的程序其实本身就是对cpp的rand()的一个规避程序(为了不使用rand() % n)。</p>
-<p>书中给出的原因：</p>
+<p>书中给出的原因： &gt; The most important reason is pragmatic: rand() really returns only pseudo-random numbers. Many C++ implementations' pseudo-random-number generators give remainders that aren't very random when the quotients are small integers. For example, it is not uncommon for successive results of rand() to be alternately even and odd. In that case, if n is 2, successive results of rand() % n will alternate between 0 and 1.</p>
 <blockquote>
-<p>The most important reason is pragmatic: rand() really returns only pseudo-random<br>numbers. Many C++ implementations’ pseudo-random-number generators give remainders<br>that aren’t very random when the quotients are small integers. For example, it is not<br>uncommon for successive results of rand() to be alternately even and odd. In that case, if<br>n is 2, successive results of rand() % n will alternate between 0 and 1.</p>
+<p>There is another, more subtle reason to avoid using rand() % n: If the value of n is large and RAND_MAX is not evenly divisible by n, some remainders will appear more often than others.</p>
 </blockquote>
-<blockquote>
-<p>There is another, more subtle reason to avoid using rand() % n: If the value of n is large<br>and RAND_MAX is not evenly divisible by n, some remainders will appear more often than<br>others.</p>
-</blockquote>
-<p>然后给出上述需要被修改的程序的解释：</p>
-<blockquote>
-<p>To avoid these pitfalls, we’ll use a different strategy, by dividing the range of available<br>random numbers into buckets of exactly equal size. Then we can compute a random number<br>and return the number of the corresponding bucket. Because the buckets are of equal size,<br>some random numbers may not fall into any bucket at all. In that case, we keep asking for<br>forrandom numbers until we get one that fits.</p>
-</blockquote>
-<p>给了一个例子：<br>假如n &#x3D; 3, 这样<code>bucket_size</code> &#x3D; 10922<br>这样就产生了[0, 10922), [10922, 21844), [21844, 32767), [32767, RAND_MAX)四个区间，其中最后一个区间的最大值是RAND_MAX，所以最后一个区间的值是不会被使用的。</p>
-<p>If you look up <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/numeric/random/rand">C++ documentation on rand()</a>,<br>you’ll see that it returns “a pseudo-random integral value<br>between 0 and RAND_MAX.” <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/numeric/random/RAND_MAX">Click again</a> on RAND_MAX and you’ll<br>see that “This value is implementation dependent.<br>It’s guaranteed that this value is at least 32767.”</p>
+<p>然后给出上述需要被修改的程序的解释： &gt; To avoid these pitfalls, we'll use a different strategy, by dividing the range of available random numbers into buckets of exactly equal size. Then we can compute a random number and return the number of the corresponding bucket. Because the buckets are of equal size, some random numbers may not fall into any bucket at all. In that case, we keep asking for forrandom numbers until we get one that fits.</p>
+<p>给了一个例子： 假如n = 3, 这样<code>bucket_size</code> = 10922 这样就产生了[0, 10922), [10922, 21844), [21844, 32767), [32767, RAND_MAX)四个区间，其中最后一个区间的最大值是RAND_MAX，所以最后一个区间的值是不会被使用的。</p>
+<p>If you look up <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/numeric/random/rand">C++ documentation on rand()</a>, you'll see that it returns "a pseudo-random integral value between 0 and RAND_MAX." <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/numeric/random/RAND_MAX">Click again</a> on RAND_MAX and you'll see that "This value is implementation dependent. It's guaranteed that this value is at least 32767."</p>
 <p>所以是非常有必要进行修改的(codeforces的机器就是32767)。</p>
-<h2 id="Solution-Thinking"><a href="#Solution-Thinking" class="headerlink" title="Solution Thinking"></a>Solution Thinking</h2><p>顺着作者给出的思路，分区间。</p>
+<h2 id="solution-thinking">Solution Thinking</h2>
+<p>顺着作者给出的思路，分区间。</p>
 <p>假设 n 会大于 RAND_MAX, 我们应该首先计算大于RAND_MAX的数字的桶的数量。</p>
-<p>它首先计算大于RAND_MAX的数字的桶的数量，并为每个桶计算一个随机数。<br>最后一个桶将有一个介于[0, n % RAND_MAX]之间的随机数，<br>其他桶将有一个介于[0, RAND_MAX]之间的随机数。</p>
-<p>给个例子：<br>假设 n &#x3D; 1000000000, RAND_MAX &#x3D; 32767(2^15 - 1)<br>那么我们需要计算的桶的数量为 1000000000 &#x2F; 32767 &#x3D; 30569<br>最后一个桶的随机数的范围为[0, 1000000000 % 32767] &#x3D; [0, 32766]<br>其他桶的随机数的范围为[0, RAND_MAX] &#x3D; [0, 32767]</p>
+<p>它首先计算大于RAND_MAX的数字的桶的数量，并为每个桶计算一个随机数。 最后一个桶将有一个介于[0, n % RAND_MAX]之间的随机数， 其他桶将有一个介于[0, RAND_MAX]之间的随机数。</p>
+<p>给个例子： 假设 n = 1000000000, RAND_MAX = 32767(2^15 - 1) 那么我们需要计算的桶的数量为 1000000000 / 32767 = 30569 最后一个桶的随机数的范围为[0, 1000000000 % 32767] = [0, 32766] 其他桶的随机数的范围为[0, RAND_MAX] = [0, 32767]</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">nrand</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">domain_error</span>(<span class="string">&quot;Argument to nrand is out of range&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> buckets = n / RAND_MAX;</span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> last_bucket = RAND_MAX / (n % RAND_MAX);</span><br><span class="line">    <span class="type">int</span> r;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> r = <span class="built_in">rand</span>() / last_bucket;</span><br><span class="line">    <span class="keyword">while</span> (r &gt;= n);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// add the remaining buckets for numbers larger than RAND_MAX</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; buckets; ++i) &#123;</span><br><span class="line">        r += <span class="built_in">rand</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Back-to-the-question-of-cpp-itself"><a href="#Back-to-the-question-of-cpp-itself" class="headerlink" title="Back to the question of cpp itself"></a>Back to the question of cpp itself</h2><p>能够明细看到cpp的rand()的实现是有问题的，<br>不过，它并没有就此打住；random_shuffle()也使用了rand()。<br>回顾一下，为了进行随机洗牌，我们需要生成随机索引，直到n，即数组的大小。但是如果rand()只能达到32767，那么如果我们在一个元素明显多于这个数组上调用random_shuffle()会发生什么？</p>
-<h2 id="rand-Solution"><a href="#rand-Solution" class="headerlink" title="rand() Solution"></a>rand() Solution</h2><p>别担心，从C++11开始，C++中有更好的随机数生成器可用。<br>你唯一需要记住的是使用包含在<random>头文件中的mt19937。<br>这是一个基于素数219937-1的Mersenne Twister，这也恰好是它的周期。<br>它是一个比rand()质量高得多的RNG，而且速度更快（在自定义调用中，<br>从mt19937生成和添加108个数字需要389毫秒，而rand()需要1170毫秒）。<br>它还能在0和232-1&#x3D;4294967295之间产生完整的32位无符号输出，而不是最大限度的32767。</p>
+<h2 id="back-to-the-question-of-cpp-itself">Back to the question of cpp itself</h2>
+<p>能够明细看到cpp的rand()的实现是有问题的， 不过，它并没有就此打住；random_shuffle()也使用了rand()。 回顾一下，为了进行随机洗牌，我们需要生成随机索引，直到n，即数组的大小。但是如果rand()只能达到32767，那么如果我们在一个元素明显多于这个数组上调用random_shuffle()会发生什么？</p>
+<h2 id="rand-solution">rand() Solution</h2>
+<p>别担心，从C++11开始，C++中有更好的随机数生成器可用。 你唯一需要记住的是使用包含在<random>头文件中的mt19937。 这是一个基于素数219937-1的Mersenne Twister，这也恰好是它的周期。 它是一个比rand()质量高得多的RNG，而且速度更快（在自定义调用中， 从mt19937生成和添加108个数字需要389毫秒，而rand()需要1170毫秒）。 它还能在0和232-1=4294967295之间产生完整的32位无符号输出，而不是最大限度的32767。</p>
 <p>为了取代random_shuffle()，你现在可以调用shuffle()并传入你的mt19937作为第三个参数；shuffle算法将使用你提供的生成器进行洗牌。</p>
-<h2 id="C-11-Solution"><a href="#C-11-Solution" class="headerlink" title="C++11 Solution"></a>C++11 Solution</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;random&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rand_generator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">std::mt19937 <span class="title">mt</span><span class="params">(<span class="number">1729</span>)</span></span>;</span><br><span class="line">    <span class="function">std::uniform_int_distribution&lt;<span class="type">int</span>&gt; <span class="title">dist</span><span class="params">(<span class="number">0</span>, <span class="number">99</span>)</span></span>;</span><br><span class="line">    <span class="keyword">auto</span> generator = std::<span class="built_in">bind</span>(dist, mt);</span><br><span class="line">    <span class="type">int</span> random = <span class="built_in">generator</span>();</span><br><span class="line">    <span class="keyword">return</span> random;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h2 id="c11-solution">C++11 Solution</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;random&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rand_generator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">std::mt19937 <span class="title">mt</span><span class="params">(<span class="number">1729</span>)</span></span>;</span><br><span class="line">    <span class="function">std::uniform_int_distribution&lt;<span class="type">int</span>&gt; <span class="title">dist</span><span class="params">(<span class="number">0</span>, <span class="number">99</span>)</span></span>;</span><br><span class="line">    <span class="keyword">auto</span> generator = std::<span class="built_in">bind</span>(dist, mt);</span><br><span class="line">    <span class="type">int</span> random = <span class="built_in">generator</span>();</span><br><span class="line">    <span class="keyword">return</span> random;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>explanation:</p>
-<p>1729 is Deterministic 32-bit seed<br>mt is this engnie object: [0, $2^{32}$]<br>dist is this distribution object: <a href="%E4%BB%A5%E7%A6%BB%E6%95%A3%E5%9E%8B%E5%9D%87%E5%8C%80%E5%88%86%E5%B8%83%E6%96%B9%E5%BC%8F%E4%BA%A7%E7%94%9Fint%E4%B9%B1%E6%95%B0%EF%BC%8C%E8%8C%83%E5%9B%B4%E8%90%BD%E5%9C%A80%E5%88%B099">0, 99</a><br>dist(mt) is mean: Run engine, viewed through distribution<br>bind （利用bind将随机数生产引擎和分布组合成一个随机生成物件）</p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li><p><a target="_blank" rel="noopener" href="https://codeforces.com/blog/entry/61587">rand-Considered-Harmful</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/C%2B%2B11#Extensible_random_number_facility">C++11 Wiki Extensible random number facility</a></p>
-</li>
+<p>1729 is Deterministic 32-bit seed mt is this engnie object: [0, <span class="math inline">\(2^{32}\)</span>] dist is this distribution object: <a href="以离散型均匀分布方式产生int乱数，范围落在0到99">0, 99</a> dist(mt) is mean: Run engine, viewed through distribution bind （利用bind将随机数生产引擎和分布组合成一个随机生成物件）</p>
+<h2 id="references">References</h2>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://codeforces.com/blog/entry/61587">rand-Considered-Harmful</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/C%2B%2B11#Extensible_random_number_facility">C++11 Wiki Extensible random number facility</a></p></li>
 </ul>
 <p>如果想要看字幕<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=LDPMpc-ENqY">youtube</a>也有</p>
-<h2 id="More"><a href="#More" class="headerlink" title="More"></a>More</h2><p><a target="_blank" rel="noopener" href="http://xoshiro.di.unimi.it/">If you want even faster, higher-quality random number generators, take a look at this site by Sebastiano Vigna.</a></p>
+<h2 id="more">More</h2>
+<p><a target="_blank" rel="noopener" href="http://xoshiro.di.unimi.it/">If you want even faster, higher-quality random number generators, take a look at this site by Sebastiano Vigna.</a></p>
 
       
     </div>
@@ -1022,14 +1007,20 @@ Sx
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="chapter-07-Using-associative-containers"><a href="#chapter-07-Using-associative-containers" class="headerlink" title="chapter 07 Using associative containers"></a>chapter 07 Using associative containers</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><h2 id="sequence-containers-vs-associative-containers"><a href="#sequence-containers-vs-associative-containers" class="headerlink" title="sequence containers vs associative containers"></a>sequence containers vs associative containers</h2><p>Another important difference between associative and sequential containers is that, because<br>associative containers are self-ordering, our own programs must not do anything tha<br>changes the order of the elements.</p>
-<p>For that reason, <strong>algorithms that change the contents of</strong><br><strong>containers often don’t work for associative containers</strong>. In exchange for that restriction,<br>associative containers offer a variety of useful operations that are impossible to implement<br>implementefficiently for sequential containers.</p>
-<h2 id="map’s-key-is-const"><a href="#map’s-key-is-const" class="headerlink" title="map’s key is const"></a>map’s key is const</h2><p>Note that the <strong>pair</strong> associated with a <strong>map</strong> has a key type that is <strong>const</strong>.<br>key is <strong>const</strong>, we are prevented from changing the value of an element’s key. If the key<br>were not <strong>const</strong>, we might implicitly change the element’s position within the <strong>map</strong>.<br>Accordingly, the key is always <strong>const</strong>, so that if we dereference a <code>map&lt;string, int&gt;</code><br>iterator, we get a <code>pair&lt;const string, int&gt;</code>.</p>
-<h2 id="high-order-function-let-function-be-a-interface"><a href="#high-order-function-let-function-be-a-interface" class="headerlink" title="high order function let function be a interface"></a>high order function let function be a interface</h2><p>Rather than using <strong>split</strong> directly, we’re going to make it a parameter to the cross-reference<br>function. That way, we leave open the possibility of changing the way we find the words on a<br>line. For example, we could pass the <strong>find_urls</strong> function from §6.1.3&#x2F;105, and use the<br>cross-reference function to see where URLs appear in the input.</p>
-<h2 id="rand-function"><a href="#rand-function" class="headerlink" title="rand function"></a>rand function</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// return a random integer in the rang [0, n)</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">nrand</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span> || n &gt; RAND_MAX)</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">domain_error</span>(<span class="string">&quot;Argument to nrand is out of range&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> bucket_size = RAND_MAX / n;</span><br><span class="line">    <span class="type">int</span> r;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> r = <span class="built_in">rand</span>() / bucket_size;</span><br><span class="line">    <span class="keyword">while</span> (r &gt;= n);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>for example:<br>assume that n is 3. Then bucket_size will be 10922. In this case,<br>values of rand() in the range [0, 10922) will yield 0, values in the range [10922,<br>21844) will yield 1, values in the range [21844, 32766) will yield 2, and values of 32766<br>or 32767 will be discarded.</p>
-<h2 id="access-operator-will-create-a-new-element-in-map"><a href="#access-operator-will-create-a-new-element-in-map" class="headerlink" title="[] access operator will create a new element in map"></a>[] access operator will create a new element in map</h2><p>Indexes the <strong>map</strong> using a key, <strong>k</strong>, of type <strong>K</strong>, and returns an <strong>lvalue</strong> of type <strong>V</strong>. If there is no<br>entry for the given key, a new value-initialized element is created and inserted into the<br><strong>map</strong> with this key.<br>Because using <strong>[]</strong> to access a <strong>map</strong> might create a new element, <strong>[]</strong> is<br>not allowed on a <strong>const map</strong>.</p>
+          <h1 id="chapter-07-using-associative-containers">chapter 07 Using associative containers</h1>
+<h2 id="overview">Overview</h2>
+<h2 id="sequence-containers-vs-associative-containers">sequence containers vs associative containers</h2>
+<p>Another important difference between associative and sequential containers is that, because associative containers are self-ordering, our own programs must not do anything tha changes the order of the elements.</p>
+<p>For that reason, <strong>algorithms that change the contents of</strong> <strong>containers often don't work for associative containers</strong>. In exchange for that restriction, associative containers offer a variety of useful operations that are impossible to implement implementefficiently for sequential containers.</p>
+<h2 id="maps-key-is-const">map's key is const</h2>
+<p>Note that the <strong>pair</strong> associated with a <strong>map</strong> has a key type that is <strong>const</strong>. key is <strong>const</strong>, we are prevented from changing the value of an element's key. If the key were not <strong>const</strong>, we might implicitly change the element's position within the <strong>map</strong>. Accordingly, the key is always <strong>const</strong>, so that if we dereference a <code>map&lt;string, int&gt;</code> iterator, we get a <code>pair&lt;const string, int&gt;</code>.</p>
+<h2 id="high-order-function-let-function-be-a-interface">high order function let function be a interface</h2>
+<p>Rather than using <strong>split</strong> directly, we're going to make it a parameter to the cross-reference function. That way, we leave open the possibility of changing the way we find the words on a line. For example, we could pass the <strong>find_urls</strong> function from §6.1.3/105, and use the cross-reference function to see where URLs appear in the input.</p>
+<h2 id="rand-function">rand function</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// return a random integer in the rang [0, n)</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">nrand</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span> || n &gt; RAND_MAX)</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">domain_error</span>(<span class="string">&quot;Argument to nrand is out of range&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> bucket_size = RAND_MAX / n;</span><br><span class="line">    <span class="type">int</span> r;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> r = <span class="built_in">rand</span>() / bucket_size;</span><br><span class="line">    <span class="keyword">while</span> (r &gt;= n);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>for example: assume that n is 3. Then bucket_size will be 10922. In this case, values of rand() in the range [0, 10922) will yield 0, values in the range [10922, 21844) will yield 1, values in the range [21844, 32766) will yield 2, and values of 32766 or 32767 will be discarded.</p>
+<h2 id="access-operator-will-create-a-new-element-in-map">[] access operator will create a new element in map</h2>
+<p>Indexes the <strong>map</strong> using a key, <strong>k</strong>, of type <strong>K</strong>, and returns an <strong>lvalue</strong> of type <strong>V</strong>. If there is no entry for the given key, a new value-initialized element is created and inserted into the <strong>map</strong> with this key. Because using <strong>[]</strong> to access a <strong>map</strong> might create a new element, <strong>[]</strong> is not allowed on a <strong>const map</strong>.</p>
 <p><a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/container/map/operator_at">std::map&lt;Key,T,Compare,Allocator&gt;::operator[] in cppreference.com</a></p>
 <blockquote>
 <p>Returns a reference to the value that is mapped to a key equivalent to key, performing an insertion if such key does not already exist.</p>
@@ -1106,27 +1097,25 @@ Sx
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Telegram-webm-to-gif"><a href="#Telegram-webm-to-gif" class="headerlink" title="Telegram webm to gif"></a>Telegram webm to gif</h1><h2 id="1-Download-webm"><a href="#1-Download-webm" class="headerlink" title="1. Download webm"></a>1. Download webm</h2><p><a target="_blank" rel="noopener" href="https://t.me/DownloadStickersBot">https://t.me/DownloadStickersBot</a></p>
+          <h1 id="telegram-webm-to-gif">Telegram webm to gif</h1>
+<h2 id="download-webm">1. Download webm</h2>
+<p><a target="_blank" rel="noopener" href="https://t.me/DownloadStickersBot">https://t.me/DownloadStickersBot</a></p>
 <p>这个机器人可以下载 Telegram 的 sticker.</p>
 <p>简介： Download your favourite stickers in jpg,png,webp formats or whole pack as zip file.</p>
 <p>然后就会把zip发送到你的电脑上，解压后就是webm文件。</p>
-<h2 id="2-Convert-webm-to-gif"><a href="#2-Convert-webm-to-gif" class="headerlink" title="2. Convert webm to gif"></a>2. Convert webm to gif</h2><p>文件：webmToGif.sh</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *.webm; <span class="keyword">do</span></span><br><span class="line">    ffmpeg -i <span class="string">&quot;<span class="variable">$i</span>&quot;</span> -pix_fmt rgb24 <span class="string">&quot;<span class="variable">$&#123;i%.webm&#125;</span>.gif&quot;</span>; </span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-
+<h2 id="convert-webm-to-gif">2. Convert webm to gif</h2>
+<p>文件：webmToGif.sh <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *.webm; <span class="keyword">do</span></span><br><span class="line">    ffmpeg -i <span class="string">&quot;<span class="variable">$i</span>&quot;</span> -pix_fmt rgb24 <span class="string">&quot;<span class="variable">$&#123;i%.webm&#125;</span>.gif&quot;</span>; </span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></p>
 <p>将webmToGif.sh放到webm文件夹下，然后执行</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x webmToGif.sh</span><br><span class="line">./webmToGif.sh</span><br></pre></td></tr></table></figure>
-
 <p>就会把webm文件夹下的所有webm文件转换为gif文件。</p>
-<h2 id="3-reduce-gif-size"><a href="#3-reduce-gif-size" class="headerlink" title="3. reduce gif size"></a>3. reduce gif size</h2><p>文件：reduceGifSize.sh</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *.gif; <span class="keyword">do</span></span><br><span class="line">    gifsicle -optimize=3 <span class="string">&quot;<span class="variable">$i</span>&quot;</span> -o <span class="string">&quot;<span class="variable">$&#123;i%.gif&#125;</span>_reduced.gif&quot;</span>;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-
-<p>在同一个目录下执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x reduceGifSize.sh</span><br><span class="line">./reduceGifSize.sh</span><br></pre></td></tr></table></figure>
-
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://askubuntu.com/questions/506670/how-to-do-i-convert-an-webm-video-to-a-animated-gif-on-the-command-line">Ubuntu ask How to do I convert a webm(video) to a (animated) gif on the command line?</a></p>
+<h2 id="reduce-gif-size">3. reduce gif size</h2>
+<p>文件：reduceGifSize.sh <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *.gif; <span class="keyword">do</span></span><br><span class="line">    gifsicle -optimize=3 <span class="string">&quot;<span class="variable">$i</span>&quot;</span> -o <span class="string">&quot;<span class="variable">$&#123;i%.gif&#125;</span>_reduced.gif&quot;</span>;</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></p>
+<p>在同一个目录下执行 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x reduceGifSize.sh</span><br><span class="line">./reduceGifSize.sh</span><br></pre></td></tr></table></figure></p>
+<h2 id="reference">Reference</h2>
+<p><a target="_blank" rel="noopener" href="https://askubuntu.com/questions/506670/how-to-do-i-convert-an-webm-video-to-a-animated-gif-on-the-command-line">Ubuntu ask How to do I convert a webm(video) to a (animated) gif on the command line?</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.ffmpeg.org/doxygen/3.3/group__lavc__misc__pixfmt.html">FFmpeg Pixel formats</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/kohler/gifsicle">gifsicle</a></p>
-<p><a target="_blank" rel="noopener" href="https://gist.github.com/Potherca/18423260e2c9a4324c9ecb0c0a284066">Potherca&#x2F;README.md</a></p>
+<p><a target="_blank" rel="noopener" href="https://gist.github.com/Potherca/18423260e2c9a4324c9ecb0c0a284066">Potherca/README.md</a></p>
 
       
     </div>
@@ -1204,30 +1193,34 @@ Sx
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Effective-cpp-00-Introduction"><a href="#Effective-cpp-00-Introduction" class="headerlink" title="Effective cpp 00 Introduction"></a>Effective cpp 00 Introduction</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h3><h3 id="signature-differences-when-read-this-book"><a href="#signature-differences-when-read-this-book" class="headerlink" title="signature differences when read this book"></a>signature differences when read this book</h3><p>每个函数的声明揭示其签名式(signature)，也就是参数和返回类型。一个函数<br>的签名等同于该函数的类型。</p>
-<p><strong>Sometimes signature includes the return type, sometimes it doesn’t.</strong></p>
+          <h1 id="effective-cpp-00-introduction">Effective cpp 00 Introduction</h1>
+<h2 id="introduction">Introduction</h2>
+<h3 id="terminology">Terminology</h3>
+<h3 id="signature-differences-when-read-this-book">signature differences when read this book</h3>
+<p>每个函数的声明揭示其签名式(signature)，也就是参数和返回类型。一个函数 的签名等同于该函数的类型。</p>
+<p><strong>Sometimes signature includes the return type, sometimes it doesn't.</strong></p>
 <p>More see <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/290038/is-the-return-type-part-of-the-function-signature">Is the return type part of the function signature?</a></p>
 <p>C++对签名式的官方定义并不包括函数的返回类型，不过本书把返回类型视为签名的一部分，这样比较有帮助。</p>
-<h3 id="keyword-explicit"><a href="#keyword-explicit" class="headerlink" title="keyword explicit"></a>keyword <code>explicit</code></h3><p>explicit关键字只能用于构造函数的声明中，用于阻止隐式转换。</p>
+<h3 id="keyword-explicit">keyword <code>explicit</code></h3>
+<p>explicit关键字只能用于构造函数的声明中，用于阻止隐式转换。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">B</span><span class="params">(<span class="type">int</span> x = <span class="number">0</span>, <span class="type">bool</span> b = <span class="literal">true</span>)</span></span>; <span class="comment">// default constructor;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">C</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">C</span><span class="params">(<span class="type">int</span> x)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>The constructors for classes B and C are declared explicit here. That<br>prevents them from being used to perform implicit type conversions,<br>though they may still be used for explicit type conversions</p>
+<p>The constructors for classes B and C are declared explicit here. That prevents them from being used to perform implicit type conversions, though they may still be used for explicit type conversions</p>
 <p>More see <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/121162/what-does-the-explicit-keyword-mean">What does the explicit keyword mean?</a></p>
-<h3 id="the-“-x3D-”-syntax-can-also-be-used-to-call-the-copy-constructor"><a href="#the-“-x3D-”-syntax-can-also-be-used-to-call-the-copy-constructor" class="headerlink" title="the “&#x3D;” syntax can also be used to call the copy constructor"></a>the “&#x3D;” syntax can also be used to call the copy constructor</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Widget w3 = w2;</span><br></pre></td></tr></table></figure>
-
-<p>Fortunately,  copy  construction  is  easy  to  distinguish  from  copy  as-<br>signment. If a new object is being defined (such as w3 in the statement<br>above), a constructor has to be called; it can’t be an assignment. If no<br>new object is being defined (such as in the “w1&#x3D; w2” statement above),<br>no constructor can be involved, so it’s an assignment.</p>
-<p>The copy constructor is a particularly important function, because it<br>defines how an object is passed by value. For example, consider this:</p>
+<h3 id="the-syntax-can-also-be-used-to-call-the-copy-constructor">the “=” syntax can also be used to call the copy constructor</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Widget w3 = w2;</span><br></pre></td></tr></table></figure>
+<p>Fortunately, copy construction is easy to distinguish from copy as- signment. If a new object is being defined (such as w3 in the statement above), a constructor has to be called; it can’t be an assignment. If no new object is being defined (such as in the “w1= w2” statement above), no constructor can be involved, so it’s an assignment.</p>
+<p>The copy constructor is a particularly important function, because it defines how an object is passed by value. For example, consider this:</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">asAcceptableQuality</span><span class="params">(Widget w)</span></span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">Widget aWidge;</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">hasAcceptableQuality</span>(aWidget))</span><br><span class="line">    <span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
-
-<p>The parameter w is passed to hasAcceptableQuality by value, so in the<br>call above, aWidget is copied into w. The copying is done by Widget’s<br>copy  constructor.</p>
-<h3 id="function-objects"><a href="#function-objects" class="headerlink" title="function  objects"></a>function  objects</h3><p>objects that act like function.</p>
+<p>The parameter w is passed to hasAcceptableQuality by value, so in the call above, aWidget is copied into w. The copying is done by Widget’s copy constructor.</p>
+<h3 id="function-objects">function objects</h3>
+<p>objects that act like function.</p>
 <p>STL</p>
-<h3 id="undefined-behavior"><a href="#undefined-behavior" class="headerlink" title="undefined behavior"></a>undefined behavior</h3><p>The C++ standard doesn’t define what happens when you do something</p>
+<h3 id="undefined-behavior">undefined behavior</h3>
+<p>The C++ standard doesn’t define what happens when you do something</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *p = <span class="number">0</span>; <span class="comment">// p is a null pointer</span></span><br><span class="line">std::cout &lt;&lt; *p; <span class="comment">// dereference a null pointer</span></span><br><span class="line">                 <span class="comment">// yields undefined behavior</span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> name[] = <span class="string">&quot;Darla&quot;</span>; <span class="comment">// name is an array of size 6(don&#x27;t for get the trailing null!)</span></span><br><span class="line">                       <span class="comment">// yields undefined behavior</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Cpp-without-interface-language-element"><a href="#Cpp-without-interface-language-element" class="headerlink" title="Cpp without interface(language element)"></a>Cpp without interface(language element)</h3><p>when talking about interfaces in cpp as a fairly general de-sign idea.</p>
+<h3 id="cpp-without-interfacelanguage-element">Cpp without interface(language element)</h3>
+<p>when talking about interfaces in cpp as a fairly general de-sign idea.</p>
 
       
     </div>

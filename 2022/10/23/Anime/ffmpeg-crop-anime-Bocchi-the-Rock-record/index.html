@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="ffmpeg crop anime Bocchi the Rock recordBocchi the Rock实在是太好看了，想裁一些片段玩。 Record还没写脚本，所以操作有点笨拙。 先是产生缩略图 1ffmpeg -i 2.mp4 -vf &quot;fps&#x3D;1&#x2F;10,scale&#x3D;-2:720&quot; thumbnail-%03d.jpg  直接就是创个interaction.md写下要">
+  <meta name="description" content="ffmpeg crop anime Bocchi the Rock record Bocchi the Rock实在是太好看了，想裁一些片段玩。 Record 还没写脚本，所以操作有点笨拙。 先是产生缩略图 1ffmpeg -i 2.mp4 -vf &quot;fps&#x3D;1&#x2F;10,scale&#x3D;-2:720&quot; thumbnail-%03d.jpg 直接就是创个interaction.md 写">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ffmpeg crop anime Bocchi the Rock record">
 <meta property="og:url" content="http://example.com/2022/10/23/Anime/ffmpeg-crop-anime-Bocchi-the-Rock-record/index.html">
 <meta property="og:site_name" content="krmmzs">
-<meta property="og:description" content="ffmpeg crop anime Bocchi the Rock recordBocchi the Rock实在是太好看了，想裁一些片段玩。 Record还没写脚本，所以操作有点笨拙。 先是产生缩略图 1ffmpeg -i 2.mp4 -vf &quot;fps&#x3D;1&#x2F;10,scale&#x3D;-2:720&quot; thumbnail-%03d.jpg  直接就是创个interaction.md写下要">
+<meta property="og:description" content="ffmpeg crop anime Bocchi the Rock record Bocchi the Rock实在是太好看了，想裁一些片段玩。 Record 还没写脚本，所以操作有点笨拙。 先是产生缩略图 1ffmpeg -i 2.mp4 -vf &quot;fps&#x3D;1&#x2F;10,scale&#x3D;-2:720&quot; thumbnail-%03d.jpg 直接就是创个interaction.md 写">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/ffmpeg_bocci_the_rock-01.png">
 <meta property="og:image" content="http://example.com/images/ffmpeg_bocci_the_rock-02.png">
@@ -223,24 +223,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="ffmpeg-crop-anime-Bocchi-the-Rock-record"><a href="#ffmpeg-crop-anime-Bocchi-the-Rock-record" class="headerlink" title="ffmpeg crop anime Bocchi the Rock record"></a>ffmpeg crop anime Bocchi the Rock record</h1><p>Bocchi the Rock实在是太好看了，想裁一些片段玩。</p>
-<h2 id="Record"><a href="#Record" class="headerlink" title="Record"></a>Record</h2><p>还没写脚本，所以操作有点笨拙。</p>
-<p>先是产生缩略图</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i 2.mp4 -vf <span class="string">&quot;fps=1/10,scale=-2:720&quot;</span> thumbnail-%03d.jpg</span><br></pre></td></tr></table></figure>
-
-<p>直接就是创个interaction.md<br>写下要裁剪的区间<br>然后在这个文本里把命令编辑好到目录下执行<br>在文本里编辑命令的好处是，记录下产生视频的命令, 起到log的作用。</p>
-<img src="/images/ffmpeg_bocci_the_rock-01.png" alt="ffmpeg_bocci_the_rock-01" style="zoom:70%;" />
-
+        <h1 id="ffmpeg-crop-anime-bocchi-the-rock-record">ffmpeg crop anime Bocchi the Rock record</h1>
+<p>Bocchi the Rock实在是太好看了，想裁一些片段玩。</p>
+<h2 id="record">Record</h2>
+<p>还没写脚本，所以操作有点笨拙。</p>
+<p>先是产生缩略图 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i 2.mp4 -vf <span class="string">&quot;fps=1/10,scale=-2:720&quot;</span> thumbnail-%03d.jpg</span><br></pre></td></tr></table></figure></p>
+<p>直接就是创个interaction.md 写下要裁剪的区间 然后在这个文本里把命令编辑好到目录下执行 在文本里编辑命令的好处是，记录下产生视频的命令, 起到log的作用。</p>
+<p><img src="/images/ffmpeg_bocci_the_rock-01.png" alt="ffmpeg_bocci_the_rock-01" style="zoom:70%;" /></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -ss 00:14:44 -t 40 -i 2.mp4 -vcodec copy -acodec copy 02.mp4</span><br></pre></td></tr></table></figure>
-
 <p>目录下是这些</p>
-<img src="/images/ffmpeg_bocci_the_rock-02.png" alt="ffmpeg_bocci_the_rock-02" style="zoom:70%;" />
-
+<p><img src="/images/ffmpeg_bocci_the_rock-02.png" alt="ffmpeg_bocci_the_rock-02" style="zoom:70%;" /></p>
 <p>然后发现了个bug: 起始位置ubuntu22默认视频player黑屏，mpv打开会从-1s开始播放, 估计是关键字没卡上。。</p>
-<h2 id="Fix"><a href="#Fix" class="headerlink" title="Fix"></a>Fix</h2><p>ffmepg剪切视频，很方便，但是也有很大缺陷：<br>（1）剪切时间点不精确<br>（2）有时剪切的视频开头有黑屏</p>
+<h2 id="fix">Fix</h2>
+<p>ffmepg剪切视频，很方便，但是也有很大缺陷： （1）剪切时间点不精确 （2）有时剪切的视频开头有黑屏</p>
 <p>造成这些问题的原因是ffmpeg无法seek到非关键帧上。</p>
 <p>上述的剪切方式比较基本</p>
-<h3 id="Parameter-optimization"><a href="#Parameter-optimization" class="headerlink" title="Parameter optimization"></a>Parameter optimization</h3><ul>
+<h3 id="parameter-optimization">Parameter optimization</h3>
+<ul>
 <li>将-ss， -t 参数放在-i参数之前(已经这么做了)</li>
 </ul>
 <p>对输入文件执行seek操作，会seek到-ss设置的时间点前面的关键帧上。</p>
@@ -249,7 +248,8 @@
 <li>accurate_seek</li>
 </ul>
 <p>如果编码格式采用的copy 最好加上 -avoid_negative_ts 1参数</p>
-<h3 id="Final-command"><a href="#Final-command" class="headerlink" title="Final command"></a>Final command</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -ss 00:14:44 -t 40 -i 2.mp4 -vcodec copy -acodec copy -avoid_negative_ts 1 02.mp4</span><br></pre></td></tr></table></figure>
+<h3 id="final-command">Final command</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -ss 00:14:44 -t 40 -i 2.mp4 -vcodec copy -acodec copy -avoid_negative_ts 1 02.mp4</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -334,7 +334,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ffmpeg-crop-anime-Bocchi-the-Rock-record"><span class="nav-number">1.</span> <span class="nav-text">ffmpeg crop anime Bocchi the Rock record</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Record"><span class="nav-number">1.1.</span> <span class="nav-text">Record</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fix"><span class="nav-number">1.2.</span> <span class="nav-text">Fix</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Parameter-optimization"><span class="nav-number">1.2.1.</span> <span class="nav-text">Parameter optimization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Final-command"><span class="nav-number">1.2.2.</span> <span class="nav-text">Final command</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ffmpeg-crop-anime-bocchi-the-rock-record"><span class="nav-number">1.</span> <span class="nav-text">ffmpeg crop anime Bocchi the Rock record</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#record"><span class="nav-number">1.1.</span> <span class="nav-text">Record</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fix"><span class="nav-number">1.2.</span> <span class="nav-text">Fix</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#parameter-optimization"><span class="nav-number">1.2.1.</span> <span class="nav-text">Parameter optimization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#final-command"><span class="nav-number">1.2.2.</span> <span class="nav-text">Final command</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
