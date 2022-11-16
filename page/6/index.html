@@ -158,6 +158,257 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/21/Linux/Shell/Top-Ten-One-Liners-from-CommandLineFu-Explained/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/21/Linux/Shell/Top-Ten-One-Liners-from-CommandLineFu-Explained/" class="post-title-link" itemprop="url">Top_Ten_One-Liners_from_CommandLineFu_Explained</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-21 14:37:44 / Modified: 16:15:36" itemprop="dateCreated datePublished" datetime="2022-10-21T14:37:44+08:00">2022-10-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="top-ten-one-liners-from-commandlinefu-explained">Top Ten One-Liners from CommandLineFu Explained</h1>
+<hr />
+<p><img src="https://catonmat.net/wp-content/uploads/2010/03/commandlinefu-explained.jpg" alt="CommandLineFu Explained" />I love working in the shell. Mastery of shell lets you get things done in seconds, rather than minutes or hours, if you chose to write a program instead.</p>
+<p>In this article I'd like to explain the <a target="_blank" rel="noopener" href="http://www.commandlinefu.com/commands/browse/sort-by-votes">top one-liners</a> from the <a target="_blank" rel="noopener" href="http://www.commandlinefu.com/">commandlinefu.com</a>. It's a user-driven website where people get to choose the best and most useful shell one-liners.</p>
+<p>But before I do that, I want to take the opportunity and link to a few of my articles that I wrote some time ago on working efficiently in the command line:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://catonmat.net/bash-vi-editing-mode-cheat-sheet">Working Efficiently in Bash (Part I).</a></li>
+<li><a target="_blank" rel="noopener" href="https://catonmat.net/bash-emacs-editing-mode-cheat-sheet">Working Efficiently in Bash (Part II).</a></li>
+<li><a target="_blank" rel="noopener" href="https://catonmat.net/the-definitive-guide-to-bash-command-line-history">The Definitive Guide to Bash Command Line History.</a></li>
+<li><a target="_blank" rel="noopener" href="https://catonmat.net/set-operations-in-unix-shell">A fun article on Set Operations in the Shell.</a></li>
+<li><a target="_blank" rel="noopener" href="https://catonmat.net/solving-google-treasure-hunt-prime-number-problem-four">Another fun article on Solving Google Treasure Hunt in the Shell.</a></li>
+</ul>
+<p>And now the explanation of top one-liners from commandlinefu.</p>
+<h2 id="overview">Overview</h2>
+<ul>
+<li><a href="#1-run-the-last-command-as-root">Run the last command as root</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo !!</span><br></pre></td></tr></table></figure></li>
+<li><a href="#2-serve-the-current-directory-at-httplocalhost8000">Serve the current directory at http://localhost:8000/</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m http.server</span><br></pre></td></tr></table></figure></li>
+<li><a href="#3-save-a-file-you-edited-in-vim-without-the-needed-permissions">Save a file you edited in vim without the needed permissions</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:w !sudo <span class="built_in">tee</span> %</span><br></pre></td></tr></table></figure></li>
+<li><a href="#4-change-to-the-previous-working-directory">Change to the previous working directory</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> -</span><br></pre></td></tr></table></figure></li>
+<li><a href="#5-run-the-previous-shell-command-but-replace-string-foo-with-bar">Run the previous shell command but replace string "foo" with "bar"</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^foo^bar^</span><br></pre></td></tr></table></figure></li>
+<li><a href="#6-quickly-backup-or-copy-a-file">Quickly backup or copy a file</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> file&#123;,.bak&#125;</span><br></pre></td></tr></table></figure></li>
+<li><a href="#8-find-the-last-command-that-begins-with-whatever-but-avoid-running-it">Find the last command that begins with</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!whatever:p</span><br></pre></td></tr></table></figure></li>
+<li><a href="#9-copy-your-public-key-to-remote-machine-for-public-key-authentication">Copy your public-key to remote-machine for public-key authentication</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id remote-machine</span><br></pre></td></tr></table></figure></li>
+<li><a href="#10-capture-video-of-a-linux-desktop">Capture video of a linux desktop</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -f x11grab -s wxga -r 25 -i :0.0 -sameq output.avi</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="run-the-last-command-as-root">#1. Run the last command as root</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo !!</span><br></pre></td></tr></table></figure>
+<p>We all know what the <code>sudo</code> command does - it runs the command as another user, in this case, it runs the command as superuser because no other user was specified. But what's really interesting is the bang-bang <code>!!</code> part of the command. It's called the <strong>event designator</strong>. An event designator references a command in shell's history. In this case the event designator references the previous command. Writing <code>!!</code> is the same as writing <code>!-1</code>. The <code>-1</code> refers to the last command. You can generalize it, and write <code>!-n</code> to refer to the n-th previous command. To view all your previous commands, type <code>history</code>.</p>
+<p>This one-liner is actually really bash-specific, as event designators are a feature of bash.</p>
+<p>I wrote about event designators in much more detail in my article "<a target="_blank" rel="noopener" href="https://catonmat.net/the-definitive-guide-to-bash-command-line-history">The Definitive Guide to Bash Command Line History</a>." The article also comes with a printable cheat sheet for working with the history.</p>
+<h2 id="serve-the-current-directory-at-httplocalhost8000">#2. Serve the current directory at http://localhost:8000/</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m http.server</span><br></pre></td></tr></table></figure>
+<p>This one-liner starts a web server on port 8000 with the contents of current directory on all the interfaces (address 0.0.0.0), not just localhost. If you have "<code>index.html</code>" or "<code>index.htm</code>" files, it will serve those, otherwise it will list the contents of the currently working directory.</p>
+<p>It works because python comes with a standard module called <code>SimpleHTTPServer</code>. The <code>-m</code> argument makes python to search for a module named <code>SimpleHTTPServer.py</code> in all the possible system locations (listed in <code>sys.path</code> and <code>$PYTHONPATH</code> shell variable). Once found, it executes it as a script. If you look at the source code of this module, you'll find that this module tests if it's run as a script <code>if **name** == '**main**'</code>, and if it is, it runs the <code>test()</code> method that makes it run a web server in the current directory.</p>
+<p>To use a different port, specify it as the next argument:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m http.server 8080</span><br></pre></td></tr></table></figure>
+<p>This command runs a HTTP server on all local interfaces on port 8080.</p>
+<h2 id="save-a-file-you-edited-in-vim-without-the-needed-permissions">#3. Save a file you edited in vim without the needed permissions</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:w !sudo tee %</span><br></pre></td></tr></table></figure>
+<p>This happens to me way too often. I open a system config file in vim and edit it just to find out that I don't have permissions to save it. This one-liner saves the day. Instead of writing the while to a temporary file <code>:w /tmp/foobar</code> and then moving the temporary file to the right destination <code>mv /tmp/foobar /etc/service.conf</code>, you now just type the one-liner above in vim and it will save the file.</p>
+<p>Here is how it works, if you look at the vim documentation (by typing <code>:he :w</code> in vim), you'll find the reference to the command <code>:w !&#123;cmd&#125;</code> that says that vim runs <code>&#123;cmd&#125;</code> and passes it the contents of the file as standard input. In this one-liner the <code>&#123;cmd&#125;</code> part is the <code>sudo tee %</code> command. It runs <code>tee %</code> as superuser. But wait, what is <code>%</code>? Well, it's a read-only register in vim that contains the filename of the current file! Therefore the command that vim executes becomes <code>tee current_filename</code>, with the current directory being whatever the <code>current_file</code> is in. Now what does <code>tee</code> do? The <code>tee</code> command takes standard input and write it to a file! Rephrasing, it takes the contents of the file edited in vim, and writes it to the file (while being root)! All done!</p>
+<h2 id="change-to-the-previous-working-directory">#4. Change to the previous working directory</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd -</span><br></pre></td></tr></table></figure>
+<p>Everyone knows this, right? The dash "<code>-</code>" is short for "previous working directory." The previous working directory is defined by <code>$OLDPWD</code> shell variable. After you use the <code>cd</code> command, it sets the <code>$OLDPWD</code> environment variable, and then, if you type the short version <code>cd -</code>, it effectively becomes <code>cd $OLDPWD</code> and changes to the previous directory.</p>
+<p>To change to a directory named "<code>-</code>", you have to either cd to the parent directory and then do <code>cd ./-</code> or do <code>cd /full/path/to/-</code>.</p>
+<h2 id="run-the-previous-shell-command-but-replace-string-foo-with-bar">#5. Run the previous shell command but replace string "foo" with "bar"</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ^foo^bar^</span><br></pre></td></tr></table></figure>
+<p>This is another event designator. This one is for quick substitution. It replaces <code>foo</code> with <code>bar</code> and repeats the last command. It's actually a shortcut for <code>!!:s/foo/bar/</code>. This one-liner applies the <code>s</code> modifier to the <code>!!</code> event designator. As we learned from one-liner #1, the <code>!!</code> event designator stands for the previous command. Now the <code>s</code> modifier stands for substitute (greetings to <a target="_blank" rel="noopener" href="https://catonmat.net/sed-one-liners-explained-part-one">sed</a>) and it substitutes the first word with the second word.</p>
+<p>Note that this one-liner replaces just the first word in the previous command. To replace all words, add the <code>g</code> modifer (<code>g</code> for global):</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ !!:gs/foo/bar</span><br></pre></td></tr></table></figure>
+<p>This one-liner is also bash-specific, as event designators are a feature of bash.</p>
+<p>Again, see my article "<a target="_blank" rel="noopener" href="https://catonmat.net/the-definitive-guide-to-bash-command-line-history">The Definitive Guide to Bash Command Line History</a>." I explain all this stuff in great detail.</p>
+<h2 id="quickly-backup-or-copy-a-file">#6. Quickly backup or copy a file</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cp filename&#123;,.bak&#125;</span><br></pre></td></tr></table></figure>
+<p>This one-liner copies the file named <code>filename</code> to a file named <code>filename.bak</code>. Here is how it works. It uses <strong>brace expansion</strong> to construct a list of arguments for the <code>cp</code> command. Brace expansion is a mechanism by which arbitrary strings may be generated. In this one-liner <code>filename&#123;,.bak&#125;</code> gets brace expanded to <code>filename filename.bak</code> and puts in place of the brace expression. The command becomes <code>cp filename filename.bak</code> and file gets copied.</p>
+<p>Talking more about brace expansion, you can do all kinds of combinatorics with it. Here is a fun application:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ echo &#123;a,b,c&#125;&#123;a,b,c&#125;&#123;a,b,c&#125;</span><br></pre></td></tr></table></figure>
+<p>It generates all the possible strings 3-letter from the set <code>&#123;a, b, c&#125;</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">aaa aab aac aba abb abc aca acb acc</span><br><span class="line">baa bab bac bba bbb bbc bca bcb bcc</span><br><span class="line">caa cab cac cba cbb cbc cca ccb ccc</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>And here is how to generate all the possible 2-letter strings from the set of <code>&#123;a, b, c&#125;</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo &#123;a,b,c&#125;&#123;a,b,c&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>It produces:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">aa ab ac ba bb bc ca cb cc</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>If you liked this, you may also like my article where I defined a bunch of set operations (such as intersection, union, symmetry, powerset, etc) by using just shell commands. The article is called "<a target="_blank" rel="noopener" href="https://catonmat.net/set-operations-in-unix-shell">Set Operations in the Unix Shell</a>." (And since I have sets in the shell, I will soon write articles on on "<strong>Combinatorics in the Shell</strong>" and "<strong>Algebra in the Shell</strong>". Fun topics to explore. Perhaps even "Topology in the Shell" :))</p>
+<h2 id="mtr---traceroute-and-ping-combined">#7. mtr - traceroute and ping combined</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mtr google.com</span><br></pre></td></tr></table></figure>
+<p>MTR, bettern known as "Matt's Traceroute" combines both <code>traceroute</code> and <code>ping</code> command. After each successful hop, it sends a ping request to the found machine, this way it produces output of both <code>traceroute</code> and <code>ping</code> to better understand the quality of link. If it finds out a packet took an alternative route, it displays it, and by default it keeps updating the statistics so you knew what was going on in real time.</p>
+<h2 id="find-the-last-command-that-begins-with-whatever-but-avoid-running-it">#8. Find the last command that begins with "whatever," but avoid running it</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ !whatever:p</span><br></pre></td></tr></table></figure>
+<p>Another use of event designators. The <code>!whatever</code> designator searches the shell history for the most recently executed command that starts with <code>whatever</code>. But instead of executing it, it prints it. The <code>:p</code> modifier makes it print instead of executing.</p>
+<p>This one-liner is bash-specific, as event designators are a feature of bash.</p>
+<p>Once again, see my article "<a target="_blank" rel="noopener" href="https://catonmat.net/the-definitive-guide-to-bash-command-line-history">The Definitive Guide to Bash Command Line History</a>." I explain all this stuff in great detail.</p>
+<h2 id="copy-your-public-key-to-remote-machine-for-public-key-authentication">#9. Copy your public-key to remote-machine for public-key authentication</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-copy-id remote-machine</span><br></pre></td></tr></table></figure>
+<p>This one-liner copies your public-key, that you generated with <code>ssh-keygen</code> (either SSHv1 file identity.pub or SSHv2 file id_rsa.pub) to the <code>remote-machine</code> and places it in <code>~/.ssh/authorized_keys</code> file. This ensures that the next time you try to log into that machine, public-key authentication (commonly referred to as "passwordless authentication.") will be used instead of the regular password authentication.</p>
+<p>If you wanted to do it yourself, you'd have to take the following steps:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">your-machine$ scp ~/.ssh/identity.pub remote-machine:</span><br><span class="line">your-machine$ ssh remote-machine</span><br><span class="line">remote-machine$ cat identity.pub &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>This one-liner saves a great deal of typing. Actually I just found out that there was a shorter way to do it:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">your-machine$ ssh remote-machine &#x27;cat &gt;&gt; .ssh/authorized_keys&#x27; &lt; .ssh/identity.pub</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="capture-video-of-a-linux-desktop">#10. Capture video of a linux desktop</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ffmpeg -f x11grab -s wxga -r 25 -i :0.0 -sameq /tmp/out.mpg</span><br></pre></td></tr></table></figure>
+<p>A pure coincidence, I have done so much video processing with ffmpeg that I know what most of this command does without looking much in the manual.</p>
+<p>The ffmpeg generally can be descibed as a command that takes a bunch of options and the last option is the output file. In this case the options are <code>-f x11grab -s wxga -r 25 -i :0.0 -sameq</code> and the output file is <code>/tmp/out.mpg</code>.</p>
+<p>Here is what the options mean:</p>
+<ul>
+<li><code>-f x11grab</code> makes ffmpeg to set the input video format as x11grab. The X11 framebuffer has a specific format it presents data in and it makes ffmpeg to decode it correctly.</li>
+<li><code>-s wxga</code> makes ffmpeg to set the size of the video to wxga which is shortcut for 1366x768. This is a strange resolution to use, I'd just write <code>-s 800x600</code>.</li>
+<li><code>-r 25</code> sets the framerate of the video to 25fps.</li>
+<li><code>-i :0.0</code> sets the video input file to X11 display 0.0 at localhost.</li>
+<li><code>-sameq</code> preserves the quality of input stream. It's best to preserve the quality and post-process it later.</li>
+</ul>
+<p>You can also specify ffmpeg to grab display from another x-server by changing the <code>-i :0.0</code> to <code>-i host:0.0</code>.</p>
+<p>If you're interested in ffmpeg, here are my other articles on ffmpeg that I wrote while ago:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://catonmat.net/how-to-extract-audio-tracks-from-youtube-videos">How to Extract Audio Tracks from YouTube Videos</a></li>
+<li><a target="_blank" rel="noopener" href="https://catonmat.net/converting-youtube-flvs-to-a-better-format-with-ffmpeg">Converting YouTube Flash Videos to a Better Format with ffmpeg</a></li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://catonmat.net/top-ten-one-liners-from-commandlinefu-explained">Top Ten One-Liners from CommandLineFu Explained</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/20/Anime/Do-It-Yourself/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/20/Anime/Do-It-Yourself/" class="post-title-link" itemprop="url">Do_It_Yourself</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-20 20:58:20 / Modified: 22:07:49" itemprop="dateCreated datePublished" datetime="2022-10-20T20:58:20+08:00">2022-10-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Anime/" itemprop="url" rel="index"><span itemprop="name">Anime</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Anime/Do-It-Yourself/" itemprop="url" rel="index"><span itemprop="name">Do It Yourself</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="do-it-yourself">Do It Yourself</h1>
+<h2 id="overview">Overview</h2>
+<h2 id="resources">Resources</h2>
+<p><a target="_blank" rel="noopener" href="https://www.diy-anime.com/">Official Website</a> <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Do_It_Yourself!!">WIKI</a></p>
+<h2 id="stuffs">Stuffs</h2>
+<h3 id="caulk-填缝剂">Caulk 填缝剂</h3>
+<p>填缝剂或不太常用的填缝剂是一种用于密封各种结构和管道的接头或接缝以防止泄漏的材料。</p>
+<p>最古老的填缝剂形式是将纤维材料打入木船或船舶的木板之间的楔形接缝。铸铁污水管以前也是以类似的方式进行填缝的。船只和锅炉的铆接缝以前是通过敲打金属来密封的</p>
+<p>现代填缝剂是一种灵活的密封化合物，用于封闭建筑物和其他结构的缝隙，防止水、空气、灰尘和昆虫，或作为防火的一个组成部分。在隧道行业中，填缝是对分段式预制混凝土隧道的缝隙进行密封，通常使用混凝土。</p>
+<p><img src="/images/Do-It-Yourself-01.png" alt="NameCheap01" style="zoom:30%;" /> <img src="/images/Do-It-Yourself-02.png" alt="NameCheap02" style="zoom:30%;" /> <img src="/images/Do-It-Yourself-03.png" alt="NameCheap03" style="zoom:30%;" /></p>
+<h2 id="references">References</h2>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Caulk">Caulk</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/20/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter05/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -918,182 +1169,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/14/Net/NameCheap-DNS-for-githubPages/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/14/Net/NameCheap-DNS-for-githubPages/" class="post-title-link" itemprop="url">NameCheap_DNS_for_githubPages</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-10-14 20:48:37" itemprop="dateCreated datePublished" datetime="2022-10-14T20:48:37+08:00">2022-10-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-20 22:07:21" itemprop="dateModified" datetime="2022-10-20T22:07:21+08:00">2022-10-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Net/" itemprop="url" rel="index"><span itemprop="name">Net</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="namecheap-dns-for-githubpages">NameCheap DNS for githubPages</h1>
-<p>Yeah, Goodbye Aliyun.</p>
-<h2 id="create-a-cname-record">Create a CNAME record</h2>
-<p>Login to your NameCheap account</p>
-<p>Click on the domain you want to use</p>
-<p><img src="/images/NameCheap01.png" alt="" style="zoom:70%;" /></p>
-<p>Click on the Advanced DNS tab</p>
-<p><img src="/images/NameCheap02.png" alt="" style="zoom:70%;" /></p>
-<p>Select CNAME from the dropdown</p>
-<p>Enter www in the Host field</p>
-<p>Enter your GitHub username.github.io in the Value field</p>
-<p><img src="/images/NameCheap03.png" alt="" style="zoom:70%;" /></p>
-<p>wait for a few minutes and then check your site at www.yourdomain.com.</p>
-<h2 id="create-a-cname">Create a CNAME</h2>
-<p>Create a CNAME file in the root of your repository with the following content:</p>
-<p>yourdomain.com</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/14/Neovim/Neovim-copilot-can-t-work-in-markdown/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/14/Neovim/Neovim-copilot-can-t-work-in-markdown/" class="post-title-link" itemprop="url">Neovim-copilot-can't-work-in-markdown</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-10-14 18:29:11" itemprop="dateCreated datePublished" datetime="2022-10-14T18:29:11+08:00">2022-10-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-18 10:59:37" itemprop="dateModified" datetime="2022-10-18T10:59:37+08:00">2022-10-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Neovim/" itemprop="url" rel="index"><span itemprop="name">Neovim</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="neovim-copilot-cant-work-in-markdown">Neovim-copilot-can't-work-in-markdown</h1>
-<h2 id="problem">Problem</h2>
-<p>When I use Neovim, I can't use copilot in markdown file.</p>
-<h2 id="solution">Solution</h2>
-<p>I found that the problem is caused by the <code>markdown</code> filetype.</p>
-<p>In Neovim, type: <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:copilot help</span><br></pre></td></tr></table></figure></p>
-<p>Find <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">OPTIONS                                         *copilot-options*</span><br><span class="line"></span><br><span class="line">                                                *g:copilot_filetypes*</span><br><span class="line">g:copilot_filetypes     A dictionary mapping file types to their enabled</span><br><span class="line">                        status.  Most file types are enabled by <span class="keyword">default</span>, so</span><br><span class="line">                        generally <span class="keyword">this</span> is used <span class="keyword">for</span> opting out.</span><br><span class="line"> </span><br><span class="line">                        let g:copilot_filetypes = &#123;</span><br><span class="line">                              \ <span class="string">&#x27;xml&#x27;</span>: v:<span class="literal">false</span>,</span><br><span class="line">                              \ &#125;</span><br><span class="line"> </span><br><span class="line">                        Disabling all file types can be done by setting the</span><br><span class="line">                        special key <span class="string">&quot;*&quot;</span>.  File types can then be turned back</span><br><span class="line">                        on individually.</span><br><span class="line"> </span><br><span class="line">                        let g:copilot_filetypes = &#123;</span><br><span class="line">                              \ <span class="string">&#x27;*&#x27;</span>: v:<span class="literal">false</span>,</span><br><span class="line">                              \ <span class="string">&#x27;python&#x27;</span>: v:<span class="literal">true</span>,</span><br><span class="line">                              \ &#125;</span><br></pre></td></tr></table></figure></p>
-<p>Add <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim.g.copilot_filetypes = &#123;</span><br><span class="line">    xml = <span class="literal">false</span>,</span><br><span class="line">    markdown = <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>restart Neovim to open a markdown file, and it works.</p>
-<h2 id="reference">Reference</h2>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/orgs/community/discussions/29977">Neovim-copilot-can't-work-in-markdown</a></li>
-<li>copilot help</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1163,7 +1238,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
