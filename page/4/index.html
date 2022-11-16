@@ -158,6 +158,93 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/30/Leetcode/LeetCode-33-Search-in-Rotated-Sorted-Array/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/30/Leetcode/LeetCode-33-Search-in-Rotated-Sorted-Array/" class="post-title-link" itemprop="url">LeetCode 33. Search in Rotated Sorted Array</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-30 17:58:04 / Modified: 18:28:12" itemprop="dateCreated datePublished" datetime="2022-10-30T17:58:04+08:00">2022-10-30</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="leetcode-33.-search-in-rotated-sorted-array">LeetCode 33. Search in Rotated Sorted Array</h1>
+<h2 id="main-idea">Main Idea</h2>
+<p>这个翻转让我想到一本书里关于三次reverse就可以得到旋转的方式</p>
+<p>虽然和这题没有关系</p>
+<blockquote>
+<p>You must write an algorithm with O(log n) runtime complexity.</p>
+</blockquote>
+<p>给的数组升序且unique</p>
+<p>如果不旋转直接二分log对吧。</p>
+<p>翻转后可以得到两个升序数组, 不那么容易二分了</p>
+<p>先找未知的旋转点，以nums[0]为界限，就可以二分出该未知点（二分的本质）</p>
+<p>然后判断target在哪个区间，再二分</p>
+<p>就可以判断出target是否存在</p>
+<pre>
+
+^    /
+|   /
+|  /
+| /
+|-------------------
+|          /
+|         /
+|        /
+|       /
+|      /
+|---------------------->
+</pre>
+<h2 id="code">Code</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">typedef</span> vector&lt;<span class="type">int</span>&gt;::size_type <span class="type">size_t</span>;</span><br><span class="line">        <span class="type">size_t</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">            <span class="type">size_t</span> mid = l + r + <span class="number">1</span> &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &gt;= nums[<span class="number">0</span>]) &#123;</span><br><span class="line">                l = mid;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                r = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (target &gt;= nums[<span class="number">0</span>]) &#123;</span><br><span class="line">            l = <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            l = r + <span class="number">1</span>, r = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">            <span class="type">size_t</span> mid = l + r &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &gt;= target) &#123;</span><br><span class="line">                r = mid;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                l = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (nums[r] == target) &#123;</span><br><span class="line">            <span class="keyword">return</span> r;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/30/Leetcode/LeetCode-31-Next-Permutation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1379,95 +1466,6 @@ Sx
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/26/Docker/Docker-change-container-s-mounts/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/26/Docker/Docker-change-container-s-mounts/" class="post-title-link" itemprop="url">Docker-change-container's-mounts</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-10-26 00:09:46 / Modified: 00:19:31" itemprop="dateCreated datePublished" datetime="2022-10-26T00:09:46+08:00">2022-10-26</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="docker-change-containers-mounts">Docker change container's mounts</h1>
-<h2 id="problem">Problem</h2>
-<p>I have a container that I want to change the mount point of a volume.</p>
-<h2 id="solution-fake">Solution (Fake)</h2>
-<ol type="1">
-<li>Stop the container</li>
-<li>Remove the container</li>
-<li>Run the container with the new mount point</li>
-</ol>
-<p><strong>stop!!!!!!</strong></p>
-<p>这样又要重做container了, yadang～</p>
-<h2 id="solution-real">Solution (Real)</h2>
-<p>直接改配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a <span class="comment"># 查看container id or name</span></span><br><span class="line">docker inspect --format=<span class="string">&#x27;&#123;&#123;json .Mounts&#125;&#125;&#x27;</span> container_name(or <span class="built_in">id</span>) <span class="comment"># 查看挂载目录</span></span><br></pre></td></tr></table></figure>
-<p>will get <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;Type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;volume&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;volume_name&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/var/lib/docker/volumes/volume_name/_data&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Destination&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/var/www/html&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Driver&quot;</span><span class="punctuation">:</span> <span class="string">&quot;local&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Mode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;RW&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;Propagation&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure></p>
-<p>把 docker 服务停止了： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop docker</span><br></pre></td></tr></table></figure></p>
-<p>在 <code>/var/lib/docker/containers/container-ID/config.v2.json</code> 中找到 <strong>MountPoints</strong>，并修改挂载路径 （找目录可能要sudo 或者进入root）</p>
-<p>重启 docker 服务:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
-<p>重启 docker 容器</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart container_name(or <span class="built_in">id</span>)</span><br></pre></td></tr></table></figure>
-<p>然后进挂载的目录，发现目录已经变了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1537,7 +1535,7 @@ Sx
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
