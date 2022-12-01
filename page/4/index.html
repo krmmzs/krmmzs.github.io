@@ -158,6 +158,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/31/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter09/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/31/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter09/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter09</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-31 21:06:40 / Modified: 21:08:10" itemprop="dateCreated datePublished" datetime="2022-10-31T21:06:40+08:00">2022-10-31</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/Accelerated-Cpp/" itemprop="url" rel="index"><span itemprop="name">Accelerated Cpp</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="defining-new-types">Defining new types</h1>
+<h2 id="info">Info</h2>
+<p>Much of the design of C++ rests on the idea of letting programmers create types that are as easy to use as are the built-in types.</p>
+<h2 id="not-member-function">not member function</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">double</span> <span class="title">Student_info::grade</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ::<span class="built_in">grade</span>(midterm, <span class="keyword">final</span>, homework);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>First, note the call to ::grade. Putting :: in front of a name insists on using a version of that name that is not a member of anything.</p>
+<h2 id="const-function-and-const-member-function">const function and const member function</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">double</span> <span class="title">Student_info::grade</span><span class="params">()</span> <span class="type">const</span> </span>&#123; ... &#125; <span class="comment">//  member-function version </span></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">grade</span><span class="params">(<span class="type">const</span> Student_info&amp;)</span> </span>&#123; ... &#125; <span class="comment">//  original from §4.2.2/63</span></span><br></pre></td></tr></table></figure>
+<p>When we call a member function, the object of which it is a member is not an argument. Therefore, there is no entry in the parameter list in which we might be able to say that the object is const. Instead, we qualify the function itself, thereby making it a <strong>const member function</strong>. Member functions that are const may not change the internal state of the object on which they are executing: We are guaranteed that if we call s.grade() on behalf of a <strong>Student_info</strong> object named s, doing so will not change the data members of s.</p>
+<p>Because the function guarantees that it will not change the values in the object, we can call it for const objects. By the same token, we cannot call nonconst functions on const objects, so, for example, we cannot call the read member on behalf of a const Student_info object. After all, a function such as read says that it can change the object's state. Calling such a function on a const object could violate our const promise.</p>
+<p>It is important to note that even if a program never creates any const objects directly, it may create lots of references to const objects through function calls. When we pass a nonconst object to a function that takes a const reference, then the function treats that object as if it were const, and the compiler will permit it to call only const members of such objects</p>
+<h2 id="a-rule-to-judge-whether-a-function-should-be-member-function">A rule to judge whether a function should be member function</h2>
+<p>If the function changes the state of an object, then it ought to be a member of that object.</p>
+<p>further more</p>
+<p>To do so, we should think a bit about what the function does and how users might want to call it.</p>
+<h2 id="a-part-of-interface-should-at-same-file">A part of interface should at same file</h2>
+<p>Because <strong>compare</strong> is part of our interface, we should include a declaration for this function in the same header that defines <strong>Student_info</strong> and we should include this definition in the associated source file that contains the definitions of the member functions.</p>
+<p>see <a href="../../unix-source/chapter09/Student_info.h">Studnet_info.h</a> and <a href="../../unix-source/chapter09/Student_info.cc">Student_info.cc</a></p>
+<h2 id="the-synthesized-constructor">The synthesized constructor</h2>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/8106016/c-default-initialization-and-value-initialization-which-is-which-which-is-ca">C++ default initialization and value initialization: which is which, which is called when and how to reliably initialize a template-type member</a></p>
+<p>The synthesized constructor will initialize the data members to a value that depends on how the object is being created. If the object is a local variable, then the data members will be be default-initialized (§3.1/38). If the object is used to initialize a container element, either as a side effect of adding a new element to a map, or as the elements of a container defined to have a given size, then the members will be value-initialized (§7.2/125).</p>
+<p>These rules areslightly complicated, but their essentials are:</p>
+<ul>
+<li>If an object is of a class type that defines one or more constructors, then the appropriate constructor completely controls initialization of the objects of that class.</li>
+<li>If an object is of built-in type, then value-initializing it sets it to zero, and default-initializing it gives it an undefined value.</li>
+<li>Otherwise, the object can be only of a class type that does not define any constructors. In that case, value- or default-initializing the object value- or default-initializes each of its data members. This initialization process will be recursive if any of the data members is of a class type with its own constructor.</li>
+</ul>
+<h2 id="class-write-conctructor-is-a-good-habit">class write conctructor is a good habit</h2>
+<p>It is normally good practice to ensure that every data member has a sensible value at all times</p>
+<p>For example, it is possible that later we (or a subsequent maintainer of our code) will add operations that examine these data members. If we don't initialize them in the constructor, then these new operations might cause future failures. Moreover, as we'll see in §11.3.5/201, even though we do not explicitly use midterm or final, there are synthesized operations on the class that could do so. Any use other than writing to an undefined value is illegal (§3.1/38), and so, strictly speaking, we must initialize these values.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/30/Leetcode/LeetCode-33-Search-in-Rotated-Sorted-Array/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1335,137 +1436,6 @@ return res;</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/26/Leetcode/LeetCode-862-Shortest-Subarray-with-Sum-at-Least-K/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/26/Leetcode/LeetCode-862-Shortest-Subarray-with-Sum-at-Least-K/" class="post-title-link" itemprop="url">LeetCode 862. Shortest Subarray with Sum at Least K</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-10-26 23:12:25" itemprop="dateCreated datePublished" datetime="2022-10-26T23:12:25+08:00">2022-10-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-27 00:34:59" itemprop="dateModified" datetime="2022-10-27T00:34:59+08:00">2022-10-27</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="leetcode-862.-shortest-subarray-with-sum-at-least-k">LeetCode 862. Shortest Subarray with Sum at Least K</h1>
-<p>久违的算法题解</p>
-<p>铁子某课给的题目，虽然当时实在无心写。</p>
-<p>传送门：</p>
-<p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/">LeetCode 862. Shortest Subarray with Sum at Least K</a></p>
-<h2 id="main-idea">Main Idea</h2>
-<blockquote>
-<p>A subarray is a contiguous part of an array.</p>
-</blockquote>
-<p>其实我刚开始看成了 <code>subsequence</code>...</p>
-<p>现在看一下此案是subarray...</p>
-<pre>
-             |--> sum >= k, shortest subarray
-             |
-        |----------| subarray
-|-------------------------------------| array
-</pre>
-<p>献祭出我的字符画。</p>
-<p>Pay attention: &gt; -10^5 &lt;= nums[i] &lt;= 10^5</p>
-<p>这说明前缀和不单调，没有双指针玩咯... see <a target="_blank" rel="noopener" href="https://leetcode.com/problems/minimum-size-subarray-sum/">LeetCode 209. Minimum Size Subarray Sum</a></p>
-<p><del>好，快跑</del></p>
-<p>那就先想暴力，枚举所有区间 等价于枚举区间的两端， 我习惯枚举右端点</p>
-<p>然后区间快速查询这肯定得来个前后和吧</p>
-<pre>
-        j          i
-|-------|----------|------------------| array
-</pre>
-<p>Need to promise that <span class="math inline">\(S_{i} - S_{j} &gt;= k\)</span> and <span class="math inline">\(i - j\)</span> is minimum(si is array of prefix sum)</p>
-<p>问题就转化为了 si sj k 三者的关系</p>
-<p>为了减少枚举的次数，需要在枚举的过程中将一些不可能解给pass掉</p>
-<pre>
-Sx
-^
-|       /
-|      /--> Sj >= Si
-|     /
-|    /--> Si
-|   /
-|  /
-| /
-|
-|------------------> x
-</pre>
-<p>如果存在t &gt; i, 满足St - Sj &gt;= k, 因为Si &lt; Sj(肯定也满足&gt;= k), 且i 距离后面的t更近(数组长度更小)， 所以i更好, 所以那些Sj &gt;= Si的j们都可以pass掉了</p>
-<pre>
-Sx
-^
-|
-|
-|
-|    /--> Si
-|   /
-|  /
-| /
-|
-|------------------> x
-</pre>
-<p>这就意味着，当找到一个Si的时候，可以把Si的都干没掉</p>
-<p>那么我们需要一个数据结构来维护这个Sx</p>
-<p><strong>队列能维护顺序，单调性能保证首尾的max和min 所以可以用单调队列来维护数据</strong></p>
-<p>维护了一个单调队列以后，找到一个Si（队列里的max）的时候 可以在队列里找到一个Sj（队列里的min）满足Si - Sj &gt;= k 都要枚举一遍(从最小开始枚举比较自然) 这里定义个说法： 如果Sj可以和Si满足上述的不等式我们就说i和j配对</p>
-<p>如果可以找到个j和i配对，那么一定比接下来加入到队列里的i（max）更好 因为i更小，距离更近, 那么j就可以从单调队列里删除掉了。</p>
-<p>这样的操作，能满足所有的元素只会出队一次，入队一次， 所以时间复杂度是O(n)</p>
-<p>很显然，这样的单调队列不是典型的，需要现场分析</p>
-<h2 id="code">Code</h2>
-<p>or see <a target="_blank" rel="noopener" href="https://github.com/krmmzs/Leetcode/blob/master/0862-shortest-subarray-with-sum-at-least-k-hcfy-anchor/0862-shortest-subarray-with-sum-at-least-k-hcfy-anchor.cpp">github</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> LL; <span class="comment">// will bigger than int</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">shortestSubarray</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt;::size_type n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;LL&gt; <span class="title">s</span><span class="params">(n + <span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">            s[i] = s[i - <span class="number">1</span>] + nums[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        deque&lt;<span class="type">int</span>&gt; q; <span class="comment">// contains index, not value</span></span><br><span class="line">        q.<span class="built_in">push_back</span>(<span class="number">0</span>);</span><br><span class="line">        <span class="type">int</span> res = INT_MAX;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!q.<span class="built_in">empty</span>() &amp;&amp; s[i] - s[q.<span class="built_in">front</span>()] &gt;= k) &#123;</span><br><span class="line">                res = <span class="built_in">min</span>(res, i - q.<span class="built_in">front</span>());</span><br><span class="line">                q.<span class="built_in">pop_front</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span> (!q.<span class="built_in">empty</span>() &amp;&amp; s[i] &lt;= s[q.<span class="built_in">back</span>()]) &#123;</span><br><span class="line">                q.<span class="built_in">pop_back</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            q.<span class="built_in">push_back</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (res == INT_MAX) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1535,7 +1505,7 @@ Sx
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

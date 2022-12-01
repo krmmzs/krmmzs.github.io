@@ -158,6 +158,86 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter00/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter00/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter00 Begin</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-18 10:49:00 / Modified: 11:05:25" itemprop="dateCreated datePublished" datetime="2022-10-18T10:49:00+08:00">2022-10-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/Accelerated-Cpp/" itemprop="url" rel="index"><span itemprop="name">Accelerated Cpp</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="chapter00-begin">chapter00 begin</h1>
+<h2 id="operand-and-operator">operand and operator</h2>
+<p>Every operand has a type. We shall have much more to say about types, but essentially, atype denotes a data structure and the meanings of operations that make sense for that datastructure. The effect of an operator depends on the types of its operands</p>
+<p>Types often have names. For example, the core language defines int as the name of a typethat represents integers, and the library defines std::ostream as the type that providesstream-based output. In our program, std::cout has type std::ostream.</p>
+<ul>
+<li>the <code>&lt;&lt;</code> operator's effects</li>
+</ul>
+<p>The &lt;&lt; operator takes two operands, and yet we have written two &lt;&lt; operators and threeoperands.</p>
+<p>The left operand of the second &lt;&lt; is therefore an expression that yields std::cout, whichhas type std::ostream; the right operand is std::endl, which is a manipulator. Thekey property of manipulators is that writing a manipulator on a stream manipulates thestream, by doing something other than just writing characters to it. When the left operandof &lt;&lt; has type std::ostream and the right operand is a manipulator, &lt;&lt; does whateverthe manipulator says to do to the given stream, and returns the stream as its result. In thecase of std::endl, that action is to end the current line of output.The entire expression therefore yields std::cout as its value, and, as a side effect, itwrites Hello, world! on the standard output stream and ends the output line. When wefollow the expression by a semicolon, we are asking the implementation to discard thevalue-which action is appropriate, because we are interested only in the side effects</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/15/Hexo/Hexo-add-tags-page/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -727,7 +807,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
