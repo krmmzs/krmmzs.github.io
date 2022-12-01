@@ -158,6 +158,91 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/23/Linux/Shell/Downloading-a-video-from-the-Internet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/23/Linux/Shell/Downloading-a-video-from-the-Internet/" class="post-title-link" itemprop="url">Downloading_a_video_from_the_Internet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-23 02:49:12 / Modified: 03:03:50" itemprop="dateCreated datePublished" datetime="2022-10-23T02:49:12+08:00">2022-10-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Shell/CLI/" itemprop="url" rel="index"><span itemprop="name">CLI</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="downloading-a-video-from-the-internet">Downloading a video from the Internet</h1>
+<p>最近突然对shell的使用有了兴趣, 平常一些小操作有积累。 这次选了一本一位印度人在20岁写的shell书。</p>
+<p>闲暇时间看到1.16之后就乏了（本身不是那种原理书，而是一本实用书），就想着写点东西，顺便练练手。</p>
+<p>翻目录，发现了一个下载视频的内容。 他介绍的是有一个叫作youtube-dl的视频下载工具 可惜现在这工具被针对了，速度堪忧。</p>
+<p>替换工具： <a target="_blank" rel="noopener" href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a></p>
+<p>两者原理都差不多， 通过向服务器发出GET请求（就像浏览器一样）来实现视频下载。 它会伪装成浏览器，使得YouTube或其他视频提供商以为这是一台流媒体设备，从而下载到视频。</p>
+<p>然后我在rc文件加了些alias，方便使用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> dvF=<span class="string">&#x27;yt-dlp -F&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> dvf=<span class="string">&#x27;yt-dlp -f&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> dvmp4=<span class="string">&#x27;yt-dlp -f &quot;bestvideo[ext=mp4]+bestaudio[ext=m4a]&quot; --merge-output-format mp4&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> dvmkv=<span class="string">&#x27;yt-dlp -f &quot;bestvideo[ext=mkv]+bestaudio[ext=webm]&quot; --merge-output-format mkv&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>dv是download video的缩写，F是-list-formats，f是format的缩写，分别可选mp4，mkv。</p>
+<p>更多见<a target="_blank" rel="noopener" href="https://github.com/yt-dlp/yt-dlp#usage-and-options">USAGE AND OPTIONS</a></p>
+<p>Example:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dvmp4 https://www.youtube.com/watch?v=Yd8YGqFdZn8</span><br></pre></td></tr></table></figure>
+<p>show <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[youtube] Yd8YGqFdZn8: Downloading webpage</span><br><span class="line">[youtube] Yd8YGqFdZn8: Downloading android player API JSON</span><br><span class="line">[info] Yd8YGqFdZn8: Downloading 1 format(s): 136+140</span><br><span class="line">[download] Destination: 増えていく『さかな』『ちんあなご』 [Yd8YGqFdZn8].f136.mp4</span><br><span class="line">[download] 100% of    5.15MiB <span class="keyword">in</span> 00:00:02 at 1.82MiB/s</span><br><span class="line">[download] Destination: 増えていく『さかな』『ちんあなご』 [Yd8YGqFdZn8].f140.m4a</span><br><span class="line">[download] 100% of  523.91KiB <span class="keyword">in</span> 00:00:00 at 624.42KiB/s</span><br><span class="line">[Merger] Merging formats into <span class="string">&quot;増えていく『さかな』『ちんあなご』 [Yd8YGqFdZn8].mp4&quot;</span></span><br><span class="line">Deleting original file 増えていく『さかな』『ちんあなご』 [Yd8YGqFdZn8].f140.m4a (pass -k to keep)</span><br><span class="line">Deleting original file 増えていく『さかな』『ちんあなご』 [Yd8YGqFdZn8].f136.mp4 (pass -k to keep)</span><br></pre></td></tr></table></figure></p>
+<p>目录下就有以该视频标题为文件名的mp4文件了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/22/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter06/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1234,95 +1319,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter01/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/18/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter01/" class="post-title-link" itemprop="url">Accelerated_Cpp_chapter01 String</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-10-18 11:03:00 / Modified: 11:05:30" itemprop="dateCreated datePublished" datetime="2022-10-18T11:03:00+08:00">2022-10-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/Accelerated-Cpp/" itemprop="url" rel="index"><span itemprop="name">Accelerated Cpp</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="chapter01-string">chapter01 string</h1>
-<ul>
-<li>A variable is an <strong>object</strong> that has a name</li>
-</ul>
-<p>In order to read input, we must have a place to put it. Such a place is called a <strong>variable</strong>. A variable is an <strong>object</strong> that has a name. <strong>An object, in turn, is apart of the computer's memory that has a type</strong>. The distinction between objects andvariables is important because, as we'll see in §3.2.2/45, §4.2.3/65, and §10.6.1/183, it ispossible to have objects that do not have names.</p>
-<ul>
-<li>strings not equal to string literals</li>
-</ul>
-<p>One idea is that we can give a variable a value as we define it. We do so by placing, betweenthe variable's name and the semicolon that follows it, an = symbol followed by the value thatwe wish the variable to have. If the variable and value have different types-as §10.2/176shows that strings and string literals do-the implementation will convert the initial valueto the type of the variable.</p>
-<p>strings is a class type string literals is <code>const char[] + '\0'</code></p>
-<ul>
-<li>operator <strong>overloaded</strong>(different type of operands)</li>
-</ul>
-<p>Here we have an example in which + means something completely different. In each case, we can determine what the + operator does by examining the typesof its operands. When an operator has different meanings for operands of different types, wesay that the operator is overloaded</p>
-<ul>
-<li>left-associative: &lt;&lt; &gt;&gt; +</li>
-</ul>
-<p>One property of an operator that never changes is its associativity. We learned in Chapter 0 that &lt;&lt; is left-associative, so that std::cout &lt;&lt; s &lt;&lt; t means the same as(std::cout &lt;&lt; s) &lt;&lt; t. Similarly, the + operator (and, for that matter, the &gt;&gt;operator) is also left-associative. Accordingly, the value of "Hello, " + name + "!" isthe result of concatenating "Hello, " with name, and concatenating the result of thatconcatenation with "!". So, for example, if the variable name contains Estragon, then thevalue of "Hello, " + name + "!" is Hello, Estragon!</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1392,7 +1388,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

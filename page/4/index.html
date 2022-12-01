@@ -158,6 +158,70 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/02/Leetcode/LeetCode-36-Valid-Sudoku/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/02/Leetcode/LeetCode-36-Valid-Sudoku/" class="post-title-link" itemprop="url">LeetCode 36. Valid Sudoku</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-11-02 16:46:45 / Modified: 17:07:39" itemprop="dateCreated datePublished" datetime="2022-11-02T16:46:45+08:00">2022-11-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="leecode-36.-valid-sudoku">LeeCode 36. Valid Sudoku</h1>
+<p>传送门: <a target="_blank" rel="noopener" href="https://leetcode.com/problems/valid-sudoku/">https://leetcode.com/problems/valid-sudoku/</a></p>
+<h2 id="main-idea">Main Idea</h2>
+<p>居然只是模拟题，水一下。</p>
+<h2 id="code">Code</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValidSudoku</span><span class="params">(vector&lt;vector&lt;<span class="type">char</span>&gt;&gt;&amp; board)</span> </span>&#123;</span><br><span class="line">        <span class="type">bool</span> st[<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i ++) &#123;</span><br><span class="line">            <span class="built_in">memset</span>(st, <span class="number">0</span>, <span class="keyword">sizeof</span> st);</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (board[i][j] != <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                    <span class="type">int</span> idx = board[i][j] - <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">                    <span class="keyword">if</span> (st[idx]) &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        st[idx] = <span class="literal">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i ++) &#123;</span><br><span class="line">            <span class="built_in">memset</span>(st, <span class="number">0</span>, <span class="keyword">sizeof</span> st);</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (board[j][i] != <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                    <span class="type">int</span> idx = board[j][i] - <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">                    <span class="keyword">if</span> (st[idx]) &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        st[idx] = <span class="literal">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i += <span class="number">3</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j += <span class="number">3</span>) &#123;</span><br><span class="line">                <span class="built_in">memset</span>(st, <span class="number">0</span>, <span class="keyword">sizeof</span> st);</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> x = <span class="number">0</span>; x &lt; <span class="number">3</span>; x ++) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="type">int</span> y = <span class="number">0</span>; y &lt; <span class="number">3</span>; y ++) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (board[i + x][j + y] != <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                            <span class="type">int</span> idx =  (board[i + x][j + y] - <span class="string">&#x27;1&#x27;</span>);</span><br><span class="line">                            <span class="keyword">if</span> (st[idx]) &#123;</span><br><span class="line">                                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                st[idx] = <span class="literal">true</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/31/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter09/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1312,130 +1376,6 @@ return res;</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/27/Linux/Linux-Shell-scripts-cookbook/Linux-Shell-scripts-cookbook-Have-a-Good-Command/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/27/Linux/Linux-Shell-scripts-cookbook/Linux-Shell-scripts-cookbook-Have-a-Good-Command/" class="post-title-link" itemprop="url">Linux Shell scripts cookbook Have a Good Command</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-10-27 20:30:05 / Modified: 21:02:57" itemprop="dateCreated datePublished" datetime="2022-10-27T20:30:05+08:00">2022-10-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Shell/Linux-Shell-scripts-cookbook/" itemprop="url" rel="index"><span itemprop="name">Linux Shell scripts cookbook</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="have-a-good-command">Have a Good Command</h1>
-<h2 id="overview">Overview</h2>
-<h2 id="recording-and-playing-back-terminalsessions">Recording and playing back terminalsessions</h2>
-<p>script和scriptreplay命令在绝大多数GNU/Linux发行版上都可以找到</p>
-<p>可以通过录制终端会话来制作命令行技巧视频教程，也可以与他人分享会话记录文件，研究如何使用命令行完成某项任务</p>
-<p>example:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ script -t 2&gt; timing.log -a output.session</span><br><span class="line"></span><br><span class="line"><span class="comment"># 演示tclsh</span></span><br><span class="line">$ tclsh</span><br><span class="line">$ puts [<span class="built_in">expr</span> 2 + 2]</span><br><span class="line">4</span><br><span class="line">% <span class="built_in">exit</span></span><br><span class="line">$ <span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
-<p><code>-t</code>选项将时间戳写入timing.log文件，<code>-a</code>选项将会话记录写入output.session文件</p>
-<p>利用文件timing.log和output.session，可以按照下面的方法回放命令执行过程</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ scriptreplay timing.log output.session</span><br><span class="line"><span class="comment"># will playing</span></span><br></pre></td></tr></table></figure>
-<h2 id="finding-files-and-file-listing">Finding files and file listing</h2>
-<p>find命令的工作方式如下：沿着文件层次结构向下遍历，匹配符合条件的文件，执行相应 的操作。默认的操作是打印出文件和目录，这也可以使用-print选项来指定。</p>
-<p>example: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ find . -<span class="built_in">print</span></span><br><span class="line">.<span class="built_in">history</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure> print选项使用（换行符）分隔输出的每个文件或目录名</p>
-<p>而-print0选项则使用空字符'\0'来分隔</p>
-<p>-print0的主要用法是将包含换行符或空白字符的文件名传给xargs命令</p>
-<p>example: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$&gt; <span class="built_in">echo</span> <span class="string">&quot;test&quot;</span> &gt; <span class="string">&quot;file name&quot;</span></span><br><span class="line">$&gt; find . -<span class="built_in">type</span> f -<span class="built_in">print</span> | xargs <span class="built_in">ls</span> -l</span><br><span class="line"><span class="built_in">ls</span>: cannot access /file: No such file or directory</span><br><span class="line"><span class="built_in">ls</span>: cannot access name: No such file or directory</span><br><span class="line">$&gt; find . -<span class="built_in">type</span> f -print0 | xargs -0 <span class="built_in">ls</span> -l</span><br><span class="line">-rw-r--r-- 1 user group 5 Aug 24 15:00 ./file name</span><br></pre></td></tr></table></figure></p>
-<h3 id="search-based-on-name-or-regular-expression-match">Search based on name or regular expression match</h3>
-<p>find命令的-name选项可以根据文件名进行搜索 这个模式可以是通配符，也可以是正则表达式</p>
-<p>example: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ find . -name <span class="string">&quot;*.txt&quot;</span></span><br><span class="line">./file.txt</span><br><span class="line">./file2.txt</span><br></pre></td></tr></table></figure></p>
-<p>注意<em>.txt两边的单引号。shell会扩展没有引号或是出现在双引号（"）中 的通配符。单引号能够阻止shell扩展</em>.txt，使得该字符串能够原封不动地传给 find命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find /home/slynux -name <span class="string">&#x27;*.txt&#x27;</span> -<span class="built_in">print</span></span><br></pre></td></tr></table></figure>
-<h4 id="忽略字母大小写">忽略字母大小写</h4>
-<p>find命令有一个选项-iname（忽略字母大小写），该选项的作用和-name类似，只不过在匹</p>
-<p>配文件名时忽略字母大小写</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">example.txt EXAMPLE.txt file.txt</span><br><span class="line">$ find . -iname <span class="string">&quot;example*&quot;</span> -<span class="built_in">print</span></span><br><span class="line">./example.txt</span><br><span class="line">./EXAMPLE.txt</span><br></pre></td></tr></table></figure>
-<h4 id="find-逻辑操作符">find 逻辑操作符</h4>
-<p>find命令支持逻辑操作符。-a和-and选项可以执行逻辑与（AND）操作， -o和-or选项可以执行逻辑或（OR）操作。</p>
-<p>example: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">new.txt some.jpg text.pdf stuff.png</span><br><span class="line">$ find . \( -name <span class="string">&quot;*.txt&quot;</span> -o -name <span class="string">&quot;*.pdf&quot;</span> \) -<span class="built_in">print</span></span><br><span class="line">./text.txt</span><br><span class="line">./next.txt</span><br></pre></td></tr></table></figure> （以及）用于将-name '<em>.txt' -o -name '</em>.pdf'视为一个整体。</p>
-<p>下面的命令演示了如何使用-and操作符选择名字以s开头且其中包含e的文件： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find . \( -name <span class="string">&#x27;*e*&#x27;</span> -and -name <span class="string">&#x27;s*&#x27;</span> \) -<span class="built_in">print</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="限制所匹配文件的路径以及名称">限制所匹配文件的路径以及名称</h4>
-<p>-path选项可以限制所匹配文件的路径及名称。例如，$ find /home/users -path '<em>/slynux/</em>' -name '*.txt' –print能够匹配文件/home/users/slynux/readme.txt，但无法匹 配/home/users/slynux.txt。</p>
-<p>III :-regex选项和-path类似，只不过前者是基于正则表达式来匹配文件路径的。</p>
-<p>下面的命令可以匹配.py或.sh文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">new.PY next.jpg test.py script.sh</span><br><span class="line">$ find . -regex <span class="string">&#x27;.*\.\(py\|sh\)&#x27;</span></span><br><span class="line">./test.py</span><br><span class="line">script.sh</span><br></pre></td></tr></table></figure>
-<p>-iregex 选项可以让正则表达式在匹配时忽略大小写。</p>
-<p>example: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ find . -iregex <span class="string">&#x27;.*\.\(py\|sh\)$&#x27;</span></span><br><span class="line">./test.py</span><br><span class="line">./new.PY</span><br><span class="line">./script.sh</span><br></pre></td></tr></table></figure></p>
-<h3 id="negating-arguments">Negating arguments</h3>
-<p>find也可以用!排除匹配到的模式：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ find . ! -name <span class="string">&#x27;*.txt&#x27;</span> -<span class="built_in">print</span></span><br><span class="line">.</span><br><span class="line">./next.txt</span><br><span class="line">./test.txt</span><br><span class="line">./new.txt</span><br></pre></td></tr></table></figure>
-<h3 id="searching-based-on-the-directory-depth">Searching based on the directory depth</h3>
-<p>find命令在查找时会遍历完所有的子目录。默认情况下，find命令不会跟随符号链接。-L选项可以强制其改变这种行为。但如果碰上了指向自身的链接，find命令就会陷入死循环中。</p>
-<p>-maxdepth和–mindepth选项可以限制find命令遍历的目录深度。这可以避免find命令没完没了地查找。</p>
-<p>/proc文件系统中包含了系统与当前执行任务的信息。特定任务的目录层次相当深，其中还有一些绕回到自身（loop back on themselves）的符号链接。 系统中运行的每个进程在proc中都有对应的子目录，其名称就是该进程的进程ID。这个目录下有一个叫作cwd的链接，指向进程的当前工作目录。</p>
-<p>example: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find -L /proc -maxdepth 1 -name <span class="string">&#x27;bundlemaker.def&#x27;</span> 2&gt;/dev/null</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>-L选项告诉find命令跟随符号链接</li>
-<li>从/proc目录开始查找</li>
-<li>-maxdepth 1将搜索范围仅限制在当前目录</li>
-<li>-name 'bundlemaker.def'指定待查找的文件</li>
-<li>2&gt;/dev/null将有关循环链接的错误信息发送到空设备中</li>
-</ul>
-<p>Tips: -maxdepth和-mindepth应该在find命令中及早出现。如果作为靠后的选项 ，有可能会影响到find的效率，因为它不得不进行一些不必要的检查。例如， 如果-maxdepth出现在-type之后，find首先会找出-type所指定的文件，然 后再在匹配的文件中过滤掉不符合指定深度的那些文件。但是如果反过来，在 -type之前指定目录深度，那么find就能够在找到所有符合指定深度的文件后, 再检查这些文件的类型，这才是最有效的搜索之道。</p>
-<h3 id="searching-based-on-file-type">Searching based on file type</h3>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1505,7 +1445,7 @@ return res;</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
