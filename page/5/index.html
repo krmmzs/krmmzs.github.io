@@ -158,6 +158,183 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/29/Linux/CLI/fzf/fzf-advanced/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/29/Linux/CLI/fzf/fzf-advanced/" class="post-title-link" itemprop="url">fzf advanced</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-29 14:09:12 / Modified: 21:04:29" itemprop="dateCreated datePublished" datetime="2022-10-29T14:09:12+08:00">2022-10-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/CLI/" itemprop="url" rel="index"><span itemprop="name">CLI</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="fzf-advanced">fzf advanced</h1>
+<p>Yes, I love fzf.</p>
+<p>It make my life easier.</p>
+<h2 id="whats-fzf">What's fzf?</h2>
+<blockquote>
+<p>fzf is a general-purpose command-line fuzzy finder. It's an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc.</p>
+</blockquote>
+<p>fzf is an interactive Unix filter program that is designed to be used with other Unix tools. It reads a list of items from the standard input, allows you to select a subset of the items, and prints the selected ones to the standard output. You can think of it as an interactive version of grep, and it's already useful even if you don't know any of its options.</p>
+<h2 id="pros">Pros</h2>
+<ul>
+<li>Portable, no dependencies</li>
+<li>Blazingly fast</li>
+<li>The most comprehensive feature set</li>
+<li>Flexible layout</li>
+<li>Batteries included
+<ul>
+<li>Vim/Neovim plugin, key bindings, and fuzzy auto-completion</li>
+</ul></li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf/tree/168829b5550336886a426073670153f84f8a34b2#installation">github Installation</a></p>
+<p>Tips: if you are using Ubuntu, don't use apt to install fzf, it's too old.</p>
+<h2 id="find-file">Find file</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># fzf find files</span><br><span class="line">alias v=&quot;fd --type f --hidden --exclude .git | fzf-tmux -p 70% --reverse | xargs nvim&quot;</span><br><span class="line"># fzf with cd</span><br><span class="line">export FZF_CTRL_T_COMMAND=&quot;find . -maxdepth 1 | sed &#x27;s/^..//&#x27;&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>v
+<ul>
+<li>--type f : only find files</li>
+<li>--hidden : find hidden files</li>
+<li>--exclude .git : exclude .git</li>
+<li>fzf-tmux : Popup window support use fzf-tmux</li>
+<li>-p 70% : preview 70% of the screen</li>
+<li>--reverse : reverse the order</li>
+<li>xargs nvim : open the file with nvim</li>
+</ul></li>
+</ul>
+<p><img src="/images/fzf-01.png" alt="fzf-01.png" style="zoom:70%;" /> <img src="/images/fzf-02.png" alt="fzf-02.png" style="zoom:70%;" /></p>
+<ul>
+<li>FZF_CTRL_T_COMMAND
+<ul>
+<li>find . -maxdepth 1 : find files in current directory</li>
+<li>sed 's/^..//' : remove the first two characters</li>
+</ul></li>
+</ul>
+<p><img src="/images/fzf-03.png" alt="fzf-03.png" style="zoom:70%;" /></p>
+<p>More see <a target="_blank" rel="noopener" href="https://github.com/krmmzs/.dotfiles/blob/master/zsh/.zshrc">dotfiles</a></p>
+<h2 id="find-command-history">Find command history</h2>
+<p><code>CTRL-R</code> - Paste the selected command from history onto the command-line</p>
+<ul>
+<li>If you want to see the commands in chronological order, press <code>CTRL-R</code> again which toggles sorting by relevance</li>
+<li>Set <code>FZF_CTRL_R_OPTS</code> to pass additional options</li>
+</ul>
+<p><img src="/images/fzf-04.png" alt="fzf-04.png" style="zoom:70%;" /></p>
+<h2 id="quick-cd">Quick cd</h2>
+<p><code>ALT-C</code> - cd into the selected directory</p>
+<ul>
+<li>Set <code>FZF_ALT_C_COMMAND</code> to override the default command</li>
+<li>Set <code>FZF_ALT_C_OPTS</code> to pass additional options</li>
+</ul>
+<p><img src="/images/fzf-06.png" alt="fzf-06.png" style="zoom:70%;" /> <img src="/images/fzf-07.png" alt="fzf-07.png" style="zoom:70%;" /></p>
+<p>but if you want to preview the directory's content, more recommended to use <a target="_blank" rel="noopener" href="https://github.com/ranger/ranger">ranger</a></p>
+<p>after install ranger, type <code>. ranger</code> to quick cd</p>
+<p><img src="/images/fzf-08.png" alt="fzf-08.png" style="zoom:70%;" /></p>
+<h2 id="as-the-secondary-filter">As the secondary filter</h2>
+<h2 id="fuzzy-completion-for-bash-and-zsh">Fuzzy completion for bash and zsh</h2>
+<p>Fuzzy completion for files and directories can be triggered if the word before the cursor ends with the trigger sequence, which is by default <code>**</code>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COMMAND [DIRECTORY/][FUZZY_PATTERN]**&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
+<p>EX:</p>
+<ul>
+<li><p>You can select multiple items with TAB key nvim **<TAB></p></li>
+<li><p>Directories under ~/github that match <code>fzf</code> cd ~/github/fzf**<TAB></p></li>
+</ul>
+<h3 id="process-ids">Process IDs</h3>
+<p>Fuzzy completion for PIDs is provided for kill command.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Can select multiple processes with &lt;TAB&gt; or &lt;Shift-TAB&gt; keys</span></span><br><span class="line"><span class="built_in">kill</span> -9 **&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="host-names">Host names</h3>
+<p>For ssh and telnet commands, fuzzy completion for hostnames is provided. The names are extracted from /etc/hosts and ~/.ssh/config.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh **&lt;TAB&gt;</span><br><span class="line">telnet **&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="environment-variables-aliases">Environment variables / Aliases</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unset</span> **&lt;TAB&gt; </span><br><span class="line"><span class="built_in">export</span> **&lt;TAB&gt; </span><br><span class="line"><span class="built_in">unalias</span> **&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="fzf-replace-tab">fzf replace tab</h2>
+<p>requirement: <a target="_blank" rel="noopener" href="https://github.com/Aloxaf/fzf-tab#configure">fzf-tab</a></p>
+<p>演示：</p>
+<figure>
+<img src="/gif/fzf-01.gif" alt="" /><figcaption>fzf-01.gif</figcaption>
+</figure>
+<script id="asciicast-YlYXHGvQ786rS7kQy2u81aI9v" src="https://asciinema.org/a/YlYXHGvQ786rS7kQy2u81aI9v.js" async></script>
+<h2 id="for-vimneovim">For vim(neovim)</h2>
+<p>If you use vim only: <a target="_blank" rel="noopener" href="https://github.com/airblade/vim-rooter">airblade/vim-rooter</a></p>
+<p>Rooter changes the working directory to the project root when you open a file or directory.</p>
+<p>If you use neovim: <a target="_blank" rel="noopener" href="https://github.com/ahmedkhalf/project.nvim/tree/628de7e433dd503e782831fe150bb750e56e55d6">ahmedkhalf/project.nvim</a></p>
+<p>project.nvim is an all in one neovim plugin written in lua that provides superior project management.</p>
+<p>Then fzf will find files in the project root.</p>
+<p>more see <a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf/blob/master/README-VIM.md">FZF Vim integration</a></p>
+<h3 id="fzf-in-vim">FzF in vim</h3>
+<p>I already replaced fzf with <a target="_blank" rel="noopener" href="https://github.com/nvim-telescope/telescope.nvim">telescope</a>, but I still want to record it. If you use vim only, fzf.vim still a good choice.</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf.vim">fzf</a></p>
+<p><img src="/images/fzf-05.png" alt="fzf-05.png" style="zoom:70%;" /></p>
+<h2 id="reference">Reference</h2>
+<p>Some reference that I may not have mentioned in the article, because I forgot where it came from, maybe is my idea.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Fzf">archlinux wiki</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf/blob/master/ADVANCED.md">fzf ADVANCED</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh">Fuzzy completion for bash and zsh</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf/blob/master/README-VIM.md">FZF Vim integration</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/27/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter08/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1045,110 +1222,6 @@ Sx
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/23/Anime/ffmpeg-crop-anime-Bocchi-the-Rock-record/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/23/Anime/ffmpeg-crop-anime-Bocchi-the-Rock-record/" class="post-title-link" itemprop="url">ffmpeg crop anime Bocchi the Rock record</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-10-23 16:40:16" itemprop="dateCreated datePublished" datetime="2022-10-23T16:40:16+08:00">2022-10-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-29 15:40:45" itemprop="dateModified" datetime="2022-10-29T15:40:45+08:00">2022-10-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Anime/" itemprop="url" rel="index"><span itemprop="name">Anime</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Anime/FFmpeg/" itemprop="url" rel="index"><span itemprop="name">FFmpeg</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="ffmpeg-crop-anime-bocchi-the-rock-record">ffmpeg crop anime Bocchi the Rock record</h1>
-<p>Bocchi the Rock实在是太好看了，想裁一些片段玩。</p>
-<h2 id="record">Record</h2>
-<p>还没写脚本，所以操作有点笨拙。</p>
-<p>先是产生缩略图 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i 2.mp4 -vf <span class="string">&quot;fps=1/10,scale=-2:720&quot;</span> thumbnail-%03d.jpg</span><br></pre></td></tr></table></figure></p>
-<p>直接就是创个interaction.md 写下要裁剪的区间 然后在这个文本里把命令编辑好到目录下执行 在文本里编辑命令的好处是，记录下产生视频的命令, 起到log的作用。</p>
-<p><img src="/images/ffmpeg_bocci_the_rock-01.png" alt="ffmpeg_bocci_the_rock-01" style="zoom:70%;" /></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -ss 00:14:44 -t 40 -i 2.mp4 -vcodec copy -acodec copy 02.mp4</span><br></pre></td></tr></table></figure>
-<p>目录下是这些</p>
-<p><img src="/images/ffmpeg_bocci_the_rock-02.png" alt="ffmpeg_bocci_the_rock-02" style="zoom:70%;" /></p>
-<p>然后发现了个bug: 起始位置ubuntu22默认视频player黑屏，mpv打开会从-1s开始播放, 估计是关键字没卡上。。</p>
-<h2 id="fix">Fix</h2>
-<p>ffmepg剪切视频，很方便，但是也有很大缺陷： （1）剪切时间点不精确 （2）有时剪切的视频开头有黑屏</p>
-<p>造成这些问题的原因是ffmpeg无法seek到非关键帧上。</p>
-<p>上述的剪切方式比较基本</p>
-<h3 id="parameter-optimization">Parameter optimization</h3>
-<ul>
-<li>将-ss， -t 参数放在-i参数之前(已经这么做了)</li>
-</ul>
-<p>对输入文件执行seek操作，会seek到-ss设置的时间点前面的关键帧上。</p>
-<p>时间不精确，但是不会出现黑屏(然而ubuntu的视频播放器还是黑屏)</p>
-<ul>
-<li>accurate_seek</li>
-</ul>
-<p>如果编码格式采用的copy 最好加上 -avoid_negative_ts 1参数</p>
-<h3 id="final-command">Final command</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -ss 00:14:44 -t 40 -i 2.mp4 -vcodec copy -acodec copy -avoid_negative_ts 1 02.mp4</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1218,7 +1291,7 @@ Sx
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1231,7 +1304,7 @@ Sx
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1272,7 +1345,7 @@ Sx
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
