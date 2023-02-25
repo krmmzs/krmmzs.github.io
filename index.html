@@ -158,6 +158,222 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/25/how-to-use-man/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/02/25/how-to-use-man/" class="post-title-link" itemprop="url">how to use man</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-02-25 19:00:13 / Modified: 20:26:11" itemprop="dateCreated datePublished" datetime="2023-02-25T19:00:13+08:00">2023-02-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="rtfm-之-man手册的使用">RTFM 之 man手册的使用</h2>
+<h2 id="info">Info</h2>
+<p>The man pages, short for reference manual pages, are your keys to Linux. Everything you want to know is there – take it all in an run with it. The collection of documents will never win a Pulitzer prize, but the set is quite accurate and complete. The man pages are the primary source and that authority is well-known.</p>
+<p>While they are the “go to” source, they aren’t the most pleasant to read. Once, in a long past philosophy class, I was told that reading Aristotle was the most boring read around. I disagreed: when it comes to dry reading, Aristotle comes in at a distant second to man pages.</p>
+<p>At first glance, the pages may look incomplete but, believe it or not, the man pages aren’t designed to hide information from you – it’s just that there is so much information that the pages have to be structured and information is given in the most brief form possible. The explanations are rather spartan and they will take some getting used to, but once you get the hang of using them, you’ll see how useful they actually are.</p>
+<h2 id="how-to-use">How to use</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man <span class="built_in">ls</span></span><br></pre></td></tr></table></figure>
+<p>There is an introduction to the man pages and it’s important that you read this one. It spells out, in great detail, how the man pages are laid out and organized.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man man</span><br></pre></td></tr></table></figure>
+<ul>
+<li>"带有'*'标记的命令可以在前面跟一个数, 这时命令的行为在括号里给出"</li>
+<li>NAME - 命令名</li>
+<li>SYNOPSIS - 使用方法大纲</li>
+<li>CONFIGURATION - 配置</li>
+<li>DESCRIPTION - 功能说明</li>
+<li>OPTIONS - 可选参数说明</li>
+<li>EXIT STATUS - 退出状态, 这是一个返回给父进程的值</li>
+<li>RETURN VALUE - 返回值</li>
+<li>ERRORS - 可能出现的错误类型</li>
+<li>ENVIRONMENT - 环境变量</li>
+<li>FILES - 相关配置文件</li>
+<li>VERSIONS - 版本</li>
+<li>CONFORMING TO - 符合的规范</li>
+<li>NOTES - 使用注意事项</li>
+<li>BUGS - 已经发现的bug</li>
+<li>EXAMPLE - 一些例子</li>
+<li>AUTHORS - 作者</li>
+<li>SEE ALSO - 功能或操作对象相近的其它命令</li>
+</ul>
+<h2 id="tips">Tips</h2>
+<ul>
+<li>use neovim/vim to read man(I love this way)</li>
+</ul>
+<p>You could <code>:Man</code> like in command line.</p>
+<p>If you use vim, you need put this line in your <code>.vimrc</code>:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">runtime! ftplugin/man.<span class="keyword">vim</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>当你想做一件事的而不知道用什么命令的时候, <code>man</code>的<code>-k</code>参数可以用来列出候选的命令, 然后再通过查看这些命令的manual page来学习怎么使用它们.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man -k ftp</span><br></pre></td></tr></table></figure>
+<p>get: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">CURLINFO_FTP_ENTRY_PATH (3) - get entry path <span class="keyword">in</span> FTP server</span><br><span class="line">CURLOPT_ACCEPTTIMEOUT_MS (3) - <span class="built_in">timeout</span> waiting <span class="keyword">for</span> FTP server to connect back</span><br><span class="line">CURLOPT_CHUNK_BGN_FUNCTION (3) - callback before a transfer with FTP wildcardmatch</span><br><span class="line">CURLOPT_CHUNK_DATA (3) - pointer passed to the FTP chunk callbacks</span><br><span class="line">CURLOPT_CHUNK_END_FUNCTION (3) - callback after a transfer with FTP wildcardmatch</span><br><span class="line">CURLOPT_FTP_ACCOUNT (3) - account info <span class="keyword">for</span> FTP</span><br><span class="line">CURLOPT_FTP_ALTERNATIVE_TO_USER (3) - <span class="built_in">command</span> to use instead of USER with FTP</span><br><span class="line">CURLOPT_FTP_CREATE_MISSING_DIRS (3) - create missing <span class="built_in">dirs</span> <span class="keyword">for</span> FTP and SFTP</span><br><span class="line">CURLOPT_FTP_FILEMETHOD (3) - select directory traversing method <span class="keyword">for</span> FTP</span><br><span class="line">CURLOPT_FTP_SKIP_PASV_IP (3) - ignore the IP address <span class="keyword">in</span> the PASV response</span><br><span class="line">CURLOPT_FTP_SSL_CCC (3) - switch off SSL again with FTP after auth</span><br><span class="line">CURLOPT_FTP_USE_EPRT (3) - use EPRT <span class="keyword">for</span> FTP</span><br><span class="line">CURLOPT_FTP_USE_EPSV (3) - use EPSV <span class="keyword">for</span> FTP</span><br><span class="line">CURLOPT_FTP_USE_PRET (3) - use PRET <span class="keyword">for</span> FTP</span><br><span class="line">CURLOPT_FTPPORT (3)  - make FTP transfer active</span><br><span class="line">CURLOPT_FTPSSLAUTH (3) - order <span class="keyword">in</span> <span class="built_in">which</span> to attempt TLS vs SSL</span><br><span class="line">CURLOPT_KRBLEVEL (3) - FTP kerberos security level</span><br><span class="line">CURLOPT_POSTQUOTE (3) - (S)FTP commands to run after the transfer</span><br><span class="line">CURLOPT_PREQUOTE (3) - commands to run before an FTP transfer</span><br><span class="line">CURLOPT_PROXY_TRANSFER_MODE (3) - append FTP transfer mode to URL <span class="keyword">for</span> proxy</span><br><span class="line">CURLOPT_QUOTE (3)    - (S)FTP commands to run before transfer</span><br><span class="line">CURLOPT_SSH_AUTH_TYPES (3) - auth types <span class="keyword">for</span> SFTP and SCP</span><br><span class="line">CURLOPT_TFTP_BLKSIZE (3) - TFTP block size</span><br><span class="line">CURLOPT_TFTP_NO_OPTIONS (3) - send no TFTP options requests</span><br><span class="line">CURLOPT_TRANSFERTEXT (3) - request a text based transfer <span class="keyword">for</span> FTP</span><br><span class="line">apt-ftparchive (1)   - Utility to generate index files</span><br><span class="line">ftp (1)              - Internet file transfer program</span><br><span class="line">pam_ftp (8)          - PAM module <span class="keyword">for</span> anonymous access module</span><br><span class="line">sftp (1)             - OpenSSH secure file transfer</span><br><span class="line">tnftp (1)            - Internet file transfer program</span><br><span class="line">zshzftpsys (1)       - <span class="built_in">zftp</span> <span class="keyword">function</span> front-end</span><br></pre></td></tr></table></figure></p>
+<p>搜索和printf相关的manual page.</p>
+<p>发现输出了很多和<code>printf</code>相关的命令或库函数, 括号里面的数字代表相应的条目属于manual的哪一个大类. 例如<code>printf (1)</code>是一个shell命令, 而<code>printf (3)</code>是一个库函数. 要访问库函数<code>printf</code>的manual page, 你需要在命令行中输入 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man 3 <span class="built_in">printf</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>Using whatis and whereis Commands to Know the Manual’s Sections</li>
+</ul>
+<p>有两个灵巧的工具可以帮助你搜索信息：whatis和whereis。</p>
+<p>例如我想要知道关于passwd file的信息（不是命令）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">whatis passwd</span><br><span class="line">man -f passwd</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">passwd (1)           - change user password</span><br><span class="line">passwd (1ssl)        - OpenSSL application commands</span><br><span class="line">passwd (5)           - the password file</span><br></pre></td></tr></table></figure>
+<p>其中第一个是passwd命令的manual page，第二个是openssl的manual page，第三个是passwd file的manual page。</p>
+<p>所以现在为了看到password的file可以输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man 5 passwd</span><br></pre></td></tr></table></figure>
+<ul>
+<li>whereis whereis</li>
+</ul>
+<p>whereis命令的名字本身就说明了问题--它告诉你一个程序在文件系统中的位置。它也会告诉你man page的存放位置。再以cal为例，我在提示符下键入这个命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">whereis passwd</span><br><span class="line">man -w passwd</span><br></pre></td></tr></table></figure>
+<p>get: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd: /usr/bin/passwd /etc/passwd /usr/share/man/man5/passwd.5.gz /usr/share/man/man1/passwd.1ssl.gz /usr/share/man/man1/passwd.1.gz</span><br></pre></td></tr></table></figure></p>
+<h2 id="source">Source</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://nju-projectn.github.io/ics-pa-gitbook/ics2022/man.html">NJUPA man快速入门</a></li>
+<li><a target="_blank" rel="noopener" href="https://itsfoss.com/linux-man-page-guide/">RTFM! How to Read (and Understand) the Fantastic Man Pages in Linux</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/09/change-the-trash-icon-in-ubuntu22-04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/02/09/change-the-trash-icon-in-ubuntu22-04/" class="post-title-link" itemprop="url">change the trash icon in ubuntu22.04</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-02-09 23:01:38 / Modified: 23:12:52" itemprop="dateCreated datePublished" datetime="2023-02-09T23:01:38+08:00">2023-02-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="where-are-all-the-icons-in-ubuntu22.04">Where are all the icons in ubuntu22.04?</h2>
+<p>In Ubuntu, icons are stored in several directories, including:</p>
+<ul>
+<li><code>/usr/share/icons</code>: This directory contains system-wide icons that are installed by default as part of various packages.</li>
+<li><code>/usr/local/share/icons</code>: This directory contains icons that have been installed manually or by third-party software.</li>
+<li><code>~/.icons</code>: This directory, located in the home directory of each user, contains custom icons that have been installed or created by individual users.</li>
+</ul>
+<p>In addition to these directories, some applications may include their own icons in their installation directories. For example, icons for a specific application might be located in <code>/usr/share/&lt;application-name&gt;/icons</code>.</p>
+<p>Note that the directories listed above may contain subdirectories, each of which may contain icons for a specific theme. For example, the <code>/usr/share/icons</code> directory may contain subdirectories such as <code>Adwaita</code>, <code>Humanity</code>, <code>elementary</code>, etc. each containing icons for a specific theme.</p>
+<h2 id="main">Main</h2>
+<p>To change the Trash icon in Ubuntu 22.04, you need to replace the icon files that are associated with the Trash folder. Here are the steps to do this:</p>
+<ol type="1">
+<li><p>Choose a new icon: You can either use an existing icon file or download a new one. Icon files in Ubuntu are typically stored in the <code>/usr/share/icons</code> directory, but you can also use icons from other locations. Make sure the icon you choose is in the .svg or .png format.</p></li>
+<li><p>Backup the original icon: To make sure you can revert the changes if necessary, you should backup the original Trash icon. You can do this by copying the icon files from the <code>/usr/share/icons/hicolor/48x48/places</code> directory to another location.</p></li>
+<li><p>Replace the original icon: Copy the new icon files to the <code>/usr/share/icons/hicolor/48x48/places</code> directory and give them the same names as the original Trash icon files. Make sure that you have the necessary permissions to replace the original icon files.</p></li>
+<li><p>Refresh the icon cache: To make sure that the changes take effect, you need to refresh the icon cache. You can do this by running the following command in the terminal:</p></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gtk-update-icon-cache /usr/share/icons/hicolor/</span><br></pre></td></tr></table></figure>
+<p>(gtk)</p>
+<p>After completing these steps, the Trash folder in the file manager should have the new icon. Note that these steps may vary slightly depending on the specific version of Ubuntu and the file manager you are using.</p>
+<h2 id="but-my-usrshareiconshicolor48x48places-is-empty">but my /usr/share/icons/hicolor/48x48/places is empty</h2>
+<p>If the /usr/share/icons/hicolor/48x48/places directory is empty, it means that the default Trash icon files are stored in a different location. You can find the location of the Trash icon files by using the find command in the terminal. Here's an example:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo find /usr/share/icons -name <span class="string">&quot;user-trash.svg&quot;</span></span><br></pre></td></tr></table></figure>
+<p>This command will search for a file named user-trash.svg in the /usr/share/icons directory and its subdirectories. The output of the command will show you the path to the file that contains the Trash icon.</p>
+<p>Once you have found the location of the Trash icon files, you can follow the steps to change the icon as described in my previous answer. Make sure to backup the original Trash icon files and refresh the icon cache after replacing the files.</p>
+<h2 id="my-result">My result</h2>
+<p><img src="../images/bochi01.jpg" alt="" style="zoom:%;" /> <img src="../images/bochi02.jpg" alt="" style="zoom:%;" /></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/17/Manga/goodbyEri/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -745,139 +961,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/13/Leetcode/LeetCode-49-Group-Anagrams/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/13/Leetcode/LeetCode-49-Group-Anagrams/" class="post-title-link" itemprop="url">LeetCode 49. Group Anagrams</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-11-13 00:01:08 / Modified: 00:09:26" itemprop="dateCreated datePublished" datetime="2022-11-13T00:01:08+08:00">2022-11-13</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="leetcode-49.-group-anagrams">LeetCode 49. Group Anagrams</h1>
-<h2 id="main-idea">Main Idea</h2>
-<p>两者不好比较的话，可以通过比较两者的中间状态</p>
-<p>这个中间状态比较容易想到是排序后的字符串</p>
-<p>开哈希表，key是排序后的字符串，value是对应的字符串数组</p>
-<h2 id="code">Code</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;string&gt;&gt; <span class="built_in">groupAnagrams</span>(vector&lt;string&gt;&amp; strs) &#123;</span><br><span class="line">        unordered_map&lt;string, vector&lt;string&gt;&gt; m;</span><br><span class="line">        vector&lt;vector&lt;string&gt;&gt; res;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; str : strs) &#123;</span><br><span class="line">            string tstr = str;</span><br><span class="line">            <span class="built_in">sort</span>(str.<span class="built_in">begin</span>(), str.<span class="built_in">end</span>());</span><br><span class="line">            m[str].<span class="built_in">emplace_back</span>(tstr);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; item : m) res.<span class="built_in">emplace_back</span>(item.second);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/11/Leetcode/LeetCode-48-Rotate-Image/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/11/Leetcode/LeetCode-48-Rotate-Image/" class="post-title-link" itemprop="url">LeetCode 48. Rotate Image</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-11-11 02:21:39 / Modified: 23:03:37" itemprop="dateCreated datePublished" datetime="2022-11-11T02:21:39+08:00">2022-11-11</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="leetcode-48.-rotate-image">LeetCode 48. Rotate Image</h1>
-<h2 id="main-idea">Main Idea</h2>
-<p>翻转题 熟悉行列式的朋友可能可以马上想到先转置再翻转</p>
-<p>此处应有numpy！！！</p>
-<h2 id="code">Code</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">transposeT</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; matrix.<span class="built_in">size</span>(); i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; i; j ++) &#123;</span><br><span class="line">                <span class="built_in">swap</span>(matrix[i][j], matrix[j][i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">transpose_level</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = matrix.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="built_in">reverse</span>(matrix[i].<span class="built_in">begin</span>(), matrix[i].<span class="built_in">end</span>());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">rotate</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">transposeT</span>(matrix);</span><br><span class="line">        <span class="built_in">transpose_level</span>(matrix);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -943,7 +1030,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -158,6 +158,161 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/07/Leetcode/LeetCode-45-Jump-Game-II/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/07/Leetcode/LeetCode-45-Jump-Game-II/" class="post-title-link" itemprop="url">LeetCode 45. Jump Game II</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-11-07 09:29:18" itemprop="dateCreated datePublished" datetime="2022-11-07T09:29:18+08:00">2022-11-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-11-08 01:05:08" itemprop="dateModified" datetime="2022-11-08T01:05:08+08:00">2022-11-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="leetcode-45.-jump-game-ii">LeetCode 45. Jump Game II</h1>
+<h2 id="main-idea">Main Idea</h2>
+<p>[2, 3, 1, 1, 4]</p>
+<p>等价于2往3和1连了条有向边，3往1, 1, 4, 连了条有向边，1往4连了条有向边，4往空连了条有向边。</p>
+<p>这样就变成了一个有向图，求从2到4的最短路径。</p>
+<p>最坏情况下，每个点都往后面所有点连了一条有向边，这样就变成了一个完全图</p>
+<p>边数n^2, 时间复杂度O(n^2)</p>
+<p>优化图可以用dp</p>
+<p>最短路径最小规模的表示可以为0-&gt;2 加上2到终点的距离</p>
+<p>那状态定义为f[i]表示从i到终点的最短路径</p>
+<p>倒推可以得到f[0]</p>
+<p>但是这样也是O(n^2)的时间复杂度</p>
+<p>估计需要找个单调的性质来再优化</p>
+<p>通过归纳可以得知，从小到大遍历过程中，第一次通过 x 可以到达 y 时，y 的最少步数就是 x 的最少步数加 1。因为一次移动，可以从 x 到 [x+1,x+nums(x)]] 的任意位置，所以根据归纳（即 xx 也是这样到达的），这样一定是最优的。</p>
+<p>重新定义f(i): 设状态 f(i) 表示从起点到达 i 所需要的最少步数。</p>
+<h2 id="code">Code</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">jump</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">const</span> <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">f</span><span class="params">(n)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>, j = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (j + nums[j] &lt; i) j ++;</span><br><span class="line">            f[i] = f[j] + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> f[n - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/07/Leetcode/LeetCode-44-Wildcard-Matching/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/07/Leetcode/LeetCode-44-Wildcard-Matching/" class="post-title-link" itemprop="url">LeetCode 44. Wildcard Matching</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-11-07 08:42:00 / Modified: 09:25:55" itemprop="dateCreated datePublished" datetime="2022-11-07T08:42:00+08:00">2022-11-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="leetcode-44.-wildcard-matching">LeetCode 44. Wildcard Matching</h1>
+<h2 id="main-idea">Main Idea</h2>
+<p>和第十题一样</p>
+<p>f(i, j) 表示 s 的前 i 个字符和 p 的前 j 个字符是否匹配</p>
+<p>状态转移看当前的字符是什么</p>
+<ol type="1">
+<li>p[j] is '*'</li>
+<li>p[j] is not '*' s[i] == p[j] &amp;&amp; f(i - 1, j - 1)</li>
+</ol>
+<p>p[j] is '*' 情况有很多，匹配0个就是由f(i, j - 1)推来，匹配1个就是由f(i - 1, j - 1)推来，匹配2个就是由f(i - 2, j - 1)推来，匹配3个就是由f(i - 3, j - 1)推来，匹配4个就是由f(i - 4, j - 1)推来，匹配5个就是由f(i - 5, j - 1)推来，匹配6个就是由f(i - 6, j - 1)推来，匹配7个就是由f(i - 7, j - 1)推来，匹配8个就是由f(i - 8, j - 1)推来，匹配9个就是由f(i - 9, j - 1)推来，匹配10个就是由f(i - 10, j - 1)推来，匹配11个就是由f(i - 11, j - 1)推来，匹配12个就是由f(i - 12, j - 1)推来，匹配13个就是由f(i - 13, j - 1)推来，匹配14个就是由f(i - 14, j - 1)推来，匹配15个就是由f(i - 15, j - 1)推来，匹配16个就是由f(i - 16, j - 1)推来，匹配17个就是由f(i - 17, j - 1)推来，匹配18个就是由f(i - 18, j - 1)推来，匹配19个就是由f(i - 19, j - 1)推来，匹配20个就是由f(i - 20, j - 1)推来，匹配21个就是由f(i - 21, j - 1)推来，匹配22个就是由f(i - 22, j - 1)推来 以此类推</p>
+<p>此时状态数量n^2, 转移数量n, 所以时间复杂度是O(n^3)</p>
+<p>然后利用完全背包的优化方式优化</p>
+<p>f(i, j), f(i, j - 1), f(i, j - 2), f(i, j - 3), f(i, j - 4)... f(i - 1, j), f(i - 1, j - 1), f(i - 1, j - 2), f(i - 1, j - 3), f(i - 1, j - 4)... 替换得到 f(i, j) = f(i - 1, j - 1) | f(i - 1, j)</p>
+<p>转移方程变成了O(1)</p>
+<h2 id="code">Code</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isMatch</span><span class="params">(string s, string p)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = s.<span class="built_in">size</span>(), m = p.<span class="built_in">size</span>();</span><br><span class="line">        s = <span class="string">&#x27; &#x27;</span> + s, p = <span class="string">&#x27; &#x27;</span> + p;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">bool</span>&gt;&gt; <span class="built_in">f</span>(n + <span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="type">bool</span>&gt;(m + <span class="number">1</span>));</span><br><span class="line"></span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (p[j] == <span class="string">&#x27;*&#x27;</span>) &#123;</span><br><span class="line">                    f[i][j] = f[i][j - <span class="number">1</span>] || i &amp;&amp; f[i - <span class="number">1</span>][j];</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    f[i][j] = (s[i] == p[j] || p[j] == <span class="string">&#x27;?&#x27;</span>) &amp;&amp; i &amp;&amp; f[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> f[n][m];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/06/Leetcode/LeetCode-43-Multiply-Strings/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -790,170 +945,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/04/Linux/CLI/fd-advanced/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/04/Linux/CLI/fd-advanced/" class="post-title-link" itemprop="url">fd-advanced</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-11-04 02:01:18 / Modified: 02:03:35" itemprop="dateCreated datePublished" datetime="2022-11-04T02:01:18+08:00">2022-11-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/CLI/" itemprop="url" rel="index"><span itemprop="name">CLI</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="fd-advanced">fd advanced</h1>
-<h2 id="references">References</h2>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/sharkdp/fd#simple-search">fd README</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/03/Leetcode/LeetCode-38-Count-and-Say/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/03/Leetcode/LeetCode-38-Count-and-Say/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-11-03 20:25:15 / Modified: 20:26:15" itemprop="dateCreated datePublished" datetime="2022-11-03T20:25:15+08:00">2022-11-03</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <table>
-<tbody>
-<tr class="odd">
-<td>title: LeetCode 38. Count and Say</td>
-</tr>
-<tr class="even">
-<td>date: 2022-11-03 20:25:15</td>
-</tr>
-<tr class="odd">
-<td>catogories:</td>
-</tr>
-<tr class="even">
-<td>- LeetCode</td>
-</tr>
-<tr class="odd">
-<td>tags:</td>
-</tr>
-<tr class="even">
-<td>- LeetCode</td>
-</tr>
-<tr class="odd">
-<td>- Medium</td>
-</tr>
-</tbody>
-</table>
-<h1 id="count-and-say">38. Count and Say</h1>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1019,7 +1014,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="RTFM 之 man手册的使用 Info The man pages, short for reference manual pages, are your keys to Linux. Everything you want to know is there – take it all in an run with it. The collection of documents will nev">
+<meta property="og:type" content="article">
+<meta property="og:title" content="how to use man">
+<meta property="og:url" content="http://example.com/2023/02/25/how-to-use-man/index.html">
+<meta property="og:site_name" content="krmmzs">
+<meta property="og:description" content="RTFM 之 man手册的使用 Info The man pages, short for reference manual pages, are your keys to Linux. Everything you want to know is there – take it all in an run with it. The collection of documents will nev">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-02-25T11:00:13.000Z">
+<meta property="article:modified_time" content="2023-02-25T12:26:11.754Z">
+<meta property="article:author" content="krmmzs">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/02/25/how-to-use-man/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>how to use man | krmmzs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">krmmzs</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/25/how-to-use-man/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          how to use man
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-02-25 19:00:13 / Modified: 20:26:11" itemprop="dateCreated datePublished" datetime="2023-02-25T19:00:13+08:00">2023-02-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="rtfm-之-man手册的使用">RTFM 之 man手册的使用</h2>
+<h2 id="info">Info</h2>
+<p>The man pages, short for reference manual pages, are your keys to Linux. Everything you want to know is there – take it all in an run with it. The collection of documents will never win a Pulitzer prize, but the set is quite accurate and complete. The man pages are the primary source and that authority is well-known.</p>
+<p>While they are the “go to” source, they aren’t the most pleasant to read. Once, in a long past philosophy class, I was told that reading Aristotle was the most boring read around. I disagreed: when it comes to dry reading, Aristotle comes in at a distant second to man pages.</p>
+<p>At first glance, the pages may look incomplete but, believe it or not, the man pages aren’t designed to hide information from you – it’s just that there is so much information that the pages have to be structured and information is given in the most brief form possible. The explanations are rather spartan and they will take some getting used to, but once you get the hang of using them, you’ll see how useful they actually are.</p>
+<h2 id="how-to-use">How to use</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man <span class="built_in">ls</span></span><br></pre></td></tr></table></figure>
+<p>There is an introduction to the man pages and it’s important that you read this one. It spells out, in great detail, how the man pages are laid out and organized.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man man</span><br></pre></td></tr></table></figure>
+<ul>
+<li>"带有'*'标记的命令可以在前面跟一个数, 这时命令的行为在括号里给出"</li>
+<li>NAME - 命令名</li>
+<li>SYNOPSIS - 使用方法大纲</li>
+<li>CONFIGURATION - 配置</li>
+<li>DESCRIPTION - 功能说明</li>
+<li>OPTIONS - 可选参数说明</li>
+<li>EXIT STATUS - 退出状态, 这是一个返回给父进程的值</li>
+<li>RETURN VALUE - 返回值</li>
+<li>ERRORS - 可能出现的错误类型</li>
+<li>ENVIRONMENT - 环境变量</li>
+<li>FILES - 相关配置文件</li>
+<li>VERSIONS - 版本</li>
+<li>CONFORMING TO - 符合的规范</li>
+<li>NOTES - 使用注意事项</li>
+<li>BUGS - 已经发现的bug</li>
+<li>EXAMPLE - 一些例子</li>
+<li>AUTHORS - 作者</li>
+<li>SEE ALSO - 功能或操作对象相近的其它命令</li>
+</ul>
+<h2 id="tips">Tips</h2>
+<ul>
+<li>use neovim/vim to read man(I love this way)</li>
+</ul>
+<p>You could <code>:Man</code> like in command line.</p>
+<p>If you use vim, you need put this line in your <code>.vimrc</code>:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">runtime! ftplugin/man.<span class="keyword">vim</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>当你想做一件事的而不知道用什么命令的时候, <code>man</code>的<code>-k</code>参数可以用来列出候选的命令, 然后再通过查看这些命令的manual page来学习怎么使用它们.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man -k ftp</span><br></pre></td></tr></table></figure>
+<p>get: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">CURLINFO_FTP_ENTRY_PATH (3) - get entry path <span class="keyword">in</span> FTP server</span><br><span class="line">CURLOPT_ACCEPTTIMEOUT_MS (3) - <span class="built_in">timeout</span> waiting <span class="keyword">for</span> FTP server to connect back</span><br><span class="line">CURLOPT_CHUNK_BGN_FUNCTION (3) - callback before a transfer with FTP wildcardmatch</span><br><span class="line">CURLOPT_CHUNK_DATA (3) - pointer passed to the FTP chunk callbacks</span><br><span class="line">CURLOPT_CHUNK_END_FUNCTION (3) - callback after a transfer with FTP wildcardmatch</span><br><span class="line">CURLOPT_FTP_ACCOUNT (3) - account info <span class="keyword">for</span> FTP</span><br><span class="line">CURLOPT_FTP_ALTERNATIVE_TO_USER (3) - <span class="built_in">command</span> to use instead of USER with FTP</span><br><span class="line">CURLOPT_FTP_CREATE_MISSING_DIRS (3) - create missing <span class="built_in">dirs</span> <span class="keyword">for</span> FTP and SFTP</span><br><span class="line">CURLOPT_FTP_FILEMETHOD (3) - select directory traversing method <span class="keyword">for</span> FTP</span><br><span class="line">CURLOPT_FTP_SKIP_PASV_IP (3) - ignore the IP address <span class="keyword">in</span> the PASV response</span><br><span class="line">CURLOPT_FTP_SSL_CCC (3) - switch off SSL again with FTP after auth</span><br><span class="line">CURLOPT_FTP_USE_EPRT (3) - use EPRT <span class="keyword">for</span> FTP</span><br><span class="line">CURLOPT_FTP_USE_EPSV (3) - use EPSV <span class="keyword">for</span> FTP</span><br><span class="line">CURLOPT_FTP_USE_PRET (3) - use PRET <span class="keyword">for</span> FTP</span><br><span class="line">CURLOPT_FTPPORT (3)  - make FTP transfer active</span><br><span class="line">CURLOPT_FTPSSLAUTH (3) - order <span class="keyword">in</span> <span class="built_in">which</span> to attempt TLS vs SSL</span><br><span class="line">CURLOPT_KRBLEVEL (3) - FTP kerberos security level</span><br><span class="line">CURLOPT_POSTQUOTE (3) - (S)FTP commands to run after the transfer</span><br><span class="line">CURLOPT_PREQUOTE (3) - commands to run before an FTP transfer</span><br><span class="line">CURLOPT_PROXY_TRANSFER_MODE (3) - append FTP transfer mode to URL <span class="keyword">for</span> proxy</span><br><span class="line">CURLOPT_QUOTE (3)    - (S)FTP commands to run before transfer</span><br><span class="line">CURLOPT_SSH_AUTH_TYPES (3) - auth types <span class="keyword">for</span> SFTP and SCP</span><br><span class="line">CURLOPT_TFTP_BLKSIZE (3) - TFTP block size</span><br><span class="line">CURLOPT_TFTP_NO_OPTIONS (3) - send no TFTP options requests</span><br><span class="line">CURLOPT_TRANSFERTEXT (3) - request a text based transfer <span class="keyword">for</span> FTP</span><br><span class="line">apt-ftparchive (1)   - Utility to generate index files</span><br><span class="line">ftp (1)              - Internet file transfer program</span><br><span class="line">pam_ftp (8)          - PAM module <span class="keyword">for</span> anonymous access module</span><br><span class="line">sftp (1)             - OpenSSH secure file transfer</span><br><span class="line">tnftp (1)            - Internet file transfer program</span><br><span class="line">zshzftpsys (1)       - <span class="built_in">zftp</span> <span class="keyword">function</span> front-end</span><br></pre></td></tr></table></figure></p>
+<p>搜索和printf相关的manual page.</p>
+<p>发现输出了很多和<code>printf</code>相关的命令或库函数, 括号里面的数字代表相应的条目属于manual的哪一个大类. 例如<code>printf (1)</code>是一个shell命令, 而<code>printf (3)</code>是一个库函数. 要访问库函数<code>printf</code>的manual page, 你需要在命令行中输入 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man 3 <span class="built_in">printf</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>Using whatis and whereis Commands to Know the Manual’s Sections</li>
+</ul>
+<p>有两个灵巧的工具可以帮助你搜索信息：whatis和whereis。</p>
+<p>例如我想要知道关于passwd file的信息（不是命令）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">whatis passwd</span><br><span class="line">man -f passwd</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">passwd (1)           - change user password</span><br><span class="line">passwd (1ssl)        - OpenSSL application commands</span><br><span class="line">passwd (5)           - the password file</span><br></pre></td></tr></table></figure>
+<p>其中第一个是passwd命令的manual page，第二个是openssl的manual page，第三个是passwd file的manual page。</p>
+<p>所以现在为了看到password的file可以输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man 5 passwd</span><br></pre></td></tr></table></figure>
+<ul>
+<li>whereis whereis</li>
+</ul>
+<p>whereis命令的名字本身就说明了问题--它告诉你一个程序在文件系统中的位置。它也会告诉你man page的存放位置。再以cal为例，我在提示符下键入这个命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">whereis passwd</span><br><span class="line">man -w passwd</span><br></pre></td></tr></table></figure>
+<p>get: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd: /usr/bin/passwd /etc/passwd /usr/share/man/man5/passwd.5.gz /usr/share/man/man1/passwd.1ssl.gz /usr/share/man/man1/passwd.1.gz</span><br></pre></td></tr></table></figure></p>
+<h2 id="source">Source</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://nju-projectn.github.io/ics-pa-gitbook/ics2022/man.html">NJUPA man快速入门</a></li>
+<li><a target="_blank" rel="noopener" href="https://itsfoss.com/linux-man-page-guide/">RTFM! How to Read (and Understand) the Fantastic Man Pages in Linux</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/09/change-the-trash-icon-in-ubuntu22-04/" rel="prev" title="change the trash icon in ubuntu22.04">
+      <i class="fa fa-chevron-left"></i> change the trash icon in ubuntu22.04
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#rtfm-%E4%B9%8B-man%E6%89%8B%E5%86%8C%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">RTFM 之 man手册的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#info"><span class="nav-number">2.</span> <span class="nav-text">Info</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-use"><span class="nav-number">3.</span> <span class="nav-text">How to use</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tips"><span class="nav-number">4.</span> <span class="nav-text">Tips</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#source"><span class="nav-number">5.</span> <span class="nav-text">Source</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">krmmzs</p>
+  <div class="site-description" itemprop="description">233</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/krmmzs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;krmmzs" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:belliyan250@gmail.com" title="E-Mail → mailto:belliyan250@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/channel/UCh2c-Y0OmoDUfeZHomm_Llg" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UCh2c-Y0OmoDUfeZHomm_Llg" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/krmmzs" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;krmmzs" rel="noopener" target="_blank"><i class="fab fa-telegram fa-fw"></i>Telegram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">krmmzs</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
