@@ -158,6 +158,106 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/09/%E7%AC%AC1%E7%AB%A0-%E8%BF%88%E5%90%91%E7%8E%B0%E4%BB%A3-Cpp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/09/%E7%AC%AC1%E7%AB%A0-%E8%BF%88%E5%90%91%E7%8E%B0%E4%BB%A3-Cpp/" class="post-title-link" itemprop="url">第1章 迈向现代 C++</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-11-09 16:33:04 / Modified: 16:34:48" itemprop="dateCreated datePublished" datetime="2022-11-09T16:33:04+08:00">2022-11-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/Modern-C-Tutorial/" itemprop="url" rel="index"><span itemprop="name">Modern C++ Tutorial</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="第-1-章-迈向现代-c">第 1 章 迈向现代 C++</h1>
+<ul>
+<li>Use const char* and auto</li>
+</ul>
+<p>old: <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> *str = <span class="string">&quot;hello world!&quot;</span>; <span class="comment">// 将出现弃用警告</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>Use noexcept</li>
+</ul>
+<p>C++98 异常说明、 unexpected_handler、set_unexpected() 等相关特性被弃用</p>
+<ul>
+<li>Use unique_ptr</li>
+</ul>
+<p>C++98 中的 auto_ptr 已被弃用</p>
+<ul>
+<li><p>如果一个类有析构函数，为其生成拷贝构造函数和拷贝赋值运算符的特性被弃用了。</p></li>
+<li><p>use <code>static_cast</code> <code>reinterpret_cast</code> <code>const_cast</code></p></li>
+</ul>
+<p>C 语言风格的类型转换被弃用（即在变量前使用 (convert_type)），应该使用 static_cast、reinterpret_cast、const_cast 来进行类型转换。</p>
+<h2 id="other">Other</h2>
+<ul>
+<li><p>C++ 不是 C 的一个超集</p></li>
+<li><p>在编写 C++ 时，也应该尽可能的避免使用诸如 void* 之类的程序风格。</p></li>
+<li><p>不得不使用 C 时，应该注意使用 extern "C" 这种特性，将 C 语言的代码与 C++代码进行分离编译，再统一链接这种做法，</p></li>
+</ul>
+<p>Ex: <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// foo.h</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// foo.c</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x+y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1.1.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;foo.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    [out = std::<span class="built_in">ref</span>(std::cout &lt;&lt; <span class="string">&quot;Result from C code: &quot;</span> &lt;&lt; <span class="built_in">add</span>(<span class="number">1</span>, <span class="number">2</span>))]()&#123;</span><br><span class="line">        out.<span class="built_in">get</span>() &lt;&lt; <span class="string">&quot;.\n&quot;</span>;</span><br><span class="line">    &#125;();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>先使用 gcc 编译 C 语言的代码： 编译出 foo.o 文件，再使用 clang++ 将 C++ 代码和 .o 文件链接起来（或者都编译为 .o 再统一链接）： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -c foo.c</span><br><span class="line">clang++ 1.1.cpp foo.o -std=c++2a -o 1.1</span><br></pre></td></tr></table></figure></p>
+<p>Makefile: <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">C = gcc</span><br><span class="line">CXX = clang++</span><br><span class="line"></span><br><span class="line">SOURCE_C = foo.c</span><br><span class="line">OBJECTS_C = foo.o</span><br><span class="line"></span><br><span class="line">SOURCE_CXX = 1.1.cpp</span><br><span class="line"></span><br><span class="line">TARGET = 1.1</span><br><span class="line">LDFLAGS_COMMON = -std=c++2a</span><br><span class="line"></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">	<span class="variable">$(C)</span> -c <span class="variable">$(SOURCE_C)</span></span><br><span class="line">	<span class="variable">$(CXX)</span> <span class="variable">$(SOURCE_CXX)</span> <span class="variable">$(OBJECTS_C)</span> <span class="variable">$(LDFLAGS_COMMON)</span> -o <span class="variable">$(TARGET)</span></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	rm -rf *.o <span class="variable">$(TARGET)</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="references">References</h2>
+<p><a target="_blank" rel="noopener" href="https://changkun.de/modern-cpp/zh-cn/01-intro/">第 1 章 迈向现代 C++</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/08/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -852,111 +952,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/04/Z-Library-Possible-Death/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/04/Z-Library-Possible-Death/" class="post-title-link" itemprop="url">Z Library Possible Death</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-11-04 15:33:21 / Modified: 16:43:48" itemprop="dateCreated datePublished" datetime="2022-11-04T15:33:21+08:00">2022-11-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Talk/" itemprop="url" rel="index"><span itemprop="name">Talk</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="z-library-possible-death">Z Library Possible Death</h1>
-<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Z-Library">Z-Library</a></p>
-<h2 id="我为什么使用z-library">我为什么使用Z-Library</h2>
-<p>作为一个计算机的学生，应该迟早对国内的入门精通或者潦草的项目书籍感到厌烦。</p>
-<p>就算可以阅读到很多中译书，也会对其翻译的质量感到不满。</p>
-<p>那么你就可能需要一本英文原版的书籍。</p>
-<p>国内的影印版:</p>
-<p><img src="/images/zlib-01.png" alt="zlib-01.png" style="zoom:70%;" /></p>
-<p>amazon：</p>
-<p><img src="/images/zlib-02.png" alt="zlib-02.png" style="zoom:70%;" /></p>
-<p>其他书:</p>
-<p><img src="/images/zlib-03.png" alt="zlib-03.png" style="zoom:70%;" /></p>
-<p><img src="/images/zlib-04.png" alt="zlib-04.png" style="zoom:70%;" /></p>
-<p>我买不起。</p>
-<h2 id="盗版">盗版</h2>
-<p>Z-Library 当然是盗版</p>
-<p>盗版，对于普通人来说是有好处，但对于出版社来说是灾难。</p>
-<p>但是我不认可图书目前的商业模式。</p>
-<p>有很多种方案可以优化，比如可以按照阅读时长或者引用次数付费。</p>
-<p>互联网厉害的地方有: 我们可以通过一个链接到另一个链接，从一个知识到另一个知识。但书不行，我们必须通过买一本书后，笨拙的从一本书到另一本书，不能快速检索，验证和查看。</p>
-<p>如果这本书有错别字怎么办？如果这本书有错误怎么办？如果只是读一个章节怎么办？如果只是想验证一下信息怎么办？</p>
-<p>这一切都归因于——付费墙。</p>
-<p>所以我说这不只是盗版的问题，而是商业模式的问题。亚马逊是最有可能做到世界图书馆的公司，但他们不会做，不符合它的利益。</p>
-<p>自由当然不是免费，但一定可以有更好的解决办法可以做，而不只是现在想获得知识，先花钱。</p>
-<h2 id="tor">tor</h2>
-<p>目前Z-Library的网站是无法访问的，但是你可以通过tor访问。</p>
-<p>在<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Z-Library">wiki</a> 的右侧可以找到tor的链接。</p>
-<p><img src="/images/zlib-05.png" alt="zlib-05.png" style="zoom:70%;" /></p>
-<p>然后你需要一个<a target="_blank" rel="noopener" href="https://www.torproject.org/download/">tor browser</a>。</p>
-<p>tor链接后，在tor browser中打开链接。</p>
-<p><img src="/images/zlib-06.png" alt="zlib-06.png" style="zoom:70%;" /></p>
-<h2 id="reference">Reference</h2>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Z-Library">https://en.wikipedia.org/wiki/Z-Library</a></li>
-<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Z-Library">https://zh.wikipedia.org/wiki/Z-Library</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.torproject.org/">https://www.torproject.org</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.z-lib.org/">https://www.z-lib.org/</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1026,20 +1021,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

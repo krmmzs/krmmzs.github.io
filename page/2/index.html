@@ -158,6 +158,81 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/16/Leetcode/LeetCode-53-Maximum-Subarray/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/16/Leetcode/LeetCode-53-Maximum-Subarray/" class="post-title-link" itemprop="url">LeetCode 53. Maximum Subarray</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-11-16 16:56:17 / Modified: 18:00:12" itemprop="dateCreated datePublished" datetime="2022-11-16T16:56:17+08:00">2022-11-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="leetcode-53.-maximum-subarray">LeetCode 53. Maximum Subarray</h1>
+<h2 id="main-idea">Main Idea</h2>
+<p>暴力就是枚举长度为1..sum.size()的所有子数组，然后求和，取最大值。</p>
+<p>1 + 2 + ... + k = O(n ^ 2)</p>
+<p>这里很容易能够感觉到有状态转移的感觉，有些长度为k的子数组的和，可以由长度为k-1的子数组的和转移过来</p>
+<p>dp[i] 表示所有以i结尾的子数组的和的最大值</p>
+<p>划分区间的方式是长度</p>
+<p>区间长度&gt;=2和区间长度=1(nums[i] 自己)</p>
+<p>区间长度&gt;=2的区间即为f[i - 1] + nums[i]</p>
+<p>区间长度=1的区间即为nums[i]</p>
+<p>dp[i] = max(dp[i - 1] + nums[i], nums[i]) = nums[i] + max(dp[i - 1], 0)</p>
+<p>因为这里只需要上一次的状态，所以可以用一个变量来代替dp数组</p>
+<blockquote>
+<p>Follow up: If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.</p>
+</blockquote>
+<h2 id="code">Code</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxSubArray</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt;::size_type n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> res = INT_MIN;</span><br><span class="line">        <span class="type">int</span> last = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (vector&lt;<span class="type">int</span>&gt;::size_type i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="type">int</span> now = nums[i] + <span class="built_in">max</span>(last, <span class="number">0</span>);</span><br><span class="line">            res = <span class="built_in">max</span>(res, now);</span><br><span class="line">            last = now;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/13/Leetcode/LeetCode-50-Pow-x-n/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1151,106 +1226,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/09/%E7%AC%AC1%E7%AB%A0-%E8%BF%88%E5%90%91%E7%8E%B0%E4%BB%A3-Cpp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/09/%E7%AC%AC1%E7%AB%A0-%E8%BF%88%E5%90%91%E7%8E%B0%E4%BB%A3-Cpp/" class="post-title-link" itemprop="url">第1章 迈向现代 C++</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-11-09 16:33:04 / Modified: 16:34:48" itemprop="dateCreated datePublished" datetime="2022-11-09T16:33:04+08:00">2022-11-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/Modern-C-Tutorial/" itemprop="url" rel="index"><span itemprop="name">Modern C++ Tutorial</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="第-1-章-迈向现代-c">第 1 章 迈向现代 C++</h1>
-<ul>
-<li>Use const char* and auto</li>
-</ul>
-<p>old: <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> *str = <span class="string">&quot;hello world!&quot;</span>; <span class="comment">// 将出现弃用警告</span></span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>Use noexcept</li>
-</ul>
-<p>C++98 异常说明、 unexpected_handler、set_unexpected() 等相关特性被弃用</p>
-<ul>
-<li>Use unique_ptr</li>
-</ul>
-<p>C++98 中的 auto_ptr 已被弃用</p>
-<ul>
-<li><p>如果一个类有析构函数，为其生成拷贝构造函数和拷贝赋值运算符的特性被弃用了。</p></li>
-<li><p>use <code>static_cast</code> <code>reinterpret_cast</code> <code>const_cast</code></p></li>
-</ul>
-<p>C 语言风格的类型转换被弃用（即在变量前使用 (convert_type)），应该使用 static_cast、reinterpret_cast、const_cast 来进行类型转换。</p>
-<h2 id="other">Other</h2>
-<ul>
-<li><p>C++ 不是 C 的一个超集</p></li>
-<li><p>在编写 C++ 时，也应该尽可能的避免使用诸如 void* 之类的程序风格。</p></li>
-<li><p>不得不使用 C 时，应该注意使用 extern "C" 这种特性，将 C 语言的代码与 C++代码进行分离编译，再统一链接这种做法，</p></li>
-</ul>
-<p>Ex: <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// foo.h</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// foo.c</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x+y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1.1.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;foo.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    [out = std::<span class="built_in">ref</span>(std::cout &lt;&lt; <span class="string">&quot;Result from C code: &quot;</span> &lt;&lt; <span class="built_in">add</span>(<span class="number">1</span>, <span class="number">2</span>))]()&#123;</span><br><span class="line">        out.<span class="built_in">get</span>() &lt;&lt; <span class="string">&quot;.\n&quot;</span>;</span><br><span class="line">    &#125;();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>先使用 gcc 编译 C 语言的代码： 编译出 foo.o 文件，再使用 clang++ 将 C++ 代码和 .o 文件链接起来（或者都编译为 .o 再统一链接）： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -c foo.c</span><br><span class="line">clang++ 1.1.cpp foo.o -std=c++2a -o 1.1</span><br></pre></td></tr></table></figure></p>
-<p>Makefile: <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">C = gcc</span><br><span class="line">CXX = clang++</span><br><span class="line"></span><br><span class="line">SOURCE_C = foo.c</span><br><span class="line">OBJECTS_C = foo.o</span><br><span class="line"></span><br><span class="line">SOURCE_CXX = 1.1.cpp</span><br><span class="line"></span><br><span class="line">TARGET = 1.1</span><br><span class="line">LDFLAGS_COMMON = -std=c++2a</span><br><span class="line"></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">	<span class="variable">$(C)</span> -c <span class="variable">$(SOURCE_C)</span></span><br><span class="line">	<span class="variable">$(CXX)</span> <span class="variable">$(SOURCE_CXX)</span> <span class="variable">$(OBJECTS_C)</span> <span class="variable">$(LDFLAGS_COMMON)</span> -o <span class="variable">$(TARGET)</span></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	rm -rf *.o <span class="variable">$(TARGET)</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="references">References</h2>
-<p><a target="_blank" rel="noopener" href="https://changkun.de/modern-cpp/zh-cn/01-intro/">第 1 章 迈向现代 C++</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1320,20 +1295,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
