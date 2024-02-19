@@ -158,6 +158,76 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/04/Leetcode/LeetCode-239-Sliding-Window-Maximum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/04/Leetcode/LeetCode-239-Sliding-Window-Maximum/" class="post-title-link" itemprop="url">LeetCode 239. Sliding Window Maximum</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-11-04 18:01:32 / Modified: 18:13:01" itemprop="dateCreated datePublished" datetime="2022-11-04T18:01:32+08:00">2022-11-04</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="leetcode-239.-sliding-window-maximum">LeetCode 239. Sliding Window Maximum</h1>
+<p>看某人博客的时候，看到这题，马上写一下。</p>
+<h2 id="main-idea">Main Idea</h2>
+<p>题目简洁明了</p>
+<p>要维护一个抽象窗口，很明显是先进先出的数据结构，队列。</p>
+<p>最暴力的就是维护的同时每次都遍历一次，时间复杂度是 <span class="math inline">\(O(nk)\)</span>。</p>
+<p>很明显的优化是利用max的性质保证单调</p>
+<p>现在这个队列，只要有后一个数比前一个数大，前一个数就没用了，可以直接丢弃。</p>
+<p>这样每个数只会进队列一次，出队列一次，时间复杂度是 <span class="math inline">\(O(n)\)</span>。</p>
+<p>好经典的一道题。</p>
+<h2 id="code">Code</h2>
+<p>```cpp</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/04/Z-Library-Possible-Death/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -937,86 +1007,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/30/Leetcode/LeetCode-31-Next-Permutation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/30/Leetcode/LeetCode-31-Next-Permutation/" class="post-title-link" itemprop="url">LeetCode 31. Next Permutation</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-10-30 17:10:45 / Modified: 17:49:34" itemprop="dateCreated datePublished" datetime="2022-10-30T17:10:45+08:00">2022-10-30</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="leetcode-31.-next-permutation">LeetCode 31. Next Permutation</h1>
-<h2 id="main-idea">Main Idea</h2>
-<p>这个感觉在大二上看离散数学黑书里研究过，建议直接翻书</p>
-<p>一个数想变大，肯定是后面开始变大，</p>
-<p>很直觉地就抽象成点图</p>
-<p>然后看升序降序</p>
-<p>下一个排列就是从右往左找到第一个升序的位置，然后从这个位置往右找到第一个比他大的数，然后交换，然后把这个位置往右的数从小到大排序</p>
-<p>Ex: 2 3 5 4 1</p>
-<pre>
-^
-|
-|   .            
-|    .
-|  .
-| .   .  
-|
-|-------------------->
-</pre>
-<p>交换了 3 和 4</p>
-<p>然后把 4 之后的数从小到大排序， 翻转即可</p>
-<h2 id="code">Code</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">nextPermutation</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt;::size_type k = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (k != <span class="number">0</span> &amp;&amp; nums[k - <span class="number">1</span>] &gt;= nums[k]) &#123;</span><br><span class="line">            k --;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (k == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            vector&lt;<span class="type">int</span>&gt;::size_type t = k;</span><br><span class="line">            <span class="keyword">while</span> (t &lt; nums.<span class="built_in">size</span>() &amp;&amp; nums[t] &gt; nums[k - <span class="number">1</span>]) &#123;</span><br><span class="line">                t ++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">swap</span>(nums[t - <span class="number">1</span>], nums[k - <span class="number">1</span>]);</span><br><span class="line">            <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>() + k, nums.<span class="built_in">end</span>());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1086,20 +1076,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

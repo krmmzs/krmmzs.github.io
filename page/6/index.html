@@ -158,6 +158,108 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/25/Cpp/rand-Considered-Harmful/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/25/Cpp/rand-Considered-Harmful/" class="post-title-link" itemprop="url">rand-Considered-Harmful</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-25 18:58:02 / Modified: 20:29:51" itemprop="dateCreated datePublished" datetime="2022-10-25T18:58:02+08:00">2022-10-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近我在阅读Accelerated C++的时候，有道标注了diffcult的习题: &gt; 7-9. (difficult) The implementation of nrand in §7.4.4/135 will not work for arguments greater than RAND_MAX. Usually, this restriction is no problem, because RAND_MAX is often the largest possible integer anyway. Nevertheless, there are implementations under which RAND_MAX is much smaller than the largest possible integer. For example, it is not uncommon for RAND_MAX to be 32767 (2^15 -1) and the largest possible integer to be 2147483647 (2^31 -1). Reimplement nrand so that it works well for all values of n.</p>
+<p>其中，被要求更改的程序如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">nrand</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span> || n &gt; RAND_MAX)</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">domain_error</span>(<span class="string">&quot;Argument to nrand is out of range&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> bucket_size = RAND_MAX / n;</span><br><span class="line">    <span class="type">int</span> r;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> r = <span class="built_in">rand</span>() / bucket_size;</span><br><span class="line">    <span class="keyword">while</span> (r &gt;= n);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述要被修改的程序其实本身就是对cpp的rand()的一个规避程序(为了不使用rand() % n)。</p>
+<p>书中给出的原因： &gt; The most important reason is pragmatic: rand() really returns only pseudo-random numbers. Many C++ implementations' pseudo-random-number generators give remainders that aren't very random when the quotients are small integers. For example, it is not uncommon for successive results of rand() to be alternately even and odd. In that case, if n is 2, successive results of rand() % n will alternate between 0 and 1.</p>
+<blockquote>
+<p>There is another, more subtle reason to avoid using rand() % n: If the value of n is large and RAND_MAX is not evenly divisible by n, some remainders will appear more often than others.</p>
+</blockquote>
+<p>然后给出上述需要被修改的程序的解释： &gt; To avoid these pitfalls, we'll use a different strategy, by dividing the range of available random numbers into buckets of exactly equal size. Then we can compute a random number and return the number of the corresponding bucket. Because the buckets are of equal size, some random numbers may not fall into any bucket at all. In that case, we keep asking for forrandom numbers until we get one that fits.</p>
+<p>给了一个例子： 假如n = 3, 这样<code>bucket_size</code> = 10922 这样就产生了[0, 10922), [10922, 21844), [21844, 32767), [32767, RAND_MAX)四个区间，其中最后一个区间的最大值是RAND_MAX，所以最后一个区间的值是不会被使用的。</p>
+<p>If you look up <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/numeric/random/rand">C++ documentation on rand()</a>, you'll see that it returns "a pseudo-random integral value between 0 and RAND_MAX." <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/numeric/random/RAND_MAX">Click again</a> on RAND_MAX and you'll see that "This value is implementation dependent. It's guaranteed that this value is at least 32767."</p>
+<p>所以是非常有必要进行修改的(codeforces的机器就是32767)。</p>
+<h2 id="solution-thinking">Solution Thinking</h2>
+<p>顺着作者给出的思路，分区间。</p>
+<p>假设 n 会大于 RAND_MAX, 我们应该首先计算大于RAND_MAX的数字的桶的数量。</p>
+<p>它首先计算大于RAND_MAX的数字的桶的数量，并为每个桶计算一个随机数。 最后一个桶将有一个介于[0, n % RAND_MAX]之间的随机数， 其他桶将有一个介于[0, RAND_MAX]之间的随机数。</p>
+<p>给个例子： 假设 n = 1000000000, RAND_MAX = 32767(2^15 - 1) 那么我们需要计算的桶的数量为 1000000000 / 32767 = 30569 最后一个桶的随机数的范围为[0, 1000000000 % 32767] = [0, 32766] 其他桶的随机数的范围为[0, RAND_MAX] = [0, 32767]</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">nrand</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">domain_error</span>(<span class="string">&quot;Argument to nrand is out of range&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> buckets = n / RAND_MAX;</span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> last_bucket = RAND_MAX / (n % RAND_MAX);</span><br><span class="line">    <span class="type">int</span> r;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> r = <span class="built_in">rand</span>() / last_bucket;</span><br><span class="line">    <span class="keyword">while</span> (r &gt;= n);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// add the remaining buckets for numbers larger than RAND_MAX</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; buckets; ++i) &#123;</span><br><span class="line">        r += <span class="built_in">rand</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="back-to-the-question-of-cpp-itself">Back to the question of cpp itself</h2>
+<p>能够明细看到cpp的rand()的实现是有问题的， 不过，它并没有就此打住；random_shuffle()也使用了rand()。 回顾一下，为了进行随机洗牌，我们需要生成随机索引，直到n，即数组的大小。但是如果rand()只能达到32767，那么如果我们在一个元素明显多于这个数组上调用random_shuffle()会发生什么？</p>
+<h2 id="rand-solution">rand() Solution</h2>
+<p>别担心，从C++11开始，C++中有更好的随机数生成器可用。 你唯一需要记住的是使用包含在<random>头文件中的mt19937。 这是一个基于素数219937-1的Mersenne Twister，这也恰好是它的周期。 它是一个比rand()质量高得多的RNG，而且速度更快（在自定义调用中， 从mt19937生成和添加108个数字需要389毫秒，而rand()需要1170毫秒）。 它还能在0和232-1=4294967295之间产生完整的32位无符号输出，而不是最大限度的32767。</p>
+<p>为了取代random_shuffle()，你现在可以调用shuffle()并传入你的mt19937作为第三个参数；shuffle算法将使用你提供的生成器进行洗牌。</p>
+<h2 id="c11-solution">C++11 Solution</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;random&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rand_generator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">std::mt19937 <span class="title">mt</span><span class="params">(<span class="number">1729</span>)</span></span>;</span><br><span class="line">    <span class="function">std::uniform_int_distribution&lt;<span class="type">int</span>&gt; <span class="title">dist</span><span class="params">(<span class="number">0</span>, <span class="number">99</span>)</span></span>;</span><br><span class="line">    <span class="keyword">auto</span> generator = std::<span class="built_in">bind</span>(dist, mt);</span><br><span class="line">    <span class="type">int</span> random = <span class="built_in">generator</span>();</span><br><span class="line">    <span class="keyword">return</span> random;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>explanation:</p>
+<p>1729 is Deterministic 32-bit seed mt is this engnie object: [0, <span class="math inline">\(2^{32}\)</span>] dist is this distribution object: <a href="以离散型均匀分布方式产生int乱数，范围落在0到99">0, 99</a> dist(mt) is mean: Run engine, viewed through distribution bind （利用bind将随机数生产引擎和分布组合成一个随机生成物件）</p>
+<h2 id="references">References</h2>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://codeforces.com/blog/entry/61587">rand-Considered-Harmful</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/C%2B%2B11#Extensible_random_number_facility">C++11 Wiki Extensible random number facility</a></p></li>
+</ul>
+<p>如果想要看字幕<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=LDPMpc-ENqY">youtube</a>也有</p>
+<h2 id="more">More</h2>
+<p><a target="_blank" rel="noopener" href="http://xoshiro.di.unimi.it/">If you want even faster, higher-quality random number generators, take a look at this site by Sebastiano Vigna.</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/25/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter07/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1121,174 +1223,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/21/Linux/Shell/Top-Ten-One-Liners-from-CommandLineFu-Explained/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/10/21/Linux/Shell/Top-Ten-One-Liners-from-CommandLineFu-Explained/" class="post-title-link" itemprop="url">Top_Ten_One-Liners_from_CommandLineFu_Explained</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-10-21 14:37:44 / Modified: 16:15:36" itemprop="dateCreated datePublished" datetime="2022-10-21T14:37:44+08:00">2022-10-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="top-ten-one-liners-from-commandlinefu-explained">Top Ten One-Liners from CommandLineFu Explained</h1>
-<hr />
-<p><img src="https://catonmat.net/wp-content/uploads/2010/03/commandlinefu-explained.jpg" alt="CommandLineFu Explained" />I love working in the shell. Mastery of shell lets you get things done in seconds, rather than minutes or hours, if you chose to write a program instead.</p>
-<p>In this article I'd like to explain the <a target="_blank" rel="noopener" href="http://www.commandlinefu.com/commands/browse/sort-by-votes">top one-liners</a> from the <a target="_blank" rel="noopener" href="http://www.commandlinefu.com/">commandlinefu.com</a>. It's a user-driven website where people get to choose the best and most useful shell one-liners.</p>
-<p>But before I do that, I want to take the opportunity and link to a few of my articles that I wrote some time ago on working efficiently in the command line:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://catonmat.net/bash-vi-editing-mode-cheat-sheet">Working Efficiently in Bash (Part I).</a></li>
-<li><a target="_blank" rel="noopener" href="https://catonmat.net/bash-emacs-editing-mode-cheat-sheet">Working Efficiently in Bash (Part II).</a></li>
-<li><a target="_blank" rel="noopener" href="https://catonmat.net/the-definitive-guide-to-bash-command-line-history">The Definitive Guide to Bash Command Line History.</a></li>
-<li><a target="_blank" rel="noopener" href="https://catonmat.net/set-operations-in-unix-shell">A fun article on Set Operations in the Shell.</a></li>
-<li><a target="_blank" rel="noopener" href="https://catonmat.net/solving-google-treasure-hunt-prime-number-problem-four">Another fun article on Solving Google Treasure Hunt in the Shell.</a></li>
-</ul>
-<p>And now the explanation of top one-liners from commandlinefu.</p>
-<h2 id="overview">Overview</h2>
-<ul>
-<li><a href="#1-run-the-last-command-as-root">Run the last command as root</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo !!</span><br></pre></td></tr></table></figure></li>
-<li><a href="#2-serve-the-current-directory-at-httplocalhost8000">Serve the current directory at http://localhost:8000/</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m http.server</span><br></pre></td></tr></table></figure></li>
-<li><a href="#3-save-a-file-you-edited-in-vim-without-the-needed-permissions">Save a file you edited in vim without the needed permissions</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:w !sudo <span class="built_in">tee</span> %</span><br></pre></td></tr></table></figure></li>
-<li><a href="#4-change-to-the-previous-working-directory">Change to the previous working directory</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> -</span><br></pre></td></tr></table></figure></li>
-<li><a href="#5-run-the-previous-shell-command-but-replace-string-foo-with-bar">Run the previous shell command but replace string "foo" with "bar"</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^foo^bar^</span><br></pre></td></tr></table></figure></li>
-<li><a href="#6-quickly-backup-or-copy-a-file">Quickly backup or copy a file</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> file&#123;,.bak&#125;</span><br></pre></td></tr></table></figure></li>
-<li><a href="#8-find-the-last-command-that-begins-with-whatever-but-avoid-running-it">Find the last command that begins with</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!whatever:p</span><br></pre></td></tr></table></figure></li>
-<li><a href="#9-copy-your-public-key-to-remote-machine-for-public-key-authentication">Copy your public-key to remote-machine for public-key authentication</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id remote-machine</span><br></pre></td></tr></table></figure></li>
-<li><a href="#10-capture-video-of-a-linux-desktop">Capture video of a linux desktop</a> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -f x11grab -s wxga -r 25 -i :0.0 -sameq output.avi</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="run-the-last-command-as-root">#1. Run the last command as root</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo !!</span><br></pre></td></tr></table></figure>
-<p>We all know what the <code>sudo</code> command does - it runs the command as another user, in this case, it runs the command as superuser because no other user was specified. But what's really interesting is the bang-bang <code>!!</code> part of the command. It's called the <strong>event designator</strong>. An event designator references a command in shell's history. In this case the event designator references the previous command. Writing <code>!!</code> is the same as writing <code>!-1</code>. The <code>-1</code> refers to the last command. You can generalize it, and write <code>!-n</code> to refer to the n-th previous command. To view all your previous commands, type <code>history</code>.</p>
-<p>This one-liner is actually really bash-specific, as event designators are a feature of bash.</p>
-<p>I wrote about event designators in much more detail in my article "<a target="_blank" rel="noopener" href="https://catonmat.net/the-definitive-guide-to-bash-command-line-history">The Definitive Guide to Bash Command Line History</a>." The article also comes with a printable cheat sheet for working with the history.</p>
-<h2 id="serve-the-current-directory-at-httplocalhost8000">#2. Serve the current directory at http://localhost:8000/</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m http.server</span><br></pre></td></tr></table></figure>
-<p>This one-liner starts a web server on port 8000 with the contents of current directory on all the interfaces (address 0.0.0.0), not just localhost. If you have "<code>index.html</code>" or "<code>index.htm</code>" files, it will serve those, otherwise it will list the contents of the currently working directory.</p>
-<p>It works because python comes with a standard module called <code>SimpleHTTPServer</code>. The <code>-m</code> argument makes python to search for a module named <code>SimpleHTTPServer.py</code> in all the possible system locations (listed in <code>sys.path</code> and <code>$PYTHONPATH</code> shell variable). Once found, it executes it as a script. If you look at the source code of this module, you'll find that this module tests if it's run as a script <code>if **name** == '**main**'</code>, and if it is, it runs the <code>test()</code> method that makes it run a web server in the current directory.</p>
-<p>To use a different port, specify it as the next argument:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m http.server 8080</span><br></pre></td></tr></table></figure>
-<p>This command runs a HTTP server on all local interfaces on port 8080.</p>
-<h2 id="save-a-file-you-edited-in-vim-without-the-needed-permissions">#3. Save a file you edited in vim without the needed permissions</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:w !sudo tee %</span><br></pre></td></tr></table></figure>
-<p>This happens to me way too often. I open a system config file in vim and edit it just to find out that I don't have permissions to save it. This one-liner saves the day. Instead of writing the while to a temporary file <code>:w /tmp/foobar</code> and then moving the temporary file to the right destination <code>mv /tmp/foobar /etc/service.conf</code>, you now just type the one-liner above in vim and it will save the file.</p>
-<p>Here is how it works, if you look at the vim documentation (by typing <code>:he :w</code> in vim), you'll find the reference to the command <code>:w !&#123;cmd&#125;</code> that says that vim runs <code>&#123;cmd&#125;</code> and passes it the contents of the file as standard input. In this one-liner the <code>&#123;cmd&#125;</code> part is the <code>sudo tee %</code> command. It runs <code>tee %</code> as superuser. But wait, what is <code>%</code>? Well, it's a read-only register in vim that contains the filename of the current file! Therefore the command that vim executes becomes <code>tee current_filename</code>, with the current directory being whatever the <code>current_file</code> is in. Now what does <code>tee</code> do? The <code>tee</code> command takes standard input and write it to a file! Rephrasing, it takes the contents of the file edited in vim, and writes it to the file (while being root)! All done!</p>
-<h2 id="change-to-the-previous-working-directory">#4. Change to the previous working directory</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd -</span><br></pre></td></tr></table></figure>
-<p>Everyone knows this, right? The dash "<code>-</code>" is short for "previous working directory." The previous working directory is defined by <code>$OLDPWD</code> shell variable. After you use the <code>cd</code> command, it sets the <code>$OLDPWD</code> environment variable, and then, if you type the short version <code>cd -</code>, it effectively becomes <code>cd $OLDPWD</code> and changes to the previous directory.</p>
-<p>To change to a directory named "<code>-</code>", you have to either cd to the parent directory and then do <code>cd ./-</code> or do <code>cd /full/path/to/-</code>.</p>
-<h2 id="run-the-previous-shell-command-but-replace-string-foo-with-bar">#5. Run the previous shell command but replace string "foo" with "bar"</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ^foo^bar^</span><br></pre></td></tr></table></figure>
-<p>This is another event designator. This one is for quick substitution. It replaces <code>foo</code> with <code>bar</code> and repeats the last command. It's actually a shortcut for <code>!!:s/foo/bar/</code>. This one-liner applies the <code>s</code> modifier to the <code>!!</code> event designator. As we learned from one-liner #1, the <code>!!</code> event designator stands for the previous command. Now the <code>s</code> modifier stands for substitute (greetings to <a target="_blank" rel="noopener" href="https://catonmat.net/sed-one-liners-explained-part-one">sed</a>) and it substitutes the first word with the second word.</p>
-<p>Note that this one-liner replaces just the first word in the previous command. To replace all words, add the <code>g</code> modifer (<code>g</code> for global):</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ !!:gs/foo/bar</span><br></pre></td></tr></table></figure>
-<p>This one-liner is also bash-specific, as event designators are a feature of bash.</p>
-<p>Again, see my article "<a target="_blank" rel="noopener" href="https://catonmat.net/the-definitive-guide-to-bash-command-line-history">The Definitive Guide to Bash Command Line History</a>." I explain all this stuff in great detail.</p>
-<h2 id="quickly-backup-or-copy-a-file">#6. Quickly backup or copy a file</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cp filename&#123;,.bak&#125;</span><br></pre></td></tr></table></figure>
-<p>This one-liner copies the file named <code>filename</code> to a file named <code>filename.bak</code>. Here is how it works. It uses <strong>brace expansion</strong> to construct a list of arguments for the <code>cp</code> command. Brace expansion is a mechanism by which arbitrary strings may be generated. In this one-liner <code>filename&#123;,.bak&#125;</code> gets brace expanded to <code>filename filename.bak</code> and puts in place of the brace expression. The command becomes <code>cp filename filename.bak</code> and file gets copied.</p>
-<p>Talking more about brace expansion, you can do all kinds of combinatorics with it. Here is a fun application:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ echo &#123;a,b,c&#125;&#123;a,b,c&#125;&#123;a,b,c&#125;</span><br></pre></td></tr></table></figure>
-<p>It generates all the possible strings 3-letter from the set <code>&#123;a, b, c&#125;</code>:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">aaa aab aac aba abb abc aca acb acc</span><br><span class="line">baa bab bac bba bbb bbc bca bcb bcc</span><br><span class="line">caa cab cac cba cbb cbc cca ccb ccc</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>And here is how to generate all the possible 2-letter strings from the set of <code>&#123;a, b, c&#125;</code>:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo &#123;a,b,c&#125;&#123;a,b,c&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>It produces:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">aa ab ac ba bb bc ca cb cc</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>If you liked this, you may also like my article where I defined a bunch of set operations (such as intersection, union, symmetry, powerset, etc) by using just shell commands. The article is called "<a target="_blank" rel="noopener" href="https://catonmat.net/set-operations-in-unix-shell">Set Operations in the Unix Shell</a>." (And since I have sets in the shell, I will soon write articles on on "<strong>Combinatorics in the Shell</strong>" and "<strong>Algebra in the Shell</strong>". Fun topics to explore. Perhaps even "Topology in the Shell" :))</p>
-<h2 id="mtr---traceroute-and-ping-combined">#7. mtr - traceroute and ping combined</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mtr google.com</span><br></pre></td></tr></table></figure>
-<p>MTR, bettern known as "Matt's Traceroute" combines both <code>traceroute</code> and <code>ping</code> command. After each successful hop, it sends a ping request to the found machine, this way it produces output of both <code>traceroute</code> and <code>ping</code> to better understand the quality of link. If it finds out a packet took an alternative route, it displays it, and by default it keeps updating the statistics so you knew what was going on in real time.</p>
-<h2 id="find-the-last-command-that-begins-with-whatever-but-avoid-running-it">#8. Find the last command that begins with "whatever," but avoid running it</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ !whatever:p</span><br></pre></td></tr></table></figure>
-<p>Another use of event designators. The <code>!whatever</code> designator searches the shell history for the most recently executed command that starts with <code>whatever</code>. But instead of executing it, it prints it. The <code>:p</code> modifier makes it print instead of executing.</p>
-<p>This one-liner is bash-specific, as event designators are a feature of bash.</p>
-<p>Once again, see my article "<a target="_blank" rel="noopener" href="https://catonmat.net/the-definitive-guide-to-bash-command-line-history">The Definitive Guide to Bash Command Line History</a>." I explain all this stuff in great detail.</p>
-<h2 id="copy-your-public-key-to-remote-machine-for-public-key-authentication">#9. Copy your public-key to remote-machine for public-key authentication</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-copy-id remote-machine</span><br></pre></td></tr></table></figure>
-<p>This one-liner copies your public-key, that you generated with <code>ssh-keygen</code> (either SSHv1 file identity.pub or SSHv2 file id_rsa.pub) to the <code>remote-machine</code> and places it in <code>~/.ssh/authorized_keys</code> file. This ensures that the next time you try to log into that machine, public-key authentication (commonly referred to as "passwordless authentication.") will be used instead of the regular password authentication.</p>
-<p>If you wanted to do it yourself, you'd have to take the following steps:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">your-machine$ scp ~/.ssh/identity.pub remote-machine:</span><br><span class="line">your-machine$ ssh remote-machine</span><br><span class="line">remote-machine$ cat identity.pub &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>This one-liner saves a great deal of typing. Actually I just found out that there was a shorter way to do it:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">your-machine$ ssh remote-machine &#x27;cat &gt;&gt; .ssh/authorized_keys&#x27; &lt; .ssh/identity.pub</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="capture-video-of-a-linux-desktop">#10. Capture video of a linux desktop</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ffmpeg -f x11grab -s wxga -r 25 -i :0.0 -sameq /tmp/out.mpg</span><br></pre></td></tr></table></figure>
-<p>A pure coincidence, I have done so much video processing with ffmpeg that I know what most of this command does without looking much in the manual.</p>
-<p>The ffmpeg generally can be descibed as a command that takes a bunch of options and the last option is the output file. In this case the options are <code>-f x11grab -s wxga -r 25 -i :0.0 -sameq</code> and the output file is <code>/tmp/out.mpg</code>.</p>
-<p>Here is what the options mean:</p>
-<ul>
-<li><code>-f x11grab</code> makes ffmpeg to set the input video format as x11grab. The X11 framebuffer has a specific format it presents data in and it makes ffmpeg to decode it correctly.</li>
-<li><code>-s wxga</code> makes ffmpeg to set the size of the video to wxga which is shortcut for 1366x768. This is a strange resolution to use, I'd just write <code>-s 800x600</code>.</li>
-<li><code>-r 25</code> sets the framerate of the video to 25fps.</li>
-<li><code>-i :0.0</code> sets the video input file to X11 display 0.0 at localhost.</li>
-<li><code>-sameq</code> preserves the quality of input stream. It's best to preserve the quality and post-process it later.</li>
-</ul>
-<p>You can also specify ffmpeg to grab display from another x-server by changing the <code>-i :0.0</code> to <code>-i host:0.0</code>.</p>
-<p>If you're interested in ffmpeg, here are my other articles on ffmpeg that I wrote while ago:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://catonmat.net/how-to-extract-audio-tracks-from-youtube-videos">How to Extract Audio Tracks from YouTube Videos</a></li>
-<li><a target="_blank" rel="noopener" href="https://catonmat.net/converting-youtube-flvs-to-a-better-format-with-ffmpeg">Converting YouTube Flash Videos to a Better Format with ffmpeg</a></li>
-</ul>
-<h2 id="references">References</h2>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://catonmat.net/top-ten-one-liners-from-commandlinefu-explained">Top Ten One-Liners from CommandLineFu Explained</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1358,20 +1292,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

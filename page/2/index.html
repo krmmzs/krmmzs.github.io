@@ -158,6 +158,69 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/16/Leetcode/LeetCode-54-Spiral-Matrix/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/16/Leetcode/LeetCode-54-Spiral-Matrix/" class="post-title-link" itemprop="url">LeetCode 54. Spiral Matrix</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-11-16 18:00:27 / Modified: 18:20:13" itemprop="dateCreated datePublished" datetime="2022-11-16T18:00:27+08:00">2022-11-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="leetcode-54.-spiral-matrix">LeetCode 54. Spiral Matrix</h1>
+<h2 id="main-idea">Main Idea</h2>
+<p>非常经典的问题，矢量作为偏移量即可</p>
+<h2 id="code">Code</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">spiralOrder</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        <span class="type">int</span> n = matrix.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span> (!n) <span class="keyword">return</span> res;</span><br><span class="line">        <span class="type">int</span> m = matrix[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        vector&lt;vector&lt;<span class="type">bool</span>&gt;&gt; <span class="built_in">st</span>(n, <span class="built_in">vector</span>&lt;<span class="type">bool</span>&gt;(m));</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> dx[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;, dy[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> x = <span class="number">0</span>, y = <span class="number">0</span>, idx = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (cnt &lt; n * m) &#123;</span><br><span class="line">            res.<span class="built_in">emplace_back</span>(matrix[x][y]);</span><br><span class="line">            st[x][y] = <span class="literal">true</span>;</span><br><span class="line">            <span class="type">int</span> a = x + dx[idx], b = y + dy[idx];</span><br><span class="line">            <span class="keyword">if</span> (a &lt; <span class="number">0</span> || a &gt;= n || b &lt; <span class="number">0</span> || b &gt;= m || st[a][b]) &#123;</span><br><span class="line">                idx = (idx + <span class="number">1</span>) % <span class="number">4</span>;</span><br><span class="line">                a = x + dx[idx], b = y + dy[idx];</span><br><span class="line">            &#125;</span><br><span class="line">            x = a, y = b;</span><br><span class="line">            cnt ++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/16/Leetcode/LeetCode-53-Maximum-Subarray/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1065,167 +1128,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/09/%E7%AC%AC2%E7%AB%A0%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/09/%E7%AC%AC2%E7%AB%A0%E8%AF%AD%E8%A8%80%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BC%BA%E5%8C%96/" class="post-title-link" itemprop="url">第2章语言可用性的强化</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-11-09 20:15:44" itemprop="dateCreated datePublished" datetime="2022-11-09T20:15:44+08:00">2022-11-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-11-10 00:26:31" itemprop="dateModified" datetime="2022-11-10T00:26:31+08:00">2022-11-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/Modern-C-Tutorial/" itemprop="url" rel="index"><span itemprop="name">Modern C++ Tutorial</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="语言可用性的强化">02语言可用性的强化</h1>
-<h2 id="overview">Overview</h2>
-<ul>
-<li><a href="#2.1-常量">2.1常量</a>
-<ul>
-<li><a href="#nullptr">nullptr</a></li>
-<li><a href="#constexpr">constexpr</a></li>
-</ul></li>
-<li><a href="">2.2变量及其初始化</a></li>
-</ul>
-<h2 id="常量">2.1 常量</h2>
-<h3 id="nullptr"><code>nullptr</code></h3>
-<p>C++11 引入了 <code>nullptr</code> 关键字，专门用来区分空指针、<code>0</code>。</p>
-<p><code>nullptr</code> 的类型为 <code>nullptr_t</code>，能够隐式的转换为任何指针或成员指针的类型，也能和他们进行相等或者不等的比较。</p>
-<p>Ex: <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;type_traits&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">(<span class="type">char</span> *)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">(<span class="type">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (std::is_same&lt;<span class="keyword">decltype</span>(<span class="literal">NULL</span>), <span class="keyword">decltype</span>(<span class="number">0</span>)&gt;::value)</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;NULL == 0&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">if</span> (std::is_same&lt;<span class="keyword">decltype</span>(<span class="literal">NULL</span>), <span class="keyword">decltype</span>((<span class="type">void</span>*)<span class="number">0</span>)&gt;::value)</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;NULL == (void *)0&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">if</span> (std::is_same&lt;<span class="keyword">decltype</span>(<span class="literal">NULL</span>), std::<span class="type">nullptr_t</span>&gt;::value)</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;NULL == nullptr&quot;</span> &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">foo</span>(<span class="number">0</span>);          <span class="comment">// 调用 foo(int)</span></span><br><span class="line">    <span class="comment">// foo(NULL);    // 该行不能通过编译</span></span><br><span class="line">    <span class="built_in">foo</span>(<span class="literal">nullptr</span>);    <span class="comment">// 调用 foo(char*)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">(<span class="type">char</span> *)</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;foo(char*) is called&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">(<span class="type">int</span> i)</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;foo(int) is called&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里用到了<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/decltype">decltype</a> 和 <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/types/is_same">std::is_same</a></p>
-<p>Output: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foo(int) is called</span><br><span class="line">foo(char*) is called</span><br></pre></td></tr></table></figure></p>
-<p>从输出中我们可以看出，<code>NULL</code> 不同于 <code>0</code> 与 <code>nullptr</code>。所以，请养成直接使用 <code>nullptr</code>的习惯。</p>
-<h3 id="constexpr"><code>constexpr</code></h3>
-<p>C++ 本身已经具备了常量表达式的概念，比如 <code>1+2</code>, <code>3*4</code> 这种表达式总是会产生相同的结果并且没有任何副作用。如果编译器能够在编译时就把这些表达式直接优化并植入到程序运行时，将能增加程序的性能。一个非常明显的例子就是在数组的定义阶段：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LEN 10</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">len_foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">len_foo_constexpr</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">5</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">fibonacci</span><span class="params">(<span class="type">const</span> <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n == <span class="number">1</span> || n == <span class="number">2</span> ? <span class="number">1</span> : <span class="built_in">fibonacci</span>(n<span class="number">-1</span>)+<span class="built_in">fibonacci</span>(n<span class="number">-2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">char</span> arr_1[<span class="number">10</span>];                      <span class="comment">// 合法</span></span><br><span class="line">    <span class="type">char</span> arr_2[LEN];                     <span class="comment">// 合法</span></span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> len = <span class="number">10</span>;</span><br><span class="line">    <span class="comment">// char arr_3[len];                  // 非法</span></span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> len_2 = len + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="type">int</span> len_2_constexpr = <span class="number">1</span> + <span class="number">2</span> + <span class="number">3</span>;</span><br><span class="line">    <span class="comment">// char arr_4[len_2];                // 非法</span></span><br><span class="line">    <span class="type">char</span> arr_4[len_2_constexpr];         <span class="comment">// 合法</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// char arr_5[len_foo()+5];          // 非法</span></span><br><span class="line">    <span class="type">char</span> arr_6[<span class="built_in">len_foo_constexpr</span>() + <span class="number">1</span>]; <span class="comment">// 合法</span></span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="built_in">fibonacci</span>(<span class="number">10</span>) &lt;&lt; std::endl;</span><br><span class="line">    <span class="comment">// 1, 1, 2, 3, 5, 8, 13, 21, 34, 55</span></span><br><span class="line">    std::cout &lt;&lt; <span class="built_in">fibonacci</span>(<span class="number">10</span>) &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的例子中，<code>char arr_4[len_2]</code> 可能比较令人困惑，因为 <code>len_2</code> 已经被定义为了常量。为什么 <code>char arr_4[len_2]</code> 仍然是非法的呢？<strong>这是因为 C++ 标准中数组的长度必须是一个常量表达式，而对于 <code>len_2</code> 而言，这是一个 <code>const</code> 常数，而不是一个常量表达式</strong>，因此（即便这种行为在大部分编译器中都支持，但是）它是一个非法的行为，我们需要使用接下来即将介绍的 C++11 引入的 <code>constexpr</code> 特性来解决这个问题；而对于 <code>arr_5</code> 来说，C++98 之前的编译器无法得知 <code>len_foo()</code> 在运行期实际上是返回一个常数，这也就导致了非法的产生。</p>
-<h4 id="main">Main</h4>
-<p>C++11 提供了 <code>constexpr</code> 让用户显式的声明函数或对象构造函数在编译期会成为常量表达式，这个关键字明确的告诉编译器应该去验证 <code>len_foo</code> 在编译期就应该是一个常量表达式。</p>
-<p>此外，<code>constexpr</code> 修饰的函数可以使用递归：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">fibonacci</span><span class="params">(<span class="type">const</span> <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n == <span class="number">1</span> || n == <span class="number">2</span> ? <span class="number">1</span> : <span class="built_in">fibonacci</span>(n<span class="number">-1</span>)+<span class="built_in">fibonacci</span>(n<span class="number">-2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>从 <code>C++14</code> 开始，<code>constexpr</code> 函数可以在内部使用局部变量、循环和分支等简单语句，例如下面的代码在 C++11 的标准下是不能够通过编译的：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">fibonacci</span><span class="params">(<span class="type">const</span> <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">2</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">fibonacci</span>(n<span class="number">-1</span>) + <span class="built_in">fibonacci</span>(n<span class="number">-2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>为此，我们可以写出下面这类简化的版本来使得函数从 C++11 开始即可用：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">fibonacci</span><span class="params">(<span class="type">const</span> <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n == <span class="number">1</span> || n == <span class="number">2</span> ? <span class="number">1</span> : <span class="built_in">fibonacci</span>(n<span class="number">-1</span>) + <span class="built_in">fibonacci</span>(n<span class="number">-2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="变量及其初始化">2.2变量及其初始化</h2>
-<h3 id="ifswitch变量声明强化">if/switch变量声明强化</h3>
-<p>C++17能在 <code>if</code> 和 <code>switch</code> 语句中声明一个临时的变量</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; vec = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在 c++17 之前</span></span><br><span class="line">    <span class="type">const</span> std::vector&lt;<span class="type">int</span>&gt;::iterator itr = std::<span class="built_in">find</span>(vec.<span class="built_in">begin</span>(), vec.<span class="built_in">end</span>(), <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">if</span> (itr != vec.<span class="built_in">end</span>()) &#123;</span><br><span class="line">        *itr = <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 需要重新定义一个新的变量</span></span><br><span class="line">    <span class="type">const</span> std::vector&lt;<span class="type">int</span>&gt;::iterator itr2 = std::<span class="built_in">find</span>(vec.<span class="built_in">begin</span>(), vec.<span class="built_in">end</span>(), <span class="number">3</span>);</span><br><span class="line">    <span class="keyword">if</span> (itr2 != vec.<span class="built_in">end</span>()) &#123;</span><br><span class="line">        *itr2 = <span class="number">4</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将输出 1, 4, 3, 4</span></span><br><span class="line">    <span class="keyword">for</span> (std::vector&lt;<span class="type">int</span>&gt;::iterator element = vec.<span class="built_in">begin</span>(); element != vec.<span class="built_in">end</span>(); </span><br><span class="line">        ++element)</span><br><span class="line">        std::cout &lt;&lt; *element &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>C++17later(like go): <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将临时变量放到 if 语句内</span></span><br><span class="line"><span class="keyword">if</span> (<span class="type">const</span> std::vector&lt;<span class="type">int</span>&gt;::iterator itr = std::<span class="built_in">find</span>(vec.<span class="built_in">begin</span>(), vec.<span class="built_in">end</span>(), <span class="number">3</span>);</span><br><span class="line">    itr != vec.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    *itr = <span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="初始化列表">初始化列表</h3>
-<p>C++11 首先把初始化列表的概念绑定到类型上，称其为 <code>std::initializer_list</code>，允许构造函数或其他函数像参数一样使用初始化列表，这就为类对象的初始化与普通数组和 POD 的初始化方法提供了统一的桥梁，例如： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;initializer_list&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MagicFoo</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line">    <span class="built_in">MagicFoo</span>(std::initializer_list&lt;<span class="type">int</span>&gt; list) &#123;</span><br><span class="line">        <span class="keyword">for</span> (std::initializer_list&lt;<span class="type">int</span>&gt;::iterator it = list.<span class="built_in">begin</span>();</span><br><span class="line">             it != list.<span class="built_in">end</span>(); ++it)</span><br><span class="line">            vec.<span class="built_in">push_back</span>(*it);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// after C++11</span></span><br><span class="line">    MagicFoo magicFoo = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;magicFoo: &quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (std::vector&lt;<span class="type">int</span>&gt;::iterator it = magicFoo.vec.<span class="built_in">begin</span>(); </span><br><span class="line">        it != magicFoo.vec.<span class="built_in">end</span>(); ++it) </span><br><span class="line">        std::cout &lt;&lt; *it &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>初始化列表除了用在对象构造上，还能将其作为普通函数的形参，例如： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">(std::initializer_list&lt;<span class="type">int</span>&gt; list)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (std::initializer_list&lt;<span class="type">int</span>&gt;::iterator it = list.<span class="built_in">begin</span>();</span><br><span class="line">            it != list.<span class="built_in">end</span>(); ++it) vec.<span class="built_in">push_back</span>(*it);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">magicFoo.<span class="built_in">foo</span>(&#123;<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>其次，C++11 还提供了统一的语法来初始化任意的对象，例如：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Foo foo2 &#123;<span class="number">3</span>, <span class="number">4</span>&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="结构化绑定">结构化绑定</h3>
-<p>结构化绑定提供了类似其他语言中提供的多返回值的功能。在容器一章中，我们会学到 C++11 新增了 <code>std::tuple</code> 容器用于构造一个元组，进而囊括多个返回值。但缺陷是，C++11/14 并没有提供一种简单的方法直接从元组中拿到并定义元组中的元素，尽管我们可以使用 <code>std::tie</code> 对元组进行拆包，但我们依然必须非常清楚这个元组包含多少个对象，各个对象是什么类型，非常麻烦。</p>
-<p>C++17 完善了这一设定，给出的结构化绑定可以让我们写出这样的代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tuple&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">std::tuple&lt;<span class="type">int</span>, <span class="type">double</span>, std::string&gt; <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> std::<span class="built_in">make_tuple</span>(<span class="number">1</span>, <span class="number">2.3</span>, <span class="string">&quot;456&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> [x, y, z] = <span class="built_in">f</span>();</span><br><span class="line">    std::cout &lt;&lt; x &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; y &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; z &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="类型推导">2.3类型推导</h2>
-<p>C++11 引入了 <code>auto</code> 和 <code>decltype</code> 这两个关键字实现了类型推导，让编译器来操心变量的类型。这使得 C++ 也具有了和其他现代编程语言一样，某种意义上提供了无需操心变量类型的使用习惯。</p>
-<h3 id="auto"><code>auto</code></h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在 C++11 之前</span></span><br><span class="line"><span class="comment">// 由于 cbegin() 将返回 vector&lt;int&gt;::const_iterator</span></span><br><span class="line"><span class="comment">// 所以 it 也应该是 vector&lt;int&gt;::const_iterator 类型</span></span><br><span class="line"><span class="keyword">for</span>(vector&lt;<span class="type">int</span>&gt;::const_iterator it = vec.<span class="built_in">cbegin</span>(); it != vec.<span class="built_in">cend</span>(); ++it)</span><br></pre></td></tr></table></figure>
-<p>而有了 auto 之后可以：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;initializer_list&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MagicFoo</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line">    <span class="built_in">MagicFoo</span>(std::initializer_list&lt;<span class="type">int</span>&gt; list) &#123;</span><br><span class="line">        <span class="comment">// 从 C++11 起, 使用 auto 关键字进行类型推导</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> it = list.<span class="built_in">begin</span>(); it != list.<span class="built_in">end</span>(); ++it) &#123;</span><br><span class="line">            vec.<span class="built_in">push_back</span>(*it);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MagicFoo magicFoo = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;magicFoo: &quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> it = magicFoo.vec.<span class="built_in">begin</span>(); it != magicFoo.vec.<span class="built_in">end</span>(); ++it) &#123;</span><br><span class="line">        std::cout &lt;&lt; *it &lt;&lt; <span class="string">&quot;, &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>一些其他的常见用法：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> i = <span class="number">5</span>;              <span class="comment">// i 被推导为 int</span></span><br><span class="line"><span class="keyword">auto</span> arr = <span class="keyword">new</span> <span class="built_in">auto</span>(<span class="number">10</span>); <span class="comment">// arr 被推导为 int *</span></span><br></pre></td></tr></table></figure>
-<p>从 C++ 20 起，<code>auto</code> 甚至能用于函数传参，考虑下面的例子：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="keyword">auto</span> x, <span class="keyword">auto</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x+y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> i = <span class="number">5</span>; <span class="comment">// 被推导为 int</span></span><br><span class="line"><span class="keyword">auto</span> j = <span class="number">6</span>; <span class="comment">// 被推导为 int</span></span><br><span class="line">std::cout &lt;&lt; <span class="built_in">add</span>(i, j) &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>注意</strong>：<code>auto</code> 还不能用于推导数组类型：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> auto_arr2[<span class="number">10</span>] = &#123;arr&#125;; <span class="comment">// 错误, 无法推导数组元素类型</span></span><br><span class="line"></span><br><span class="line"><span class="number">2.6</span>.<span class="keyword">auto</span>.cpp:<span class="number">30</span>:<span class="number">19</span>: error: <span class="string">&#x27;auto_arr2&#x27;</span> declared as array of <span class="string">&#x27;auto&#x27;</span></span><br><span class="line">    <span class="keyword">auto</span> auto_arr2[<span class="number">10</span>] = &#123;arr&#125;;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h3 id="decltype"><code>decltype</code></h3>
-<p><code>decltype</code> 关键字是为了解决 <code>auto</code> 关键字只能对变量进行类型推导的缺陷而出现的。它的用法和 <code>typeof</code> 很相似：</p>
-<p><code>decltype</code> 用于推断类型的用法，下面这个例子就是判断上面的变量 <code>x, y, z</code> 是否是同一类型：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (std::is_same&lt;<span class="keyword">decltype</span>(x), <span class="type">int</span>&gt;::value)</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;type x == int&quot;</span> &lt;&lt; std::endl;</span><br><span class="line"><span class="keyword">if</span> (std::is_same&lt;<span class="keyword">decltype</span>(x), <span class="type">float</span>&gt;::value)</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;type x == float&quot;</span> &lt;&lt; std::endl;</span><br><span class="line"><span class="keyword">if</span> (std::is_same&lt;<span class="keyword">decltype</span>(x), <span class="keyword">decltype</span>(z)&gt;::value)</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;type z == type x&quot;</span> &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
-<p>其中，<code>std::is_same&lt;T, U&gt;</code> 用于判断 <code>T</code> 和 <code>U</code> 这两个类型是否相等。输出结果为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">type x == int</span><br><span class="line">type z == type x</span><br></pre></td></tr></table></figure>
-<h3 id="尾返回类型推导">尾返回类型推导</h3>
-<h4 id="main-1">Main</h4>
-<p>C++11 引入了一个叫做尾返回类型（trailing return type），利用 auto 关键字将返回类型后置 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">add2</span><span class="params">(T x, U y)</span> -&gt; <span class="title">decltype</span><span class="params">(x+y)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>C++14 开始是可以直接让普通函数具备返回值推导 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">add3</span><span class="params">(T x, U y)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>传统： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> R, <span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;</span></span><br><span class="line"><span class="function">R <span class="title">add</span><span class="params">(T x, U y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x+y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>注意：typename 和 class 在模板参数列表中没有区别，在 typename 这个关键字出现之前，都是使用 class 来定义模板参数的。但在模板中定义有<a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/language/dependent_name#The_typename_disambiguator_for_dependent_names">嵌套依赖类型</a>的变量时，需要用 typename 消除歧义 <a target="_blank" rel="noopener" href="https://krmmzs.com/2022/10/27/Cpp/Accelerated-Cpp/Accelerated-Cpp-chapter08/#typename">my blog typename</a></p>
-</blockquote>
-<p>可以检查一下类型推导是否正确：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// after c++11</span></span><br><span class="line"><span class="keyword">auto</span> w = <span class="built_in">add2</span>&lt;<span class="type">int</span>, <span class="type">double</span>&gt;(<span class="number">1</span>, <span class="number">2.0</span>);</span><br><span class="line"><span class="keyword">if</span> (std::is_same&lt;<span class="keyword">decltype</span>(w), <span class="type">double</span>&gt;::value) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;w is double: &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line">std::cout &lt;&lt; w &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line"><span class="comment">// after c++14</span></span><br><span class="line"><span class="keyword">auto</span> q = <span class="built_in">add3</span>&lt;<span class="type">double</span>, <span class="type">int</span>&gt;(<span class="number">1.0</span>, <span class="number">2</span>);</span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;q: &quot;</span> &lt;&lt; q &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
-<h3 id="decltypeauto">decltype(auto)</h3>
-<p>C++14</p>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/a/24109800/14787331">stackoverflow</a></p>
-<p>简单来说，<code>decltype(auto)</code> 主要用于对转发函数或封装的返回类型进行推导，它使我们无需显式的指定 <code>decltype</code> 的参数表达式。考虑看下面的例子，当我们需要对下面两个函数进行封装时：</p>
-<p>在 C++11 中，封装实现是如下形式：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::string <span class="title">look_up_a_string_1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">lookup1</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">std::string&amp; <span class="title">look_up_a_string_2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">lookup2</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>而有了 <code>decltype(auto)</code>，我们可以让编译器完成这一件烦人的参数转发：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">decltype</span>(<span class="keyword">auto</span>) <span class="title">look_up_a_string_1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">lookup1</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">decltype</span>(<span class="keyword">auto</span>) <span class="title">look_up_a_string_2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">lookup2</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="控制流">2.4控制流</h2>
-<p>wait...</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1295,20 +1197,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
