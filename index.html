@@ -158,6 +158,148 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/19/%E6%88%90%E5%8A%9F%E8%A7%A3%E5%86%B3%E5%9C%A8hexo%E4%B8%AD%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/02/19/%E6%88%90%E5%8A%9F%E8%A7%A3%E5%86%B3%E5%9C%A8hexo%E4%B8%AD%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">成功解决在hexo中无法显示数学公式的问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-02-19 21:23:43 / Modified: 21:31:31" itemprop="dateCreated datePublished" datetime="2024-02-19T21:23:43+08:00">2024-02-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="解决步骤">解决步骤</h1>
+<h2 id="更换hexo的markdown渲染引擎-更换hexo的markdown渲染引擎更换hexo的markdown渲染引擎">更换Hexo的markdown渲染引擎 "更换Hexo的markdown渲染引擎")更换Hexo的markdown渲染引擎</h2>
+<p>先后执行下面的两条命令，第一条表示将默认的渲染引擎hexo-renderer-marked卸载，第二条命令是安装hexo-renderer-kramed渲染引擎，此渲染引擎修改了hexo-renderer-marked渲染引擎的一些bug。</p>
+<table>
+<tbody>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line">npm install hexo-renderer-kramed --save</span><br></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="修改node-modules-kramed-lib-rules-inline-js文件-修改node_modules.js文件修改node_moduleskramedlibrulesinline.js文件">修改node-modules-kramed-lib-rules-inline-js文件 "修改node_modules.js文件")修改node_modules\kramed\lib\rules\inline.js文件</h2>
+<p>hexo-renderer-marked渲染引擎仍然存在一些语义冲突问题，到博客的根目录下，找到node_modules\kramed\lib\rules\inline.js，把第11行的escape变量的值做相应的修改：</p>
+<table>
+<tbody>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">//  escape: /^\\([\\`*{}\[\]()#$+\-.!_&gt;])/,</span><br><span class="line">  escape: /^\\([`*\[\]()#$+\-.!_&gt;])/,</span><br></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p>这一步是在原基础上取消了对\,{,}的转义(escape)。</p>
+<p>同时把第20行的em变量也要做相应的修改。</p>
+<table>
+<tbody>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">//  em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br><span class="line">  em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="在主题中开启mathjax开关-在主题中开启mathjax开关在主题中开启mathjax开关">在主题中开启mathjax开关 "在主题中开启mathjax开关")在主题中开启mathjax开关</h2>
+<p>到博客根目录下，找到themes/next/_config.yml，把math默认的flase修改为true，具体如下：</p>
+<table>
+<tbody>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line"><span class="meta">#</span><span class="bash"> Math Equations Render Support</span></span><br><span class="line">math:</span><br><span class="line">  enable: true</span><br><span class="line">  per_page: true</span><br><span class="line">  engine: mathjax</span><br></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="在文章的front-matter里打开mathjax开关-在文章的front-matter里打开mathjax开关在文章的front-matter里打开mathjax开关">在文章的Front-matter里打开mathjax开关 "在文章的Front-matter里打开mathjax开关")在文章的Front-matter里打开mathjax开关</h2>
+<p>如果你写的文章里面用到了数学公式，需要在文章Front-matter里打开mathjax开关。如果用不到数学公式，则不需要管它。</p>
+<table>
+<tbody>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">---</span><br><span class="line">title: index.html</span><br><span class="line">date: 2018-12-5 01:30:30</span><br><span class="line">tags:</span><br><span class="line">mathjax: true</span><br><span class="line">--</span><br></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="重启hexo-重启hexo重启hexo">重启hexo "重启hexo")重启hexo</h2>
+<table>
+<tbody>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">hexo clean #清除缓存文件</span><br><span class="line">hexo g -d  #生成并部署hexo</span><br></pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/19/cc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -183,7 +325,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2024-02-19 17:20:13 / Modified: 20:15:40" itemprop="dateCreated datePublished" datetime="2024-02-19T17:20:13+08:00">2024-02-19</time>
+              <time title="Created: 2024-02-19 17:20:13 / Modified: 21:38:53" itemprop="dateCreated datePublished" datetime="2024-02-19T17:20:13+08:00">2024-02-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -12101,82 +12243,6 @@ y&#39;(t) &amp; y&#39;&#39;(t)
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/16/Leetcode/LeetCode-55-Jump-Game/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/16/Leetcode/LeetCode-55-Jump-Game/" class="post-title-link" itemprop="url">LeetCode 55. Jump Game</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-11-16 18:20:49" itemprop="dateCreated datePublished" datetime="2022-11-16T18:20:49+08:00">2022-11-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-11-17 14:36:05" itemprop="dateModified" datetime="2022-11-17T14:36:05+08:00">2022-11-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="leetcode-55.-jump-game">LeetCode 55. Jump Game</h1>
-<h2 id="main-idea">Main Idea</h2>
-<p>这里有个性质，可以跳的位置是一个区间</p>
-<p>nums = [2, 3, 1, 1, 4], nums[0] = 2, 说明可以跳到 [1, 2] 位置</p>
-<p>这会导致一个如何我能跳到3,那么一定能跳到3前面的位置</p>
-<p>这样整个区间会被分成两段，前面一段是可以跳到的，后面一段是不可以跳到的</p>
-<p>用返证法是可以证明的</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">      .  x*</span><br><span class="line">-----------------------</span><br></pre></td></tr></table></figure>
-<p>假设可以从.跳到*，那么一定可以跳到x, 所以矛盾</p>
-<p>遍历的时候记录能跳到的最远距离即可，最后返回的时候判断一下即可</p>
-<h2 id="code">Code</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">canJump</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> <span class="type">max_t</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="type">max_t</span> &lt; i) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            <span class="type">max_t</span> = <span class="built_in">max</span>(<span class="type">max_t</span>, i + nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -12246,7 +12312,7 @@ y&#39;(t) &amp; y&#39;&#39;(t)
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

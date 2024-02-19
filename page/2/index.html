@@ -158,6 +158,82 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/16/Leetcode/LeetCode-55-Jump-Game/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/16/Leetcode/LeetCode-55-Jump-Game/" class="post-title-link" itemprop="url">LeetCode 55. Jump Game</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-11-16 18:20:49" itemprop="dateCreated datePublished" datetime="2022-11-16T18:20:49+08:00">2022-11-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-11-17 14:36:05" itemprop="dateModified" datetime="2022-11-17T14:36:05+08:00">2022-11-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="leetcode-55.-jump-game">LeetCode 55. Jump Game</h1>
+<h2 id="main-idea">Main Idea</h2>
+<p>这里有个性质，可以跳的位置是一个区间</p>
+<p>nums = [2, 3, 1, 1, 4], nums[0] = 2, 说明可以跳到 [1, 2] 位置</p>
+<p>这会导致一个如何我能跳到3,那么一定能跳到3前面的位置</p>
+<p>这样整个区间会被分成两段，前面一段是可以跳到的，后面一段是不可以跳到的</p>
+<p>用返证法是可以证明的</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">      .  x*</span><br><span class="line">-----------------------</span><br></pre></td></tr></table></figure>
+<p>假设可以从.跳到*，那么一定可以跳到x, 所以矛盾</p>
+<p>遍历的时候记录能跳到的最远距离即可，最后返回的时候判断一下即可</p>
+<h2 id="code">Code</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">canJump</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> <span class="type">max_t</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="type">max_t</span> &lt; i) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            <span class="type">max_t</span> = <span class="built_in">max</span>(<span class="type">max_t</span>, i + nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/16/Leetcode/LeetCode-54-Spiral-Matrix/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1034,100 +1110,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/09/How-to-sum-up-elements-of-a-Cpp-vector/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/11/09/How-to-sum-up-elements-of-a-Cpp-vector/" class="post-title-link" itemprop="url">How to sum up elements of a Cpp vector</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-11-09 21:39:51 / Modified: 21:58:47" itemprop="dateCreated datePublished" datetime="2022-11-09T21:39:51+08:00">2022-11-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="c03">C++03</h2>
-<ol type="1">
-<li><p>Classic for loop:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(std::vector&lt;<span class="type">int</span>&gt;::iterator it = vector.<span class="built_in">begin</span>(); it != vector.<span class="built_in">end</span>(); ++it)</span><br><span class="line">    sum_of_elems += *it;</span><br></pre></td></tr></table></figure></li>
-<li><p>Using a standard algorithm:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;numeric&gt;</span></span></span><br><span class="line">    </span><br><span class="line">sum_of_elems = std::<span class="built_in">accumulate</span>(vector.<span class="built_in">begin</span>(), vector.<span class="built_in">end</span>(), <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<p><strong>Important Note:</strong> The last argument's type is used not just for the initial value, but for <em>the type of the result</em> as well. If you put an int there, it will accumulate ints even if the vector has float. If you are summing floating-point numbers, change <code>0</code> to <code>0.0</code> or <code>0.0f</code> (<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3221812/how-to-sum-up-elements-of-a-c-vector#comment20983332_3221813">thanks to nneonneo</a>). See also the C++11 solution below.</p></li>
-</ol>
-<h2 id="c11-and-higher">C++11 and higher</h2>
-<ol start="2" type="1">
-<li><ol start="2" type="a">
-<li>Automatically keeping track of the vector type even in case of future changes:</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;numeric&gt;</span></span></span><br><span class="line">    </span><br><span class="line">sum_of_elems = std::<span class="built_in">accumulate</span>(vector.<span class="built_in">begin</span>(), vector.<span class="built_in">end</span>(),</span><br><span class="line">                               <span class="keyword">decltype</span>(vector)::<span class="built_in">value_type</span>(<span class="number">0</span>));</span><br></pre></td></tr></table></figure></li>
-<li><p>Using <code>std::for_each</code>:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">std::for_each(vector.<span class="built_in">begin</span>(), vector.<span class="built_in">end</span>(), [&amp;] (<span class="type">int</span> n) &#123;</span><br><span class="line">    sum_of_elems += n;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
-<li><p>Using a range-based for loop (<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/3224488/11573842">thanks to Roger Pate</a>):</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span>&amp; n : vector)</span><br><span class="line">    sum_of_elems += n;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="c17-and-above">C++17 and above</h2>
-<ol start="5" type="1">
-<li><p>Using <code>std::reduce</code> which also takes care of the result type, e.g if you have <code>std::vector&lt;int&gt;</code>, you get <code>int</code> as result. If you have <code>std::vector&lt;float&gt;</code>, you get <code>float</code>. Or if you have <code>std::vector&lt;std::string&gt;</code>, you get <code>std::string</code> (all strings concatenated). Interesting, isn't it?</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> result = std::<span class="built_in">reduce</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>());</span><br></pre></td></tr></table></figure>
-<p>There are <a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/algorithm/reduce">other overloads of this function</a> which you can run even parallelly, in case if you have a large collection and you want to get the result quickly.</p></li>
-</ol>
-<h2 id="references">References</h2>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3221812/how-to-sum-up-elements-of-a-c-vector">How to sum up elements of a C++ vector?</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1197,7 +1179,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
