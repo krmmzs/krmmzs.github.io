@@ -158,6 +158,191 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/19/markdown-to-hexo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/02/19/markdown-to-hexo/" class="post-title-link" itemprop="url">markdown to hexo</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-02-19 23:39:15 / Modified: 23:52:55" itemprop="dateCreated datePublished" datetime="2024-02-19T23:39:15+08:00">2024-02-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="markdown-to-hexo">markdown to hexo</h1>
+<p>为了能在ipad上也看笔记, 所以希望能同步, github的markdown解析非常蛋疼, hexo对公式起初是不支持的</p>
+<p>但是可以改渲染器, 这里记录一下过程</p>
+<h2 id="main">Main</h2>
+<h3 id="公式渲染">公式渲染</h3>
+<h4 id="更换hexo的markdown渲染引擎-更换hexo的markdown渲染引擎更换hexo的markdown渲染引擎">更换Hexo的markdown渲染引擎 "更换Hexo的markdown渲染引擎")更换Hexo的markdown渲染引擎</h4>
+<p>先后执行下面的两条命令，第一条表示将默认的渲染引擎hexo-renderer-marked卸载，第二条命令是安装hexo-renderer-kramed渲染引擎，此渲染引擎修改了hexo-renderer-marked渲染引擎的一些bug。</p>
+<table>
+<tbody>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line">npm install hexo-renderer-kramed --save</span><br></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<h4 id="修改node-modules-kramed-lib-rules-inline-js文件-修改node_modules.js文件修改node_moduleskramedlibrulesinline.js文件">修改node-modules-kramed-lib-rules-inline-js文件 "修改node_modules.js文件")修改node_modules\kramed\lib\rules\inline.js文件</h4>
+<p>hexo-renderer-marked渲染引擎仍然存在一些语义冲突问题，到博客的根目录下，找到node_modules\kramed\lib\rules\inline.js，把第11行的escape变量的值做相应的修改：</p>
+<table>
+<tbody>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">//  escape: /^\\([\\`*{}\[\]()#$+\-.!_&gt;])/,</span><br><span class="line">  escape: /^\\([`*\[\]()#$+\-.!_&gt;])/,</span><br></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p>这一步是在原基础上取消了对\,{,}的转义(escape)。</p>
+<p>同时把第20行的em变量也要做相应的修改。</p>
+<table>
+<tbody>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">//  em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br><span class="line">  em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<h4 id="在主题中开启mathjax开关-在主题中开启mathjax开关在主题中开启mathjax开关">在主题中开启mathjax开关 "在主题中开启mathjax开关")在主题中开启mathjax开关</h4>
+<p>到博客根目录下，找到themes/next/_config.yml，把math默认的flase修改为true，具体如下：</p>
+<table>
+<tbody>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line"><span class="meta">#</span><span class="bash"> Math Equations Render Support</span></span><br><span class="line">math:</span><br><span class="line">  enable: true</span><br><span class="line">  per_page: true</span><br><span class="line">  engine: mathjax</span><br></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<h4 id="在文章的front-matter里打开mathjax开关-在文章的front-matter里打开mathjax开关在文章的front-matter里打开mathjax开关">在文章的Front-matter里打开mathjax开关 "在文章的Front-matter里打开mathjax开关")在文章的Front-matter里打开mathjax开关</h4>
+<p>如果你写的文章里面用到了数学公式，需要在文章Front-matter里打开mathjax开关。如果用不到数学公式，则不需要管它。</p>
+<table>
+<tbody>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">---</span><br><span class="line">title: index.html</span><br><span class="line">date: 2018-12-5 01:30:30</span><br><span class="line">tags:</span><br><span class="line">mathjax: true</span><br><span class="line">--</span><br></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<h4 id="重启hexo-重启hexo重启hexo">重启hexo "重启hexo")重启hexo</h4>
+<table>
+<tbody>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">hexo clean #清除缓存文件</span><br><span class="line">hexo g -d  #生成并部署hexo</span><br></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="迁移">迁移</h3>
+<p>首先进行一些预处理</p>
+<hr />
+<p><strong>文章资源文件夹</strong></p>
+<p>from <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/asset-folders">资源文件夹</a></p>
+<p>对于那些想要更有规律地提供图片和其他资源以及想要将他们的资源分布在各个文章上的人来说，Hexo也提供了更组织化的方式来管理资源。这个稍微有些复杂但是管理资源非常方便的功能可以通过将 <code>config.yml</code> 文件中的 <code>post_asset_folder</code> 选项设为 <code>true</code> 来打开。</p>
+<p>_config.yml</p>
+<table>
+<tbody>
+<tr>
+<td class="code">
+<pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p>当资源文件管理功能打开后，Hexo将会在你每一次通过 <code>hexo new [layout] &lt;title&gt;</code> 命令创建新文章时自动创建一个文件夹。这个资源文件夹将会有与这个文章文件一样的名字。将所有与你的文章有关的资源放在这个关联文件夹中之后，你可以通过相对路径来引用它们，这样你就得到了一个更简单而且方便得多的工作流。</p>
+<p><strong>使用 Markdown 嵌入图片<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/asset-folders#使用-Markdown-嵌入图片"></a></strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-renderer-marked">hexo-renderer-marked</a> 3.1.0 引入了一个新的选项，其允许你无需使用 <code>asset_img</code> 标签插件就可以在 markdown 中嵌入图片</p>
+<p>如需启用：</p>
+<p>_config.yml</p>
+<table>
+<tbody>
+<tr>
+<td class="code">
+<pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">true</span></span><br></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p>启用后，资源图片将会被自动解析为其对应文章的路径。<br />
+例如： <code>image.jpg</code> 位置为 <code>/2020/01/02/foo/image.jpg</code> ，这表示它是 <code>/2020/01/02/foo/</code> 文章的一张资源图片， <code>![](image.jpg)</code> 将会被解析为 <code>&lt;img src="/2020/01/02/foo/image.jpg"&gt;</code> 。</p>
+<hr />
+<h3 id="vim-全局换img成markdown">vim 全局换img成markdown</h3>
+<p>其实这里的操作很蛋疼, hexo自己会把markdown的<code>![]()</code>转化为img的, 但是自己用img却不行, 我不知道原因</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:%s/&lt;img src=<span class="string">&quot;\([^&quot;</span>]*\)<span class="comment">&quot;[^&gt;]*&gt;/![](\1)/g</span></span><br></pre></td></tr></table></figure>
+<p>这个命令中的 <code>%s</code> 仍然表示对整个文件进行替换，但是正则表达式 <code>&lt;img src="\([^"]*\)"[^&gt;]*&gt;</code> 更加宽松，它匹配任意不包含双引号的<code>src</code>属性，并且可以处理<code>style</code>属性的存在与否。<code>[^&gt;]*</code> 匹配了<code>&lt;img&gt;</code>标签中除了<code>src</code>属性外的任意字符，确保了对<code>style</code>属性的容错性。</p>
+<p>执行完上述命令后，Vim 将会将 <code>&lt;img&gt;</code> 标签替换为 <code>![]()</code> 的格式，仅保留原始图片路径。如果有多个匹配，它将在整个文件中进行替换。</p>
+<p>09:47 PM21:47</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/19/%E6%88%90%E5%8A%9F%E8%A7%A3%E5%86%B3%E5%9C%A8hexo%E4%B8%AD%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -325,7 +510,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2024-02-19 17:20:13 / Modified: 22:56:04" itemprop="dateCreated datePublished" datetime="2024-02-19T17:20:13+08:00">2024-02-19</time>
+              <time title="Created: 2024-02-19 17:20:13 / Modified: 23:07:22" itemprop="dateCreated datePublished" datetime="2024-02-19T17:20:13+08:00">2024-02-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -12180,69 +12365,6 @@ y&#39;(t) &amp; y&#39;&#39;(t)
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/01/Rejecting-formal-nostalgia/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/01/Rejecting-formal-nostalgia/" class="post-title-link" itemprop="url">Rejecting formal nostalgia</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-12-01 14:23:41 / Modified: 14:32:04" itemprop="dateCreated datePublished" datetime="2022-12-01T14:23:41+08:00">2022-12-01</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>特殊的日子里，许多国内的网页服务都开始进入黑白模式，甚至可能要持续几天。</p>
-<p>可以怀念但是拒绝形式化怀念。</p>
-<p>一般来说，彩色网页通常可以使用CSS filter: grayscale(1);来让全页变灰 只要匹配所有的这个声明将其改为 field: grayscale(0);就可以了。</p>
-<p>js油猴即可:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title function_">GM_addStyle</span>(<span class="string">&quot;* &#123;filter: none !important&#125;&quot;</span>);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -12312,7 +12434,7 @@ y&#39;(t) &amp; y&#39;&#39;(t)
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">76</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

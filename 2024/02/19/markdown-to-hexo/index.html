@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="解决步骤 更换Hexo的markdown渲染引擎 &quot;更换Hexo的markdown渲染引擎&quot;)更换Hexo的markdown渲染引擎 先后执行下面的两条命令，第一条表示将默认的渲染引擎hexo-renderer-marked卸载，第二条命令是安装hexo-renderer-kramed渲染引擎，此渲染引擎修改了hexo-renderer-marked渲染引擎的一些bug。     12   npm">
+  <meta name="description" content="markdown to hexo 为了能在ipad上也看笔记, 所以希望能同步, github的markdown解析非常蛋疼, hexo对公式起初是不支持的 但是可以改渲染器, 这里记录一下过程 Main 公式渲染 更换Hexo的markdown渲染引擎 &quot;更换Hexo的markdown渲染引擎&quot;)更换Hexo的markdown渲染引擎 先后执行下面的两条命令，第一条表示将默认的渲染引擎hexo-">
 <meta property="og:type" content="article">
-<meta property="og:title" content="成功解决在hexo中无法显示数学公式的问题">
-<meta property="og:url" content="http://example.com/2024/02/19/%E6%88%90%E5%8A%9F%E8%A7%A3%E5%86%B3%E5%9C%A8hexo%E4%B8%AD%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:title" content="markdown to hexo">
+<meta property="og:url" content="http://example.com/2024/02/19/markdown-to-hexo/index.html">
 <meta property="og:site_name" content="krmmzs">
-<meta property="og:description" content="解决步骤 更换Hexo的markdown渲染引擎 &quot;更换Hexo的markdown渲染引擎&quot;)更换Hexo的markdown渲染引擎 先后执行下面的两条命令，第一条表示将默认的渲染引擎hexo-renderer-marked卸载，第二条命令是安装hexo-renderer-kramed渲染引擎，此渲染引擎修改了hexo-renderer-marked渲染引擎的一些bug。     12   npm">
+<meta property="og:description" content="markdown to hexo 为了能在ipad上也看笔记, 所以希望能同步, github的markdown解析非常蛋疼, hexo对公式起初是不支持的 但是可以改渲染器, 这里记录一下过程 Main 公式渲染 更换Hexo的markdown渲染引擎 &quot;更换Hexo的markdown渲染引擎&quot;)更换Hexo的markdown渲染引擎 先后执行下面的两条命令，第一条表示将默认的渲染引擎hexo-">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-02-19T13:23:43.000Z">
-<meta property="article:modified_time" content="2024-02-19T13:31:31.282Z">
+<meta property="article:published_time" content="2024-02-19T15:39:15.000Z">
+<meta property="article:modified_time" content="2024-02-19T15:52:55.035Z">
 <meta property="article:author" content="krmmzs">
 <meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2024/02/19/%E6%88%90%E5%8A%9F%E8%A7%A3%E5%86%B3%E5%9C%A8hexo%E4%B8%AD%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98/">
+<link rel="canonical" href="http://example.com/2024/02/19/markdown-to-hexo/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>成功解决在hexo中无法显示数学公式的问题 | krmmzs</title>
+  <title>markdown to hexo | krmmzs</title>
   
 
 
@@ -162,7 +162,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/19/%E6%88%90%E5%8A%9F%E8%A7%A3%E5%86%B3%E5%9C%A8hexo%E4%B8%AD%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/19/markdown-to-hexo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          成功解决在hexo中无法显示数学公式的问题
+          markdown to hexo
         </h1>
 
         <div class="post-meta">
@@ -186,7 +186,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2024-02-19 21:23:43 / Modified: 21:31:31" itemprop="dateCreated datePublished" datetime="2024-02-19T21:23:43+08:00">2024-02-19</time>
+              <time title="Created: 2024-02-19 23:39:15 / Modified: 23:52:55" itemprop="dateCreated datePublished" datetime="2024-02-19T23:39:15+08:00">2024-02-19</time>
             </span>
 
           
@@ -200,8 +200,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="解决步骤">解决步骤</h1>
-<h2 id="更换hexo的markdown渲染引擎-更换hexo的markdown渲染引擎更换hexo的markdown渲染引擎">更换Hexo的markdown渲染引擎 "更换Hexo的markdown渲染引擎")更换Hexo的markdown渲染引擎</h2>
+        <h1 id="markdown-to-hexo">markdown to hexo</h1>
+<p>为了能在ipad上也看笔记, 所以希望能同步, github的markdown解析非常蛋疼, hexo对公式起初是不支持的</p>
+<p>但是可以改渲染器, 这里记录一下过程</p>
+<h2 id="main">Main</h2>
+<h3 id="公式渲染">公式渲染</h3>
+<h4 id="更换hexo的markdown渲染引擎-更换hexo的markdown渲染引擎更换hexo的markdown渲染引擎">更换Hexo的markdown渲染引擎 "更换Hexo的markdown渲染引擎")更换Hexo的markdown渲染引擎</h4>
 <p>先后执行下面的两条命令，第一条表示将默认的渲染引擎hexo-renderer-marked卸载，第二条命令是安装hexo-renderer-kramed渲染引擎，此渲染引擎修改了hexo-renderer-marked渲染引擎的一些bug。</p>
 <table>
 <tbody>
@@ -215,7 +219,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="修改node-modules-kramed-lib-rules-inline-js文件-修改node_modules.js文件修改node_moduleskramedlibrulesinline.js文件">修改node-modules-kramed-lib-rules-inline-js文件 "修改node_modules.js文件")修改node_modules\kramed\lib\rules\inline.js文件</h2>
+<h4 id="修改node-modules-kramed-lib-rules-inline-js文件-修改node_modules.js文件修改node_moduleskramedlibrulesinline.js文件">修改node-modules-kramed-lib-rules-inline-js文件 "修改node_modules.js文件")修改node_modules\kramed\lib\rules\inline.js文件</h4>
 <p>hexo-renderer-marked渲染引擎仍然存在一些语义冲突问题，到博客的根目录下，找到node_modules\kramed\lib\rules\inline.js，把第11行的escape变量的值做相应的修改：</p>
 <table>
 <tbody>
@@ -243,7 +247,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="在主题中开启mathjax开关-在主题中开启mathjax开关在主题中开启mathjax开关">在主题中开启mathjax开关 "在主题中开启mathjax开关")在主题中开启mathjax开关</h2>
+<h4 id="在主题中开启mathjax开关-在主题中开启mathjax开关在主题中开启mathjax开关">在主题中开启mathjax开关 "在主题中开启mathjax开关")在主题中开启mathjax开关</h4>
 <p>到博客根目录下，找到themes/next/_config.yml，把math默认的flase修改为true，具体如下：</p>
 <table>
 <tbody>
@@ -257,7 +261,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="在文章的front-matter里打开mathjax开关-在文章的front-matter里打开mathjax开关在文章的front-matter里打开mathjax开关">在文章的Front-matter里打开mathjax开关 "在文章的Front-matter里打开mathjax开关")在文章的Front-matter里打开mathjax开关</h2>
+<h4 id="在文章的front-matter里打开mathjax开关-在文章的front-matter里打开mathjax开关在文章的front-matter里打开mathjax开关">在文章的Front-matter里打开mathjax开关 "在文章的Front-matter里打开mathjax开关")在文章的Front-matter里打开mathjax开关</h4>
 <p>如果你写的文章里面用到了数学公式，需要在文章Front-matter里打开mathjax开关。如果用不到数学公式，则不需要管它。</p>
 <table>
 <tbody>
@@ -271,7 +275,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="重启hexo-重启hexo重启hexo">重启hexo "重启hexo")重启hexo</h2>
+<h4 id="重启hexo-重启hexo重启hexo">重启hexo "重启hexo")重启hexo</h4>
 <table>
 <tbody>
 <tr>
@@ -284,6 +288,45 @@
 </tr>
 </tbody>
 </table>
+<h3 id="迁移">迁移</h3>
+<p>首先进行一些预处理</p>
+<hr />
+<p><strong>文章资源文件夹</strong></p>
+<p>from <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/asset-folders">资源文件夹</a></p>
+<p>对于那些想要更有规律地提供图片和其他资源以及想要将他们的资源分布在各个文章上的人来说，Hexo也提供了更组织化的方式来管理资源。这个稍微有些复杂但是管理资源非常方便的功能可以通过将 <code>config.yml</code> 文件中的 <code>post_asset_folder</code> 选项设为 <code>true</code> 来打开。</p>
+<p>_config.yml</p>
+<table>
+<tbody>
+<tr>
+<td class="code">
+<pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p>当资源文件管理功能打开后，Hexo将会在你每一次通过 <code>hexo new [layout] &lt;title&gt;</code> 命令创建新文章时自动创建一个文件夹。这个资源文件夹将会有与这个文章文件一样的名字。将所有与你的文章有关的资源放在这个关联文件夹中之后，你可以通过相对路径来引用它们，这样你就得到了一个更简单而且方便得多的工作流。</p>
+<p><strong>使用 Markdown 嵌入图片<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/asset-folders#使用-Markdown-嵌入图片"></a></strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-renderer-marked">hexo-renderer-marked</a> 3.1.0 引入了一个新的选项，其允许你无需使用 <code>asset_img</code> 标签插件就可以在 markdown 中嵌入图片</p>
+<p>如需启用：</p>
+<p>_config.yml</p>
+<table>
+<tbody>
+<tr>
+<td class="code">
+<pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">true</span></span><br></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p>启用后，资源图片将会被自动解析为其对应文章的路径。<br />
+例如： <code>image.jpg</code> 位置为 <code>/2020/01/02/foo/image.jpg</code> ，这表示它是 <code>/2020/01/02/foo/</code> 文章的一张资源图片， <code>![](image.jpg)</code> 将会被解析为 <code>&lt;img src="/2020/01/02/foo/image.jpg"&gt;</code> 。</p>
+<hr />
+<h3 id="vim-全局换img成markdown">vim 全局换img成markdown</h3>
+<p>其实这里的操作很蛋疼, hexo自己会把markdown的<code>![]()</code>转化为img的, 但是自己用img却不行, 我不知道原因</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:%s/&lt;img src=<span class="string">&quot;\([^&quot;</span>]*\)<span class="comment">&quot;[^&gt;]*&gt;/![](\1)/g</span></span><br></pre></td></tr></table></figure>
+<p>这个命令中的 <code>%s</code> 仍然表示对整个文件进行替换，但是正则表达式 <code>&lt;img src="\([^"]*\)"[^&gt;]*&gt;</code> 更加宽松，它匹配任意不包含双引号的<code>src</code>属性，并且可以处理<code>style</code>属性的存在与否。<code>[^&gt;]*</code> 匹配了<code>&lt;img&gt;</code>标签中除了<code>src</code>属性外的任意字符，确保了对<code>style</code>属性的容错性。</p>
+<p>执行完上述命令后，Vim 将会将 <code>&lt;img&gt;</code> 标签替换为 <code>![]()</code> 的格式，仅保留原始图片路径。如果有多个匹配，它将在整个文件中进行替换。</p>
+<p>09:47 PM21:47</p>
 
     </div>
 
@@ -302,13 +345,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/02/19/cc/" rel="prev" title="cc">
-      <i class="fa fa-chevron-left"></i> cc
+    <a href="/2024/02/19/%E6%88%90%E5%8A%9F%E8%A7%A3%E5%86%B3%E5%9C%A8hexo%E4%B8%AD%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98/" rel="prev" title="成功解决在hexo中无法显示数学公式的问题">
+      <i class="fa fa-chevron-left"></i> 成功解决在hexo中无法显示数学公式的问题
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2024/02/19/markdown-to-hexo/" rel="next" title="markdown to hexo">
-      markdown to hexo <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -367,7 +407,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.</span> <span class="nav-text">解决步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%8D%A2hexo%E7%9A%84markdown%E6%B8%B2%E6%9F%93%E5%BC%95%E6%93%8E-%E6%9B%B4%E6%8D%A2hexo%E7%9A%84markdown%E6%B8%B2%E6%9F%93%E5%BC%95%E6%93%8E%E6%9B%B4%E6%8D%A2hexo%E7%9A%84markdown%E6%B8%B2%E6%9F%93%E5%BC%95%E6%93%8E"><span class="nav-number">1.1.</span> <span class="nav-text">更换Hexo的markdown渲染引擎 &quot;更换Hexo的markdown渲染引擎&quot;)更换Hexo的markdown渲染引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9node-modules-kramed-lib-rules-inline-js%E6%96%87%E4%BB%B6-%E4%BF%AE%E6%94%B9node_modules.js%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9node_moduleskramedlibrulesinline.js%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">修改node-modules-kramed-lib-rules-inline-js文件 &quot;修改node_modules.js文件&quot;)修改node_modules\kramed\lib\rules\inline.js文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E4%B8%BB%E9%A2%98%E4%B8%AD%E5%BC%80%E5%90%AFmathjax%E5%BC%80%E5%85%B3-%E5%9C%A8%E4%B8%BB%E9%A2%98%E4%B8%AD%E5%BC%80%E5%90%AFmathjax%E5%BC%80%E5%85%B3%E5%9C%A8%E4%B8%BB%E9%A2%98%E4%B8%AD%E5%BC%80%E5%90%AFmathjax%E5%BC%80%E5%85%B3"><span class="nav-number">1.3.</span> <span class="nav-text">在主题中开启mathjax开关 &quot;在主题中开启mathjax开关&quot;)在主题中开启mathjax开关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E6%96%87%E7%AB%A0%E7%9A%84front-matter%E9%87%8C%E6%89%93%E5%BC%80mathjax%E5%BC%80%E5%85%B3-%E5%9C%A8%E6%96%87%E7%AB%A0%E7%9A%84front-matter%E9%87%8C%E6%89%93%E5%BC%80mathjax%E5%BC%80%E5%85%B3%E5%9C%A8%E6%96%87%E7%AB%A0%E7%9A%84front-matter%E9%87%8C%E6%89%93%E5%BC%80mathjax%E5%BC%80%E5%85%B3"><span class="nav-number">1.4.</span> <span class="nav-text">在文章的Front-matter里打开mathjax开关 &quot;在文章的Front-matter里打开mathjax开关&quot;)在文章的Front-matter里打开mathjax开关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%90%AFhexo-%E9%87%8D%E5%90%AFhexo%E9%87%8D%E5%90%AFhexo"><span class="nav-number">1.5.</span> <span class="nav-text">重启hexo &quot;重启hexo&quot;)重启hexo</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#markdown-to-hexo"><span class="nav-number">1.</span> <span class="nav-text">markdown to hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#main"><span class="nav-number">1.1.</span> <span class="nav-text">Main</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93"><span class="nav-number">1.1.1.</span> <span class="nav-text">公式渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%8D%A2hexo%E7%9A%84markdown%E6%B8%B2%E6%9F%93%E5%BC%95%E6%93%8E-%E6%9B%B4%E6%8D%A2hexo%E7%9A%84markdown%E6%B8%B2%E6%9F%93%E5%BC%95%E6%93%8E%E6%9B%B4%E6%8D%A2hexo%E7%9A%84markdown%E6%B8%B2%E6%9F%93%E5%BC%95%E6%93%8E"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">更换Hexo的markdown渲染引擎 &quot;更换Hexo的markdown渲染引擎&quot;)更换Hexo的markdown渲染引擎</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9node-modules-kramed-lib-rules-inline-js%E6%96%87%E4%BB%B6-%E4%BF%AE%E6%94%B9node_modules.js%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9node_moduleskramedlibrulesinline.js%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">修改node-modules-kramed-lib-rules-inline-js文件 &quot;修改node_modules.js文件&quot;)修改node_modules\kramed\lib\rules\inline.js文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E4%B8%BB%E9%A2%98%E4%B8%AD%E5%BC%80%E5%90%AFmathjax%E5%BC%80%E5%85%B3-%E5%9C%A8%E4%B8%BB%E9%A2%98%E4%B8%AD%E5%BC%80%E5%90%AFmathjax%E5%BC%80%E5%85%B3%E5%9C%A8%E4%B8%BB%E9%A2%98%E4%B8%AD%E5%BC%80%E5%90%AFmathjax%E5%BC%80%E5%85%B3"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">在主题中开启mathjax开关 &quot;在主题中开启mathjax开关&quot;)在主题中开启mathjax开关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E6%96%87%E7%AB%A0%E7%9A%84front-matter%E9%87%8C%E6%89%93%E5%BC%80mathjax%E5%BC%80%E5%85%B3-%E5%9C%A8%E6%96%87%E7%AB%A0%E7%9A%84front-matter%E9%87%8C%E6%89%93%E5%BC%80mathjax%E5%BC%80%E5%85%B3%E5%9C%A8%E6%96%87%E7%AB%A0%E7%9A%84front-matter%E9%87%8C%E6%89%93%E5%BC%80mathjax%E5%BC%80%E5%85%B3"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">在文章的Front-matter里打开mathjax开关 &quot;在文章的Front-matter里打开mathjax开关&quot;)在文章的Front-matter里打开mathjax开关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%90%AFhexo-%E9%87%8D%E5%90%AFhexo%E9%87%8D%E5%90%AFhexo"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">重启hexo &quot;重启hexo&quot;)重启hexo</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%81%E7%A7%BB"><span class="nav-number">1.1.2.</span> <span class="nav-text">迁移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim-%E5%85%A8%E5%B1%80%E6%8D%A2img%E6%88%90markdown"><span class="nav-number">1.1.3.</span> <span class="nav-text">vim 全局换img成markdown</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
