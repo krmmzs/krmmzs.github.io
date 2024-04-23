@@ -158,6 +158,255 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/23/ubuntu-hibernation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="krmmzs">
+      <meta itemprop="description" content="233">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="krmmzs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/23/ubuntu-hibernation/" class="post-title-link" itemprop="url">ubuntu hibernation</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-04-23 16:48:26 / Modified: 20:10:13" itemprop="dateCreated datePublished" datetime="2024-04-23T16:48:26+08:00">2024-04-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/GRUB/" itemprop="url" rel="index"><span itemprop="name">GRUB</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="ubuntu22.04启用休眠hibernation模式">Ubuntu22.04启用休眠（Hibernation）模式</h1>
+<h2 id="resource">Resource</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate#Hibernation">Arch WIKI</a></li>
+</ul>
+<h2 id="为什么需要hibernation">为什么需要Hibernation</h2>
+<p>我在设备安装了两个操作系统, 为了磁盘分区互不干扰, 一个盘一个操作系统。 win上有linux无法支持的office软件和games, 故有时需要切换两个系统，而内存只有一个(无法suspend to RAM) 故需要能有像windows休眠一样的功能把所有状态存在disk里(windows会有快速启动，通常是把部分状态保存在disk)</p>
+<h2 id="hibernation是什么">Hibernation是什么</h2>
+<p>把操作系统看作状态机, Hibernation可以将状态机保存在硬盘, 如果利用上suspend的意思，则可以理解为suspend to disk</p>
+<h2 id="大体的步骤">大体的步骤</h2>
+<p>Hibernation需要交换区, 通常不运用各种功能的时候交换区通常小于内存, 而极端情况下，我们要保存的状态会接近于内存上限，所以交换区必须开到至少比内存大。</p>
+<p>为了不出意外, 可以多开几个G给交换区。</p>
+<ol type="1">
+<li>禁用掉旧的交换文件</li>
+<li>删除旧的交换文件</li>
+<li>创建新的交换文件(此时还只是文件)</li>
+<li>为该文件设置root only权限</li>
+<li>将文件设置为交换区(此时是交换文件)</li>
+<li>check是否已经成功创建</li>
+<li>让交换文件每次boot的时候自动挂载</li>
+<li>找出交换文件<strong>所在分区</strong>的UUID和偏移量</li>
+<li>更新grub和initramfs</li>
+<li>重启让一切生效</li>
+<li>测试休眠</li>
+</ol>
+<h2 id="创建新的交换文件并挂载">创建新的交换文件并挂载</h2>
+<h3 id="分配文件空间lazy">分配文件空间(lazy)</h3>
+<p>我的内存是32G, 我多给7G的空间，故分配39G。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo fallocate -l 39G /swapfile</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong><code>fallocate</code></strong>:</p>
+<ul>
+<li><code>fallocate</code> 是一个用于在文件系统上快速分配文件空间的工具。它允许你直接预留一定大小的空间，而无需逐字节地写入文件。</li>
+</ul></li>
+<li><p><strong><code>-l 39G</code></strong>:</p>
+<ul>
+<li><code>-l</code> 参数指定要分配的长度，这里是 <code>39G</code>（39 gigabytes）。这意味着 <code>fallocate</code> 会在磁盘上预留 39 GB 的空间用于交换文件。</li>
+</ul></li>
+<li><p><strong><code>/swapfile</code></strong>:</p>
+<ul>
+<li><code>/swapfile</code> 指定了文件的路径和名称。这里，文件名为 "swapfile"，位于根目录 <code>/</code> 下。</li>
+</ul></li>
+</ul>
+<p>不同于 <code>dd</code> 命令，<code>fallocate</code> 不会填充这些空间的内容，它仅仅修改文件系统的元数据来反映新文件的存在和大小。因此，这个操作相比逐个写入字节的方式要快得多。</p>
+<h3 id="设置权限">设置权限</h3>
+<p>将<code>/swapfile</code>设置为root only</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">chmod</span> 600 /swapfile</span><br></pre></td></tr></table></figure>
+<p><strong><code>chmod 600</code></strong>:</p>
+<ul>
+<li><code>chmod</code> 是用于改变文件或目录权限的命令。</li>
+<li><code>600</code> 是一个八进制（octal）数，代表权限设置。在这个设置中：
+<ul>
+<li><code>6</code> (二进制 <code>110</code>) 表示文件所有者拥有读和写的权限。</li>
+<li>第二个和第三个数字 <code>0</code> (二进制 <code>000</code>) 表示其他用户和组没有任何权限。</li>
+</ul></li>
+</ul>
+<h3 id="格式化为文件交换">格式化为文件交换</h3>
+<p>将新文件格式化为交换空间：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkswap /swapfile</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong><code>mkswap</code></strong>:</p>
+<ul>
+<li><code>mkswap</code> 是一个用于创建交换空间的命令。它会将一个特定的文件或分区标记为交换空间，以便系统可以使用它作为虚拟内存的一部分。</li>
+<li>在这里，<code>mkswap</code> 将会处理 <code>/swapfile</code>，将其格式化为交换文件，以便系统能够识别它，并在需要时将其用作虚拟内存的一部分。</li>
+</ul></li>
+<li><p>执行 <code>sudo mkswap /swapfile</code> 命令后，系统将会读取 <code>/swapfile</code>，并在其上创建交换空间的相关数据结构。这些数据结构包括交换文件的头部信息、UUID（标识符）以及其他必要的元数据。</p></li>
+<li><p>交换文件被格式化后，系统就可以将其用作虚拟内存的一部分，以便在物理内存不足时使用。</p></li>
+</ul>
+<hr />
+<p>这将输出一些信息，包括交换空间的版本和UUID，示例如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Setting up swapspace version 1, size = 39 GiB (? bytes)</span><br><span class="line">no label, UUID=12345678-90ab-cdef-1234-567890abcdef</span><br></pre></td></tr></table></figure>
+<h3 id="启用该交换文件">启用该交换文件</h3>
+<p>启用该交换文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo swapon /swapfile</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong><code>swapon</code></strong>:</p>
+<ul>
+<li><code>swapon</code> 命令用于启用交换空间。这个命令可以应用于交换分区或交换文件，使它们成为系统的一部分，用于存储临时不活跃的内存页。</li>
+</ul></li>
+</ul>
+<p>执行 <code>sudo swapon /swapfile</code> 后，系统会把 <code>/swapfile</code> 添加到其虚拟内存管理系统中。这意味着当系统的物理内存（RAM）不足时，系统可以将不活跃的内存页（数据）移到 <code>/swapfile</code> 中，从而释放物理内存给当前需要的应用或进程使用。</p>
+<h3 id="验证是否激活交换空间">验证是否激活交换空间</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo swapon --show</span><br></pre></td></tr></table></figure>
+<p>这会列出所有激活的交换空间，包括 <code>/swapfile</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">free -h</span><br></pre></td></tr></table></figure>
+<p>它显示系统的总内存和交换空间使用情况，可以用来确认交换空间已经被系统识别并加入到可用资源中。</p>
+<h2 id="配置挂载">配置挂载</h2>
+<p>确保 /etc/fstab 文件包含正确的挂载信息。首先<strong>删除或注释</strong>掉旧的交换文件条目，然后添加新的条目：:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/fstab</span><br></pre></td></tr></table></figure>
+<p>并在最底下添加:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/swapfile swap swap sw 0 0</span><br></pre></td></tr></table></figure>
+<h2 id="验证配置">验证配置</h2>
+<p>使用以下命令来确认交换文件已成功启用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo swapon --show</span><br></pre></td></tr></table></figure>
+<p>输出应显示交换文件的路径、类型、大小等信息。</p>
+<p>使用 free -h 命令来检查系统的总交换空间，确保新的交换文件已计入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">free -h</span><br></pre></td></tr></table></figure>
+<h2 id="配置hibernation">配置Hibernation</h2>
+<h3 id="交换文件uuid">交换文件UUID</h3>
+<p>找出交换文件<strong>所在分区</strong>的UUID:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">findmnt -no UUID -T /swapfile</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong><code>findmnt</code></strong>：这是一个用于查找和列出挂载点的工具。它可以显示挂载点的详细信息，包括挂载类型、选项、挂载的设备和相关文件系统的详细属性。</p></li>
+<li><p><strong><code>-no UUID</code></strong>：这个选项告诉 <code>findmnt</code> 输出挂载点的 UUID。<code>-o</code> (option) 指定输出的列，<code>n</code> 使得输出不显示标题，只有结果值。</p></li>
+<li><p><strong><code>-T /swapfile</code></strong>：<code>-T</code> 选项告诉 <code>findmnt</code> 查询指定目标文件或目录的挂载点信息。在这里，目标是 <code>/swapfile</code>。</p></li>
+</ul>
+<p>这个命令在设置系统休眠时特别有用，因为 Linux 休眠配置通常需要指定用于存储休眠状态的交换分区或文件的 UUID。系统在从休眠状态恢复时，需要通过这个 UUID 找到存有休眠数据的交换空间。</p>
+<p>注意, 如果 <code>/swapfile</code> 是一个文件而不是分区，<code>findmnt</code> 输出的 UUID 将是该文件所在的文件系统分区的 UUID，不是文件本身的 UUID，因为普通文件没有独立的 UUID。在配置休眠时需要注意这一点，确保正确设置 <code>/etc/default/grub</code> 和 <code>/etc/initramfs-tools/conf.d/resume</code> 等配置文件，指向正确的分区和交换文件。</p>
+<hr />
+<p>会显示一串UUID</p>
+<h3 id="偏移量">偏移量</h3>
+<p>找出交换文件在所在分区的偏移量:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo filefrag -v /swapfile | less</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><code>filefrag</code></strong>:
+<ul>
+<li><code>filefrag</code> 工具用于报告文件的物理磁盘片段情况。它显示了文件在硬盘上的布局，包括每一部分（或称为“片段”）的起始和结束扇区。</li>
+<li><code>-v</code> 参数表示详细模式，提供更多关于文件片段的详细信息。</li>
+</ul></li>
+<li><strong><code>/swapfile</code></strong>:
+<ul>
+<li><code>/swapfile</code> 是你希望检查磁盘片段的文件路径，通常这是一个用作交换空间的文件。</li>
+</ul></li>
+</ul>
+<figure>
+<img src="/image/ubuntu-hibernation-01.jpg" alt="" /><figcaption>ubuntu-hibernation-01.jpg</figcaption>
+</figure>
+<p>复制 physical_offset: 中第一行第一列（0:）的值，不含后面的两个“.”</p>
+<h2 id="配置grub">配置grub</h2>
+<p>编辑 <code>/etc/default/grub</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/default/grub</span><br></pre></td></tr></table></figure>
+<p>在GRUB_CMDLINE_LINUX_DEFAULT这一行，向 splash 后添加内容:resume=UUID=第一步中获得的UUID resume_offset=第二步中获得的偏移量</p>
+<figure>
+<img src="/image/ubuntu-hibernation-02.jpg" alt="" /><figcaption>ubuntu-hibernation-02.jpg</figcaption>
+</figure>
+<p>这是为了配置系统从休眠状态（Hibernate）中正确恢复。这些设置确保 GRUB 引导加载器知道从哪个交换空间（例如交换文件或交换分区）以及具体的物理位置（偏移量）恢复休眠保存的系统状态。</p>
+<p>并更新GRUB配置:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-grub</span><br></pre></td></tr></table></figure>
+<h2 id="更新initramfs">更新initramfs</h2>
+<p>编辑 <code>/etc/initramfs-tools/conf.d/resume</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/initramfs-tools/conf.d/resume</span><br></pre></td></tr></table></figure>
+<p><strong>同GRUB</strong>加入内容</p>
+<figure>
+<img src="/image/ubuntu-hibernation-03.jpg" alt="" /><figcaption>ubuntu-hibernation-03.jpg</figcaption>
+</figure>
+<p>/etc/initramfs-tools/conf.d/resume 文件中的配置告诉 initramfs 在哪个设备上查找休眠镜像。这通常包括指定包含休眠数据的交换空间的 UUID。 在这个文件中，你通常需要指定 RESUME=UUID=xxxx，其中 xxxx 是交换空间的 UUID。这样，当系统从休眠中唤醒时，initramfs 将知道从哪个交换分区或文件加载保存的系统状态。</p>
+<p><strong>重新生成 initramfs</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-initramfs -c -k all</span><br></pre></td></tr></table></figure>
+<p>创建（<code>-c</code>）针对所有内核版本（<code>-k all</code>）的新 initramfs。这确保了无论系统启动使用哪个内核版本，都将加载最新配置的 initramfs。</p>
+<h2 id="重启电脑并使用hibernate">重启电脑并使用hibernate</h2>
+<p>重启, 这里是为了让所有的配置保证生效, 注意这里会丢失你的RAM</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<p>如果以后要休眠可执行这个命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl hibernate</span><br></pre></td></tr></table></figure>
+<h2 id="为hibernation添加图标可选">为Hibernation添加图标(可选)</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /usr/share/applications/hibernation-mode.desktop</span><br></pre></td></tr></table></figure>
+<p>写入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[Desktop Entry]</span><br><span class="line">Type=Application</span><br><span class="line">Name=Hibernation Mode</span><br><span class="line">GenericName=Hibernation Mode</span><br><span class="line">Comment=Enter Hibernation Mode</span><br><span class="line">NoDisplay=false</span><br><span class="line">Icon=drive-multidisk</span><br><span class="line">Exec=systemctl hibernate</span><br><span class="line">Terminal=true</span><br><span class="line">Categories=System;Utility;Settings;</span><br></pre></td></tr></table></figure>
+<p>即可在应用程序菜单看到图标，或在菜单内搜索 Hibernation Mode ，点击即可进入休眠模式</p>
+<h2 id="常见错误">常见错误</h2>
+<h3 id="uuid">UUID</h3>
+<p>交换文件作为一个普通文件，通常并不拥有独立的 UUID，它依附于其所在的文件系统。</p>
+<p>我们是通过所在分区的UUID和一个偏移量来找出交换分区的, 所以用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<p>找出的UUID是所在分区的UUID</p>
+<p>用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<p>找出的是交换文件在这这个分区上的偏移量</p>
+<h3 id="若安装了nvidia驱动且安装了cuda">若安装了NVIDIA驱动且安装了CUDA</h3>
+<p>如果是NVIDIA且安装CUDA也可以成功休眠那就不需要配置如下。</p>
+<hr />
+<figure>
+<img src="/image/ubuntu-hibernation-04.jpg" alt="" /><figcaption>ubuntu-hibernation-04.jpg</figcaption>
+</figure>
+<p>则需删除 /etc/systemd/system 下的三个文件 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nvidia-hibernate.service</span><br><span class="line">nvidia-resume.service</span><br><span class="line">nvidia-suspend.service</span><br></pre></td></tr></table></figure> 然后执行 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure></p>
+<p>最后才能成功使用挂起或休眠</p>
+<h3 id="外接设备">外接设备</h3>
+<p>和Windows不同的是，若休眠时电脑外接了设备，例如显示器，或连接有外设，下次启动时如果更换了外接设备（显示器或外设等），则有可能启动失败，<strong>这时需要按住 alt + Sysrq 键，然后依次在键盘上按下 r e i s u b（即busier倒过来） ，系统就会安全重启</strong>。因此<strong>建议休眠时先拔掉所有外接设备再休眠</strong>，启动时是否外接设备则不影响</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/20/la/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -18471,81 +18720,6 @@ y&#39;(t) &amp; y&#39;&#39;(t)
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/30/Manga/blue-lock-eye-disease/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="krmmzs">
-      <meta itemprop="description" content="233">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="krmmzs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/30/Manga/blue-lock-eye-disease/" class="post-title-link" itemprop="url">blue lock eye disease</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-12-30 23:37:36" itemprop="dateCreated datePublished" datetime="2022-12-30T23:37:36+08:00">2022-12-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-04 15:49:49" itemprop="dateModified" datetime="2023-02-04T15:49:49+08:00">2023-02-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Talk/" itemprop="url" rel="index"><span itemprop="name">Talk</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>和雪宫君共同的遭遇，我也早已做好了觉悟啊。</p>
-<p><img src="/images/xuegong01.png" alt="" style="zoom:%;" /> <img src="/images/xuegong02.png" alt="" style="zoom:%;" /> <img src="/images/xuegong03.png" alt="" style="zoom:%;" /> <img src="/images/xuegong04.png" alt="" style="zoom:%;" /> <img src="/images/xuegong05.png" alt="" style="zoom:%;" /> <img src="/images/xuegong06.png" alt="" style="zoom:%;" /> <img src="/images/xuegong07.png" alt="" style="zoom:%;" /> <img src="/images/xuegong08.png" alt="" style="zoom:%;" /> <img src="/images/xuegong09.png" alt="" style="zoom:%;" /> <img src="/images/xuegong010.png" alt="" style="zoom:%;" /> <img src="/images/xuegong011.png" alt="" style="zoom:%;" /></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -18615,7 +18789,7 @@ y&#39;(t) &amp; y&#39;&#39;(t)
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-count">78</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
