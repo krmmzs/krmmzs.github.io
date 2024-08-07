@@ -203,13 +203,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="leetcode-37.-sudoku-solver">LeetCode 37. Sudoku Solver</h1>
-<h2 id="main-idea">Main Idea</h2>
-<p>暴搜</p>
+          <h1 id="LeetCode-37-Sudoku-Solver"><a href="#LeetCode-37-Sudoku-Solver" class="headerlink" title="LeetCode 37. Sudoku Solver"></a>LeetCode 37. Sudoku Solver</h1><h2 id="Main-Idea"><a href="#Main-Idea" class="headerlink" title="Main Idea"></a>Main Idea</h2><p>暴搜</p>
 <p>然后状态判断就不状态压缩了，直接多维数组表示增加的信息</p>
-<h2 id="code">Code</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">bool</span> row[<span class="number">9</span>][<span class="number">9</span>], col[<span class="number">9</span>][<span class="number">9</span>], cell[<span class="number">3</span>][<span class="number">3</span>][<span class="number">9</span>];</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">solveSudoku</span><span class="params">(vector&lt;vector&lt;<span class="type">char</span>&gt;&gt;&amp; board)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">memset</span>(row, <span class="number">0</span>, <span class="built_in">sizeof</span>(row));</span><br><span class="line">        <span class="built_in">memset</span>(col, <span class="number">0</span>, <span class="built_in">sizeof</span>(col));</span><br><span class="line">        <span class="built_in">memset</span>(cell, <span class="number">0</span>, <span class="built_in">sizeof</span>(cell));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (board[i][j] != <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                    <span class="type">int</span> t = board[i][j] - <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">                    row[i][t] = col[j][t] = cell[i / <span class="number">3</span>][j / <span class="number">3</span>][t] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">dfs</span>(board, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">dfs</span><span class="params">(vector&lt;vector&lt;<span class="type">char</span>&gt;&gt;&amp; board, <span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (y == <span class="number">9</span>) &#123;</span><br><span class="line">            x ++, y = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (x == <span class="number">9</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (board[x][y] != <span class="string">&#x27;.&#x27;</span>) <span class="keyword">return</span> <span class="built_in">dfs</span>(board, x, y + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!row[x][i] &amp;&amp; !col[y][i] &amp;&amp; !cell[x / <span class="number">3</span>][y / <span class="number">3</span>][i]) &#123;</span><br><span class="line">                board[x][y] = <span class="string">&#x27;1&#x27;</span> + i;</span><br><span class="line">                row[x][i] = col[y][i] = cell[x / <span class="number">3</span>][y / <span class="number">3</span>][i] = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">dfs</span>(board, x, y + <span class="number">1</span>)) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                board[x][y] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">                row[x][i] = col[y][i] = cell[x / <span class="number">3</span>][y / <span class="number">3</span>][i] = <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">纯<span class="type">int</span>, 能用q.<span class="built_in">size</span>()</span><br><span class="line">```cpp</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">maxSlidingWindow</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// typedef vector&lt;int&gt;::size_type vec_sz;</span></span><br><span class="line">        deque&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (q.<span class="built_in">size</span>() &amp;&amp; i - k + <span class="number">1</span> &gt; q.<span class="built_in">front</span>()) q.<span class="built_in">pop_front</span>();</span><br><span class="line">            <span class="keyword">while</span> (q.<span class="built_in">size</span>() &amp;&amp; nums[i] &gt; nums[q.<span class="built_in">back</span>()]) q.<span class="built_in">pop_back</span>();</span><br><span class="line">            q.<span class="built_in">push_back</span>(i);</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= k - <span class="number">1</span>) res.<span class="built_in">push_back</span>(nums[q.<span class="built_in">front</span>()]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>vector<int>::size_type 只能是用下标表示 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">maxSlidingWindow</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">typedef</span> vector&lt;<span class="type">int</span>&gt;::size_type vec_sz;</span><br><span class="line">        deque&lt;vec_sz&gt; q;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        <span class="keyword">for</span> (vec_sz i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= k - <span class="number">1</span> &amp;&amp; i - k + <span class="number">1</span> &gt; q.<span class="built_in">front</span>()) q.<span class="built_in">pop_front</span>();</span><br><span class="line">            <span class="keyword">while</span> (q.<span class="built_in">size</span>() &amp;&amp; nums[i] &gt; nums[q.<span class="built_in">back</span>()]) q.<span class="built_in">pop_back</span>();</span><br><span class="line">            q.<span class="built_in">push_back</span>(i);</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= k - <span class="number">1</span>) res.<span class="built_in">push_back</span>(nums[q.<span class="built_in">front</span>()]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">bool</span> row[<span class="number">9</span>][<span class="number">9</span>], col[<span class="number">9</span>][<span class="number">9</span>], cell[<span class="number">3</span>][<span class="number">3</span>][<span class="number">9</span>];</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">solveSudoku</span><span class="params">(vector&lt;vector&lt;<span class="type">char</span>&gt;&gt;&amp; board)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">memset</span>(row, <span class="number">0</span>, <span class="built_in">sizeof</span>(row));</span><br><span class="line">        <span class="built_in">memset</span>(col, <span class="number">0</span>, <span class="built_in">sizeof</span>(col));</span><br><span class="line">        <span class="built_in">memset</span>(cell, <span class="number">0</span>, <span class="built_in">sizeof</span>(cell));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i ++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (board[i][j] != <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                    <span class="type">int</span> t = board[i][j] - <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">                    row[i][t] = col[j][t] = cell[i / <span class="number">3</span>][j / <span class="number">3</span>][t] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">dfs</span>(board, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">dfs</span><span class="params">(vector&lt;vector&lt;<span class="type">char</span>&gt;&gt;&amp; board, <span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (y == <span class="number">9</span>) &#123;</span><br><span class="line">            x ++, y = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (x == <span class="number">9</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (board[x][y] != <span class="string">&#x27;.&#x27;</span>) <span class="keyword">return</span> <span class="built_in">dfs</span>(board, x, y + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!row[x][i] &amp;&amp; !col[y][i] &amp;&amp; !cell[x / <span class="number">3</span>][y / <span class="number">3</span>][i]) &#123;</span><br><span class="line">                board[x][y] = <span class="string">&#x27;1&#x27;</span> + i;</span><br><span class="line">                row[x][i] = col[y][i] = cell[x / <span class="number">3</span>][y / <span class="number">3</span>][i] = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">dfs</span>(board, x, y + <span class="number">1</span>)) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                board[x][y] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">                row[x][i] = col[y][i] = cell[x / <span class="number">3</span>][y / <span class="number">3</span>][i] = <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">纯<span class="type">int</span>, 能用q.<span class="built_in">size</span>()</span><br><span class="line">```cpp</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">maxSlidingWindow</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// typedef vector&lt;int&gt;::size_type vec_sz;</span></span><br><span class="line">        deque&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (q.<span class="built_in">size</span>() &amp;&amp; i - k + <span class="number">1</span> &gt; q.<span class="built_in">front</span>()) q.<span class="built_in">pop_front</span>();</span><br><span class="line">            <span class="keyword">while</span> (q.<span class="built_in">size</span>() &amp;&amp; nums[i] &gt; nums[q.<span class="built_in">back</span>()]) q.<span class="built_in">pop_back</span>();</span><br><span class="line">            q.<span class="built_in">push_back</span>(i);</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= k - <span class="number">1</span>) res.<span class="built_in">push_back</span>(nums[q.<span class="built_in">front</span>()]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>vector<int>::size_type<br>只能是用下标表示<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">maxSlidingWindow</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">typedef</span> vector&lt;<span class="type">int</span>&gt;::size_type vec_sz;</span><br><span class="line">        deque&lt;vec_sz&gt; q;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        <span class="keyword">for</span> (vec_sz i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= k - <span class="number">1</span> &amp;&amp; i - k + <span class="number">1</span> &gt; q.<span class="built_in">front</span>()) q.<span class="built_in">pop_front</span>();</span><br><span class="line">            <span class="keyword">while</span> (q.<span class="built_in">size</span>() &amp;&amp; nums[i] &gt; nums[q.<span class="built_in">back</span>()]) q.<span class="built_in">pop_back</span>();</span><br><span class="line">            q.<span class="built_in">push_back</span>(i);</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= k - <span class="number">1</span>) res.<span class="built_in">push_back</span>(nums[q.<span class="built_in">front</span>()]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -268,12 +265,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="leecode-36.-valid-sudoku">LeeCode 36. Valid Sudoku</h1>
-<p>传送门: <a target="_blank" rel="noopener" href="https://leetcode.com/problems/valid-sudoku/">https://leetcode.com/problems/valid-sudoku/</a></p>
-<h2 id="main-idea">Main Idea</h2>
-<p>居然只是模拟题，水一下。</p>
-<h2 id="code">Code</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValidSudoku</span><span class="params">(vector&lt;vector&lt;<span class="type">char</span>&gt;&gt;&amp; board)</span> </span>&#123;</span><br><span class="line">        <span class="type">bool</span> st[<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i ++) &#123;</span><br><span class="line">            <span class="built_in">memset</span>(st, <span class="number">0</span>, <span class="keyword">sizeof</span> st);</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (board[i][j] != <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                    <span class="type">int</span> idx = board[i][j] - <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">                    <span class="keyword">if</span> (st[idx]) &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        st[idx] = <span class="literal">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i ++) &#123;</span><br><span class="line">            <span class="built_in">memset</span>(st, <span class="number">0</span>, <span class="keyword">sizeof</span> st);</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (board[j][i] != <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                    <span class="type">int</span> idx = board[j][i] - <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">                    <span class="keyword">if</span> (st[idx]) &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        st[idx] = <span class="literal">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i += <span class="number">3</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j += <span class="number">3</span>) &#123;</span><br><span class="line">                <span class="built_in">memset</span>(st, <span class="number">0</span>, <span class="keyword">sizeof</span> st);</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> x = <span class="number">0</span>; x &lt; <span class="number">3</span>; x ++) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="type">int</span> y = <span class="number">0</span>; y &lt; <span class="number">3</span>; y ++) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (board[i + x][j + y] != <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                            <span class="type">int</span> idx =  (board[i + x][j + y] - <span class="string">&#x27;1&#x27;</span>);</span><br><span class="line">                            <span class="keyword">if</span> (st[idx]) &#123;</span><br><span class="line">                                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                st[idx] = <span class="literal">true</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          <h1 id="LeeCode-36-Valid-Sudoku"><a href="#LeeCode-36-Valid-Sudoku" class="headerlink" title="LeeCode 36. Valid Sudoku"></a>LeeCode 36. Valid Sudoku</h1><p>传送门: <a target="_blank" rel="noopener" href="https://leetcode.com/problems/valid-sudoku/">https://leetcode.com/problems/valid-sudoku/</a></p>
+<h2 id="Main-Idea"><a href="#Main-Idea" class="headerlink" title="Main Idea"></a>Main Idea</h2><p>居然只是模拟题，水一下。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValidSudoku</span><span class="params">(vector&lt;vector&lt;<span class="type">char</span>&gt;&gt;&amp; board)</span> </span>&#123;</span><br><span class="line">        <span class="type">bool</span> st[<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i ++) &#123;</span><br><span class="line">            <span class="built_in">memset</span>(st, <span class="number">0</span>, <span class="keyword">sizeof</span> st);</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (board[i][j] != <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                    <span class="type">int</span> idx = board[i][j] - <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">                    <span class="keyword">if</span> (st[idx]) &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        st[idx] = <span class="literal">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i ++) &#123;</span><br><span class="line">            <span class="built_in">memset</span>(st, <span class="number">0</span>, <span class="keyword">sizeof</span> st);</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (board[j][i] != <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                    <span class="type">int</span> idx = board[j][i] - <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">                    <span class="keyword">if</span> (st[idx]) &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        st[idx] = <span class="literal">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i += <span class="number">3</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j += <span class="number">3</span>) &#123;</span><br><span class="line">                <span class="built_in">memset</span>(st, <span class="number">0</span>, <span class="keyword">sizeof</span> st);</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> x = <span class="number">0</span>; x &lt; <span class="number">3</span>; x ++) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="type">int</span> y = <span class="number">0</span>; y &lt; <span class="number">3</span>; y ++) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (board[i + x][j + y] != <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                            <span class="type">int</span> idx =  (board[i + x][j + y] - <span class="string">&#x27;1&#x27;</span>);</span><br><span class="line">                            <span class="keyword">if</span> (st[idx]) &#123;</span><br><span class="line">                                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                st[idx] = <span class="literal">true</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -345,36 +339,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="defining-new-types">Defining new types</h1>
-<h2 id="info">Info</h2>
-<p>Much of the design of C++ rests on the idea of letting programmers create types that are as easy to use as are the built-in types.</p>
-<h2 id="not-member-function">not member function</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">double</span> <span class="title">Student_info::grade</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ::<span class="built_in">grade</span>(midterm, <span class="keyword">final</span>, homework);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>First, note the call to ::grade. Putting :: in front of a name insists on using a version of that name that is not a member of anything.</p>
-<h2 id="const-function-and-const-member-function">const function and const member function</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">double</span> <span class="title">Student_info::grade</span><span class="params">()</span> <span class="type">const</span> </span>&#123; ... &#125; <span class="comment">//  member-function version </span></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">grade</span><span class="params">(<span class="type">const</span> Student_info&amp;)</span> </span>&#123; ... &#125; <span class="comment">//  original from §4.2.2/63</span></span><br></pre></td></tr></table></figure>
-<p>When we call a member function, the object of which it is a member is not an argument. Therefore, there is no entry in the parameter list in which we might be able to say that the object is const. Instead, we qualify the function itself, thereby making it a <strong>const member function</strong>. Member functions that are const may not change the internal state of the object on which they are executing: We are guaranteed that if we call s.grade() on behalf of a <strong>Student_info</strong> object named s, doing so will not change the data members of s.</p>
-<p>Because the function guarantees that it will not change the values in the object, we can call it for const objects. By the same token, we cannot call nonconst functions on const objects, so, for example, we cannot call the read member on behalf of a const Student_info object. After all, a function such as read says that it can change the object's state. Calling such a function on a const object could violate our const promise.</p>
-<p>It is important to note that even if a program never creates any const objects directly, it may create lots of references to const objects through function calls. When we pass a nonconst object to a function that takes a const reference, then the function treats that object as if it were const, and the compiler will permit it to call only const members of such objects</p>
-<h2 id="a-rule-to-judge-whether-a-function-should-be-member-function">A rule to judge whether a function should be member function</h2>
-<p>If the function changes the state of an object, then it ought to be a member of that object.</p>
+          <h1 id="Defining-new-types"><a href="#Defining-new-types" class="headerlink" title="Defining new types"></a>Defining new types</h1><h2 id="Info"><a href="#Info" class="headerlink" title="Info"></a>Info</h2><p>Much of the design of C++ rests on the idea of letting programmers create types that are as<br>easy to use as are the built-in types.</p>
+<h2 id="not-member-function"><a href="#not-member-function" class="headerlink" title="not member function"></a>not member function</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">double</span> <span class="title">Student_info::grade</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ::<span class="built_in">grade</span>(midterm, <span class="keyword">final</span>, homework);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>First, note the call to ::grade. Putting<br>:: in front of a name insists on using a version of that name that is not a member of<br>anything. </p>
+<h2 id="const-function-and-const-member-function"><a href="#const-function-and-const-member-function" class="headerlink" title="const function and const member function"></a>const function and const member function</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">double</span> <span class="title">Student_info::grade</span><span class="params">()</span> <span class="type">const</span> </span>&#123; ... &#125; <span class="comment">//  member-function version </span></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">grade</span><span class="params">(<span class="type">const</span> Student_info&amp;)</span> </span>&#123; ... &#125; <span class="comment">//  original from §4.2.2/63</span></span><br></pre></td></tr></table></figure>
+<p>When we call a member function, the object of which it is a member is not an argument.<br>Therefore, there is no entry in the parameter list in which we might be able to say that the<br>object is const. Instead, we qualify the function itself, thereby making it a <strong>const member<br>function</strong>. Member functions that are const may not change the internal state of the object<br>on which they are executing: We are guaranteed that if we call s.grade() on behalf of a<br><strong>Student_info</strong> object named s, doing so will not change the data members of s.</p>
+<p>Because the function guarantees that it will not change the values in the object, we can call<br>it for const objects. By the same token, we cannot call nonconst functions on const<br>objects, so, for example, we cannot call the read member on behalf of a const<br>Student_info object. After all, a function such as read says that it can change the<br>object’s state. Calling such a function on a const object could violate our const promise.</p>
+<p>It is important to note that even if a program never creates any const objects directly, it<br>may create lots of references to const objects through function calls. When we pass a<br>nonconst object to a function that takes a const reference, then the function treats that<br>object as if it were const, and the compiler will permit it to call only const members of<br>such objects</p>
+<h2 id="A-rule-to-judge-whether-a-function-should-be-member-function"><a href="#A-rule-to-judge-whether-a-function-should-be-member-function" class="headerlink" title="A rule to judge whether a function should be member function"></a>A rule to judge whether a function should be member function</h2><p>If the function changes the state of an<br>object, then it ought to be a member of that object. </p>
 <p>further more</p>
-<p>To do so, we should think a bit about what the function does and how users might want to call it.</p>
-<h2 id="a-part-of-interface-should-at-same-file">A part of interface should at same file</h2>
-<p>Because <strong>compare</strong> is part of our interface, we should include a declaration for this function in the same header that defines <strong>Student_info</strong> and we should include this definition in the associated source file that contains the definitions of the member functions.</p>
+<p>To do so, we should think a bit about what the function does and how users might want to<br>call it.</p>
+<h2 id="A-part-of-interface-should-at-same-file"><a href="#A-part-of-interface-should-at-same-file" class="headerlink" title="A part of interface should at same file"></a>A part of interface should at same file</h2><p>Because <strong>compare</strong> is<br>part of our interface, we should include a declaration for this function in the same header<br>that defines <strong>Student_info</strong> and we should include this definition in the associated source<br>file that contains the definitions of the member functions.</p>
 <p>see <a href="../../unix-source/chapter09/Student_info.h">Studnet_info.h</a> and <a href="../../unix-source/chapter09/Student_info.cc">Student_info.cc</a></p>
-<h2 id="the-synthesized-constructor">The synthesized constructor</h2>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/8106016/c-default-initialization-and-value-initialization-which-is-which-which-is-ca">C++ default initialization and value initialization: which is which, which is called when and how to reliably initialize a template-type member</a></p>
-<p>The synthesized constructor will initialize the data members to a value that depends on how the object is being created. If the object is a local variable, then the data members will be be default-initialized (§3.1/38). If the object is used to initialize a container element, either as a side effect of adding a new element to a map, or as the elements of a container defined to have a given size, then the members will be value-initialized (§7.2/125).</p>
+<h2 id="The-synthesized-constructor"><a href="#The-synthesized-constructor" class="headerlink" title="The synthesized constructor"></a>The synthesized constructor</h2><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/8106016/c-default-initialization-and-value-initialization-which-is-which-which-is-ca">C++ default initialization and value initialization: which is which, which is called when and how to reliably initialize a template-type member</a></p>
+<p>The synthesized constructor will initialize the data members to a value that depends on how<br>the object is being created.<br>If the object is a local variable, then the data members will be be<br>default-initialized (§3.1/38).<br>If the object is used to initialize a container element, either as a<br>side effect of adding a new element to a map, or as the elements of a container defined to<br>have a given size, then the members will be value-initialized (§7.2/125).</p>
 <p>These rules areslightly complicated, but their essentials are:</p>
 <ul>
-<li>If an object is of a class type that defines one or more constructors, then the appropriate constructor completely controls initialization of the objects of that class.</li>
+<li>If an object is of a class type that defines one or more constructors, then the<br>appropriate constructor completely controls initialization of the objects of that class.</li>
 <li>If an object is of built-in type, then value-initializing it sets it to zero, and default-initializing it gives it an undefined value.</li>
-<li>Otherwise, the object can be only of a class type that does not define any constructors. In that case, value- or default-initializing the object value- or default-initializes each of its data members. This initialization process will be recursive if any of the data members is of a class type with its own constructor.</li>
+<li>Otherwise, the object can be only of a class type that does not define any constructors.<br>In that case, value- or default-initializing the object value- or default-initializes each of<br>its data members. This initialization process will be recursive if any of the data<br>members is of a class type with its own constructor.</li>
 </ul>
-<h2 id="class-write-conctructor-is-a-good-habit">class write conctructor is a good habit</h2>
-<p>It is normally good practice to ensure that every data member has a sensible value at all times</p>
-<p>For example, it is possible that later we (or a subsequent maintainer of our code) will add operations that examine these data members. If we don't initialize them in the constructor, then these new operations might cause future failures. Moreover, as we'll see in §11.3.5/201, even though we do not explicitly use midterm or final, there are synthesized operations on the class that could do so. Any use other than writing to an undefined value is illegal (§3.1/38), and so, strictly speaking, we must initialize these values.</p>
+<h2 id="class-write-conctructor-is-a-good-habit"><a href="#class-write-conctructor-is-a-good-habit" class="headerlink" title="class write conctructor is a good habit"></a>class write conctructor is a good habit</h2><p>It is normally good practice to ensure that every data member has a sensible value at all times</p>
+<p>For example, it is possible that later we<br>(or a subsequent maintainer of our code) will add operations that examine these data<br>members. If we don’t initialize them in the constructor, then these new operations might<br>cause future failures. Moreover, as we’ll see in §11.3.5/201, even though we do not<br>explicitly use midterm or final, there are synthesized operations on the class that could<br>do so. Any use other than writing to an undefined value is illegal (§3.1/38), and so, strictly<br>speaking, we must initialize these values.</p>
 
       
     </div>
@@ -433,9 +419,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="leetcode-33.-search-in-rotated-sorted-array">LeetCode 33. Search in Rotated Sorted Array</h1>
-<h2 id="main-idea">Main Idea</h2>
-<p>这个翻转让我想到一本书里关于三次reverse就可以得到旋转的方式</p>
+          <h1 id="LeetCode-33-Search-in-Rotated-Sorted-Array"><a href="#LeetCode-33-Search-in-Rotated-Sorted-Array" class="headerlink" title="LeetCode 33. Search in Rotated Sorted Array"></a>LeetCode 33. Search in Rotated Sorted Array</h1><h2 id="Main-Idea"><a href="#Main-Idea" class="headerlink" title="Main Idea"></a>Main Idea</h2><p>这个翻转让我想到一本书里关于三次reverse就可以得到旋转的方式</p>
 <p>虽然和这题没有关系</p>
 <blockquote>
 <p>You must write an algorithm with O(log n) runtime complexity.</p>
@@ -460,8 +444,8 @@
 |      /
 |---------------------->
 </pre>
-<h2 id="code">Code</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">typedef</span> vector&lt;<span class="type">int</span>&gt;::size_type <span class="type">size_t</span>;</span><br><span class="line">        <span class="type">size_t</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">            <span class="type">size_t</span> mid = l + r + <span class="number">1</span> &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &gt;= nums[<span class="number">0</span>]) &#123;</span><br><span class="line">                l = mid;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                r = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (target &gt;= nums[<span class="number">0</span>]) &#123;</span><br><span class="line">            l = <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            l = r + <span class="number">1</span>, r = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">            <span class="type">size_t</span> mid = l + r &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &gt;= target) &#123;</span><br><span class="line">                r = mid;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                l = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (nums[r] == target) &#123;</span><br><span class="line">            <span class="keyword">return</span> r;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">typedef</span> vector&lt;<span class="type">int</span>&gt;::size_type <span class="type">size_t</span>;</span><br><span class="line">        <span class="type">size_t</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">            <span class="type">size_t</span> mid = l + r + <span class="number">1</span> &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &gt;= nums[<span class="number">0</span>]) &#123;</span><br><span class="line">                l = mid;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                r = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (target &gt;= nums[<span class="number">0</span>]) &#123;</span><br><span class="line">            l = <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            l = r + <span class="number">1</span>, r = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">            <span class="type">size_t</span> mid = l + r &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &gt;= target) &#123;</span><br><span class="line">                r = mid;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                l = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (nums[r] == target) &#123;</span><br><span class="line">            <span class="keyword">return</span> r;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -520,9 +504,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="leetcode-31.-next-permutation">LeetCode 31. Next Permutation</h1>
-<h2 id="main-idea">Main Idea</h2>
-<p>这个感觉在大二上看离散数学黑书里研究过，建议直接翻书</p>
+          <h1 id="LeetCode-31-Next-Permutation"><a href="#LeetCode-31-Next-Permutation" class="headerlink" title="LeetCode 31. Next Permutation"></a>LeetCode 31. Next Permutation</h1><h2 id="Main-Idea"><a href="#Main-Idea" class="headerlink" title="Main Idea"></a>Main Idea</h2><p>这个感觉在大二上看离散数学黑书里研究过，建议直接翻书</p>
 <p>一个数想变大，肯定是后面开始变大，</p>
 <p>很直觉地就抽象成点图</p>
 <p>然后看升序降序</p>
@@ -538,10 +520,10 @@
 |
 |-------------------->
 </pre>
+
 <p>交换了 3 和 4</p>
 <p>然后把 4 之后的数从小到大排序， 翻转即可</p>
-<h2 id="code">Code</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">nextPermutation</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt;::size_type k = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (k != <span class="number">0</span> &amp;&amp; nums[k - <span class="number">1</span>] &gt;= nums[k]) &#123;</span><br><span class="line">            k --;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (k == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            vector&lt;<span class="type">int</span>&gt;::size_type t = k;</span><br><span class="line">            <span class="keyword">while</span> (t &lt; nums.<span class="built_in">size</span>() &amp;&amp; nums[t] &gt; nums[k - <span class="number">1</span>]) &#123;</span><br><span class="line">                t ++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">swap</span>(nums[t - <span class="number">1</span>], nums[k - <span class="number">1</span>]);</span><br><span class="line">            <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>() + k, nums.<span class="built_in">end</span>());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">nextPermutation</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt;::size_type k = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (k != <span class="number">0</span> &amp;&amp; nums[k - <span class="number">1</span>] &gt;= nums[k]) &#123;</span><br><span class="line">            k --;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (k == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            vector&lt;<span class="type">int</span>&gt;::size_type t = k;</span><br><span class="line">            <span class="keyword">while</span> (t &lt; nums.<span class="built_in">size</span>() &amp;&amp; nums[t] &gt; nums[k - <span class="number">1</span>]) &#123;</span><br><span class="line">                t ++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">swap</span>(nums[t - <span class="number">1</span>], nums[k - <span class="number">1</span>]);</span><br><span class="line">            <span class="built_in">reverse</span>(nums.<span class="built_in">begin</span>() + k, nums.<span class="built_in">end</span>());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -600,14 +582,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="leetcode-29.-divide-two-integers">LeetCode 29. Divide Two Integers</h1>
-<p>传送门： <a target="_blank" rel="noopener" href="https://leetcode.com/problems/divide-two-integers/">https://leetcode.com/problems/divide-two-integers/</a></p>
-<h2 id="main-idea">Main Idea</h2>
-<blockquote>
+          <h1 id="LeetCode-29-Divide-Two-Integers"><a href="#LeetCode-29-Divide-Two-Integers" class="headerlink" title="LeetCode 29. Divide Two Integers"></a>LeetCode 29. Divide Two Integers</h1><p>传送门：<br><a target="_blank" rel="noopener" href="https://leetcode.com/problems/divide-two-integers/">https://leetcode.com/problems/divide-two-integers/</a></p>
+<h2 id="Main-Idea"><a href="#Main-Idea" class="headerlink" title="Main Idea"></a>Main Idea</h2><blockquote>
 <p>Given two integers dividend and divisor, divide two integers without using multiplication, division, and mod operator.</p>
 </blockquote>
 <p>不能用常规的乘除法和取余法</p>
-<p>那么本质上乘除法是+-的过程 然后也可以用位运算来实现乘除法</p>
+<p>那么本质上乘除法是+-的过程<br>然后也可以用位运算来实现乘除法</p>
 <p>所以思考的时候仍然用乘除的抽象</p>
 <p>暴力的话，考虑没有符号的时候（符号可以和数值单独处理）</p>
 <p>7 / 2 = 3 也就是 减去k个2，直到不能减为止</p>
@@ -618,15 +598,13 @@
 <p>假设 x / y = k ==&gt; (110010)_2 = 2^1 + 2^4 + 2^5</p>
 <p>那么就可以这样做：</p>
 <p>x - 2^1y - 2^4y - 2^5y</p>
-<p>那么就可以先预处理2^0y, 2^1y ... 2^ky, (2^ky &lt;= x &lt; 2^k+1y), 直接处理32位也无所谓了</p>
+<p>那么就可以先预处理2^0y, 2^1y … 2^ky, (2^ky &lt;= x &lt; 2^k+1y), 直接处理32位也无所谓了</p>
 <p>然后从<strong>高位</strong>开始减去，直到不能减为止</p>
 <p>if x &gt;= 2^32y &lt;==&gt; x/y &gt;= 2^32, 那么二进制表示下，32处就是1</p>
 <p>符号处理就看两者的符号是否相同</p>
 <p>可以用异或来判断</p>
-<h2 id="time-complexity">Time Complexity</h2>
-<p>时间复杂度：O(logn)</p>
-<h2 id="code">Code</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">divide</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> LL;</span><br><span class="line"></span><br><span class="line">        <span class="type">bool</span> is_minus = (x &gt; <span class="number">0</span>) ^ (y &gt; <span class="number">0</span>);</span><br><span class="line">        LL a = <span class="built_in">labs</span>(x), b = <span class="built_in">labs</span>(y);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// pre-process logk bits of 2^k</span></span><br><span class="line">        vector&lt;LL&gt; exp;</span><br><span class="line">        <span class="keyword">for</span> (LL i = b; i &lt;= a; i = i + i) &#123;</span><br><span class="line">            exp.<span class="built_in">emplace_back</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        LL res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = exp.<span class="built_in">size</span>() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i --) &#123;</span><br><span class="line">            <span class="keyword">if</span> (a &gt;= exp[i]) &#123;</span><br><span class="line">                a -= exp[i];</span><br><span class="line">                res += <span class="number">1ll</span> &lt;&lt; i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (is_minus) res = -res;</span><br><span class="line">        <span class="keyword">if</span> (res &gt; INT_MAX || res &lt; INT_MIN) res = INT_MAX;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Time-Complexity"><a href="#Time-Complexity" class="headerlink" title="Time Complexity"></a>Time Complexity</h2><p>时间复杂度：O(logn)</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">divide</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> LL;</span><br><span class="line"></span><br><span class="line">        <span class="type">bool</span> is_minus = (x &gt; <span class="number">0</span>) ^ (y &gt; <span class="number">0</span>);</span><br><span class="line">        LL a = <span class="built_in">labs</span>(x), b = <span class="built_in">labs</span>(y);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// pre-process logk bits of 2^k</span></span><br><span class="line">        vector&lt;LL&gt; exp;</span><br><span class="line">        <span class="keyword">for</span> (LL i = b; i &lt;= a; i = i + i) &#123;</span><br><span class="line">            exp.<span class="built_in">emplace_back</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        LL res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = exp.<span class="built_in">size</span>() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i --) &#123;</span><br><span class="line">            <span class="keyword">if</span> (a &gt;= exp[i]) &#123;</span><br><span class="line">                a -= exp[i];</span><br><span class="line">                res += <span class="number">1ll</span> &lt;&lt; i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (is_minus) res = -res;</span><br><span class="line">        <span class="keyword">if</span> (res &gt; INT_MAX || res &lt; INT_MIN) res = INT_MAX;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -698,10 +676,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="file-in-file-out">File In, File Out</h1>
-<h2 id="overview">Overview</h2>
-<h2 id="fast-command-line-navigation-using-pushdand-popd">Fast command-line navigation using pushdand popd</h2>
-
+          <h1 id="File-In-File-Out"><a href="#File-In-File-Out" class="headerlink" title="File In, File Out"></a>File In, File Out</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><h2 id="Fast-command-line-navigation-using-pushdand-popd"><a href="#Fast-command-line-navigation-using-pushdand-popd" class="headerlink" title="Fast command-line navigation using pushdand popd"></a>Fast command-line navigation using pushdand popd</h2>
       
     </div>
 
@@ -778,75 +753,69 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="datalab">datalab</h1>
-<h2 id="prerequisites">Prerequisites</h2>
-<p><a target="_blank" rel="noopener" href="http://csapp.cs.cmu.edu/3e/labs.html">lab code</a></p>
+          <h1 id="datalab"><a href="#datalab" class="headerlink" title="datalab"></a>datalab</h1><h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><p><a target="_blank" rel="noopener" href="http://csapp.cs.cmu.edu/3e/labs.html">lab code</a></p>
 <p>我使用的ubuntu</p>
 <p>第一次执行make会报错，需要装一些库</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gcc-multilib</span><br></pre></td></tr></table></figure>
-<h3 id="test">Test</h3>
-<p>测试函数 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./btest</span><br></pre></td></tr></table></figure></p>
-<p>检查代码规范 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./dlc bits.c</span><br></pre></td></tr></table></figure></p>
+<h3 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h3><p>测试函数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./btest</span><br></pre></td></tr></table></figure></p>
+<p>检查代码规范<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./dlc bits.c</span><br></pre></td></tr></table></figure></p>
 <p>这时候再make只有文件本身的errors and warnings</p>
-<h2 id="main">Main</h2>
-<p>主要文件是<code>datalab-handout/bits.c</code>，里面有一些函数的实现，需要自己实现。</p>
+<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><p>主要文件是<code>datalab-handout/bits.c</code>，里面有一些函数的实现，需要自己实现。</p>
 <p>一共需要完成13个函数，每个函数都是一个题目</p>
-<h2 id="solutions">Solutions</h2>
-<h3 id="bitxor">bitXor</h3>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1</span></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment"> * bitXor - x^y using only ~ and &amp; </span></span><br><span class="line"><span class="comment"> *   Example: bitXor(4, 5) = 1</span></span><br><span class="line"><span class="comment"> *   Legal ops: ~ &amp;</span></span><br><span class="line"><span class="comment"> *   Max ops: 14</span></span><br><span class="line"><span class="comment"> *   Rating: 1</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-<p>感觉是比较巧妙的题目，尝试在脑中dfs 先列出异或真值表</p>
+<h2 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h2><h3 id="bitXor"><a href="#bitXor" class="headerlink" title="bitXor"></a>bitXor</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1</span></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment"> * bitXor - x^y using only ~ and &amp; </span></span><br><span class="line"><span class="comment"> *   Example: bitXor(4, 5) = 1</span></span><br><span class="line"><span class="comment"> *   Legal ops: ~ &amp;</span></span><br><span class="line"><span class="comment"> *   Max ops: 14</span></span><br><span class="line"><span class="comment"> *   Rating: 1</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<p>感觉是比较巧妙的题目，尝试在脑中dfs<br>先列出异或真值表</p>
+<div class="table-container">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>x</th>
 <th>y</th>
 <th>x^y</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 </tr>
-<tr class="even">
+<tr>
 <td>0</td>
 <td>1</td>
 <td>1</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>1</td>
 <td>0</td>
 <td>1</td>
 </tr>
-<tr class="even">
+<tr>
 <td>1</td>
 <td>1</td>
 <td>0</td>
 </tr>
 </tbody>
 </table>
+</div>
 <p>其中为了和&amp;产生联系, 取出结果为1的两行，让0取反 &amp; 1同样得到1</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~x &amp; y, x &amp; ~y</span><br></pre></td></tr></table></figure>
 <p>两者取|即可得到结果，|的意思是两种情况满足其一即可</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~x &amp; y | x &amp; ~y</span><br></pre></td></tr></table></figure>
-<p>但是本题是不能使用|的, 用De Morgan's Law进行转化即可</p>
+<p>但是本题是不能使用|的, 用De Morgan’s Law进行转化即可</p>
 <p><img src="/images/csapp-datalab-01.png" alt="csapp-datalab-01.png" style="zoom:70%;" /></p>
 <p><img src="/images/csapp-datalab-02.png" alt="csapp-datalab-02.png" style="zoom:70%;" /></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">bitXor</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> ~(x &amp; y) &amp; (~(~x &amp; ~y));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="tmin">tmin</h3>
-<blockquote>
-<p>return minimum two's complement integer</p>
+<h3 id="tmin"><a href="#tmin" class="headerlink" title="tmin"></a>tmin</h3><blockquote>
+<p>return minimum two’s complement integer </p>
 </blockquote>
 <p>最高位为1，其余位为0</p>
 <p>直接返回0x80000000是违反最大只能使用255的规定的</p>
 <blockquote>
-<p>Integer constants 0 through 255 (0xFF), inclusive. You are not allowed to use big constants such as 0xffffffff.</p>
+<p>Integer constants 0 through 255 (0xFF), inclusive. You are<br>not allowed to use big constants such as 0xffffffff.</p>
 </blockquote>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">tmin</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> &lt;&lt; <span class="number">31</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="istmax">isTmax</h3>
-<blockquote>
-<p>returns 1 if x is the maximum, two's complement number,</p>
+<h3 id="isTmax"><a href="#isTmax" class="headerlink" title="isTmax"></a>isTmax</h3><blockquote>
+<p>returns 1 if x is the maximum, two’s complement number,</p>
 </blockquote>
 <p>当最高位为0, 其余位为1时，即为最大值</p>
 <p>本质就是来判断x的二进制表示是否为期望的二进制表示</p>
@@ -859,18 +828,17 @@
 <p>让Tmax + 1, 得到最高位为1, 其余为0的数</p>
 <p>两者取反即可判断是否相等了, 对应的操作就是两者按位异或即可: (x + 1) ^ (~x)</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">isTmax</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> !((x + <span class="number">1</span>) ^ (~x));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>但是报错了 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Score	Rating	Errors	Function</span><br><span class="line">ERROR: Test isTmax(-1[0xffffffff]) failed...</span><br><span class="line">...Gives 1[0x1]. Should be 0[0x0]</span><br><span class="line">Total points: 0/1</span><br></pre></td></tr></table></figure></p>
+<p>但是报错了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Score	Rating	Errors	Function</span><br><span class="line">ERROR: Test isTmax(-1[0xffffffff]) failed...</span><br><span class="line">...Gives 1[0x1]. Should be 0[0x0]</span><br><span class="line">Total points: 0/1</span><br></pre></td></tr></table></figure></p>
 <p>没有考虑到-1的情况</p>
-<p><span class="math inline">\(!!\)</span> 这里是一个规格化的操作</p>
+<p>$!!$ 这里是一个规格化的操作</p>
 <p>因为!会让非0的数的二进制表示为000000, 再!就会变成000001</p>
 <p>而0的二进制表示为000000, 再!就会变成000001, 再!就会变成000000</p>
 <p>这个书上并没有说，而且也没有看到有人详细讲了这个。。。</p>
 <p>补上即可</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">isTmax</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    <span class="type">int</span> tmin = x + <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> equal = tmin ^ (~x);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (!!tmin) &amp; (!equal);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>第二种解法是利用，自己与自己异或可以得到0的性质 同样需要考虑-1的情况</p>
+<p>第二种解法是利用，自己与自己异或可以得到0的性质<br>同样需要考虑-1的情况</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">isTmax</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> !(~(x + <span class="number">1</span>) ^ x) &amp; !!(x + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="alloddbits">allOddBits</h3>
-<blockquote>
+<h3 id="allOddBits"><a href="#allOddBits" class="headerlink" title="allOddBits"></a>allOddBits</h3><blockquote>
 <p>return 1 if all odd-numbered bits in word set to 1</p>
 </blockquote>
 <p>所有奇数位为1就返回1, 那么偶数位就可以变化，来构造出对判断有帮助的数</p>
@@ -878,35 +846,32 @@
 <p>缩小规模为4位</p>
 <p>&amp;拥有一种遮盖性(mask)，当一个为0就可以把另一个遮盖掉</p>
 <p>1010为mask序列, 让1010与num进行&amp;操作，即可得到num的奇数位就可以达到遮蔽偶数位的效果</p>
-<p>所以回到之前，让x与mask序列进行&amp;操作，即可得到形如x0x0x0...的序列</p>
-<p>异或的其中一个作用就是判不同, 让x0x0x0...与101010...异或，如果为0，说明所有奇数位都为1，否则就不是</p>
+<p>所以回到之前，让x与mask序列进行&amp;操作，即可得到形如x0x0x0…的序列</p>
+<p>异或的其中一个作用就是判不同, 让x0x0x0…与101010…异或，如果为0，说明所有奇数位都为1，否则就不是</p>
 <p>那么问题就变成了，如何构造出mask序列</p>
 <p>其中一种方法是让题目能够表示的最大的mask序列进行位移和|操作</p>
 <p>0xAA = mask_8 = 10101010, 左移8位, 1010101000000000, 两者再|操作, 1010101010101010(mask_16)</p>
 <p>mask_16 = 1010101010101010, 左移16位, 10101010101010100000000000000000, 两者再|操作, 10101010101010101010101010101010(mask_32)</p>
 <p>构造成功</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">allOddBits</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    <span class="type">int</span> mask = <span class="number">0xAA</span>;</span><br><span class="line">    mask = (mask &lt;&lt; <span class="number">8</span>) | mask;</span><br><span class="line">    mask = (mask &lt;&lt; <span class="number">16</span>) | mask;</span><br><span class="line">    <span class="keyword">return</span> !((mask &amp; x) ^ mask);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="negative">negative</h3>
-<blockquote>
-<p>return -x</p>
+<h3 id="negative"><a href="#negative" class="headerlink" title="negative"></a>negative</h3><blockquote>
+<p>return -x </p>
 </blockquote>
 <p>非常常用的一个操作</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">negative</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> ~x + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>原因： x与自己取反以后相加是全1，再加1就是全0</p>
+<p>原因：<br>x与自己取反以后相加是全1，再加1就是全0</p>
 <p>也就是 x + ~x + 1 = 0，得出-x = ~x + 1</p>
-<h3 id="isasciidigit">isAsciiDigit</h3>
-<blockquote>
-<p>return 1 if 0x30 &lt;= x &lt;= 0x39 (ASCII codes for characters '0' to '9')</p>
+<h3 id="isAsciiDigit"><a href="#isAsciiDigit" class="headerlink" title="isAsciiDigit"></a>isAsciiDigit</h3><blockquote>
+<p>return 1 if 0x30 &lt;= x &lt;= 0x39 (ASCII codes for characters ‘0’ to ‘9’)</p>
 </blockquote>
 <p>0x30 = 00110000, 0x39 = 00111001</p>
 <p>不等式比大小常用的方法是做差</p>
 <p>做差不能直接使用可以用-x = ~x + 1来等价代换</p>
-<p>sign_1 = x - 0x30 -&gt; sign_1 = x + ~0x30 + 1 sign_2 = 0x39 - x -&gt; sign_2 = 0x39 + ~x + 1</p>
+<p>sign_1 = x - 0x30 -&gt; sign_1 = x + ~0x30 + 1<br>sign_2 = 0x39 - x -&gt; sign_2 = 0x39 + ~x + 1</p>
 <p>再根据最高位的符号位来判断正负</p>
 <p>!(sign_1 &gt;&gt; 31) &amp; !(sign_2 &gt;&gt; 31)</p>
-<h3 id="conditional">conditional</h3>
-<blockquote>
-<p>same as x ? y : z</p>
+<h3 id="conditional"><a href="#conditional" class="headerlink" title="conditional"></a>conditional</h3><blockquote>
+<p>same as x ? y : z </p>
 </blockquote>
 <p>用位运算来实现c中的三目运算符</p>
 <p>第一个需要解决的是如何判断x</p>
@@ -923,9 +888,8 @@
 <p>flag 和 ~flag 就实现了互斥对</p>
 <p>最终得到 flag &amp; y | ~flag &amp; z</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">conditional</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> z)</span> &#123;</span><br><span class="line">    <span class="type">int</span> condition = !!x;</span><br><span class="line">    <span class="type">int</span> flag = ~condition + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> (flag &amp; y) | (~flag &amp; z);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="islessorequal">isLessOrEqual</h3>
-<blockquote>
-<p>if x &lt;= y then return 1, else return 0</p>
+<h3 id="isLessOrEqual"><a href="#isLessOrEqual" class="headerlink" title="isLessOrEqual"></a>isLessOrEqual</h3><blockquote>
+<p>if x &lt;= y  then return 1, else return 0 </p>
 </blockquote>
 <p>比大小做差</p>
 <p>y - x &gt;= 0 -&gt; y + ~x + 1 &gt;= 0</p>
@@ -934,21 +898,22 @@
 <p>if (sign &gt;&gt; 31) == -1 y - x &lt; 0, return 0</p>
 <p>return !(sign &gt;&gt; 31)</p>
 <p>但是 y - x 可能会溢出</p>
-<ol type="1">
-<li><p>y &lt; 0, x &gt; 0, y - x &lt; 0, 但是如果溢出就会变成正数，所以需要特殊判断y &lt; 0 &amp;&amp; x &gt; 0</p></li>
-<li><p>y &gt; 0, x &lt; 0, y - x &gt; 0, 但是如果溢出就会变成负数，所以需要特殊判断y &gt; 0 &amp;&amp; x &lt; 0</p></li>
-<li><p>x &gt; 0 =&gt; s_x = x &gt;&gt; 31, s_x == 0, y &lt; 0 =&gt; s_y = y &gt;&gt; 31, s_y == -1, 可得 of_1 = (!s_x) &amp; s_y</p></li>
+<ol>
+<li>y &lt; 0, x &gt; 0, y - x &lt; 0, 但是如果溢出就会变成正数，所以需要特殊判断y &lt; 0 &amp;&amp; x &gt; 0</li>
+<li><p>y &gt; 0, x &lt; 0, y - x &gt; 0, 但是如果溢出就会变成负数，所以需要特殊判断y &gt; 0 &amp;&amp; x &lt; 0</p>
+</li>
+<li><p>x &gt; 0 =&gt; s_x = x &gt;&gt; 31, s_x == 0, y &lt; 0 =&gt; s_y = y &gt;&gt; 31, s_y == -1, 可得 of_1 = (!s_x) &amp; s_y</p>
+</li>
 </ol>
 <p>所以需要满足 !(sign&gt;&gt;31) 但是不满足 of_1, 得到 return (!of_1) &amp; (!(sign&gt;&gt;31))</p>
-<ol start="2" type="1">
+<ol>
 <li>x &lt; 0 =&gt; s_x = x &gt;&gt; 31, s_x == -1, y &gt; 0 =&gt; s_y = y &gt;&gt; 31, s_y == 0, 可得 of_2 = s_x &amp; (!s_y)</li>
 </ol>
 <p>这里直接就return 1, 所以只要满足x &lt; 0, y &gt; 0就可以了</p>
 <p>return of_2</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> of_2 | (!(of_1)) &amp; (!(sign&gt;&gt;<span class="number">31</span>));</span><br></pre></td></tr></table></figure>
-<h3 id="logicalneg">logicalNeg</h3>
-<blockquote>
-<p>implement the ! operator, using all of the legal operators except !</p>
+<h3 id="logicalNeg"><a href="#logicalNeg" class="headerlink" title="logicalNeg"></a>logicalNeg</h3><blockquote>
+<p>implement the ! operator, using all of the legal operators except ! </p>
 </blockquote>
 <p>也就是实现只有当x == 0的时候，!x才为1</p>
 <p>用-x可以得到x的相反数，仍然为0</p>
@@ -956,11 +921,14 @@
 <p>(x | negate_x) &gt;&gt; 31 = 0</p>
 <p>还需要思考不等于0的情况</p>
 <p>如果不等于0， 相反数其中最高位其中一个为1， (x | negate_x) &gt;&gt; 31 = -1</p>
-<p>将条件摆在一起 - if x == 0 return 1 (x | negate_x) &gt;&gt; 31 == 0 - if x != 0 return 0 (x | negate_x) &gt;&gt; 31 == -1</p>
+<p>将条件摆在一起</p>
+<ul>
+<li>if x == 0 return 1 (x | negate_x) &gt;&gt; 31 == 0</li>
+<li>if x != 0 return 0 (x | negate_x) &gt;&gt; 31 == -1</li>
+</ul>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> ((x | ~x + <span class="number">1</span>) &gt;&gt; <span class="number">31</span>) + <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="howmanybits">howManyBits</h3>
-<blockquote>
-<p>return the minimum number of bits required to represent x in two's complement</p>
+<h3 id="howManyBits"><a href="#howManyBits" class="headerlink" title="howManyBits"></a>howManyBits</h3><blockquote>
+<p>return the minimum number of bits required to represent x in two’s complement</p>
 </blockquote>
 <p>最直观的方法从找到高位的1， 然后加上一个符号位</p>
 <p>查找的问题，概率论加持的最快方法是二分查找</p>
@@ -973,25 +941,24 @@
 <p>接下来8, 4, 2, 1同理</p>
 <p>最后求和所有的标记加上符号位即可，但是这样的方法并不能满足负数的情况</p>
 <p>看几个例子：</p>
-<p>2 bit: -2 ~ 1 3 bit: -4 ~ 3 32 bit: -2147483648(2^31) ~ 2147483647(2^31 - 1)</p>
+<p>2 bit: -2 ~ 1<br>3 bit: -4 ~ 3<br>32 bit: -2147483648(2^31) ~ 2147483647(2^31 - 1)</p>
 <p>那么可以把负数转化为正数处理，因为不是对称的，所以进行-1即可</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">howManyBits</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    <span class="type">int</span> flag = x &gt;&gt; <span class="number">31</span>;</span><br><span class="line">    <span class="type">int</span> cnt_16, cnt_8, cnt_4, cnt_2, cnt_1, cnt_0;</span><br><span class="line">    <span class="type">int</span> sign = x &gt;&gt; <span class="number">31</span>;</span><br><span class="line">    x = (sign &amp; (~x)) | (~sign &amp; x); <span class="comment">// 根据符号位来判断x的正负，从而决定是否取反(不具有普遍性)</span></span><br><span class="line">    flag = !!(x &gt;&gt; <span class="number">16</span>);</span><br><span class="line">    cnt_16 = flag &lt;&lt; <span class="number">4</span>;</span><br><span class="line">    x = x &gt;&gt; cnt_16;</span><br><span class="line"></span><br><span class="line">    flag = !!(x &gt;&gt; <span class="number">8</span>);</span><br><span class="line">    cnt_8 = flag &lt;&lt; <span class="number">3</span>;</span><br><span class="line">    x = x &gt;&gt; cnt_8;</span><br><span class="line"></span><br><span class="line">    flag = !!(x &gt;&gt; <span class="number">4</span>);</span><br><span class="line">    cnt_4 = flag &lt;&lt; <span class="number">2</span>;</span><br><span class="line">    x = x &gt;&gt; cnt_4;</span><br><span class="line"></span><br><span class="line">    flag = !!(x &gt;&gt; <span class="number">2</span>);</span><br><span class="line">    cnt_2 = flag &lt;&lt; <span class="number">1</span>;</span><br><span class="line">    x = x &gt;&gt; cnt_2;</span><br><span class="line"></span><br><span class="line">    flag = !!(x &gt;&gt; <span class="number">1</span>);</span><br><span class="line">    cnt_1 = flag;</span><br><span class="line">    x = x &gt;&gt; cnt_1;</span><br><span class="line"></span><br><span class="line">    cnt_0 = x;</span><br><span class="line">    <span class="keyword">return</span> cnt_16 + cnt_8 + cnt_4 + cnt_2 + cnt_1 + cnt_0 + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr />
+<hr>
 <p>接下來是float的主场了</p>
 <p>float限制非常少</p>
 <blockquote>
-<p>For the problems that require you to implement floating-point operations, the coding rules are less strict. You are allowed to use looping and conditional control. You are allowed to use both ints and unsigneds. You can use arbitrary integer and unsigned constants. You can use any arithmetic, logical, or comparison operations on int or unsigned data.</p>
+<p>For the problems that require you to implement floating-point operations,<br>the coding rules are less strict.  You are allowed to use looping and<br>conditional control.  You are allowed to use both ints and unsigneds.<br>You can use arbitrary integer and unsigned constants. You can use any arithmetic,<br>logical, or comparison operations on int or unsigned data.</p>
 </blockquote>
-<hr />
-<h3 id="floatscale2">floatScale2</h3>
-<blockquote>
+<hr>
+<h3 id="floatScale2"><a href="#floatScale2" class="headerlink" title="floatScale2"></a>floatScale2</h3><blockquote>
 <p>Return bit-level equivalent of expression 2*f for floating point arguments f.</p>
 </blockquote>
 <p>这里操作是做浮点数，但是传入和传出都是<code>unsigned int</code></p>
 <p><code>unsigned int</code> ?-&gt; <code>float</code></p>
 <p>两者都是32位的，所以要分别获取 <code>unsigned int</code> 1位的<code>s</code>, 8位的<code>exp</code>, 23位的<code>frac</code></p>
 <p>最高位好获得，直接uf &amp; 0x80000000</p>
-<p>exp = (0x7F800000 &amp; uf) &gt;&gt; 23, frac = uf &amp; 0x7FFFFF</p>
+<p>exp = (0x7F800000 &amp; uf) &gt;&gt; 23, frac = uf &amp; 0x7FFFFF </p>
 <p>接下里处理浮点数，浮点数有四种规则，需要根据<code>exp</code>进行分类讨论</p>
 <ul>
 <li>if (exp == 0xFF) &amp;&amp; (frac != 0) =&gt; NaN</li>
@@ -1002,18 +969,19 @@
 </ul>
 <p>按照规则返回 uf.</p>
 <ul>
-<li><p>if (exp == 0) &amp;&amp; (frac == 0) return uf</p></li>
-<li><p>if (exp == 0) &amp;&amp; (frac != 0) For frac * 2, frac &lt;&lt; 1 return s | (exp &lt;&lt; 23) | (frac &lt;&lt; 1)</p></li>
-<li><p>if (exp != 0) &amp;&amp; (exp != 255), return s | ((exp + 1) &lt;&lt; 23) | frac</p></li>
+<li>if (exp == 0) &amp;&amp; (frac == 0) return uf</li>
+<li><p>if (exp == 0) &amp;&amp; (frac != 0) For frac * 2, frac &lt;&lt; 1 return s | (exp &lt;&lt; 23) | (frac &lt;&lt; 1)</p>
+</li>
+<li><p>if (exp != 0) &amp;&amp; (exp != 255), return s | ((exp + 1) &lt;&lt; 23) | frac</p>
+</li>
 </ul>
 <p>这里因为要乘2所以让exp + 1, 但是这样会偏移导致当exp位254的时候产生exp+1=255, 表示为无穷</p>
 <p>return s | (0xFF &lt;&lt; 23)</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> <span class="title function_">floatScale2</span><span class="params">(<span class="type">unsigned</span> uf)</span> &#123;</span><br><span class="line">    <span class="type">unsigned</span> s = uf &amp; <span class="number">0x80000000</span>;</span><br><span class="line">    <span class="type">unsigned</span> <span class="built_in">exp</span> = (uf &amp; <span class="number">0x7F800000</span>) &gt;&gt; <span class="number">23</span>;</span><br><span class="line">    <span class="type">unsigned</span> frac = uf &amp; <span class="number">0x007FFFFF</span>;</span><br><span class="line">    <span class="type">unsigned</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="type">unsigned</span> inf = s | (<span class="number">0xFF</span> &lt;&lt; <span class="number">23</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">exp</span> == <span class="number">0xFF</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> uf;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">exp</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (frac == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> uf;</span><br><span class="line">        &#125;</span><br><span class="line">        frac = frac &lt;&lt; <span class="number">1</span>;</span><br><span class="line">        ret = s | (<span class="built_in">exp</span> &lt;&lt; <span class="number">23</span>) | frac;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">exp</span> = <span class="built_in">exp</span> + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">exp</span> == <span class="number">0xFF</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> inf;</span><br><span class="line">    &#125;</span><br><span class="line">    ret = s | (<span class="built_in">exp</span> &lt;&lt; <span class="number">23</span>) | frac;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="floatfloat2int">floatFloat2Int</h3>
-<p>把一个单精度浮点数强制转化成整形数</p>
+<h3 id="floatFloat2Int"><a href="#floatFloat2Int" class="headerlink" title="floatFloat2Int"></a>floatFloat2Int</h3><p>把一个单精度浮点数强制转化成整形数</p>
 <p>由于单精度浮点数的范围比int大得多, 且int的范围是-2^31 ~ 2^31 - 1, 所以需要进行分类讨论</p>
 <p>if E &lt; 0, 此时浮点数本身表示的并不是整数, return 0;</p>
-<p>V = (-1)^s * M * 2^E</p>
+<p>V = (-1)^s <em> M </em> 2^E</p>
 <ul>
 <li>E = 31, s = 1, V = -2^31</li>
 <li>E = 31, s = 0, V = 2^31 - 1</li>
@@ -1036,20 +1004,17 @@
 <p>if 24 &lt;= E &lt;= 31, 不需要截断, 直接左移E - 23位 &lt;=&gt; return frac &lt;&lt; (E - 23)</p>
 <p>最后确定一下符号位就好了</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">floatFloat2Int</span><span class="params">(<span class="type">unsigned</span> uf)</span> &#123;</span><br><span class="line">    <span class="type">int</span> sign = uf &gt;&gt; <span class="number">31</span>;</span><br><span class="line">    <span class="type">int</span> <span class="built_in">exp</span> = (uf &amp; <span class="number">0x7F800000</span>) &gt;&gt; <span class="number">23</span>;</span><br><span class="line">    <span class="type">int</span> frac = (uf &amp; <span class="number">0x007FFFFF</span>);</span><br><span class="line">    <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> E = <span class="built_in">exp</span> - <span class="number">127</span>;</span><br><span class="line">    frac = frac | <span class="number">0x00800000</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (E &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (E &gt; <span class="number">31</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0x80000000</span>u;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (E &gt; <span class="number">23</span>) &#123;</span><br><span class="line">        res = frac &lt;&lt; (E - <span class="number">23</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        res = frac &gt;&gt; (<span class="number">23</span> - E);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (sign == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> ~res + <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="floatpower2">floatPower2</h3>
-<blockquote>
+<h3 id="floatPower2"><a href="#floatPower2" class="headerlink" title="floatPower2"></a>floatPower2</h3><blockquote>
 <p>Return bit-level equivalent of the expression 2.0^x (2.0 raised to the power x) for any 32-bit integer x.</p>
-</blockquote>
-<blockquote>
-<p>If the result is too small to be represented as a denorm, return If too large, return +INF.</p>
+<p>If the result is too small to be represented as a denorm, return<br>If too large, return +INF.</p>
 </blockquote>
 <p>这里给了如果太大或者太小的返回值</p>
 <p>来分析一下当x取什么值会导致y太大或者太小</p>
 <p>在float那里，非规格化的数有两个用途，一个是表示0, 一个是表示非常接近0的数</p>
-<p>当exp = 0000 0000, f = 000...01, 此时就是float最接近0的数字</p>
-<p>代入 V = (-1)^s * M * 2^E, 可以得到V_min = 2^-149(E = 1 - bias = -126, M = f = 2^(23))</p>
+<p>当exp = 0000 0000, f = 000…01, 此时就是float最接近0的数字</p>
+<p>代入 V = (-1)^s <em> M </em> 2^E, 可以得到V_min = 2^-149(E = 1 - bias = -126, M = f = 2^(23))</p>
 <p>也就是当x &lt; -149的时候，y &lt; 2^-149, 此时y太小了, return 0</p>
-<p>当exp = 1111 1111(此时是规格化的), f = 000...00， E = exp - bias = 127, M = 1 + f = 2^(23), 此时V_max = 2^127</p>
+<p>当exp = 1111 1111(此时是规格化的), f = 000…00， E = exp - bias = 127, M = 1 + f = 2^(23), 此时V_max = 2^127</p>
 <p>也就是当x &gt; 127的时候，y &gt; 2^127, 此时y太大了, return +INF(由0xFF &lt;&lt; 23得到)</p>
 <p>此时只剩下中间的区间了</p>
 <p>其中，有些值很靠近0, 需要用非规格化的数来表示，其余的用规格化的数来表示</p>
@@ -1062,25 +1027,29 @@
 <p>此时来构造非规格化的数</p>
 <p>exp = 0000 0000, frac = 0x1 &lt;&lt; (x + 149)</p>
 <p>来构造规格化的数</p>
-<p>if x == -126, E = -126, E = exp - 127, exp = 1 if x == -125, E = -125, E = exp - 127, exp = 2 ... if x == 127, E = 127, E = exp - 127, exp = 254</p>
+<p>if x == -126, E = -126, E = exp - 127, exp = 1<br>if x == -125, E = -125, E = exp - 127, exp = 2<br>    …<br>if x == 127, E = 127, E = exp - 127, exp = 254</p>
 <p>-126 &lt;= x &lt;= 127, exp = x + 127, return exp &lt;&lt; 23</p>
-<p>```c unsigned floatPower2(int x) { int exp; unsigned res;</p>
-<pre><code>if (x &lt; -149) &#123;
-    return 0;
-&#125;
+<pre><code class="lang-c">unsigned floatPower2(int x) &#123;
+    int exp;
+    unsigned res;
 
-if (x &gt; 127) &#123;
-    return (0xFF &lt;&lt; 23);
-&#125;
+    if (x &lt; -149) &#123;
+        return 0;
+    &#125;
 
-if (x &lt; -126) &#123;
-    return 0x1 &lt;&lt; (x + 149);
-&#125;
+    if (x &gt; 127) &#123;
+        return (0xFF &lt;&lt; 23);
+    &#125;
 
-exp = x + 127;
-res = exp &lt;&lt; 23;
-return res;</code></pre>
-<p>}```</p>
+    if (x &lt; -126) &#123;
+        return 0x1 &lt;&lt; (x + 149);
+    &#125;
+
+    exp = x + 127;
+    res = exp &lt;&lt; 23;
+    return res;
+&#125;
+</code></pre>
 
       
     </div>
@@ -1162,8 +1131,7 @@ return res;</code></pre>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="understanding-zsh-completions">Understanding Zsh Completions</h1>
-
+          <h1 id="Understanding-Zsh-Completions"><a href="#Understanding-Zsh-Completions" class="headerlink" title="Understanding Zsh Completions"></a>Understanding Zsh Completions</h1>
       
     </div>
 
@@ -1234,106 +1202,92 @@ return res;</code></pre>
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="fzf-advanced">fzf advanced</h1>
-<p>Yes, I love fzf.</p>
+          <h1 id="fzf-advanced"><a href="#fzf-advanced" class="headerlink" title="fzf advanced"></a>fzf advanced</h1><p>Yes, I love fzf.</p>
 <p>It make my life easier.</p>
-<h2 id="whats-fzf">What's fzf?</h2>
-<blockquote>
-<p>fzf is a general-purpose command-line fuzzy finder. It's an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc.</p>
+<h2 id="What’s-fzf"><a href="#What’s-fzf" class="headerlink" title="What’s fzf?"></a>What’s fzf?</h2><blockquote>
+<p>fzf is a general-purpose command-line fuzzy finder.<br>It’s an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc.</p>
 </blockquote>
-<p>fzf is an interactive Unix filter program that is designed to be used with other Unix tools. It reads a list of items from the standard input, allows you to select a subset of the items, and prints the selected ones to the standard output. You can think of it as an interactive version of grep, and it's already useful even if you don't know any of its options.</p>
-<h2 id="pros">Pros</h2>
-<ul>
+<p>fzf is an interactive Unix filter program that is designed to be used with other Unix tools.<br>It reads a list of items from the standard input, allows you to select a subset of the items,<br>and prints the selected ones to the standard output. You can think of it as an interactive version of grep,<br>and it’s already useful even if you don’t know any of its options.</p>
+<h2 id="Pros"><a href="#Pros" class="headerlink" title="Pros"></a>Pros</h2><ul>
 <li>Portable, no dependencies</li>
 <li>Blazingly fast</li>
 <li>The most comprehensive feature set</li>
 <li>Flexible layout</li>
-<li>Batteries included
-<ul>
+<li>Batteries included<ul>
 <li>Vim/Neovim plugin, key bindings, and fuzzy auto-completion</li>
-</ul></li>
 </ul>
-<h2 id="installation">Installation</h2>
-<p><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf/tree/168829b5550336886a426073670153f84f8a34b2#installation">github Installation</a></p>
-<p>Tips: if you are using Ubuntu, don't use apt to install fzf, it's too old.</p>
-<h2 id="find-file">Find file</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># fzf find files</span><br><span class="line">alias v=&quot;fd --type f --hidden --exclude .git | fzf-tmux -p 70% --reverse | xargs nvim&quot;</span><br><span class="line"># fzf with cd</span><br><span class="line">export FZF_CTRL_T_COMMAND=&quot;find . -maxdepth 1 | sed &#x27;s/^..//&#x27;&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf/tree/168829b5550336886a426073670153f84f8a34b2#installation">github Installation</a></p>
+<p>Tips:<br>if you are using Ubuntu, don’t use apt to install fzf, it’s too old.</p>
+<h2 id="Find-file"><a href="#Find-file" class="headerlink" title="Find file"></a>Find file</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># fzf find files</span><br><span class="line">alias v=&quot;fd --type f --hidden --exclude .git | fzf-tmux -p 70% --reverse | xargs nvim&quot;</span><br><span class="line"># fzf with cd</span><br><span class="line">export FZF_CTRL_T_COMMAND=&quot;find . -maxdepth 1 | sed &#x27;s/^..//&#x27;&quot;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>v
-<ul>
-<li>--type f : only find files</li>
-<li>--hidden : find hidden files</li>
-<li>--exclude .git : exclude .git</li>
+<li>v<ul>
+<li>—type f : only find files</li>
+<li>—hidden : find hidden files</li>
+<li>—exclude .git : exclude .git</li>
 <li>fzf-tmux : Popup window support use fzf-tmux</li>
 <li>-p 70% : preview 70% of the screen</li>
-<li>--reverse : reverse the order</li>
+<li>—reverse : reverse the order</li>
 <li>xargs nvim : open the file with nvim</li>
-</ul></li>
 </ul>
-<p><img src="/images/fzf-01.png" alt="fzf-01.png" style="zoom:70%;" /> <img src="/images/fzf-02.png" alt="fzf-02.png" style="zoom:70%;" /></p>
+</li>
+</ul>
+<p><img src="/images/fzf-01.png" alt="fzf-01.png" style="zoom:70%;" /><br><img src="/images/fzf-02.png" alt="fzf-02.png" style="zoom:70%;" /></p>
 <ul>
-<li>FZF_CTRL_T_COMMAND
-<ul>
+<li>FZF_CTRL_T_COMMAND<ul>
 <li>find . -maxdepth 1 : find files in current directory</li>
-<li>sed 's/^..//' : remove the first two characters</li>
-</ul></li>
+<li>sed ‘s/^..//‘ : remove the first two characters</li>
+</ul>
+</li>
 </ul>
 <p><img src="/images/fzf-03.png" alt="fzf-03.png" style="zoom:70%;" /></p>
 <p>More see <a target="_blank" rel="noopener" href="https://github.com/krmmzs/.dotfiles/blob/master/zsh/.zshrc">dotfiles</a></p>
-<h2 id="find-command-history">Find command history</h2>
-<p><code>CTRL-R</code> - Paste the selected command from history onto the command-line</p>
+<h2 id="Find-command-history"><a href="#Find-command-history" class="headerlink" title="Find command history"></a>Find command history</h2><p><code>CTRL-R</code> - Paste the selected command from history onto the command-line</p>
 <ul>
 <li>If you want to see the commands in chronological order, press <code>CTRL-R</code> again which toggles sorting by relevance</li>
 <li>Set <code>FZF_CTRL_R_OPTS</code> to pass additional options</li>
 </ul>
 <p><img src="/images/fzf-04.png" alt="fzf-04.png" style="zoom:70%;" /></p>
-<h2 id="quick-cd">Quick cd</h2>
-<p><code>ALT-C</code> - cd into the selected directory</p>
+<h2 id="Quick-cd"><a href="#Quick-cd" class="headerlink" title="Quick cd"></a>Quick cd</h2><p><code>ALT-C</code> - cd into the selected directory</p>
 <ul>
 <li>Set <code>FZF_ALT_C_COMMAND</code> to override the default command</li>
 <li>Set <code>FZF_ALT_C_OPTS</code> to pass additional options</li>
 </ul>
-<p><img src="/images/fzf-06.png" alt="fzf-06.png" style="zoom:70%;" /> <img src="/images/fzf-07.png" alt="fzf-07.png" style="zoom:70%;" /></p>
-<p>but if you want to preview the directory's content, more recommended to use <a target="_blank" rel="noopener" href="https://github.com/ranger/ranger">ranger</a></p>
+<p><img src="/images/fzf-06.png" alt="fzf-06.png" style="zoom:70%;" /><br><img src="/images/fzf-07.png" alt="fzf-07.png" style="zoom:70%;" /></p>
+<p>but if you want to preview the directory’s content, more recommended to use <a target="_blank" rel="noopener" href="https://github.com/ranger/ranger">ranger</a></p>
 <p>after install ranger, type <code>. ranger</code> to quick cd</p>
 <p><img src="/images/fzf-08.png" alt="fzf-08.png" style="zoom:70%;" /></p>
-<h2 id="as-the-secondary-filter">As the secondary filter</h2>
-<h2 id="fuzzy-completion-for-bash-and-zsh">Fuzzy completion for bash and zsh</h2>
-<p>Fuzzy completion for files and directories can be triggered if the word before the cursor ends with the trigger sequence, which is by default <code>**</code>.</p>
+<h2 id="As-the-secondary-filter"><a href="#As-the-secondary-filter" class="headerlink" title="As the secondary filter"></a>As the secondary filter</h2><h2 id="Fuzzy-completion-for-bash-and-zsh"><a href="#Fuzzy-completion-for-bash-and-zsh" class="headerlink" title="Fuzzy completion for bash and zsh"></a>Fuzzy completion for bash and zsh</h2><p>Fuzzy completion for files and directories can be triggered if the word before the cursor ends with the trigger sequence, which is by default <code>**</code>.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COMMAND [DIRECTORY/][FUZZY_PATTERN]**&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
 <p>EX:</p>
 <ul>
-<li><p>You can select multiple items with TAB key nvim **<TAB></p></li>
-<li><p>Directories under ~/github that match <code>fzf</code> cd ~/github/fzf**<TAB></p></li>
+<li><p>You can select multiple items with TAB key<br>nvim **<TAB></p>
+</li>
+<li><p>Directories under ~/github that match <code>fzf</code><br>cd ~/github/fzf**<TAB></p>
+</li>
 </ul>
-<h3 id="process-ids">Process IDs</h3>
-<p>Fuzzy completion for PIDs is provided for kill command.</p>
+<h3 id="Process-IDs"><a href="#Process-IDs" class="headerlink" title="Process IDs"></a>Process IDs</h3><p>Fuzzy completion for PIDs is provided for kill command.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Can select multiple processes with &lt;TAB&gt; or &lt;Shift-TAB&gt; keys</span></span><br><span class="line"><span class="built_in">kill</span> -9 **&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="host-names">Host names</h3>
-<p>For ssh and telnet commands, fuzzy completion for hostnames is provided. The names are extracted from /etc/hosts and ~/.ssh/config.</p>
+<h3 id="Host-names"><a href="#Host-names" class="headerlink" title="Host names"></a>Host names</h3><p>For ssh and telnet commands, fuzzy completion for hostnames is provided. The names are extracted from /etc/hosts and ~/.ssh/config.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh **&lt;TAB&gt;</span><br><span class="line">telnet **&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="environment-variables-aliases">Environment variables / Aliases</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unset</span> **&lt;TAB&gt; </span><br><span class="line"><span class="built_in">export</span> **&lt;TAB&gt; </span><br><span class="line"><span class="built_in">unalias</span> **&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="fzf-replace-tab">fzf replace tab</h2>
-<p>requirement: <a target="_blank" rel="noopener" href="https://github.com/Aloxaf/fzf-tab#configure">fzf-tab</a></p>
+<h3 id="Environment-variables-Aliases"><a href="#Environment-variables-Aliases" class="headerlink" title="Environment variables / Aliases"></a>Environment variables / Aliases</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unset</span> **&lt;TAB&gt; </span><br><span class="line"><span class="built_in">export</span> **&lt;TAB&gt; </span><br><span class="line"><span class="built_in">unalias</span> **&lt;TAB&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="fzf-replace-tab"><a href="#fzf-replace-tab" class="headerlink" title="fzf replace tab"></a>fzf replace tab</h2><p>requirement: <a target="_blank" rel="noopener" href="https://github.com/Aloxaf/fzf-tab#configure">fzf-tab</a></p>
 <p>演示：</p>
-<figure>
-<img src="/gif/fzf-01.gif" alt="" /><figcaption>fzf-01.gif</figcaption>
-</figure>
+<p><img src="/gif/fzf-01.gif" alt="fzf-01.gif"></p>
 <script id="asciicast-YlYXHGvQ786rS7kQy2u81aI9v" src="https://asciinema.org/a/YlYXHGvQ786rS7kQy2u81aI9v.js" async></script>
-<h2 id="for-vimneovim">For vim(neovim)</h2>
-<p>If you use vim only: <a target="_blank" rel="noopener" href="https://github.com/airblade/vim-rooter">airblade/vim-rooter</a></p>
+
+
+<h2 id="For-vim-neovim"><a href="#For-vim-neovim" class="headerlink" title="For vim(neovim)"></a>For vim(neovim)</h2><p>If you use vim only: <a target="_blank" rel="noopener" href="https://github.com/airblade/vim-rooter">airblade/vim-rooter</a></p>
 <p>Rooter changes the working directory to the project root when you open a file or directory.</p>
 <p>If you use neovim: <a target="_blank" rel="noopener" href="https://github.com/ahmedkhalf/project.nvim/tree/628de7e433dd503e782831fe150bb750e56e55d6">ahmedkhalf/project.nvim</a></p>
 <p>project.nvim is an all in one neovim plugin written in lua that provides superior project management.</p>
 <p>Then fzf will find files in the project root.</p>
 <p>more see <a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf/blob/master/README-VIM.md">FZF Vim integration</a></p>
-<h3 id="fzf-in-vim">FzF in vim</h3>
-<p>I already replaced fzf with <a target="_blank" rel="noopener" href="https://github.com/nvim-telescope/telescope.nvim">telescope</a>, but I still want to record it. If you use vim only, fzf.vim still a good choice.</p>
+<h3 id="FzF-in-vim"><a href="#FzF-in-vim" class="headerlink" title="FzF in vim"></a>FzF in vim</h3><p>I already replaced fzf with <a target="_blank" rel="noopener" href="https://github.com/nvim-telescope/telescope.nvim">telescope</a>, but I still want to record it.<br>If you use vim only, fzf.vim still a good choice.</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf.vim">fzf</a></p>
 <p><img src="/images/fzf-05.png" alt="fzf-05.png" style="zoom:70%;" /></p>
-<h2 id="reference">Reference</h2>
-<p>Some reference that I may not have mentioned in the article, because I forgot where it came from, maybe is my idea.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>Some reference that I may not have mentioned in the article, because I forgot where it came from, maybe is my idea.</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Fzf">archlinux wiki</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf/blob/master/ADVANCED.md">fzf ADVANCED</a></li>

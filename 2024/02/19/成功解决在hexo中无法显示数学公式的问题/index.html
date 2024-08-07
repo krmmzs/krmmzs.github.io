@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="解决步骤 更换Hexo的markdown渲染引擎 &quot;更换Hexo的markdown渲染引擎&quot;)更换Hexo的markdown渲染引擎 先后执行下面的两条命令，第一条表示将默认的渲染引擎hexo-renderer-marked卸载，第二条命令是安装hexo-renderer-kramed渲染引擎，此渲染引擎修改了hexo-renderer-marked渲染引擎的一些bug。     12   npm">
+  <meta name="description" content="解决步骤更换Hexo的markdown渲染引擎 “更换Hexo的markdown渲染引擎”)更换Hexo的markdown渲染引擎先后执行下面的两条命令，第一条表示将默认的渲染引擎hexo-renderer-marked卸载，第二条命令是安装hexo-renderer-kramed渲染引擎，此渲染引擎修改了hexo-renderer-marked渲染引擎的一些bug。 12npm uninstal">
 <meta property="og:type" content="article">
 <meta property="og:title" content="成功解决在hexo中无法显示数学公式的问题">
 <meta property="og:url" content="http://example.com/2024/02/19/%E6%88%90%E5%8A%9F%E8%A7%A3%E5%86%B3%E5%9C%A8hexo%E4%B8%AD%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="krmmzs">
-<meta property="og:description" content="解决步骤 更换Hexo的markdown渲染引擎 &quot;更换Hexo的markdown渲染引擎&quot;)更换Hexo的markdown渲染引擎 先后执行下面的两条命令，第一条表示将默认的渲染引擎hexo-renderer-marked卸载，第二条命令是安装hexo-renderer-kramed渲染引擎，此渲染引擎修改了hexo-renderer-marked渲染引擎的一些bug。     12   npm">
+<meta property="og:description" content="解决步骤更换Hexo的markdown渲染引擎 “更换Hexo的markdown渲染引擎”)更换Hexo的markdown渲染引擎先后执行下面的两条命令，第一条表示将默认的渲染引擎hexo-renderer-marked卸载，第二条命令是安装hexo-renderer-kramed渲染引擎，此渲染引擎修改了hexo-renderer-marked渲染引擎的一些bug。 12npm uninstal">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-02-19T13:23:43.000Z">
 <meta property="article:modified_time" content="2024-02-19T13:31:31.282Z">
@@ -200,90 +200,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="解决步骤">解决步骤</h1>
-<h2 id="更换hexo的markdown渲染引擎-更换hexo的markdown渲染引擎更换hexo的markdown渲染引擎">更换Hexo的markdown渲染引擎 "更换Hexo的markdown渲染引擎")更换Hexo的markdown渲染引擎</h2>
-<p>先后执行下面的两条命令，第一条表示将默认的渲染引擎hexo-renderer-marked卸载，第二条命令是安装hexo-renderer-kramed渲染引擎，此渲染引擎修改了hexo-renderer-marked渲染引擎的一些bug。</p>
-<table>
-<tbody>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line">npm install hexo-renderer-kramed --save</span><br></pre>
-</td>
-</tr>
-</tbody>
-</table>
-<h2 id="修改node-modules-kramed-lib-rules-inline-js文件-修改node_modules.js文件修改node_moduleskramedlibrulesinline.js文件">修改node-modules-kramed-lib-rules-inline-js文件 "修改node_modules.js文件")修改node_modules\kramed\lib\rules\inline.js文件</h2>
-<p>hexo-renderer-marked渲染引擎仍然存在一些语义冲突问题，到博客的根目录下，找到node_modules\kramed\lib\rules\inline.js，把第11行的escape变量的值做相应的修改：</p>
-<table>
-<tbody>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line">//  escape: /^\\([\\`*{}\[\]()#$+\-.!_&gt;])/,</span><br><span class="line">  escape: /^\\([`*\[\]()#$+\-.!_&gt;])/,</span><br></pre>
-</td>
-</tr>
-</tbody>
-</table>
-<p>这一步是在原基础上取消了对\,{,}的转义(escape)。</p>
+        <h1 id="解决步骤"><a href="#解决步骤" class="headerlink" title="解决步骤"></a>解决步骤</h1><h2 id="更换Hexo的markdown渲染引擎-“更换Hexo的markdown渲染引擎”-更换Hexo的markdown渲染引擎"><a href="#更换Hexo的markdown渲染引擎-“更换Hexo的markdown渲染引擎”-更换Hexo的markdown渲染引擎" class="headerlink" title="更换Hexo的markdown渲染引擎 “更换Hexo的markdown渲染引擎”)更换Hexo的markdown渲染引擎"></a>更换Hexo的markdown渲染引擎 “更换Hexo的markdown渲染引擎”)更换Hexo的markdown渲染引擎</h2><p>先后执行下面的两条命令，第一条表示将默认的渲染引擎hexo-renderer-marked卸载，第二条命令是安装hexo-renderer-kramed渲染引擎，此渲染引擎修改了hexo-renderer-marked渲染引擎的一些bug。</p>
+<table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line">npm install hexo-renderer-kramed --save</span><br></pre></td></tr></tbody></table>
+
+<h2 id="修改node-modules-kramed-lib-rules-inline-js文件-“修改node-modules-kramed-lib-rules-inline-js文件”-修改node-modules-kramed-lib-rules-inline-js文件"><a href="#修改node-modules-kramed-lib-rules-inline-js文件-“修改node-modules-kramed-lib-rules-inline-js文件”-修改node-modules-kramed-lib-rules-inline-js文件" class="headerlink" title="修改node-modules-kramed-lib-rules-inline-js文件 “修改node_modules\kramed\lib\rules\inline.js文件”)修改node_modules\\kramed\\lib\\rules\\inline.js文件"></a>修改node-modules-kramed-lib-rules-inline-js文件 “修改node_modules\kramed\lib\rules\inline.js文件”)修改node_modules\\kramed\\lib\\rules\\inline.js文件</h2><p>hexo-renderer-marked渲染引擎仍然存在一些语义冲突问题，到博客的根目录下，找到node_modules\\kramed\\lib\\rules\\inline.js，把第11行的escape变量的值做相应的修改：</p>
+<table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//  escape: /^\\([\\`*{}\[\]()#$+\-.!_&gt;])/,</span><br><span class="line">  escape: /^\\([`*\[\]()#$+\-.!_&gt;])/,</span><br></pre></td></tr></tbody></table>
+
+<p>这一步是在原基础上取消了对\\,{,}的转义(escape)。</p>
 <p>同时把第20行的em变量也要做相应的修改。</p>
-<table>
-<tbody>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line">//  em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br><span class="line">  em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br></pre>
-</td>
-</tr>
-</tbody>
-</table>
-<h2 id="在主题中开启mathjax开关-在主题中开启mathjax开关在主题中开启mathjax开关">在主题中开启mathjax开关 "在主题中开启mathjax开关")在主题中开启mathjax开关</h2>
-<p>到博客根目录下，找到themes/next/_config.yml，把math默认的flase修改为true，具体如下：</p>
-<table>
-<tbody>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line"><span class="meta">#</span><span class="bash"> Math Equations Render Support</span></span><br><span class="line">math:</span><br><span class="line">  enable: true</span><br><span class="line">  per_page: true</span><br><span class="line">  engine: mathjax</span><br></pre>
-</td>
-</tr>
-</tbody>
-</table>
-<h2 id="在文章的front-matter里打开mathjax开关-在文章的front-matter里打开mathjax开关在文章的front-matter里打开mathjax开关">在文章的Front-matter里打开mathjax开关 "在文章的Front-matter里打开mathjax开关")在文章的Front-matter里打开mathjax开关</h2>
-<p>如果你写的文章里面用到了数学公式，需要在文章Front-matter里打开mathjax开关。如果用不到数学公式，则不需要管它。</p>
-<table>
-<tbody>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line">---</span><br><span class="line">title: index.html</span><br><span class="line">date: 2018-12-5 01:30:30</span><br><span class="line">tags:</span><br><span class="line">mathjax: true</span><br><span class="line">--</span><br></pre>
-</td>
-</tr>
-</tbody>
-</table>
-<h2 id="重启hexo-重启hexo重启hexo">重启hexo "重启hexo")重启hexo</h2>
-<table>
-<tbody>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line">hexo clean #清除缓存文件</span><br><span class="line">hexo g -d  #生成并部署hexo</span><br></pre>
-</td>
-</tr>
-</tbody>
-</table>
+<table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//  em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br><span class="line">  em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br></pre></td></tr></tbody></table>
+
+<h2 id="在主题中开启mathjax开关-“在主题中开启mathjax开关”-在主题中开启mathjax开关"><a href="#在主题中开启mathjax开关-“在主题中开启mathjax开关”-在主题中开启mathjax开关" class="headerlink" title="在主题中开启mathjax开关 “在主题中开启mathjax开关”)在主题中开启mathjax开关"></a>在主题中开启mathjax开关 “在主题中开启mathjax开关”)在主题中开启mathjax开关</h2><p>到博客根目录下，找到themes/next/_config.yml，把math默认的flase修改为true，具体如下：</p>
+<table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Math Equations Render Support</span></span><br><span class="line">math:</span><br><span class="line">  enable: true</span><br><span class="line">  per_page: true</span><br><span class="line">  engine: mathjax</span><br></pre></td></tr></tbody></table>
+
+<h2 id="在文章的Front-matter里打开mathjax开关-“在文章的Front-matter里打开mathjax开关”-在文章的Front-matter里打开mathjax开关"><a href="#在文章的Front-matter里打开mathjax开关-“在文章的Front-matter里打开mathjax开关”-在文章的Front-matter里打开mathjax开关" class="headerlink" title="在文章的Front-matter里打开mathjax开关 “在文章的Front-matter里打开mathjax开关”)在文章的Front-matter里打开mathjax开关"></a>在文章的Front-matter里打开mathjax开关 “在文章的Front-matter里打开mathjax开关”)在文章的Front-matter里打开mathjax开关</h2><p>如果你写的文章里面用到了数学公式，需要在文章Front-matter里打开mathjax开关。如果用不到数学公式，则不需要管它。</p>
+<table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: index.html</span><br><span class="line">date: 2018-12-5 01:30:30</span><br><span class="line">tags:</span><br><span class="line">mathjax: true</span><br><span class="line">--</span><br></pre></td></tr></tbody></table>
+
+<h2 id="重启hexo-“重启hexo”-重启hexo"><a href="#重启hexo-“重启hexo”-重启hexo" class="headerlink" title="重启hexo “重启hexo”)重启hexo"></a>重启hexo “重启hexo”)重启hexo</h2><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean #清除缓存文件</span><br><span class="line">hexo g -d  #生成并部署hexo</span><br></pre></td></tr></tbody></table>
 
     </div>
 
@@ -367,7 +300,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.</span> <span class="nav-text">解决步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%8D%A2hexo%E7%9A%84markdown%E6%B8%B2%E6%9F%93%E5%BC%95%E6%93%8E-%E6%9B%B4%E6%8D%A2hexo%E7%9A%84markdown%E6%B8%B2%E6%9F%93%E5%BC%95%E6%93%8E%E6%9B%B4%E6%8D%A2hexo%E7%9A%84markdown%E6%B8%B2%E6%9F%93%E5%BC%95%E6%93%8E"><span class="nav-number">1.1.</span> <span class="nav-text">更换Hexo的markdown渲染引擎 &quot;更换Hexo的markdown渲染引擎&quot;)更换Hexo的markdown渲染引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9node-modules-kramed-lib-rules-inline-js%E6%96%87%E4%BB%B6-%E4%BF%AE%E6%94%B9node_modules.js%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9node_moduleskramedlibrulesinline.js%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">修改node-modules-kramed-lib-rules-inline-js文件 &quot;修改node_modules.js文件&quot;)修改node_modules\kramed\lib\rules\inline.js文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E4%B8%BB%E9%A2%98%E4%B8%AD%E5%BC%80%E5%90%AFmathjax%E5%BC%80%E5%85%B3-%E5%9C%A8%E4%B8%BB%E9%A2%98%E4%B8%AD%E5%BC%80%E5%90%AFmathjax%E5%BC%80%E5%85%B3%E5%9C%A8%E4%B8%BB%E9%A2%98%E4%B8%AD%E5%BC%80%E5%90%AFmathjax%E5%BC%80%E5%85%B3"><span class="nav-number">1.3.</span> <span class="nav-text">在主题中开启mathjax开关 &quot;在主题中开启mathjax开关&quot;)在主题中开启mathjax开关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E6%96%87%E7%AB%A0%E7%9A%84front-matter%E9%87%8C%E6%89%93%E5%BC%80mathjax%E5%BC%80%E5%85%B3-%E5%9C%A8%E6%96%87%E7%AB%A0%E7%9A%84front-matter%E9%87%8C%E6%89%93%E5%BC%80mathjax%E5%BC%80%E5%85%B3%E5%9C%A8%E6%96%87%E7%AB%A0%E7%9A%84front-matter%E9%87%8C%E6%89%93%E5%BC%80mathjax%E5%BC%80%E5%85%B3"><span class="nav-number">1.4.</span> <span class="nav-text">在文章的Front-matter里打开mathjax开关 &quot;在文章的Front-matter里打开mathjax开关&quot;)在文章的Front-matter里打开mathjax开关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%90%AFhexo-%E9%87%8D%E5%90%AFhexo%E9%87%8D%E5%90%AFhexo"><span class="nav-number">1.5.</span> <span class="nav-text">重启hexo &quot;重启hexo&quot;)重启hexo</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.</span> <span class="nav-text">解决步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%8D%A2Hexo%E7%9A%84markdown%E6%B8%B2%E6%9F%93%E5%BC%95%E6%93%8E-%E2%80%9C%E6%9B%B4%E6%8D%A2Hexo%E7%9A%84markdown%E6%B8%B2%E6%9F%93%E5%BC%95%E6%93%8E%E2%80%9D-%E6%9B%B4%E6%8D%A2Hexo%E7%9A%84markdown%E6%B8%B2%E6%9F%93%E5%BC%95%E6%93%8E"><span class="nav-number">1.1.</span> <span class="nav-text">更换Hexo的markdown渲染引擎 “更换Hexo的markdown渲染引擎”)更换Hexo的markdown渲染引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9node-modules-kramed-lib-rules-inline-js%E6%96%87%E4%BB%B6-%E2%80%9C%E4%BF%AE%E6%94%B9node-modules-kramed-lib-rules-inline-js%E6%96%87%E4%BB%B6%E2%80%9D-%E4%BF%AE%E6%94%B9node-modules-kramed-lib-rules-inline-js%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">修改node-modules-kramed-lib-rules-inline-js文件 “修改node_modules\kramed\lib\rules\inline.js文件”)修改node_modules\\kramed\\lib\\rules\\inline.js文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E4%B8%BB%E9%A2%98%E4%B8%AD%E5%BC%80%E5%90%AFmathjax%E5%BC%80%E5%85%B3-%E2%80%9C%E5%9C%A8%E4%B8%BB%E9%A2%98%E4%B8%AD%E5%BC%80%E5%90%AFmathjax%E5%BC%80%E5%85%B3%E2%80%9D-%E5%9C%A8%E4%B8%BB%E9%A2%98%E4%B8%AD%E5%BC%80%E5%90%AFmathjax%E5%BC%80%E5%85%B3"><span class="nav-number">1.3.</span> <span class="nav-text">在主题中开启mathjax开关 “在主题中开启mathjax开关”)在主题中开启mathjax开关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E6%96%87%E7%AB%A0%E7%9A%84Front-matter%E9%87%8C%E6%89%93%E5%BC%80mathjax%E5%BC%80%E5%85%B3-%E2%80%9C%E5%9C%A8%E6%96%87%E7%AB%A0%E7%9A%84Front-matter%E9%87%8C%E6%89%93%E5%BC%80mathjax%E5%BC%80%E5%85%B3%E2%80%9D-%E5%9C%A8%E6%96%87%E7%AB%A0%E7%9A%84Front-matter%E9%87%8C%E6%89%93%E5%BC%80mathjax%E5%BC%80%E5%85%B3"><span class="nav-number">1.4.</span> <span class="nav-text">在文章的Front-matter里打开mathjax开关 “在文章的Front-matter里打开mathjax开关”)在文章的Front-matter里打开mathjax开关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%90%AFhexo-%E2%80%9C%E9%87%8D%E5%90%AFhexo%E2%80%9D-%E9%87%8D%E5%90%AFhexo"><span class="nav-number">1.5.</span> <span class="nav-text">重启hexo “重启hexo”)重启hexo</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Where are all the icons in ubuntu22.04? In Ubuntu, icons are stored in several directories, including:  &#x2F;usr&#x2F;share&#x2F;icons: This directory contains system-wide icons that are installed by default as par">
+  <meta name="description" content="Where are all the icons in ubuntu22.04?In Ubuntu, icons are stored in several directories, including:  &#x2F;usr&#x2F;share&#x2F;icons: This directory contains system-wide icons that are installed by default as part">
 <meta property="og:type" content="article">
 <meta property="og:title" content="change the trash icon in ubuntu22.04">
 <meta property="og:url" content="http://example.com/2023/02/09/change-the-trash-icon-in-ubuntu22-04/index.html">
 <meta property="og:site_name" content="krmmzs">
-<meta property="og:description" content="Where are all the icons in ubuntu22.04? In Ubuntu, icons are stored in several directories, including:  &#x2F;usr&#x2F;share&#x2F;icons: This directory contains system-wide icons that are installed by default as par">
+<meta property="og:description" content="Where are all the icons in ubuntu22.04?In Ubuntu, icons are stored in several directories, including:  &#x2F;usr&#x2F;share&#x2F;icons: This directory contains system-wide icons that are installed by default as part">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/02/09/images/bochi01.jpg">
 <meta property="og:image" content="http://example.com/2023/02/09/images/bochi02.jpg">
@@ -212,8 +212,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="where-are-all-the-icons-in-ubuntu22.04">Where are all the icons in ubuntu22.04?</h2>
-<p>In Ubuntu, icons are stored in several directories, including:</p>
+        <h2 id="Where-are-all-the-icons-in-ubuntu22-04"><a href="#Where-are-all-the-icons-in-ubuntu22-04" class="headerlink" title="Where are all the icons in ubuntu22.04?"></a>Where are all the icons in ubuntu22.04?</h2><p>In Ubuntu, icons are stored in several directories, including:</p>
 <ul>
 <li><code>/usr/share/icons</code>: This directory contains system-wide icons that are installed by default as part of various packages.</li>
 <li><code>/usr/local/share/icons</code>: This directory contains icons that have been installed manually or by third-party software.</li>
@@ -221,24 +220,25 @@
 </ul>
 <p>In addition to these directories, some applications may include their own icons in their installation directories. For example, icons for a specific application might be located in <code>/usr/share/&lt;application-name&gt;/icons</code>.</p>
 <p>Note that the directories listed above may contain subdirectories, each of which may contain icons for a specific theme. For example, the <code>/usr/share/icons</code> directory may contain subdirectories such as <code>Adwaita</code>, <code>Humanity</code>, <code>elementary</code>, etc. each containing icons for a specific theme.</p>
-<h2 id="main">Main</h2>
-<p>To change the Trash icon in Ubuntu 22.04, you need to replace the icon files that are associated with the Trash folder. Here are the steps to do this:</p>
-<ol type="1">
-<li><p>Choose a new icon: You can either use an existing icon file or download a new one. Icon files in Ubuntu are typically stored in the <code>/usr/share/icons</code> directory, but you can also use icons from other locations. Make sure the icon you choose is in the .svg or .png format.</p></li>
-<li><p>Backup the original icon: To make sure you can revert the changes if necessary, you should backup the original Trash icon. You can do this by copying the icon files from the <code>/usr/share/icons/hicolor/48x48/places</code> directory to another location.</p></li>
-<li><p>Replace the original icon: Copy the new icon files to the <code>/usr/share/icons/hicolor/48x48/places</code> directory and give them the same names as the original Trash icon files. Make sure that you have the necessary permissions to replace the original icon files.</p></li>
-<li><p>Refresh the icon cache: To make sure that the changes take effect, you need to refresh the icon cache. You can do this by running the following command in the terminal:</p></li>
+<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><p>To change the Trash icon in Ubuntu 22.04, you need to replace the icon files that are associated with the Trash folder. Here are the steps to do this:</p>
+<ol>
+<li><p>Choose a new icon: You can either use an existing icon file or download a new one. Icon files in Ubuntu are typically stored in the <code>/usr/share/icons</code> directory, but you can also use icons from other locations. Make sure the icon you choose is in the .svg or .png format.</p>
+</li>
+<li><p>Backup the original icon: To make sure you can revert the changes if necessary, you should backup the original Trash icon. You can do this by copying the icon files from the <code>/usr/share/icons/hicolor/48x48/places</code> directory to another location.</p>
+</li>
+<li><p>Replace the original icon: Copy the new icon files to the <code>/usr/share/icons/hicolor/48x48/places</code> directory and give them the same names as the original Trash icon files. Make sure that you have the necessary permissions to replace the original icon files.</p>
+</li>
+<li><p>Refresh the icon cache: To make sure that the changes take effect, you need to refresh the icon cache. You can do this by running the following command in the terminal:</p>
+</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gtk-update-icon-cache /usr/share/icons/hicolor/</span><br></pre></td></tr></table></figure>
 <p>(gtk)</p>
 <p>After completing these steps, the Trash folder in the file manager should have the new icon. Note that these steps may vary slightly depending on the specific version of Ubuntu and the file manager you are using.</p>
-<h2 id="but-my-usrshareiconshicolor48x48places-is-empty">but my /usr/share/icons/hicolor/48x48/places is empty</h2>
-<p>If the /usr/share/icons/hicolor/48x48/places directory is empty, it means that the default Trash icon files are stored in a different location. You can find the location of the Trash icon files by using the find command in the terminal. Here's an example:</p>
+<h2 id="but-my-usr-share-icons-hicolor-48x48-places-is-empty"><a href="#but-my-usr-share-icons-hicolor-48x48-places-is-empty" class="headerlink" title="but my /usr/share/icons/hicolor/48x48/places is empty"></a>but my /usr/share/icons/hicolor/48x48/places is empty</h2><p>If the /usr/share/icons/hicolor/48x48/places directory is empty, it means that the default Trash icon files are stored in a different location. You can find the location of the Trash icon files by using the find command in the terminal. Here’s an example:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo find /usr/share/icons -name <span class="string">&quot;user-trash.svg&quot;</span></span><br></pre></td></tr></table></figure>
 <p>This command will search for a file named user-trash.svg in the /usr/share/icons directory and its subdirectories. The output of the command will show you the path to the file that contains the Trash icon.</p>
 <p>Once you have found the location of the Trash icon files, you can follow the steps to change the icon as described in my previous answer. Make sure to backup the original Trash icon files and refresh the icon cache after replacing the files.</p>
-<h2 id="my-result">My result</h2>
-<p><img src="../images/bochi01.jpg" alt="" style="zoom:%;" /> <img src="../images/bochi02.jpg" alt="" style="zoom:%;" /></p>
+<h2 id="My-result"><a href="#My-result" class="headerlink" title="My result"></a>My result</h2><p><img src="../images/bochi01.jpg" alt="" style="zoom:%;" /><br><img src="../images/bochi02.jpg" alt="" style="zoom:%;" /></p>
 
     </div>
 
@@ -322,7 +322,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#where-are-all-the-icons-in-ubuntu22.04"><span class="nav-number">1.</span> <span class="nav-text">Where are all the icons in ubuntu22.04?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#main"><span class="nav-number">2.</span> <span class="nav-text">Main</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#but-my-usrshareiconshicolor48x48places-is-empty"><span class="nav-number">3.</span> <span class="nav-text">but my &#x2F;usr&#x2F;share&#x2F;icons&#x2F;hicolor&#x2F;48x48&#x2F;places is empty</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#my-result"><span class="nav-number">4.</span> <span class="nav-text">My result</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Where-are-all-the-icons-in-ubuntu22-04"><span class="nav-number">1.</span> <span class="nav-text">Where are all the icons in ubuntu22.04?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Main"><span class="nav-number">2.</span> <span class="nav-text">Main</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#but-my-usr-share-icons-hicolor-48x48-places-is-empty"><span class="nav-number">3.</span> <span class="nav-text">but my &#x2F;usr&#x2F;share&#x2F;icons&#x2F;hicolor&#x2F;48x48&#x2F;places is empty</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#My-result"><span class="nav-number">4.</span> <span class="nav-text">My result</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

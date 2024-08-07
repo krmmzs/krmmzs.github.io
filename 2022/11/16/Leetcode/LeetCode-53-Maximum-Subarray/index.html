@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="LeetCode 53. Maximum Subarray Main Idea 暴力就是枚举长度为1..sum.size()的所有子数组，然后求和，取最大值。 1 + 2 + ... + k &#x3D; O(n ^ 2) 这里很容易能够感觉到有状态转移的感觉，有些长度为k的子数组的和，可以由长度为k-1的子数组的和转移过来 dp[i] 表示所有以i结尾的子数组的和的最大值 划分区间的方式是长度 区间长度&amp;">
+  <meta name="description" content="LeetCode 53. Maximum SubarrayMain Idea暴力就是枚举长度为1..sum.size()的所有子数组，然后求和，取最大值。 1 + 2 + … + k &#x3D; O(n ^ 2) 这里很容易能够感觉到有状态转移的感觉，有些长度为k的子数组的和，可以由长度为k-1的子数组的和转移过来 dp[i] 表示所有以i结尾的子数组的和的最大值 划分区间的方式是长度 区间长度&gt;&#x3D;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode 53. Maximum Subarray">
 <meta property="og:url" content="http://example.com/2022/11/16/Leetcode/LeetCode-53-Maximum-Subarray/index.html">
 <meta property="og:site_name" content="krmmzs">
-<meta property="og:description" content="LeetCode 53. Maximum Subarray Main Idea 暴力就是枚举长度为1..sum.size()的所有子数组，然后求和，取最大值。 1 + 2 + ... + k &#x3D; O(n ^ 2) 这里很容易能够感觉到有状态转移的感觉，有些长度为k的子数组的和，可以由长度为k-1的子数组的和转移过来 dp[i] 表示所有以i结尾的子数组的和的最大值 划分区间的方式是长度 区间长度&amp;">
+<meta property="og:description" content="LeetCode 53. Maximum SubarrayMain Idea暴力就是枚举长度为1..sum.size()的所有子数组，然后求和，取最大值。 1 + 2 + … + k &#x3D; O(n ^ 2) 这里很容易能够感觉到有状态转移的感觉，有些长度为k的子数组的和，可以由长度为k-1的子数组的和转移过来 dp[i] 表示所有以i结尾的子数组的和的最大值 划分区间的方式是长度 区间长度&gt;&#x3D;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-11-16T08:56:17.000Z">
 <meta property="article:modified_time" content="2022-11-16T10:00:12.559Z">
@@ -201,10 +201,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="leetcode-53.-maximum-subarray">LeetCode 53. Maximum Subarray</h1>
-<h2 id="main-idea">Main Idea</h2>
-<p>暴力就是枚举长度为1..sum.size()的所有子数组，然后求和，取最大值。</p>
-<p>1 + 2 + ... + k = O(n ^ 2)</p>
+        <h1 id="LeetCode-53-Maximum-Subarray"><a href="#LeetCode-53-Maximum-Subarray" class="headerlink" title="LeetCode 53. Maximum Subarray"></a>LeetCode 53. Maximum Subarray</h1><h2 id="Main-Idea"><a href="#Main-Idea" class="headerlink" title="Main Idea"></a>Main Idea</h2><p>暴力就是枚举长度为1..sum.size()的所有子数组，然后求和，取最大值。</p>
+<p>1 + 2 + … + k = O(n ^ 2)</p>
 <p>这里很容易能够感觉到有状态转移的感觉，有些长度为k的子数组的和，可以由长度为k-1的子数组的和转移过来</p>
 <p>dp[i] 表示所有以i结尾的子数组的和的最大值</p>
 <p>划分区间的方式是长度</p>
@@ -216,8 +214,7 @@
 <blockquote>
 <p>Follow up: If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.</p>
 </blockquote>
-<h2 id="code">Code</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxSubArray</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt;::size_type n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> res = INT_MIN;</span><br><span class="line">        <span class="type">int</span> last = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (vector&lt;<span class="type">int</span>&gt;::size_type i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="type">int</span> now = nums[i] + <span class="built_in">max</span>(last, <span class="number">0</span>);</span><br><span class="line">            res = <span class="built_in">max</span>(res, now);</span><br><span class="line">            last = now;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxSubArray</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt;::size_type n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> res = INT_MIN;</span><br><span class="line">        <span class="type">int</span> last = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (vector&lt;<span class="type">int</span>&gt;::size_type i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            <span class="type">int</span> now = nums[i] + <span class="built_in">max</span>(last, <span class="number">0</span>);</span><br><span class="line">            res = <span class="built_in">max</span>(res, now);</span><br><span class="line">            last = now;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -302,7 +299,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#leetcode-53.-maximum-subarray"><span class="nav-number">1.</span> <span class="nav-text">LeetCode 53. Maximum Subarray</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#main-idea"><span class="nav-number">1.1.</span> <span class="nav-text">Main Idea</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#code"><span class="nav-number">1.2.</span> <span class="nav-text">Code</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode-53-Maximum-Subarray"><span class="nav-number">1.</span> <span class="nav-text">LeetCode 53. Maximum Subarray</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Main-Idea"><span class="nav-number">1.1.</span> <span class="nav-text">Main Idea</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Code"><span class="nav-number">1.2.</span> <span class="nav-text">Code</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
