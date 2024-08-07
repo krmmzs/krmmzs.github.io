@@ -27,18 +27,18 @@
 <meta property="og:site_name" content="krmmzs">
 <meta property="og:description" content="Ubuntu22.04启用休眠（Hibernation）模式 Resource  Arch WIKI  为什么需要Hibernation 我在设备安装了两个操作系统, 为了磁盘分区互不干扰, 一个盘一个操作系统。 win上有linux无法支持的office软件和games, 故有时需要切换两个系统，而内存只有一个(无法suspend to RAM) 故需要能有像windows休眠一样的功能把所有状">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/image/ubuntu-hibernation-01.jpg">
-<meta property="og:image" content="http://example.com/image/ubuntu-hibernation-02.jpg">
-<meta property="og:image" content="http://example.com/image/ubuntu-hibernation-03.jpg">
-<meta property="og:image" content="http://example.com/image/ubuntu-hibernation-04.jpg">
+<meta property="og:image" content="http://example.com/2024/04/23/ubuntu-hibernation/imagess/ubuntu-hibernation-01.jpg">
+<meta property="og:image" content="http://example.com/imagess/ubuntu-hibernation-02.jpg">
+<meta property="og:image" content="http://example.com/images/ubuntu-hibernation-03.jpg">
+<meta property="og:image" content="http://example.com/images/ubuntu-hibernation-04.jpg">
 <meta property="article:published_time" content="2024-04-23T08:48:26.000Z">
-<meta property="article:modified_time" content="2024-04-23T12:10:13.904Z">
+<meta property="article:modified_time" content="2024-08-07T10:27:16.157Z">
 <meta property="article:author" content="krmmzs">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="GRUB">
 <meta property="article:tag" content="kernel">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/image/ubuntu-hibernation-01.jpg">
+<meta name="twitter:image" content="http://example.com/2024/04/23/ubuntu-hibernation/imagess/ubuntu-hibernation-01.jpg">
 
 <link rel="canonical" href="http://example.com/2024/04/23/ubuntu-hibernation/">
 
@@ -191,10 +191,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-04-23 16:48:26 / Modified: 20:10:13" itemprop="dateCreated datePublished" datetime="2024-04-23T16:48:26+08:00">2024-04-23</time>
+              <time title="Created: 2024-04-23 16:48:26" itemprop="dateCreated datePublished" datetime="2024-04-23T16:48:26+08:00">2024-04-23</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-08-07 18:27:16" itemprop="dateModified" datetime="2024-08-07T18:27:16+08:00">2024-08-07</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -345,7 +351,7 @@
 </ul></li>
 </ul>
 <figure>
-<img src="/image/ubuntu-hibernation-01.jpg" alt="" /><figcaption>ubuntu-hibernation-01.jpg</figcaption>
+<img src="imagess/ubuntu-hibernation-01.jpg" alt="" /><figcaption>ubuntu-hibernation-01.jpg</figcaption>
 </figure>
 <p>复制 physical_offset: 中第一行第一列（0:）的值，不含后面的两个“.”</p>
 <h2 id="配置grub">配置grub</h2>
@@ -353,7 +359,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/default/grub</span><br></pre></td></tr></table></figure>
 <p>在GRUB_CMDLINE_LINUX_DEFAULT这一行，向 splash 后添加内容:resume=UUID=第一步中获得的UUID resume_offset=第二步中获得的偏移量</p>
 <figure>
-<img src="/image/ubuntu-hibernation-02.jpg" alt="" /><figcaption>ubuntu-hibernation-02.jpg</figcaption>
+<img src="/imagess/ubuntu-hibernation-02.jpg" alt="" /><figcaption>ubuntu-hibernation-02.jpg</figcaption>
 </figure>
 <p>这是为了配置系统从休眠状态（Hibernate）中正确恢复。这些设置确保 GRUB 引导加载器知道从哪个交换空间（例如交换文件或交换分区）以及具体的物理位置（偏移量）恢复休眠保存的系统状态。</p>
 <p>并更新GRUB配置:</p>
@@ -363,7 +369,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/initramfs-tools/conf.d/resume</span><br></pre></td></tr></table></figure>
 <p><strong>同GRUB</strong>加入内容</p>
 <figure>
-<img src="/image/ubuntu-hibernation-03.jpg" alt="" /><figcaption>ubuntu-hibernation-03.jpg</figcaption>
+<img src="/images/ubuntu-hibernation-03.jpg" alt="" /><figcaption>ubuntu-hibernation-03.jpg</figcaption>
 </figure>
 <p>/etc/initramfs-tools/conf.d/resume 文件中的配置告诉 initramfs 在哪个设备上查找休眠镜像。这通常包括指定包含休眠数据的交换空间的 UUID。 在这个文件中，你通常需要指定 RESUME=UUID=xxxx，其中 xxxx 是交换空间的 UUID。这样，当系统从休眠中唤醒时，initramfs 将知道从哪个交换分区或文件加载保存的系统状态。</p>
 <p><strong>重新生成 initramfs</strong>:</p>
@@ -392,7 +398,7 @@
 <p>如果是NVIDIA且安装CUDA也可以成功休眠那就不需要配置如下。</p>
 <hr />
 <figure>
-<img src="/image/ubuntu-hibernation-04.jpg" alt="" /><figcaption>ubuntu-hibernation-04.jpg</figcaption>
+<img src="/images/ubuntu-hibernation-04.jpg" alt="" /><figcaption>ubuntu-hibernation-04.jpg</figcaption>
 </figure>
 <p>则需删除 /etc/systemd/system 下的三个文件 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nvidia-hibernate.service</span><br><span class="line">nvidia-resume.service</span><br><span class="line">nvidia-suspend.service</span><br></pre></td></tr></table></figure> 然后执行 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure></p>
 <p>最后才能成功使用挂起或休眠</p>
